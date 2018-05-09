@@ -30,12 +30,12 @@ void plot_a_ROC(TH1F* h_sig, TH1F* h_bkg, TString name){
   h_sig->SetLineColor(kRed);
   h_bkg->SetLineWidth(2);
   h_bkg->SetLineColor(kBlue);
-  h_sig->SetTitle(name);
-  h_sig->GetXaxis()->SetTitle("Pt OSSF");
-  h_sig->GetYaxis()->SetTitle("A.U.");
-  h_sig->DrawNormalized("HIST E");
-  h_bkg->DrawNormalized("HIST E SAME");
-  c_shape->Print("c_shape_"+name+".root");
+  h_bkg->SetTitle(name);
+  h_bkg->GetXaxis()->SetTitle("Pt OSSF");
+  h_bkg->GetYaxis()->SetTitle("A.U.");
+  h_bkg->DrawNormalized("HIST E");
+  h_sig->DrawNormalized("HIST E SAME");
+  c_shape->Print("c_shape_"+name+".pdf");
 
   
   // ROC and Sensitivity plots
@@ -91,19 +91,19 @@ void plot_a_ROC(TH1F* h_sig, TH1F* h_bkg, TString name){
 }
 
 
-void plot_roc(){
+void plot_roc(TString region = "ZH"){
 
   std::vector<TString> sig_f_names;
-  sig_f_names.push_back("ZH_HToSSTobbbb_MS40_ctauS10_Sig2_histograms");
-  sig_f_names.push_back("ZH_HToSSTobbbb_MS40_ctauS100_Sig2_histograms");
+  sig_f_names.push_back("ZH_HToSSTobbbb_MS15_ctauS10_"+region+"_histograms");
+  sig_f_names.push_back("ZH_HToSSTobbbb_MS55_ctauS10_"+region+"_histograms");
 
-  TFile* f_bkg = TFile::Open("fout.root", "READ");
-  TH1F* h_bkg = (TH1F*)f_bkg->Get("h_Totbkg_mu_Sig2_AOD_dilepton_Pt");
+  TFile* f_bkg = TFile::Open("fout_"+region+".root", "READ");
+  TH1F* h_bkg = (TH1F*)f_bkg->Get("h_Totbkg_mu_"+region+"_AOD_dilepton_Pt");
 
   for(unsigned int i=0; i<sig_f_names.size(); i++){
     
     TFile* f_sig = TFile::Open("../roots/may7/"+sig_f_names.at(i)+".root", "READ");
-    TH1F* h_sig = (TH1F*)f_sig->Get("h_mu_Sig2_AOD_dilepton_Pt");
+    TH1F* h_sig = (TH1F*)f_sig->Get("h_mu_"+region+"_AOD_dilepton_Pt");
     
     plot_a_ROC(h_sig, h_bkg, sig_f_names.at(i));
 
