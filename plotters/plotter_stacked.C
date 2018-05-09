@@ -23,7 +23,7 @@ void plotter_stacked(TString region = "Sig")
  Bool_t drawSignal = kFALSE; //kTRUE;
  Bool_t drawRatio = kFALSE;
  // y axis plots as log
- Bool_t dolog = kTRUE;
+ Bool_t dolog = kFALSE;
 
  // path to root files
  TString inpath  = TString("../roots/");
@@ -329,7 +329,7 @@ void plotter_stacked(TString region = "Sig")
 // file_MuonEG                            = new TFile( inpath + "MuonEG_"+region+"_histograms.root"                           ) ;
 
 
- TFile* fout = TFile::Open("fout.root", "RECREATE");
+ TFile* fout = TFile::Open("fout_"+region+".root", "RECREATE");
  
 
 
