@@ -1,5 +1,8 @@
 #include "analyzer_histograms.h"
 #include <iostream>
+#include <algorithm> // for std::find
+#include <iterator> // for std::begin, std::end
+
 
 //----------------------------analyzer_histograms
 analyzer_histograms::analyzer_histograms() 
@@ -952,3 +955,93 @@ Bool_t analyzer_histograms::scaleVariableBinHistograms(int selbin, int lepbin)
 }
 
 
+
+//Background estimate
+
+//https://helloacm.com/cc-coding-exercise-recursive-combination-algorithm-implementation/
+void analyzer_histograms::comb(int n, int r, int *arr, int sz, Double_t weight) {
+
+  for (int i = n; i >= r; i --) {
+
+    // choose the first element
+    arr[r - 1] = i;
+    if (r > 1) { // if still needs to choose
+      // recursive into smaller problem
+      comb(i - 1, r - 1, arr, sz, weight);
+    } 
+    else {
+      
+      //*********************//
+      // have one combo here
+      //*********************//         
+      
+      bool debug=true;
+
+      if(debug){
+	std::cout << "    Combo: ";
+	for (int b = 0; b < sz; b++) {
+	  std::cout << arr[b] << " ";
+	}
+	std::cout << std::endl;
+      }
+      
+      double p=1;
+      for(int j=0; j<aodcalojet_list.size(); j++){
+
+	double jetprob = h_eff->GetBinContent( h_eff->FindBin( AODCaloJetPt->at( aodcalojet_list[j] ) ) );
+
+	bool found = false;
+	for(int t=0; t<sz; t++){//probably really slow
+	  if(j==arr[t]){
+	    p*=jetprob;
+	    found = true;
+	    if(debug) std::cout << "    Tagged jet: " << j << std::endl;
+	    break;
+	  }
+	}
+	if(!found){
+	  p*=(1-jetprob); 
+	  if(debug) std::cout << "    Didn't tag jet: " << j << std::endl;
+	}
+      }//loop over jets
+      h_bkgest.Fill(sz,p*weight);//need event weight
+      
+    }//else in combo
+  }//for loop
+}
+
+//init
+Bool_t analyzer_histograms::initBackgroundEstimateHistograms()
+{
+  h_bkgest.Clear();
+  h_bkgest = initSingleHistogramTH1F("h_bkgest", "h_bkgest", 6, -.5, 5.5);
+  return kTRUE;
+}
+
+//fill
+Bool_t analyzer_histograms::fillBackgroundEstimateHistograms(Double_t weight)
+{
+  bool debug=true;
+
+  //number of jets
+  const int N = aodcalojet_list.size();
+  if(debug) std::cout << "NJets: " << aodcalojet_list.size() << std::endl;
+
+  //loop over tag multiplicity
+  for(int i=0; i<6; i++){
+    if(N<i) continue; //code is safe anyway, but this migh save time
+    if(debug) std::cout << "  NTags: " << i << std::endl;
+    const int M = i;
+    int *arr = new int[M];
+    comb(N, M, arr, M, weight);
+  }
+  
+  return kTRUE;
+}
+
+//write
+Bool_t analyzer_histograms::writeBackgroundEstimateHistograms()
+{
+  h_bkgest.Write();
+  return kTRUE;
+}

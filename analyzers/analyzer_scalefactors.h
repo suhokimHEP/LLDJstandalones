@@ -22,6 +22,8 @@ public :
  Double_t         makeElectronWeight( std::vector<int> &electron_list );
  TH2F*            EleWeights;
 
+ void             loadEff();
+ TH1F*            h_eff;
 
 };
 

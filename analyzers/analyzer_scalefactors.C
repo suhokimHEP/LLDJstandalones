@@ -88,3 +88,11 @@ void analyzer_scalefactors::loadElectronWeight(TString eleid){
  return ;
 }
 
+//-------------------------loadEff
+void analyzer_scalefactors::loadEff(){
+
+  TFile* feff = new TFile("feff_ZH.root");
+  h_eff = (TH1F*)feff->Get("h_eff_mu_ZH_AllJets_AODCaloJetPtVar");
+
+  return;
+}

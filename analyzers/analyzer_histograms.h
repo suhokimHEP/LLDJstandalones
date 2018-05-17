@@ -212,6 +212,13 @@ public :
  TH2F h_IpVjetPt                  [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
  TH2F h_AlphaVjetPt               [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
 
+ // Background estimate
+ void comb(int n, int r, int *arr, int sz, Double_t weight);
+ TH1F h_bkgest;
+ Bool_t initBackgroundEstimateHistograms();
+ Bool_t fillBackgroundEstimateHistograms(Double_t weight);
+ Bool_t writeBackgroundEstimateHistograms();
+
 };
 
 #endif
