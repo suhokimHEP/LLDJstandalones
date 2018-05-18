@@ -30,7 +30,7 @@ void plotter_stacked(TString region = "Sig")
  TString outpath = TString("../plots/");
  //TString aversion = TString(getenv("aversion"));
 
- TString aversion = "may7" ;
+ TString aversion = "may7_count" ;
  inpath = inpath+aversion+"/";
  outpath = outpath+aversion+"/";
 
@@ -137,13 +137,16 @@ void plotter_stacked(TString region = "Sig")
 //  variables.push_back("LeadingJet_jetMedianLogTrackAngle");     
 //  variables.push_back("LeadingJet_jetTotalTrackAngle");         
 //  variables.push_back("LeadingJet_jetNConstituents");           
- variables.push_back("AOD_dilepton_Pt");
+ /*variables.push_back("AOD_dilepton_Pt");
  variables.push_back("AllJets_AODCaloJetPtVar");
  variables.push_back("AllTags_AODCaloJetPtVar_Tag0");
  variables.push_back("AllJets_AODCaloJetMinDR");
  variables.push_back("AllTags_AODCaloJetMinDR_Tag0");
+ variables.push_back("AllJets_AODCaloJetAbsEta");
+ variables.push_back("AllTags_AODCaloJetAbsEta_Tag0");
  variables.push_back("AllJets_AODCaloJetNCleanMatchedTracks");
- variables.push_back("AllTags_AODCaloJetNCleanMatchedTracks_Tag0");
+ variables.push_back("AllTags_AODCaloJetNCleanMatchedTracks_Tag0");*/
+ variables.push_back("AOD_nSelectedAODCaloJetTag");
 
  // make canvas and text
  TCanvas* canvas = new TCanvas("canvas","canvas",900,100,500,500); 

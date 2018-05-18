@@ -20,7 +20,7 @@ public :
  // selbinnames  = NoSel, Sig, ZH, DY, OffZ, NoPair
  // jetmultnames = Leading, Subleading, Third, Fourth, All
  // lepbinname   = ele, mu, NoSel
- static const int SELBINNAMESIZE  = 6;
+ static const int SELBINNAMESIZE  = 7;
  static const int JETMULTNAMESIZE = 5; 
  static const int TAGMULTNAMESIZE = 5; 
  static const int LEPBINNAMESIZE  = 3;
@@ -81,6 +81,14 @@ public :
  Bool_t        initAODCaloJetTagHistograms();
  Bool_t        fillAODCaloJetTagHistograms(Double_t weight, int selbin, int lepbin, int tagbin);
  Bool_t        writeAODCaloJetTagHistograms(int selbin, int lepbin, int tagbin);
+ // AODCaloJet Multiplicity
+ Bool_t        initAODCaloJetMultHistograms();
+ Bool_t        fillAODCaloJetMultHistograms(Double_t weight, int selbin, int lepbin);
+ Bool_t        writeAODCaloJetMultHistograms(int selbin, int lepbin);
+ // AODCaloJet Tag Multiplicity
+ Bool_t        initAODCaloJetTagMultHistograms();
+ Bool_t        fillAODCaloJetTagMultHistograms(Double_t weight, int selbin, int lepbin);
+ Bool_t        writeAODCaloJetTagMultHistograms(int selbin, int lepbin);
 
  //For variable binning
  Bool_t        scaleVariableBinHistograms(int selbin, int lepbin);
@@ -169,6 +177,7 @@ public :
  TH1F  h_AODCaloJetMedianLog10TrackAngle          [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
  TH1F  h_AODCaloJetTotalTrackAngle                [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
  TH1F  h_AODCaloJetMinDR                          [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
+ TH1F  h_AODCaloJetAbsEta                         [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
 
  // AODCaloJetExtraHistograms
  TH1F  h_AODCaloJetAvfVx                          [SELBINNAMESIZE][JETMULTNAMESIZE][LEPBINNAMESIZE];
@@ -202,7 +211,12 @@ public :
  TH1F  h_AODCaloJetPt_Tag0                       [SELBINNAMESIZE][TAGMULTNAMESIZE][LEPBINNAMESIZE];
  TH1F  h_AODCaloJetPtVar_Tag0                    [SELBINNAMESIZE][TAGMULTNAMESIZE][LEPBINNAMESIZE];
  TH1F  h_AODCaloJetMinDR_Tag0                    [SELBINNAMESIZE][TAGMULTNAMESIZE][LEPBINNAMESIZE];
+ TH1F  h_AODCaloJetAbsEta_Tag0                   [SELBINNAMESIZE][TAGMULTNAMESIZE][LEPBINNAMESIZE];
  TH1F  h_AODCaloJetNCleanMatchedTracks_Tag0      [SELBINNAMESIZE][TAGMULTNAMESIZE][LEPBINNAMESIZE];
+
+ // Mult
+ TH1F  h_AOD_nSelectedAODCaloJet                 [SELBINNAMESIZE][LEPBINNAMESIZE];
+ TH1F  h_AOD_nSelectedAODCaloJetTag              [SELBINNAMESIZE][LEPBINNAMESIZE];
 
 
  // // 2D

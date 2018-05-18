@@ -81,6 +81,7 @@ void analyzer_signal::Loop(TString outfilename,
   passOSSF = (dilep_mass>20.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passPTOSSFg50 = (dilep_pt>50.);
+  passPTOSSFg10 = (dilep_pt>10.);
   passGoodVtx = true; // = nVtx>0; FIXME put in ntuples
   passOneJet = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag = false; if (taggedjet_list.size()>0) passOneTag=true;  
@@ -101,26 +102,30 @@ void analyzer_signal::Loop(TString outfilename,
   dofilllepbin[2] = kTRUE ;
 
   // set booleans if pass various selections, increment counters
-  doesPassSig    = askPassSelvec( selvecSignal, dofilllepbin, n_passSig   , n_ele_passSig   , n_mu_passSig    ) ; 
-  doesPassZH     = askPassSelvec( selvecZH    , dofilllepbin, n_passZH    , n_ele_passZH    , n_mu_passZH     ) ; 
-  doesPassDY     = askPassSelvec( selvecDY    , dofilllepbin, n_passDY    , n_ele_passDY    , n_mu_passDY     ) ; 
-  doesPassOffZ   = askPassSelvec( selvecOffZ  , dofilllepbin, n_passOffZ  , n_ele_passOffZ  , n_mu_passOffZ   ) ; 
-  doesPassNoPair = askPassSelvec( selvecNoPair, dofilllepbin, n_passNoPair, n_ele_passNoPair, n_mu_passNoPair ) ; 
+  doesPassSig    = askPassSelvec( selvecSignal , dofilllepbin, n_passSig   , n_ele_passSig   , n_mu_passSig    ) ; 
+  doesPassSig2   = askPassSelvec( selvecSignal2, dofilllepbin, n_passSig2   , n_ele_passSig2   , n_mu_passSig2    ) ; 
+  doesPassZH     = askPassSelvec( selvecZH     , dofilllepbin, n_passZH    , n_ele_passZH    , n_mu_passZH     ) ; 
+  doesPassDY     = askPassSelvec( selvecDY     , dofilllepbin, n_passDY    , n_ele_passDY    , n_mu_passDY     ) ; 
+  doesPassOffZ   = askPassSelvec( selvecOffZ   , dofilllepbin, n_passOffZ  , n_ele_passOffZ  , n_mu_passOffZ   ) ; 
+  doesPassNoPair = askPassSelvec( selvecNoPair , dofilllepbin, n_passNoPair, n_ele_passNoPair, n_mu_passNoPair ) ; 
 
   // put into array for looping in Cutflow histograms
   selvec[0].push_back(kTRUE);
   selvec[1] = selvecSignal ;
-  selvec[2] = selvecZH     ;
-  selvec[3] = selvecDY     ;
-  selvec[4] = selvecOffZ   ;
-  selvec[5] = selvecNoPair ;
+  selvec[2] = selvecSignal2;
+  selvec[3] = selvecZH     ;
+  selvec[4] = selvecDY     ;
+  selvec[5] = selvecOffZ   ;
+  selvec[6] = selvecNoPair ;
+
 
   dofillselbin[0] = kTRUE         ;
   dofillselbin[1] = doesPassSig   ; 
-  dofillselbin[2] = doesPassZH    ; 
-  dofillselbin[3] = doesPassDY    ; 
-  dofillselbin[4] = doesPassOffZ  ; 
-  dofillselbin[5] = doesPassNoPair; 
+  dofillselbin[2] = doesPassSig2  ; 
+  dofillselbin[3] = doesPassZH    ; 
+  dofillselbin[4] = doesPassDY    ; 
+  dofillselbin[5] = doesPassOffZ  ; 
+  dofillselbin[6] = doesPassNoPair; 
 
 
   // fill the histograms
@@ -135,10 +140,10 @@ void analyzer_signal::Loop(TString outfilename,
       fillSelectedJetHistograms( event_weight, i, j, k );
      }
 
-      //tagged jets
-      for( unsigned int k=0; k<tagmultnames.size(); ++k){
+     //tagged jets
+     for( unsigned int k=0; k<tagmultnames.size(); ++k){
        fillSelectedTagHistograms( event_weight, i, j, k );
-      }
+     }
 
     }
    }
@@ -160,6 +165,7 @@ void analyzer_signal::Loop(TString outfilename,
 
  std::cout << "  ntot        " << n_tot << std::endl;
  std::cout << " npassSig    " << n_passSig << " " << n_ele_passSig << " " << n_mu_passSig << std::endl;
+ std::cout << " npassSig2    " << n_passSig2 << " " << n_ele_passSig2 << " " << n_mu_passSig2 << std::endl;
  std::cout << " npassZH    " << n_passZH << " " << n_ele_passZH << " " << n_mu_passZH << std::endl;
  std::cout << " npassDY    " << n_passDY << " " << n_ele_passDY << " " << n_mu_passDY << std::endl;
  std::cout << " npassOffZ    " << n_passOffZ << " " << n_ele_passOffZ << " " << n_mu_passOffZ << std::endl;

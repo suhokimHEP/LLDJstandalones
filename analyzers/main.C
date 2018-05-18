@@ -243,6 +243,8 @@ int main(int argc, char **argv){
  analyzer.initAODCaloJetBasicHistograms();
  analyzer.initAODCaloJetExtraHistograms(); 
  analyzer.initAODCaloJetTagHistograms(); 
+ analyzer.initAODCaloJetMultHistograms(); 
+ analyzer.initAODCaloJetTagMultHistograms(); 
 
  analyzer.initCutflowHistograms();
 

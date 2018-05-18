@@ -12,11 +12,12 @@ analyzer_selections::~analyzer_selections()
 
 void analyzer_selections::clearSelections()
 {
- selvecSignal .clear(); 
- selvecZH     .clear(); 
- selvecDY     .clear(); 
- selvecOffZ   .clear(); 
- selvecNoPair .clear(); 
+ selvecSignal  .clear(); 
+ selvecSignal2 .clear(); 
+ selvecZH      .clear(); 
+ selvecDY      .clear(); 
+ selvecOffZ    .clear(); 
+ selvecNoPair  .clear(); 
 }
 
 void analyzer_selections::setSelections()
@@ -26,6 +27,12 @@ void analyzer_selections::setSelections()
  selvecSignal .push_back( passZWindow   );
  selvecSignal .push_back( passPTOSSFg50 );
  selvecSignal .push_back( passOneTag    );
+
+ selvecSignal2 .push_back( (passSingleEle || passSingleMu || passDoubleEle || passDoubleMu ) ) ;
+ selvecSignal2 .push_back( passGoodVtx   );
+ selvecSignal2 .push_back( passZWindow   );
+ selvecSignal2 .push_back( passPTOSSFg10 );
+ selvecSignal2 .push_back( passTwoTag    );
 
  selvecZH     .push_back( (passSingleEle || passSingleMu || passDoubleEle || passDoubleMu ) ) ;
  selvecZH     .push_back( passGoodVtx   );

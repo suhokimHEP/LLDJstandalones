@@ -62,7 +62,7 @@ void plot_a_ROC(TH1F* h_sig, TH1F* h_bkg, TString name){
 
     sig_eff[i] = sig / sig_tot; 
     bkg_eff[i] = bkg / bkg_tot; 
-    sensitivity[i] = sig / TMath::Sqrt(sig+bkg);
+    sensitivity[i] = sig / TMath::Sqrt(sig+2*bkg);
 
   }
 
@@ -83,7 +83,7 @@ void plot_a_ROC(TH1F* h_sig, TH1F* h_bkg, TString name){
   gr_sen->SetLineColor(kGreen+1);
   gr_sen->SetTitle("Sensitivity " + name);
   gr_sen->GetXaxis()->SetTitle("Pt OSSF Threshold");
-  gr_sen->GetYaxis()->SetTitle("S/sqrt(S+B)");
+  gr_sen->GetYaxis()->SetTitle("S/sqrt(S+2*B)");
   TCanvas* c_sen = new TCanvas("c_sen", "c_sen", 640, 480);
   gr_sen->Draw("ACP");
   c_sen->Print("gr_sen_"+name+".pdf");

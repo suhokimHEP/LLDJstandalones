@@ -57,6 +57,7 @@ public :
 
    // full cut booleans
    Bool_t doesPassSig;
+   Bool_t doesPassSig2;
    Bool_t doesPassZH;
    Bool_t doesPassDY;
    Bool_t doesPassOffZ;
@@ -68,18 +69,21 @@ public :
    Int_t n_test2;
 
    Int_t n_passSig;
+   Int_t n_passSig2;
    Int_t n_passZH;
    Int_t n_passDY;
    Int_t n_passOffZ;
    Int_t n_passNoPair;
 
    Int_t n_ele_passSig;
+   Int_t n_ele_passSig2;
    Int_t n_ele_passZH;
    Int_t n_ele_passDY;
    Int_t n_ele_passOffZ;
    Int_t n_ele_passNoPair;
 
    Int_t n_mu_passSig;
+   Int_t n_mu_passSig2;
    Int_t n_mu_passZH;
    Int_t n_mu_passDY;
    Int_t n_mu_passOffZ;

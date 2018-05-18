@@ -13,12 +13,12 @@
 void plot_a_eff(TH1F* h_num, TH1F* h_den, float max, TString name, TFile* f_out){
 
   TGraphAsymmErrors* gr_eff = new TGraphAsymmErrors();
-  gr_eff->SetName("gr_"+name);
+  gr_eff->SetName("gr_eff_"+name);
   gr_eff->Divide(h_num, h_den, "cl=0.683 b(1,1) mode");
 
   TH1F* h_eff = (TH1F*)h_num->Clone();
   h_eff->Divide(h_den);
-  h_eff->SetName("h_"+name);
+  h_eff->SetName("h_eff_"+name);
 
   gr_eff->SetLineWidth(2);
   gr_eff->SetMarkerSize(1);
@@ -67,6 +67,12 @@ void plot_eff(TString region){
   num_name.push_back("h_Totbkg_mu_"+region+"_AllTags_AODCaloJetMinDR_Tag0");
   den_name.push_back("h_Totbkg_mu_"+region+"_AllJets_AODCaloJetMinDR");
   name.push_back("mu_"+region+"_AllJets_AODCaloJetMinDR");
+  max.push_back(0.01);
+
+  //Eta
+  num_name.push_back("h_Totbkg_mu_"+region+"_AllTags_AODCaloJetAbsEta_Tag0");
+  den_name.push_back("h_Totbkg_mu_"+region+"_AllJets_AODCaloJetAbsEta");
+  name.push_back("mu_"+region+"_AllJets_AODCaloJetAbsEta");
   max.push_back(0.01);
 
   //Nt

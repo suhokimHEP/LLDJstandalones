@@ -22,12 +22,13 @@ public :
    Bool_t        askPassDoubleEle();
    Bool_t        askPassDoubleMu();
 
-   std::vector<Bool_t> selvecSignal ;
-   std::vector<Bool_t> selvecZH     ;
-   std::vector<Bool_t> selvecDY     ;
-   std::vector<Bool_t> selvecOffZ   ;
-   std::vector<Bool_t> selvecNoPair ;
-   std::vector<Bool_t> selvec[6];
+   std::vector<Bool_t> selvecSignal  ;
+   std::vector<Bool_t> selvecSignal2 ;
+   std::vector<Bool_t> selvecZH      ;
+   std::vector<Bool_t> selvecDY      ;
+   std::vector<Bool_t> selvecOffZ    ;
+   std::vector<Bool_t> selvecNoPair  ;
+   std::vector<Bool_t> selvec[7];
 
    // selection booleans
    Bool_t passSingleEle ;
@@ -38,6 +39,7 @@ public :
    Bool_t passZWindow   ;   
    Bool_t passGoodVtx   ;   
    Bool_t passPTOSSFg50 ; 
+   Bool_t passPTOSSFg10 ; 
    Bool_t passOneJet    ; 
    Bool_t passOneTag    ;
    Bool_t passTwoTag    ;
