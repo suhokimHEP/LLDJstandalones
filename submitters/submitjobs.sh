@@ -8,7 +8,7 @@
 doSubmit=true
 lumi=35870
 nevents=-1
-maxfilesperjob=10   # 500=6h
+maxfilesperjob=100   # 500=6h
 
 # Signal Samples
 #  "ZH_HToSSTobbbb_MS-55_ctauS-1"      \
@@ -47,14 +47,7 @@ maxfilesperjob=10   # 500=6h
 #  "Data_SingleEle_B_2"   \
 #  "Data_SingleEle_B_1"   \
 
-#  "Data_SingleMu_H_3"    \
-#  "Data_SingleMu_H_2"    \
-#  "Data_SingleMu_G"      \
-#  "Data_SingleMu_F"      \
-#  "Data_SingleMu_E"      \
-#  "Data_SingleMu_D"      \
-#  "Data_SingleMu_C"      \
-#  "Data_SingleMu_B_2"    \
+
 #  "Data_SingleMu_B_1"    \
 
 #  "Data_SinglePhoton_H_3"    \
@@ -72,31 +65,9 @@ maxfilesperjob=10   # 500=6h
 #  "DY50_2"               \
 #  "TTtoLL_1"             \
 #  "TTtoLL_2"             \
-#  "WJets_1"              \
-#  "WJets_2"              \
+
 
 # Other Backgrounds
-#  "TTtoLfromT_1"         \
-#  "TTtoLfromT_2"         \
-#  "TTtoLfromTbar_1"      \
-#  "TTtoLfromTbar_2"      \
-#  "STs"                  \
-#  "STtbar"               \
-#  "STt"                  \
-#  "STtbarW_1"            \
-#  "STtbarW_2"            \
-#  "STtW_1"               \
-#  "STtW_2"               \
-#  "WWToLNuLNu"           \
-#  "WWToLNuQQ_1"          \
-#  "WWToLNuQQ_2"          \
-#  "WZToLNu2QorQQ2L"      \
-#  "WZToLNuNuNu"          \
-#  "WZToLLLNu"            \
-#  "ZZToNuNuQQ"           \
-#  "ZZToLLQQ"             \
-#  "ZZToLLNuNu"           \
-#  "ZZToLLLL"             \
 #  "WG"                   \
 #  "ZG"                   \
 #  "ZH_Hbb_1"             \
@@ -125,33 +96,52 @@ maxfilesperjob=10   # 500=6h
 #  "DY5to50_HT600toInf_2" \
 
 samples=(  \
-  "ZH_HToSSTobbbb_MS55_ctauS1"      \
-  "ZH_HToSSTobbbb_MS55_ctauS10"     \
-  "ZH_HToSSTobbbb_MS55_ctauS100"    \
-  "ZH_HToSSTobbbb_MS55_ctauS1000"   \
-  "ZH_HToSSTobbbb_MS40_ctauS1"      \
-  "ZH_HToSSTobbbb_MS40_ctauS10"     \
-  "ZH_HToSSTobbbb_MS40_ctauS100"    \
-  "ZH_HToSSTobbbb_MS40_ctauS1000"   \
-  "ZH_HToSSTobbbb_MS15_ctauS1"      \
-  "ZH_HToSSTobbbb_MS15_ctauS10"     \
-  "ZH_HToSSTobbbb_MS15_ctauS100"    \
-  "ZH_HToSSTobbbb_MS15_ctauS1000"   \
-  "ggZH_HToSSTobbbb_MS55_ctauS1"    \
-  "ggZH_HToSSTobbbb_MS55_ctauS10"   \
-  "ggZH_HToSSTobbbb_MS55_ctauS100"  \
-  "ggZH_HToSSTobbbb_MS55_ctauS1000" \
-  "ggZH_HToSSTobbbb_MS40_ctauS1"    \
-  "ggZH_HToSSTobbbb_MS40_ctauS10"   \
-  "ggZH_HToSSTobbbb_MS40_ctauS100"  \
-  "ggZH_HToSSTobbbb_MS40_ctauS1000" \
-  "ggZH_HToSSTobbbb_MS15_ctauS1"    \
-  "ggZH_HToSSTobbbb_MS15_ctauS10"   \
-  "ggZH_HToSSTobbbb_MS15_ctauS100"  \
-  "ggZH_HToSSTobbbb_MS15_ctauS1000" \
-  "DY50"               \
-  "TTtoLL"             \
-  "WJetsToLNu"         \
+# "SingleMuon"    \
+ "ZH_HToSSTobbbb_MS55_ctauS1"      \
+ "ZH_HToSSTobbbb_MS55_ctauS10"     \
+ "ZH_HToSSTobbbb_MS55_ctauS100"    \
+ "ZH_HToSSTobbbb_MS55_ctauS1000"   \
+ "ZH_HToSSTobbbb_MS40_ctauS1"      \
+ "ZH_HToSSTobbbb_MS40_ctauS10"     \
+ "ZH_HToSSTobbbb_MS40_ctauS100"    \
+ "ZH_HToSSTobbbb_MS40_ctauS1000"   \
+ "ZH_HToSSTobbbb_MS15_ctauS1"      \
+ "ZH_HToSSTobbbb_MS15_ctauS10"     \
+ "ZH_HToSSTobbbb_MS15_ctauS100"    \
+ "ZH_HToSSTobbbb_MS15_ctauS1000"   \
+ "ggZH_HToSSTobbbb_MS55_ctauS1"    \
+ "ggZH_HToSSTobbbb_MS55_ctauS10"   \
+ "ggZH_HToSSTobbbb_MS55_ctauS100"  \
+ "ggZH_HToSSTobbbb_MS55_ctauS1000" \
+ "ggZH_HToSSTobbbb_MS40_ctauS1"    \
+ "ggZH_HToSSTobbbb_MS40_ctauS10"   \
+ "ggZH_HToSSTobbbb_MS40_ctauS100"  \
+ "ggZH_HToSSTobbbb_MS40_ctauS1000" \
+ "ggZH_HToSSTobbbb_MS15_ctauS1"    \
+ "ggZH_HToSSTobbbb_MS15_ctauS10"   \
+ "ggZH_HToSSTobbbb_MS15_ctauS100"  \
+ "ggZH_HToSSTobbbb_MS15_ctauS1000" \
+ "DY50"               \
+ "TTtoLL"             \
+ "WJetsToLNu"         \
+ "TTtoLfromT"         \
+ "TTtoLfromTbar"      \
+ "ST_s"                  \
+ "STbar_t"               \
+ "ST_t"                  \
+ "STbar_tW"            \
+ "ST_tW"               \
+ "WWToLNuLNu"           \
+ "WWToLNuQQ"          \
+ "WZToLNu2QorQQ2L"      \
+ "WZToL3Nu"                           \
+ "WZTo3LNu"                           \
+ "WZToLNu2QorQQ2L"                    \
+ "ZG"                                 \
+ "ZZToLLNuNu"                         \
+ "ZZToLLQQ"                           \
+ "ZZToNuNuQQ"                         \
+ "ZZToLLLL"                           \
 )
 
 
@@ -173,7 +163,7 @@ makeasubmitdir () {
  printf "Executable = ${CMSSW_BASE}/src/LLDJstandalones/submitters/runjob.sh\n" >> submitfile
  printf "Should_Transfer_Files = YES \n" >> submitfile
  printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
- printf "Transfer_Input_Files = ${CMSSW_BASE}/src/LLDJstandalones/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list,${CMSSW_BASE}/src/LLDJstandalones/lists/$1.info,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_69200_24jan2017.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleTight.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleMedium.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleLoose.root\n" >> submitfile
+ printf "Transfer_Input_Files = ${CMSSW_BASE}/src/LLDJstandalones/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list,${CMSSW_BASE}/src/LLDJstandalones/lists/$1.info,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_69200_24jan2017.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleTight.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleMedium.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleLoose.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/feff_ZH.root\n" >> submitfile
 
  printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
  printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile
@@ -186,21 +176,25 @@ makeasubmitdir () {
  # make haddfile (make now for merging expected results)
  haddfile_NoSel_histograms="./haddit_NoSel_histograms.sh"
  haddfile_Sig_histograms="./haddit_Sig_histograms.sh"
+ haddfile_Sig2_histograms="./haddit_Sig2_histograms.sh"
  haddfile_ZH_histograms="./haddit_ZH_histograms.sh"
  haddfile_DY_histograms="./haddit_DY_histograms.sh"
  haddfile_OffZ_histograms="./haddit_OffZ_histograms.sh"
  haddfile_NoPair_histograms="./haddit_NoPair_histograms.sh"
  haddfile_OPTtree="./haddit_OPTtree.sh"
+ haddfile_bkgest="./haddit_bkgest.sh"
 
  hadddir="${rootdir}/${aversion}"
  mkdir -p ${hadddir}
  printf "#!/bin/bash\n\n" > ${haddfile_NoSel_histograms} 
  printf "#!/bin/bash\n\n" > ${haddfile_Sig_histograms}   
+ printf "#!/bin/bash\n\n" > ${haddfile_Sig2_histograms}   
  printf "#!/bin/bash\n\n" > ${haddfile_ZH_histograms}    
  printf "#!/bin/bash\n\n" > ${haddfile_DY_histograms}    
  printf "#!/bin/bash\n\n" > ${haddfile_OffZ_histograms}  
  printf "#!/bin/bash\n\n" > ${haddfile_NoPair_histograms}
  printf "#!/bin/bash\n\n" > ${haddfile_OPTtree}          
+ printf "#!/bin/bash\n\n" > ${haddfile_bkgest}          
 
  # make checker
  checkfile="./checker.sh"
@@ -210,11 +204,13 @@ makeasubmitdir () {
   # name of final merged file
  printf "hadd ${hadddir}/$1_NoSel_histograms.root"  >> ${haddfile_NoSel_histograms}  
  printf "hadd ${hadddir}/$1_Sig_histograms.root"    >> ${haddfile_Sig_histograms}    
+ printf "hadd ${hadddir}/$1_Sig2_histograms.root"    >> ${haddfile_Sig2_histograms}    
  printf "hadd ${hadddir}/$1_ZH_histograms.root"     >> ${haddfile_ZH_histograms}     
  printf "hadd ${hadddir}/$1_DY_histograms.root"     >> ${haddfile_DY_histograms}     
  printf "hadd ${hadddir}/$1_OffZ_histograms.root"   >> ${haddfile_OffZ_histograms}   
  printf "hadd ${hadddir}/$1_NoPair_histograms.root" >> ${haddfile_NoPair_histograms} 
  printf "hadd ${hadddir}/$1_OPTtree.root"           >> ${haddfile_OPTtree}           
+ printf "hadd ${hadddir}/$1_ZH_bkgest.root"           >> ${haddfile_bkgest}           
 
  # breaking up input file list
  nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list" )
@@ -233,19 +229,23 @@ makeasubmitdir () {
   # add files to be produced to haddfiles
   printf "\\" >> ${haddfile_NoSel_histograms}  
   printf "\\" >> ${haddfile_Sig_histograms}    
+  printf "\\" >> ${haddfile_Sig2_histograms}    
   printf "\\" >> ${haddfile_ZH_histograms}     
   printf "\\" >> ${haddfile_DY_histograms}     
   printf "\\" >> ${haddfile_OffZ_histograms}   
   printf "\\" >> ${haddfile_NoPair_histograms} 
   printf "\\" >> ${haddfile_OPTtree}           
+  printf "\\" >> ${haddfile_bkgest}           
 
   printf "\n $(pwd)/$1_${jobfilenr}_NoSel_histograms.root" >> ${haddfile_NoSel_histograms}  
   printf "\n $(pwd)/$1_${jobfilenr}_Sig_histograms.root" >> ${haddfile_Sig_histograms}    
+  printf "\n $(pwd)/$1_${jobfilenr}_Sig2_histograms.root" >> ${haddfile_Sig2_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_ZH_histograms.root" >> ${haddfile_ZH_histograms}     
   printf "\n $(pwd)/$1_${jobfilenr}_DY_histograms.root" >> ${haddfile_DY_histograms}     
   printf "\n $(pwd)/$1_${jobfilenr}_OffZ_histograms.root" >> ${haddfile_OffZ_histograms}   
   printf "\n $(pwd)/$1_${jobfilenr}_NoPair_histograms.root" >> ${haddfile_NoPair_histograms} 
   printf "\n $(pwd)/$1_${jobfilenr}_OPTtree.root" >> ${haddfile_OPTtree}           
+  printf "\n $(pwd)/$1_${jobfilenr}_ZH_bkgest.root" >> ${haddfile_bkgest}           
 
   # add file to checker, all histos are made at the same time, so only check one
   printf "\n if [ ! -f $(pwd)/$1_${jobfilenr}_OPTtree.root ]; then printf \" $(pwd)/$1_${jobfilenr}_OPTtree.root \\n\"; fi " >> ${checkfile}
@@ -259,11 +259,13 @@ makeasubmitdir () {
 
  printf "\n\n" >> ${haddfile_NoSel_histograms}  
  printf "\n\n" >> ${haddfile_Sig_histograms}    
+ printf "\n\n" >> ${haddfile_Sig2_histograms}    
  printf "\n\n" >> ${haddfile_ZH_histograms}     
  printf "\n\n" >> ${haddfile_DY_histograms}     
  printf "\n\n" >> ${haddfile_OffZ_histograms}   
  printf "\n\n" >> ${haddfile_NoPair_histograms} 
  printf "\n\n" >> ${haddfile_OPTtree}           
+ printf "\n\n" >> ${haddfile_bkgest}           
 
  if [ ${doSubmit} = true ]
  then

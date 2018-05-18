@@ -31,19 +31,19 @@ void analyzer_selections::setSelections()
  selvecSignal .push_back( (passSingleEle || passSingleMu || passDoubleEle || passDoubleMu ) ) ;
  selvecSignal .push_back( passGoodVtx   );
  selvecSignal .push_back( passZWindow   );
- selvecSignal .push_back( passPTOSSFg50 );
+ selvecSignal .push_back( passPTOSSFg10 );
  selvecSignal .push_back( passOneTag    );
 
  selvecZH     .push_back( (passSingleEle || passSingleMu || passDoubleEle || passDoubleMu ) ) ;
  selvecZH     .push_back( passGoodVtx   );
  selvecZH     .push_back( passZWindow   );
- selvecZH     .push_back( passPTOSSFg50 );
+ selvecZH     .push_back( passPTOSSFg10 );
  selvecZH     .push_back( passOneJet    );
 
  selvecDY     .push_back( (passSingleEle || passSingleMu || passDoubleEle || passDoubleMu ) );
  selvecDY     .push_back( passGoodVtx    );
  selvecDY     .push_back( passZWindow    );
- selvecDY     .push_back( !passPTOSSFg50 );
+ selvecDY     .push_back( !passPTOSSFg10 );
  selvecDY     .push_back( passOneJet     );
 
  selvecOffZ   .push_back( (passSingleEle || passSingleMu || passDoubleEle || passDoubleMu) );

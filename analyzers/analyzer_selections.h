@@ -38,6 +38,7 @@ public :
    Bool_t passOSSF      ;   
    Bool_t passZWindow   ;   
    Bool_t passGoodVtx   ;   
+   Bool_t passPTOSSFg10 ; 
    Bool_t passPTOSSFg50 ; 
    Bool_t passOneJet    ; 
    Bool_t passOneTag    ;

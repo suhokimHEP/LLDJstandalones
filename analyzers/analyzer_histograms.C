@@ -975,7 +975,7 @@ void analyzer_histograms::comb(int n, int r, int *arr, int sz, Double_t weight) 
       // have one combo here
       //*********************//         
       
-      bool debug=true;
+      bool debug=false;
 
       if(debug){
 	std::cout << "    Combo: ";
@@ -986,22 +986,23 @@ void analyzer_histograms::comb(int n, int r, int *arr, int sz, Double_t weight) 
       }
       
       double p=1;
-      for(int j=0; j<aodcalojet_list.size(); j++){
+      for(int j=1; j<=aodcalojet_list.size(); j++){
 
-	double jetprob = h_eff->GetBinContent( h_eff->FindBin( AODCaloJetPt->at( aodcalojet_list[j] ) ) );
+	//j-1 because index from 1
+	double jetprob = h_eff->GetBinContent( h_eff->FindBin( AODCaloJetPt->at( aodcalojet_list[j-1] ) ) );
 
 	bool found = false;
 	for(int t=0; t<sz; t++){//probably really slow
 	  if(j==arr[t]){
 	    p*=jetprob;
 	    found = true;
-	    if(debug) std::cout << "    Tagged jet: " << j << std::endl;
+	    if(debug) std::cout << "      Tagged jet: " << j << std::endl;
 	    break;
 	  }
 	}
 	if(!found){
 	  p*=(1-jetprob); 
-	  if(debug) std::cout << "    Didn't tag jet: " << j << std::endl;
+	  if(debug) std::cout << "      Didn't tag jet: " << j << std::endl;
 	}
       }//loop over jets
       h_bkgest.Fill(sz,p*weight);//need event weight
@@ -1021,14 +1022,14 @@ Bool_t analyzer_histograms::initBackgroundEstimateHistograms()
 //fill
 Bool_t analyzer_histograms::fillBackgroundEstimateHistograms(Double_t weight)
 {
-  bool debug=true;
+  bool debug=false;
 
   //number of jets
   const int N = aodcalojet_list.size();
   if(debug) std::cout << "NJets: " << aodcalojet_list.size() << std::endl;
 
   //loop over tag multiplicity
-  for(int i=0; i<6; i++){
+  for(int i=1; i<6; i++){
     if(N<i) continue; //code is safe anyway, but this migh save time
     if(debug) std::cout << "  NTags: " << i << std::endl;
     const int M = i;

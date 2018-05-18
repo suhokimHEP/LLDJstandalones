@@ -10,8 +10,8 @@ samples=( \
  "TTtoLL"                           \
 )
 
-#for sample in $(ls ${basedir}/submitters/gitignore/${aversion}/) # works but dangerous?
-for sample in ${samples[@]}
+for sample in $(ls ${basedir}/submitters/gitignore/${aversion}/) # works but dangerous?
+#for sample in ${samples[@]}
 do
 
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_DY_histograms.sh"
@@ -21,13 +21,15 @@ do
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OffZ_histograms.sh"
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_Sig_histograms.sh"
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_ZH_histograms.sh"
+ chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_bkgest.sh"
 
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_DY_histograms.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NoPair_histograms.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NoSel_histograms.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OffZ_histograms.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_Sig_histograms.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_ZH_histograms.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_DY_histograms.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NoPair_histograms.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NoSel_histograms.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OffZ_histograms.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_Sig_histograms.sh"
+# bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_ZH_histograms.sh"
+ bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_bkgest.sh"
 
 done

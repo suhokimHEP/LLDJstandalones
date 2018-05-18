@@ -85,6 +85,7 @@ void analyzer_loop::Loop(TString outfilename,
   passOSSF = (dilep_mass>20.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passPTOSSFg50 = (dilep_pt>50.);
+  passPTOSSFg10 = (dilep_pt>10.);
   passGoodVtx = true; // = nVtx>0; FIXME put in ntuples
   passOneJet = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag = false; if (taggedjet_list.size()>0) passOneTag=true;  
@@ -128,7 +129,7 @@ void analyzer_loop::Loop(TString outfilename,
 
   if(bkgest){
     //could loop here over selbinnames and lepnames
-    if( dofilllepbin[1] && dofillselbin[2] ){
+    if( dofilllepbin[1] && dofillselbin[2] ){//mu ZH
       fillBackgroundEstimateHistograms(event_weight);
     }
     continue;//don't do rest loop
