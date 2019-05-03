@@ -16,7 +16,7 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 #process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(30) ) 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1900) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 # input files
@@ -26,16 +26,26 @@ process.source = cms.Source('PoolSource',
 #'file:/uscms_data/d3/tmperry/aLLDJ_slc6_530_CMSSW_8_0_26_patch1/src/AOD_ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_4A859964-FEC8-E611-B0B8-20CF3027A561.root'
 #'file:gjets400to600_20F153C7-E8BB-E611-BE31-0CC47A4C8E82.root' 
 #'file:D420E413-FDC8-E611-869C-00259021A342.root' 
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/ZZ_TuneCUETP8M1_13TeV-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/FCB2ED97-51D7-E611-95F8-008CFA1982C0.root' 
 #'file:/uscms_data/d3/tmperry/roots/AOD_ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_D6822833-FEC8-E611-8CD1-002590E7D7DE.root',
-'file:/uscms_data/d3/tmperry/roots/AOD_TTJets_BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root',
-
+#'file:/uscms_data/d3/tmperry/roots/AOD_TTJets_BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root',
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/FE441877-55B3-E611-AB31-A0369F7FCDF4.root '
 #'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root'
-
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/90001/FE8858DC-CBE4-E611-9D99-0025907DC9DC.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1_TuneCUETP8M1_13TeV-powheg-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/60E6B18F-FCC9-E611-A126-0CC47A1DF650.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-5to50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/60000/C2AB7F96-CBEF-E611-A4A1-02163E019D9E.root'
+#'file:/uscms/home/ddiaz/nobackup/ZH.root'
+#'file:FE8858DC-CBE4-E611-9D99-0025907DC9DC.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/90000/FEBB81C8-36E6-E611-8AF2-842B2B7680DF.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/80000/FED17CF7-B6B2-E611-A109-0025905A60E4.root'
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/60000/DE6017CE-D7E3-E611-AEA9-FA163E11A437.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/00E792D8-A3E9-E611-A776-0CC47A7FC7B4.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/50000/90D47DD8-96B1-E611-A9D9-0CC47A4D7638.root',
  ),
 )
 
 # output name
-process.TFileService = cms.Service('TFileService', fileName = cms.string('lldjntuple_mc_AOD.root'));
+process.TFileService = cms.Service('TFileService', fileName = cms.string('lldjntuple_mc_AODQCDweight.root'));
 
 #process.out = cms.OutputModule(
 #'PoolOutputModule',
@@ -126,7 +136,9 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
  AODVertexSrc              = cms.InputTag('offlinePrimaryVertices', '', 'RECO'),
  AODTrackSrc               = cms.InputTag('generalTracks', '', 'RECO'),
- vertexFitterConfig = cms.PSet(
+ AODGenJetsSrc               = cms.InputTag('ak4GenJets', '', 'SIM'),
+ AODGenEventInfoSrc               = cms.InputTag('generator', '', 'SIM'), 
+vertexFitterConfig = cms.PSet(
         finder = cms.string('avf'),
         sigmacut = cms.double(10.),
         Tini = cms.double(256.),

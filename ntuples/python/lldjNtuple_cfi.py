@@ -7,7 +7,7 @@ from HiggsAnalysis.HiggsTo2photons.hggPhotonIDCuts_cfi import *
 
 lldjNtuple = cms.EDAnalyzer("lldjNtuple",
                              hggPhotonIDConfiguration = hggPhotonIDCuts,
-                             doGenParticles   = cms.bool(True),
+                             doGenParticles   = cms.bool(False),
                              runOnParticleGun = cms.bool(False),
                              dumpPhotons      = cms.bool(True),
                              dumpJets         = cms.bool(False),

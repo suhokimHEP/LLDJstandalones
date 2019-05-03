@@ -1,7 +1,7 @@
 #voms-proxy-init --voms cms --valid 100:00
 
 # do we submit or just generate submit scripts
-dosubmit=true
+dosubmit=false
 doAOD=true
 dominiAOD=false
 domakeMiniAOD=false
@@ -55,6 +55,7 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
+  "DY50_1"               \
 )
 
 # Signal Samples

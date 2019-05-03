@@ -1,4 +1,5 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "LLDJstandalones/ntuples/interface/GenParticleParentage.h"
 #include "LLDJstandalones/ntuples/interface/lldjNtuple.h"
 #include "JetMETCorrections/Objects/interface/JetCorrector.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
@@ -42,7 +43,7 @@
 #include "RecoVertex/VertexPrimitives/interface/ConvertError.h"
 
 #include "DataFormats/PatCandidates/interface/Jet.h"
-
+#include <math.h>
 
 
 using namespace std;
@@ -55,6 +56,8 @@ edm::Handle<edm::View<reco::PFJet>   >  AODak4PFJetsCHSHandle;
 edm::Handle<edm::View<pat::Jet>      >  selectedPatJetsHandle;  
 edm::Handle<edm::View<reco::Vertex>  >  AODVertexHandle;
 edm::Handle<edm::View<reco::Track>   >  AODTrackHandle;
+edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
+edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
 edm::Handle<reco::BeamSpot> beamspotHandle_;
 edm::ESHandle<MagneticField> magneticField;
 // transient tracks
@@ -89,6 +92,9 @@ vector<float>  AODCaloJetTrackAngle_;
 vector<float>  AODCaloJetLogTrackAngle_;
 vector<float>  AODCaloJetMedianLog10TrackAngle_;
 vector<float>  AODCaloJetTotalTrackAngle_;
+vector<float>  AODCaloJetTrackRadius_;
+vector<float>  MatchedRadius_;
+vector<float>  MinMatchedRadius_;
 
 vector<float>  AODCaloJetAvfVx_;
 vector<float>  AODCaloJetAvfVy_;
@@ -117,6 +123,35 @@ vector<int>    AODCaloJetMissHitsAfterVertPerTrack_;
 vector<float>  AODCaloJetAvfDistToPV_;
 vector<float>  AODCaloJetAvfVertexDeltaZtoPV_;
 vector<float>  AODCaloJetAvfVertexDeltaZtoPV2_;
+
+Int_t  AODEventvertexnum_;
+vector<float>  AODCaloJetTrackVtxID_;
+vector<float>  AODTrackMaxWeight_;
+vector<float>  AODCaloJetTrackMaxWeight_;
+float_t  AODVtxHandlePVvx_;
+float_t  AODVtxHandlePVvy_;
+float_t  AODVtxHandlePVvz_;
+Int_t         nGenPtcls_;
+vector<int> nMaxVtxTracks_;
+vector<float> GenPtclPt;
+vector<float> GenPtclEta;
+vector<float> GenPtclPhi;
+vector<int> MaxWeightPassedTrks;
+vector<float> GenTrackR;
+vector<int>   TrkMaxWeighttoPV;
+vector<float>   MatchingRatio;
+vector<float> TrkPtRatio;
+vector<bool> PassID;
+vector<float> emEF;
+vector<float> eFH;
+vector<int> Cutflow;
+vector<float>   TrkMatchingRatio;
+vector<float>   JetMatchingRatio;
+vector<float>   AODCaloJetV0TrkWeight;
+vector<float>   AODCaloJetV1TrkWeight;
+vector<float>   AODCaloJetV2TrkWeight;
+vector<float>   LowGenMatchAM;
+vector<float>   HighGenMatchAM;
 
 // PAT Jets
 Int_t          AODnPATJet_;
@@ -190,8 +225,13 @@ vector<float>    AODallTrackdxyerr;
 // set parameters for tracks to be accepted
 const float minTrackPt_ = 1.0;
 const float maxDRtrackJet_ = 0.4;
-
-
+const float maxGenTrackRad_ = 0.004;
+int eventnum =0;
+int accPreJetnum =0;
+int accJetnum =0;
+int accJetTracknum =0;
+int accJetPVTracknum =0;
+int jetsize=0;
 // start functions ----------------------------------------
 
 // initialize branches
@@ -217,7 +257,11 @@ void lldjNtuple::branchesAODJets(TTree* tree) {
   tree->Branch("AODCaloJetLogTrackAngle"       , &AODCaloJetLogTrackAngle_);
   tree->Branch("AODCaloJetMedianLog10TrackAngle" , &AODCaloJetMedianLog10TrackAngle_);
   tree->Branch("AODCaloJetTotalTrackAngle"     , &AODCaloJetTotalTrackAngle_);
-                       
+  tree->Branch("AODCaloJetTrackRadius"     , &AODCaloJetTrackRadius_);
+  tree->Branch("MatchedRadius"         , &MatchedRadius_);
+  tree->Branch("MinMatchedRadius"         , &MinMatchedRadius_);
+
+  tree->Branch("AODwhichVertexByTrack", &AODwhichVertexByTrack);
   tree->Branch("AODCaloJetAvfVx", &AODCaloJetAvfVx_);
   tree->Branch("AODCaloJetAvfVy", &AODCaloJetAvfVy_);
   tree->Branch("AODCaloJetAvfVz", &AODCaloJetAvfVz_);
@@ -245,6 +289,36 @@ void lldjNtuple::branchesAODJets(TTree* tree) {
   tree->Branch("AODCaloJetAvfDistToPV", &AODCaloJetAvfDistToPV_);
   tree->Branch("AODCaloJetAvfVertexDeltaZtoPV", &AODCaloJetAvfVertexDeltaZtoPV_);
   tree->Branch("AODCaloJetAvfVertexDeltaZtoPV2", &AODCaloJetAvfVertexDeltaZtoPV2_);
+  
+tree->Branch("AODEventvertexnum", &AODEventvertexnum_);
+  tree->Branch("AODCaloJetTrackVtxID", &AODCaloJetTrackVtxID_);
+  tree->Branch("AODTrackMaxWeight", &AODTrackMaxWeight_);
+  tree->Branch("AODCaloJetTrackMaxWeight", &AODCaloJetTrackMaxWeight_);
+  tree->Branch("AODVtxHandlePVvx", &AODVtxHandlePVvx_);
+  tree->Branch("AODVtxHandlePVvy", &AODVtxHandlePVvy_);
+  tree->Branch("AODVtxHandlePVvz", &AODVtxHandlePVvz_);
+  tree->Branch("nGenPtcls", &nGenPtcls_);
+  tree->Branch("nMaxVtxTracks", &nMaxVtxTracks_);
+  tree->Branch("GenPtclPt",      &GenPtclPt);
+  tree->Branch("GenPtclEta",     &GenPtclEta);
+  tree->Branch("GenPtclPhi",     &GenPtclPhi);
+  tree->Branch("MaxWeightPassedTrks",     &MaxWeightPassedTrks);
+  tree->Branch("GenTrackR",     &GenTrackR);
+  tree->Branch("TrkMaxWeighttoPV", &TrkMaxWeighttoPV);
+  tree->Branch("MatchingRatio", &MatchingRatio);
+  tree->Branch("TrkPtRatio", &TrkPtRatio);
+  tree->Branch("PassID", &PassID);
+  tree->Branch("emEF", &emEF);
+  tree->Branch("eFH", &eFH);
+  tree->Branch("Cutflow", &Cutflow);
+  tree->Branch("TrkMatchingRatio", &TrkMatchingRatio);
+  tree->Branch("JetMatchingRatio", &JetMatchingRatio);
+  tree->Branch("AODCaloJetV0TrkWeight", &AODCaloJetV0TrkWeight);
+  tree->Branch("AODCaloJetV1TrkWeight", &AODCaloJetV1TrkWeight);
+  tree->Branch("AODCaloJetV2TrkWeight", &AODCaloJetV2TrkWeight);
+  tree->Branch("LowGenMatchAM", &LowGenMatchAM);
+  tree->Branch("HighGenMatchAM", &HighGenMatchAM);
+
 
   tree->Branch("AODnPATJet",              &AODnPATJet_);
   tree->Branch("AODPATJetPartonFlavour",  &AODPATJetPartonFlavour_);
@@ -326,6 +400,9 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  AODCaloJetLogTrackAngle_.clear();
  AODCaloJetMedianLog10TrackAngle_.clear();
  AODCaloJetTotalTrackAngle_.clear();
+ AODCaloJetTrackRadius_.clear();
+ MatchedRadius_.clear();
+ MinMatchedRadius_.clear();
 
  AODCaloJetAvfVx_.clear();
  AODCaloJetAvfVy_.clear();
@@ -353,6 +430,40 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  AODCaloJetAvfDistToPV_.clear();
  AODCaloJetAvfVertexDeltaZtoPV_.clear();
  AODCaloJetAvfVertexDeltaZtoPV2_.clear();
+ 
+ AODEventvertexnum_=0;
+ AODCaloJetTrackVtxID_.clear();
+ AODTrackMaxWeight_.clear();
+ AODCaloJetTrackMaxWeight_.clear();
+ AODVtxHandlePVvx_=0.0;
+ AODVtxHandlePVvy_=0.0;
+ AODVtxHandlePVvz_=0.0;
+ nGenPtcls_=0;
+ nMaxVtxTracks_.clear();
+ GenPtclPt.clear();
+ GenPtclEta.clear();
+ GenPtclPhi.clear();
+ MaxWeightPassedTrks.clear();
+ GenTrackR.clear();
+ TrkMaxWeighttoPV.clear();
+ MatchingRatio.clear();
+ TrkPtRatio.clear();
+ PassID.clear();
+ emEF.clear();
+ eFH.clear();
+ Cutflow.clear();
+ TrkMatchingRatio.clear();
+ JetMatchingRatio.clear();
+ AODCaloJetV0TrkWeight.clear();
+ AODCaloJetV1TrkWeight.clear();
+ AODCaloJetV2TrkWeight.clear();
+ LowGenMatchAM.clear();
+ HighGenMatchAM.clear();
+ eventnum +=1;
+ int PreJetnum=0;
+ int Jetnum=0;
+ int JetTracknum=0;
+ int JetPVTracknum=0;
 
  // PAT Jets
  AODnPATJet_ = 0;
@@ -437,6 +548,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  e.getByToken( selectedPatJetsLabel_,  selectedPatJetsHandle );  
  e.getByToken( AODVertexLabel_      ,  AODVertexHandle );
  e.getByToken( AODTrackLabel_       ,  AODTrackHandle );
+ e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
+ e.getByToken(genParticlesCollection_, genParticlesHandle);
 
  // Magnetic field
  es.get<IdealMagneticFieldRecord>().get(magneticField);
@@ -460,6 +573,11 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  whichVertex_ = vector<int>(AODTrackHandle->size(),-1);
 
  vtxfitter_ = new ConfigurableVertexReconstructor(lldj_pset_.getParameter<edm::ParameterSet>("vertexFitterConfig"));
+ int nrvtxs = AODVertexHandle->size();
+ AODEventvertexnum_=(nrvtxs);
+ AODVtxHandlePVvx_=AODVertexHandle->at(0).x();
+ AODVtxHandlePVvy_=AODVertexHandle->at(0).y();
+ AODVtxHandlePVvz_=AODVertexHandle->at(0).z();
 
  // clear master track vectors before starting track loop
  AODallTrackPositions       .clear(); 
@@ -474,6 +592,15 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  AODallTrackdxy             .clear(); 
  AODallTrackdxyerr          .clear(); 
 
+//Gen Jets-----------------------------
+  for (vector<reco::GenParticle>::const_iterator ip = genParticlesHandle->begin(); ip != genParticlesHandle->end(); ++ip) {
+   nGenPtcls_++;
+  if (ip->charge()!=0 && ip->status()==1) {
+  GenPtclPt.push_back(ip->pt());
+  GenPtclEta.push_back(ip->eta());
+  GenPtclPhi.push_back(ip->phi());}
+ 
+          }
  for(int j = 0; j < (int)AODTrackHandle->size(); j++){
 
   // get track j using the AOD track handle 
@@ -510,6 +637,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   AODallTrackEta.push_back(tracketa);
   AODallTrackPhi.push_back(trackphi);
   AODallTrackIFSPt.push_back(ttIFSpt);
+  //int matchedptcl = getGenMatchPtcl(tracketa,trackphi,trackpt);
+  //TrkMatchingRatio.push_back(matchedptcl); 
 
   /// Find best vertex associated with this track
   // we are on track j
@@ -524,6 +653,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    }                                                          
   }                                                            
   AODwhichVertexByTrack.push_back(bestk); 
+  AODTrackMaxWeight_.push_back(maxWeight);
   
   // Number of missing tracker hits 
   nMissingInner = tref->hitPattern().numberOfLostTrackerHits(reco::HitPattern::MISSING_INNER_HITS);
@@ -548,8 +678,16 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    GlobalVector innerMom = tsosInnerHit.globalMomentum();
    
    // calculate the difference between inner hit and beamspot
+   
    TVector2 sv(innerPos.x(),innerPos.y());
    TVector2 diff = (sv-bmspot);
+   float xrad = diff.X();
+   float yrad = diff.Y();
+   float radius = sqrt(xrad*xrad+yrad*yrad);
+   AODCaloJetTrackRadius_.push_back(radius);   
+
+
+
    //cout<<"bs x: "<<bmspot.X()<<" y: "<<bmspot.Y()<<endl;
    //cout<<" sv x: "<<sv.X()<<" y: "<<sv.Y()<<endl;
    //cout<<" diff phi: "<<diff.Phi()<<endl;
@@ -569,7 +707,6 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   if(verbose_AOD) printf(" dxy dxyerr: %0.4f %0.4f\n", dxy, dxyerr);
   AODallTrackdxy   .push_back(dxy   ) ;
   AODallTrackdxyerr.push_back(dxyerr) ;
-   
  }//end track loop
 
  //Debug printing
@@ -591,33 +728,71 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   printf("  AODallTrackdxy            %i \n",  (int)AODallTrackdxy          .size() ); 
   printf("  AODallTrackdxyerr         %i \n",  (int)AODallTrackdxyerr       .size() ); 
  }
-
+          
 
  // AOD Calo Jets -------------------------------------------
  for (edm::View<reco::CaloJet>::const_iterator iJet = AODak4CaloJetsHandle->begin(); iJet != AODak4CaloJetsHandle->end(); ++iJet) {
 
   if(verbose_AOD) printf("Calo %f \n",iJet->pt());
-  
   float jetpt  = iJet->pt();
   float jeteta = iJet->eta();
   float jetphi = iJet->phi();
-
+  //if(jetpt<12.0) continue;
+  int flownum=0; 
+  PreJetnum++;
   // ID and jet selections
   bool passID = false;
   if( iJet->emEnergyFraction()>=0.0
    && iJet->emEnergyFraction()<=0.9
    && iJet->energyFractionHadronic()>=0.0
    && iJet->energyFractionHadronic()<=0.9)  passID = true; 
-
-  if(iJet->pt()<20.0 || fabs(iJet->eta())>2.4 || !passID) continue;
-
+  AODCaloJetPt_.push_back(jetpt);
+  AODCaloJetEta_.push_back(fabs(jeteta));
+  AODCaloJetPhi_.push_back(jetphi);
+  PassID.push_back(passID);
+  emEF.push_back(iJet->emEnergyFraction());
+  eFH.push_back(iJet->energyFractionHadronic());
+  Cutflow.push_back(flownum);
+  if(iJet->pt()<20.0)  continue;
+  flownum+=1;
+  Cutflow.push_back(flownum);
+  if (fabs(iJet->eta())>2.4) continue;
+  flownum+=1;
+  Cutflow.push_back(flownum);
+  if (!passID) continue;
+  
+  flownum+=1;
+  Cutflow.push_back(flownum);
+  Jetnum++;
   // caloJetTrackIDs is a vector of ints where each int is the 
   // index of a track passing deltaR requirement to this jet
+
   // out of the master track record of tracks passing basic selections
   vector<int>   caloJetTrackIDs = getJetTrackIndexs( jeteta, jetphi );
   AODCaloJetNMatchedTracks_.push_back( caloJetTrackIDs.size() );
-
   if(caloJetTrackIDs.size()<1) continue;
+  JetTracknum++;
+  flownum+=1;
+  Cutflow.push_back(flownum);
+
+  //int jetptcls = finalMatching(caloJetTrackIDs);
+  //float jetratio = float(jetptcls)/float(caloJetTrackIDs.size());
+  //JetMatchingRatio.push_back(jetratio);
+
+
+
+
+
+  int TrkWeightZero = 0;
+  vector<int> PVtracks;
+  PVtracks.clear();
+  for(int k = 0; k < (int)caloJetTrackIDs.size();k++){
+  int trackID = caloJetTrackIDs[k];
+  if (AODwhichVertexByTrack[trackID] == 0) {TrkWeightZero += 1;
+  PVtracks.push_back(trackID);}}
+  TrkMaxWeighttoPV.push_back(TrkWeightZero);
+
+  //nGenMatchedTracks_.push_back( MatchingResult );
 
   if(verbose_AOD){
    printf(" AOD Jet pt eta phi: %0.1f %0.1f %0.1f\n",jetpt,jeteta,jetphi);
@@ -640,21 +815,39 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 
   // initialize variables
   float alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2 = -1.;
+  int MaxVtx;
   float totalTrackAngle, totalTrackAnglePt = 0.;
   float sumIP, sumIPSig = 0.;
+  float minMatchedRad = 0.;
   vector<float> caloJetTrackAngles; 
   caloJetTrackAngles.clear();
+    vector<float> MatchedRadius;
+  MatchedRadius.clear();
   vector<float> caloJetIPs; 
   caloJetIPs.clear();
   vector<float> caloJetIPSigs; 
   caloJetIPSigs.clear();
 
   // do calculations
-  calculateAlphaMax(caloJetTrackIDs,alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2);
+  calculateAlphaMax(caloJetTrackIDs,alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2, MaxVtx);
+  //vector<int> MaxVtxTrkIDs = MaxVtxTrackIDs(caloJetTrackIDs, MaxVtx); 
   calculateTrackAngle(caloJetTrackIDs, caloJetTrackAngles, totalTrackAngle, totalTrackAnglePt);
+  minMatchedRad = MatchRadiusTA(caloJetTrackIDs, MatchedRadius);
   calculateIP(caloJetTrackIDs, caloJetIPs, caloJetIPSigs, sumIP, sumIPSig);
   calculateDisplacedVertices(es, caloJetTrackIDs);
+  //MaxWeightPassedTrks.push_back(MaxVtxTrkIDs.size());
 
+  int matchedptcls = finalMatching(PVtracks);
+  float matchingratio;
+  if (TrkWeightZero !=0 ){matchingratio = float(matchedptcls)/float(TrkWeightZero);
+  MatchingRatio.push_back(matchingratio);
+  JetPVTracknum++;
+ 
+  flownum+=1;
+  Cutflow.push_back(flownum);
+}
+  if(matchingratio >0.95){HighGenMatchAM.push_back(alphaMax);}
+  else {LowGenMatchAM.push_back(alphaMax);}
   // find medians
   float medianTrackAngle;
   medianTrackAngle = findMedian(caloJetTrackAngles);
@@ -669,9 +862,6 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   AODnCaloJet_++;
   
   //Pt, Eta, Phi
-  AODCaloJetPt_.push_back(jetpt);
-  AODCaloJetEta_.push_back(jeteta);
-  AODCaloJetPhi_.push_back(jetphi);
   
   //AlphaMax-type variables
   AODCaloJetAlphaMax_       .push_back(alphaMax      ) ; 
@@ -684,8 +874,12 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   //Totals
   AODCaloJetSumIP_.push_back(sumIP);
   AODCaloJetSumIPSig_.push_back(sumIPSig);
-
-  AODCaloJetTotalTrackAngle_.push_back(totalTrackAngle);    
+  AODCaloJetTotalTrackAngle_.push_back(totalTrackAngle);
+  for(int k = 0; k < (int)MatchedRadius.size();k++){
+    float Nowradius = MatchedRadius[k];
+    MatchedRadius_.push_back(Nowradius);
+  }
+  MinMatchedRadius_.push_back(minMatchedRad);
 
   /////Medians
   AODCaloJetMedianIP_             .push_back(medianIP);
@@ -694,7 +888,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 
  }
 
-
+ /*
  // PAT jets for heavy flavor studies (ak4 pf chs)
  for (edm::View<pat::Jet>::const_iterator iJet = selectedPatJetsHandle->begin(); iJet != selectedPatJetsHandle->end(); ++iJet) {
 
@@ -796,6 +990,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 
   // initialize variables
   float alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2 = -1.;
+  int MaxVtx;
   float totalTrackAngle, totalTrackAnglePt = 0.;
   float sumIP, sumIPSig = 0.;
   vector<float> pfJetTrackAngles; 
@@ -806,7 +1001,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   pfJetIPSigs.clear();
 
   // do calculations
-  calculateAlphaMax(pfJetTrackIDs,alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2);
+  calculateAlphaMax(pfJetTrackIDs,alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2,MaxVtx);
   calculateTrackAngle(pfJetTrackIDs, pfJetTrackAngles, totalTrackAngle, totalTrackAnglePt);
   calculateIP(pfJetTrackIDs, pfJetIPs, pfJetIPSigs, sumIP, sumIPSig);
   //calculateDisplacedVertices(es, pfJetTrackIDs);
@@ -920,6 +1115,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 
   // initialize variables
   float alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2 = -1.;
+  int MaxVtx;
   float totalTrackAngle, totalTrackAnglePt = 0.;
   float sumIP, sumIPSig = 0.;
   vector<float> pfchsJetTrackAngles; 
@@ -930,7 +1126,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   pfchsJetIPSigs.clear();
 
   // do calculations
-  calculateAlphaMax(pfchsJetTrackIDs,alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2);
+  calculateAlphaMax(pfchsJetTrackIDs,alphaMax,alphaMaxPrime,beta,alphaMax2,alphaMaxPrime2,beta2,MaxVtx);
   calculateTrackAngle(pfchsJetTrackIDs, pfchsJetTrackAngles, totalTrackAngle, totalTrackAnglePt);
   calculateIP(pfchsJetTrackIDs, pfchsJetIPs, pfchsJetIPSigs, sumIP, sumIPSig);
   //calculateDisplacedVertices(es, pfchsJetTrackIDs);
@@ -974,9 +1170,41 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   AODPFchsJetMedianLog10TrackAngle_.push_back(log10(medianTrackAngle));
 
  }//end pfchs loop
- 
-}//end fill jets
+*/
+accPreJetnum+=PreJetnum;
+accJetnum+=Jetnum;
+accJetTracknum+=JetTracknum;
+accJetPVTracknum+=JetPVTracknum;
+jetsize += (int)AODak4CaloJetsHandle->size();
+//std::cout<<"For event #:"<<eventnum<<"_PreJet:"<<PreJetnum<<"_Jet"<<Jetnum<<"_Jettrack:"<<JetTracknum<<"_JetPVtrack:"<<JetPVTracknum<<std::endl;
 
+//if(eventnum % 100 ==0) {std::cout<<"For event #:"<<eventnum<<"_accPreJet:"<<accPreJetnum<<"_accJet:"<<accJetnum<<"_accJettrack:"<<accJetTracknum<<"_accJetPVtrack:"<<accJetPVTracknum<<std::endl;}
+//if(eventnum % 100 ==0) {std::cout<<"For event #:"<<eventnum<<"_accPreJet:"<<accPreJetnum<<"_or_thejetsize:"<<jetsize<<std::endl;}
+}//end fill jets
+vector<int> lldjNtuple::MaxVtxTrackIDs(vector<int> jetTrackIDs, int MaxVtx)
+{  vector<int> MaxVtxTrkID;
+  MaxVtxTrkID.clear();
+  for(int t=0; t< (int)jetTrackIDs.size(); t++){
+   int trackID = jetTrackIDs[t];
+   if (AODwhichVertexByTrack[trackID] == MaxVtx)
+   { 
+    MaxVtxTrkID.push_back(trackID);} }
+ 
+  nMaxVtxTracks_.push_back(MaxVtxTrkID.size());
+  return MaxVtxTrkID;
+}
+Int_t lldjNtuple::finalMatching (vector<int> jetTrackIDs)
+{
+  int goodmatch = 0;
+  for(int t=0; t< (int)jetTrackIDs.size(); t++){
+   int trackID = jetTrackIDs[t];
+  float tracketa = AODallTrackEta[trackID]; 
+  float trackphi = AODallTrackPhi[trackID]; 
+  float trackpt = AODallTrackPt[trackID];
+  goodmatch += getGenMatchPtcl(tracketa, trackphi, trackpt);
+}
+  return goodmatch;
+ }
 
 vector<int> lldjNtuple::getJetTrackIndexs( float jeteta, float jetphi )
 {
@@ -991,8 +1219,41 @@ vector<int> lldjNtuple::getJetTrackIndexs( float jeteta, float jetphi )
  return idvector;
 }
 
+Int_t lldjNtuple::getGenMatchPtcl( float tracketa, float trackphi, float trackpt)
+{vector<float> tempR;
+ tempR.clear();
+ vector<float> Ptratio;
+ Ptratio.clear();
+ float drt;
+ float ptratio;
+vector<int> matchedID;
+ int nMatch =0;
+ // loop over all selected tracks, dR match to jet
+ for( int i=0; i<(int)GenPtclEta.size(); i++){
+  float Gentracketa = GenPtclEta[i]; 
+  float Gentrackphi = GenPtclPhi[i];
+  float Gentrackpt  = GenPtclPt[i];
+  drt = deltaR( tracketa, trackphi, Gentracketa, Gentrackphi );
+  ptratio = Gentrackpt/trackpt;
+  if(drt < maxGenTrackRad_ && ptratio<1.1 && ptratio>0.9)
+   {tempR.push_back(drt);
+    Ptratio.push_back(ptratio);
+    matchedID.push_back(i); 
+    nMatch = 1;
+  }
+ }
+// float tmpsf = *min_element(begin(tempR), end(tempR));
+if(tempR.size()>0){int min_pos = distance(tempR.begin(),min_element(tempR.begin(),tempR.end()));
+    GenTrackR.push_back(tempR[min_pos]);
+ TrkPtRatio.push_back(Ptratio[min_pos]);
+ int index = matchedID[min_pos];
+ GenPtclEta.erase(GenPtclEta.begin()+index);
+ GenPtclPhi.erase(GenPtclPhi.begin()+index);
+ GenPtclPt.erase(GenPtclPt.begin()+index);}
+ return nMatch;
 
-void lldjNtuple::calculateAlphaMax(vector<int> jetTrackIDs, float& aMax, float& aMaxP, float& beta, float& aMax2, float& aMaxP2, float& beta2)
+}                
+void lldjNtuple::calculateAlphaMax(vector<int> jetTrackIDs, float& aMax, float& aMaxP, float& beta, float& aMax2, float& aMaxP2, float& beta2, int& MaxVtx)
 {
 
   float trackSumPt = 0; 
@@ -1027,6 +1288,11 @@ void lldjNtuple::calculateAlphaMax(vector<int> jetTrackIDs, float& aMax, float& 
    //printf("  track %i to vtx %i TS %i\n",
    // trackID, AODwhichVertexByTrack[trackID],
    // (int)trackSumPtByVtx.size());
+   AODCaloJetTrackVtxID_.push_back(AODwhichVertexByTrack[trackID]);
+   AODCaloJetTrackMaxWeight_.push_back(AODTrackMaxWeight_[trackID]);
+   if (AODwhichVertexByTrack[trackID]==0){AODCaloJetV0TrkWeight.push_back(AODTrackMaxWeight_[trackID]);}
+   else if (AODwhichVertexByTrack[trackID]==1){AODCaloJetV1TrkWeight.push_back(AODTrackMaxWeight_[trackID]);}
+   else {AODCaloJetV2TrkWeight.push_back(AODTrackMaxWeight_[trackID]);}
    trackSumPtByVtx[AODwhichVertexByTrack[trackID]] += trackpt;
    trackSumPtByVtx2[AODwhichVertexByTrack[trackID]] += (trackpt*trackpt);
   }
@@ -1047,8 +1313,10 @@ void lldjNtuple::calculateAlphaMax(vector<int> jetTrackIDs, float& aMax, float& 
   for(int i = 0; i < nrvtxs; i++){
     // find vertex number of max pt sum
     if(trackSumPtByVtx[i] > tmpMaxSumPt){
-     tmpMaxSumPt = trackSumPtByVtx[i];
-    }
+    
+      tmpMaxSumPt = trackSumPtByVtx[i];
+     MaxVtx =i;
+      }
     // calculate and fill apMax 
     double ap = trackSumPtByVtx[i] / (trackSumPtByVtx[i] + beta);
     double ap2 = trackSumPtByVtx2[i] / (trackSumPtByVtx2[i] + beta2);
@@ -1083,6 +1351,22 @@ void lldjNtuple::calculateTrackAngle(vector<int> jetTrackIDs, vector<float> &all
   
 }
 
+Float_t lldjNtuple::MatchRadiusTA(vector<int> jetTrackIDs, vector<float> &MatchedRadius)
+{
+
+  for(int t=0; t< (int)jetTrackIDs.size(); t++){
+    int trackID = jetTrackIDs[t];
+    // sum pt of all tracks passing dR cut
+         float trackradius    = AODCaloJetTrackRadius_[trackID];
+    
+    
+             MatchedRadius.push_back(trackradius);
+               }
+                 float tmpsf = *min_element(begin(MatchedRadius), end(MatchedRadius));
+                   return tmpsf;
+    
+                   }
+    
 void lldjNtuple::calculateIP(vector<int> jetTrackIDs, vector<float> &jetIPs, vector<float> &jetIPSigs, float &tsumIP, float &tsumIPSig)
 {
   

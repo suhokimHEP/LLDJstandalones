@@ -17,7 +17,7 @@ Int_t       AODnVtx_;
 Int_t       AODnGoodVtx_;
 Int_t       AODnTrksPV_;
 Bool_t      AODisPVGood_;
-
+Float_t       AODGenEventWeight_;
 
 void lldjNtuple::branchesAODEvent(TTree* tree) {
 
@@ -31,6 +31,7 @@ void lldjNtuple::branchesAODEvent(TTree* tree) {
   tree->Branch("AODnGoodVtx",             &AODnGoodVtx_);
   tree->Branch("AODnTrksPV",              &AODnTrksPV_);
   tree->Branch("AODisPVGood",             &AODisPVGood_);
+  tree->Branch("AODGenEventWeight",             &AODGenEventWeight_);
 
 }
 
@@ -80,6 +81,13 @@ void lldjNtuple::fillAODEvent(const edm::Event& e, const edm::EventSetup& es) {
    AODnVtx_++;
   } // if AODVertexHandle->at(k).isValid()
   else {edm::LogWarning("lldjNtuple") << "Primary vertices info not unavailable";}
-
+  edm::Handle<GenEventInfoProduct  >  AODGenEventInfoHandle;
+  e.getByToken( AODGenEventInfoLabel_      ,  AODGenEventInfoHandle );
+  //double qScale = AODGenEventInfoHandle->qScale();
+  //std::cout<<"qScale:"<<qScale<<std::endl;
+  //double theWeight = AODGenEventInfoHandle->weight();
+  //std::cout<<"weight:"<<theWeight<<std::endl;
+  AODGenEventWeight_ = AODGenEventInfoHandle->weight();
+  
   }
 }
