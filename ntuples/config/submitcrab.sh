@@ -55,7 +55,7 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
-  "DY50_1"               \
+  "ZH_HToSSTobbbb_MS-15_ctauS-1000"    \
 )
 
 # Signal Samples
@@ -83,6 +83,30 @@ samples=( \
 #  "ggZH_HToSSTobbbb_MS-15_ctauS-10"   \
 #  "ggZH_HToSSTobbbb_MS-15_ctauS-100"  \
 #  "ggZH_HToSSTobbbb_MS-15_ctauS-1000" \
+#  "WplusH_HToSSTobbbb_MS-55_ctauS-1"    \
+#  "WplusH_HToSSTobbbb_MS-55_ctauS-10"   \
+#  "WplusH_HToSSTobbbb_MS-55_ctauS-100"  \
+#  "WplusH_HToSSTobbbb_MS-55_ctauS-1000" \
+#  "WplusH_HToSSTobbbb_MS-40_ctauS-1"    \
+#  "WplusH_HToSSTobbbb_MS-40_ctauS-10"   \
+#  "WplusH_HToSSTobbbb_MS-40_ctauS-100"  \
+#  "WplusH_HToSSTobbbb_MS-40_ctauS-1000" \
+#  "WplusH_HToSSTobbbb_MS-15_ctauS-1"    \
+#  "WplusH_HToSSTobbbb_MS-15_ctauS-10"   \
+#  "WplusH_HToSSTobbbb_MS-15_ctauS-100"  \
+#  "WplusH_HToSSTobbbb_MS-15_ctauS-1000" \
+#  "WminusH_HToSSTobbbb_MS-55_ctauS-1"    \
+#  "WminusH_HToSSTobbbb_MS-55_ctauS-10"   \
+#  "WminusH_HToSSTobbbb_MS-55_ctauS-100"  \
+#  "WminusH_HToSSTobbbb_MS-55_ctauS-1000" \
+#  "WminusH_HToSSTobbbb_MS-40_ctauS-1"    \
+#  "WminusH_HToSSTobbbb_MS-40_ctauS-10"   \
+#  "WminusH_HToSSTobbbb_MS-40_ctauS-100"  \
+#  "WminusH_HToSSTobbbb_MS-40_ctauS-1000" \
+#  "WminusH_HToSSTobbbb_MS-15_ctauS-1"    \
+#  "WminusH_HToSSTobbbb_MS-15_ctauS-10"   \
+#  "WminusH_HToSSTobbbb_MS-15_ctauS-100"  \
+#  "WminusH_HToSSTobbbb_MS-15_ctauS-1000" \
 
 # Datasets
 #  "Data_SingleEle_H_3"   \
