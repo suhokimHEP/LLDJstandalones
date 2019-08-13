@@ -1753,15 +1753,15 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
        h_ratio->GetYaxis()->SetRangeUser(0.4,1.6);
        h_ratio->Draw("ep");  // draw first to get ranges set internally inside root
               
-       h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
-       h_ratiostaterr->Divide(h_bkgtotal);
+       //h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
+       //h_ratiostaterr->Divide(h_bkgtotal);
        
        ratiopad->Update();       // need to update pad to get X min/max
        TLine *line = new TLine(ratiopad->GetUxmin(),1,ratiopad->GetUxmax(),1);
        line->SetLineColor(kBlue);
        line->SetLineWidth(3);
        line->SetLineStyle(9);
-       h_ratiostaterr->Draw("e2 same");
+       //h_ratiostaterr->Draw("e2 same");
 
        line->Draw();
        h_ratio->Draw("ep same"); // draw points above line
@@ -1795,7 +1795,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      h_other_alt   ->Write();
      if( drawData ){
       h_ratio       ->Write();
-      h_ratiostaterr->Write();
+      //h_ratiostaterr->Write();
      }
      bgstack       ->Write();
      
