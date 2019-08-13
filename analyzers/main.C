@@ -192,6 +192,7 @@ int main(int argc, char **argv){
 
  // sample-dependent input variables 
  Float_t nrevents     ;
+ Float_t GenMean     ;
  Float_t crosssection ;
  Float_t avgTTSF = 1.    ;
 
@@ -239,18 +240,18 @@ int main(int argc, char **argv){
  if( isMC ){
    unccategories.push_back("_EGSUp");
    unccategories.push_back("_EGSDown");
-   unccategories.push_back("_MESUp");
-   unccategories.push_back("_MESDown");
-   //unccategories.push_back("_JESUp");
-   //unccategories.push_back("_JESDown");
-   unccategories.push_back("_AMaxUp");
-   unccategories.push_back("_AMaxDown");
-   unccategories.push_back("_IPSigUp");
-   unccategories.push_back("_IPSigDown");
-   unccategories.push_back("_TAUp");
-   unccategories.push_back("_TADown");
-   unccategories.push_back("_TagVarsUp");
-   unccategories.push_back("_TagVarsDown");
+   //unccategories.push_back("_MESUp");
+   //unccategories.push_back("_MESDown");
+   ////unccategories.push_back("_JESUp");
+   ////unccategories.push_back("_JESDown");
+   //unccategories.push_back("_AMaxUp");
+   //unccategories.push_back("_AMaxDown");
+   //unccategories.push_back("_IPSigUp");
+   //unccategories.push_back("_IPSigDown");
+   //unccategories.push_back("_TAUp");
+   //unccategories.push_back("_TADown");
+   //unccategories.push_back("_TagVarsUp");
+   //unccategories.push_back("_TagVarsDown");
   }
  
  // make the analyzer, init some stuff
@@ -295,6 +296,7 @@ int main(int argc, char **argv){
 
 
   analyzer.Loop(outfilename, lumi, nrevents, crosssection, avgTTSF, TIevts, optfile, NM1file, unccategory);
+  //analyzer.Loop(outfilename, lumi, TIevts, GenMean, crosssection, avgTTSF, TIevts, optfile, NM1file, unccategory);
  }
 
  //Close histogram output files

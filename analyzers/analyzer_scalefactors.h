@@ -14,7 +14,7 @@ public :
 
  // event based weights
  Float_t         makeEventWeight(Float_t crossSec, Float_t lumi,
-                                  Float_t nrEvents);
+                                  Float_t nrevents);
  void            loadPUWeight();
  Float_t         makePUWeight( TString dataset );
  TH1F*           PUWeights_DoubleEG     ;

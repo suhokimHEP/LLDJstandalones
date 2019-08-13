@@ -150,6 +150,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   //edm::EDGetTokenT<reco::VertexCollection>      AODVertexLabel_;
   edm::EDGetTokenT<edm::View<reco::Vertex>  >      AODVertexLabel_;
   edm::EDGetTokenT<edm::View<reco::Track>  >       AODTrackLabel_;
+  edm::EDGetTokenT<GenEventInfoProduct  >       AODGenEventInfoLabel_;
   const MagneticField*                             magneticField_;
   edm::ESHandle<Propagator>                        thePropagator_;
   edm::ESHandle<TransientTrackBuilder>             theBuilder_;

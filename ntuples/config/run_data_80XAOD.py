@@ -15,7 +15,7 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 #process.MessageLogger.cerr.FwkReport.reportEvery = 1
 #process.Tracer = cms.Service('Tracer')
@@ -23,7 +23,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 100
 # input files
 process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
-          'file:OnePhoData.root'
+         # 'file:OnePhoData.root'
         #'root://cms-xrd-global.cern.ch//store/data/Run2016G/SingleElectron/AOD/23Sep2016-v1/100000/62B0D6B4-D58A-E611-9F51-002590AC4B5C.root'
       #  'root://cms-xrd-global.cern.ch///store/data/Run2016H/DoubleEG/AOD/07Aug17-v1/10000/021C4224-7392-E711-8E7C-001F2908AEB6.root',
       #  'root://cms-xrd-global.cern.ch///store/data/Run2016H/DoubleEG/AOD/07Aug17-v1/10000/0268C748-CD92-E711-8E1D-44A842CFCA0D.root',
@@ -42,6 +42,13 @@ process.source = cms.Source('PoolSource',
       #  'root://cms-xrd-global.cern.ch///store/data/Run2016H/DoubleEG/AOD/07Aug17-v1/10000/08202392-3D92-E711-B42F-3417EBE34B01.root',
       #  'root://cms-xrd-global.cern.ch///store/data/Run2016H/DoubleEG/AOD/07Aug17-v1/10000/08972F55-7492-E711-B6F9-1CB72C1B6574.root',
       #  'root://cms-xrd-global.cern.ch///store/data/Run2016H/DoubleEG/AOD/07Aug17-v1/10000/08C6FAF6-B492-E711-8B3E-24BE05C6C7F1.root'
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/50000/5410A2AC-2788-E611-BBC0-6CC2173BBEF0.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/90000/BA3E912A-A888-E611-B2EF-001E67DBE881.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/50001/50E46F68-A588-E611-97FB-0CC47A1DF7FA.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/50000/A4E7E032-6D88-E611-8354-0025904CF710.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/90001/FE8E4295-708D-E611-BBA0-00237DF244A8.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/90001/FE34DFC8-928B-E611-A206-1CC1DE192766.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2016G/DoubleEG/AOD/23Sep2016-v1/90001/F094755A-D588-E611-8926-0CC47AA989BA.root'
  ),
 )
 
@@ -142,6 +149,7 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
  AODVertexSrc              = cms.InputTag('offlinePrimaryVertices', '', 'RECO'),
  AODTrackSrc               = cms.InputTag('generalTracks', '', 'RECO'),
+ AODGenEventInfoSrc               = cms.InputTag('generator', '', 'SIM'), 
  vertexFitterConfig = cms.PSet(
         finder = cms.string('avf'),
         sigmacut = cms.double(10.),

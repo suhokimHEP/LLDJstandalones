@@ -118,6 +118,26 @@ vector<float>  AODCaloJetAvfDistToPV_;
 vector<float>  AODCaloJetAvfVertexDeltaZtoPV_;
 vector<float>  AODCaloJetAvfVertexDeltaZtoPV2_;
 
+
+vector<int> Cutflow;
+vector<float> NoCutAODCaloJetPt_;
+vector<float> NoCutAODCaloJetEta_;
+vector<float> NoCutemEF;
+vector<float> NoCuteFH;
+vector<float>  PtCutAODCaloJetPt_;
+vector<float>  PtCutAODCaloJetEta_;
+vector<float> PtCutemEF;
+vector<float> PtCuteFH;
+vector<float>  EtaCutAODCaloJetPt_;
+vector<float>  EtaCutAODCaloJetEta_;
+vector<float> EtaCutemEF;
+vector<float> EtaCuteFH;
+vector<float> FracCutAODCaloJetPt_;
+vector<float> FracCutAODCaloJetEta_;
+vector<float> FracCutemEF;
+vector<float> FracCuteFH;
+vector<float> AllCutemEF;
+vector<float> AllCuteFH;
 // PAT Jets
 Int_t          AODnPATJet_;
 vector<int>    AODPATJetPartonFlavour_;
@@ -246,6 +266,28 @@ void lldjNtuple::branchesAODJets(TTree* tree) {
   tree->Branch("AODCaloJetAvfVertexDeltaZtoPV", &AODCaloJetAvfVertexDeltaZtoPV_);
   tree->Branch("AODCaloJetAvfVertexDeltaZtoPV2", &AODCaloJetAvfVertexDeltaZtoPV2_);
 
+
+  tree->Branch("Cutflow", &Cutflow);
+  tree->Branch("NoCutAODCaloJetPt"                  , &NoCutAODCaloJetPt_);
+  tree->Branch("NoCutAODCaloJetEta"                 , &NoCutAODCaloJetEta_);
+  tree->Branch("NoCutemEF", &NoCutemEF);
+  tree->Branch("NoCuteFH", &NoCuteFH);
+  tree->Branch("PtCutAODCaloJetPt"                  , &PtCutAODCaloJetPt_);
+  tree->Branch("PtCutAODCaloJetEta"                 , &PtCutAODCaloJetEta_);
+  tree->Branch("PtCutemEF", &PtCutemEF);
+  tree->Branch("PtCuteFH", &PtCuteFH);
+  tree->Branch("EtaCutAODCaloJetPt"                  , &EtaCutAODCaloJetPt_);
+  tree->Branch("EtaCutAODCaloJetEta"                 , &EtaCutAODCaloJetEta_);
+  tree->Branch("EtaCutemEF", &EtaCutemEF);
+  tree->Branch("EtaCuteFH", &EtaCuteFH);
+  tree->Branch("FracCutAODCaloJetPt"                  , &FracCutAODCaloJetPt_);
+  tree->Branch("FracCutAODCaloJetEta"                 , &FracCutAODCaloJetEta_);
+  tree->Branch("FracCutemEF", &FracCutemEF);
+  tree->Branch("FracCuteFH", &FracCuteFH);
+  tree->Branch("AllCutemEF", &AllCutemEF);
+  tree->Branch("AllCuteFH", &AllCuteFH);
+
+
   tree->Branch("AODnPATJet",              &AODnPATJet_);
   tree->Branch("AODPATJetPartonFlavour",  &AODPATJetPartonFlavour_);
   tree->Branch("AODPATJetPt",             &AODPATJetPt_);
@@ -354,6 +396,25 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  AODCaloJetAvfVertexDeltaZtoPV_.clear();
  AODCaloJetAvfVertexDeltaZtoPV2_.clear();
 
+ Cutflow.clear();
+ NoCutAODCaloJetPt_.clear();
+ NoCutAODCaloJetEta_.clear();
+ NoCutemEF.clear();
+ NoCuteFH.clear();
+ PtCutAODCaloJetPt_.clear();
+ PtCutAODCaloJetEta_.clear();
+ PtCutemEF.clear();
+ PtCuteFH.clear();
+ EtaCutAODCaloJetPt_.clear();
+ EtaCutAODCaloJetEta_.clear();
+ EtaCutemEF.clear();
+ EtaCuteFH.clear();
+ FracCutAODCaloJetPt_.clear();
+ FracCutAODCaloJetEta_.clear();
+ FracCutemEF.clear();
+ FracCuteFH.clear();
+ AllCutemEF.clear();
+ AllCuteFH.clear();
  // PAT Jets
  AODnPATJet_ = 0;
  AODPATJetPartonFlavour_.clear();
@@ -601,6 +662,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   float jetpt  = iJet->pt();
   float jeteta = iJet->eta();
   float jetphi = iJet->phi();
+  int flownum=0; 
 
   // ID and jet selections
   bool passID = false;
@@ -608,8 +670,36 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    && iJet->emEnergyFraction()<=0.9
    && iJet->energyFractionHadronic()>=0.0
    && iJet->energyFractionHadronic()<=0.9)  passID = true; 
+  
+  NoCutAODCaloJetPt_.push_back(jetpt);
+  NoCutAODCaloJetEta_.push_back(fabs(jeteta));
+  NoCutemEF.push_back(iJet->emEnergyFraction());
+  NoCuteFH.push_back(iJet->energyFractionHadronic());
+  Cutflow.push_back(flownum);
 
-  if(iJet->pt()<20.0 || fabs(iJet->eta())>2.4 || !passID) continue;
+  if(iJet->pt()<20.0)  continue;
+  PtCutAODCaloJetPt_.push_back(jetpt);
+  PtCutAODCaloJetEta_.push_back(fabs(jeteta));
+  PtCutemEF.push_back(iJet->emEnergyFraction());
+  PtCuteFH.push_back(iJet->energyFractionHadronic());
+  flownum+=1;
+  Cutflow.push_back(flownum);
+
+  if (fabs(iJet->eta())>2.4) continue;
+  EtaCutAODCaloJetPt_.push_back(jetpt);
+  EtaCutAODCaloJetEta_.push_back(fabs(jeteta));
+  EtaCutemEF.push_back(iJet->emEnergyFraction());
+  EtaCuteFH.push_back(iJet->energyFractionHadronic());
+  flownum+=1;
+  Cutflow.push_back(flownum);
+
+  if (!passID) continue;
+  FracCutAODCaloJetPt_.push_back(jetpt);
+  FracCutAODCaloJetEta_.push_back(fabs(jeteta));
+  FracCutemEF.push_back(iJet->emEnergyFraction());
+  FracCuteFH.push_back(iJet->energyFractionHadronic());
+  flownum+=1;
+  Cutflow.push_back(flownum);
 
   // caloJetTrackIDs is a vector of ints where each int is the 
   // index of a track passing deltaR requirement to this jet
@@ -618,6 +708,10 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   AODCaloJetNMatchedTracks_.push_back( caloJetTrackIDs.size() );
 
   if(caloJetTrackIDs.size()<1) continue;
+  AllCutemEF.push_back(iJet->emEnergyFraction());
+  AllCuteFH.push_back(iJet->energyFractionHadronic());
+  flownum+=1;
+  Cutflow.push_back(flownum);
 
   if(verbose_AOD){
    printf(" AOD Jet pt eta phi: %0.1f %0.1f %0.1f\n",jetpt,jeteta,jetphi);

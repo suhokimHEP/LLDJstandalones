@@ -17,7 +17,7 @@ analyzer_loop::~analyzer_loop()
 }
 
 void analyzer_loop::Loop(TString outfilename, 
-                       Float_t lumi, Float_t nrEvents,
+                       Float_t lumi, Float_t nrevents,
                        Float_t crossSec, Float_t avgTTSF,
                        Int_t nevts, TFile *optfile, TFile *NM1file, TString uncbin)
 {
@@ -40,6 +40,8 @@ void analyzer_loop::Loop(TString outfilename,
  if(isMC) loadElectronWeight( eleid );
 
  std::cout<<"uncbin: "<<uncbin<<std::endl;
+ TH1F* h_AODEventWeight = new TH1F("h_AODEventWeight","h_AODEventWeight",500,0,10);
+ TH1F* h_AODTotWeight = new TH1F("h_AODTotWeight","h_AODTotEventWeight",500,0,10);
 
 TFile *outfile_bkgest = 0;
  bool doBkgEst = true;
@@ -48,7 +50,6 @@ TFile *outfile_bkgest = 0;
    outfile_bkgest = TFile::Open(outfilename+"_BkgEst.root","RECREATE");
    loadMistagRate();
  }
-
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -148,7 +149,8 @@ TFile *outfile_bkgest = 0;
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
-  event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  //event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  event_weight = makeEventWeight(crossSec,lumi,nrevents);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
   if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
@@ -168,22 +170,35 @@ TFile *outfile_bkgest = 0;
   // set booleans if pass selections 
   passOSSF = (dilep_mass>20.);
   passOSOF = (OSOF_mass>20.);
-  passPTOSOF = (OSOF_pt>100.);
+  //passPTOSOF = (OSOF_pt>100.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
+  //passZWindow = true;
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
-  passPTOSSF  = (dilep_pt>100.);
+  passPTOSSF  = (dilep_pt>10.);
+  if(passZWindow) Zmcount += 1;
+
+  //passPTOSSF  = true;
   passGoodVtx = AODnGoodVtx>0; 
+  //passGoodVtx = true; 
+  if(passGoodVtx) goodVcount += 1;
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
+
+  //passOneJet  = true;   
+  if(passOneJet) OJcount += 1;
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
   passTwoTag  = false; if (taggedjet_list.size()>1) passTwoTag=true;  
   
   passSingleEle = askPassSingleEle();
   passSingleMu  = askPassSingleMu();
   passDoubleEle = askPassDoubleEle();
+  //passDoubleEle = true;
+  if(passDoubleEle) DEcount += 1;
   passDoubleMu  = askPassDoubleMu();
+  //passDoubleMu  = false;
+  if(passDoubleMu) DMcount += 1;
   passMuEG      = askPassMuEG();
   passSinglePho = askPassSinglePho();
-
+ //std::cout<<passDoubleEle<<"&"<<passGoodVtx<<"&"<<passZWindow<<"&"<<!passPTOSSF<<"&"<<passOneJet<<std::endl; 
   // clear then reset selection vectors
   clearSelections();
   setSelections();
@@ -232,7 +247,11 @@ TFile *outfile_bkgest = 0;
   keyPassEleMuOSOF    = setSelKey( selvecEleMuOSOF    ); 
   keyPassEleMuOSOFL   = setSelKey( selvecEleMuOSOFL   ); 
   keyPassOnePho       = setSelKey( selvecOnePho       ); 
-
+ // std::cout<<"TwoEleDYselvec"<<std::endl;
+ //  std::copy(std::begin(selvecTwoEleDY),
+ //             std::end(selvecTwoEleDY),
+ //                        std::ostream_iterator<bool>(std::cout, "\n"));
+                         
   //debug_printbitset(); // this is a big printout
   //debug_printbitkeys(); // this is a big printout
 
@@ -258,7 +277,7 @@ TFile *outfile_bkgest = 0;
   selvec[18] = bitsPassEleMuOSOF    ; 
   selvec[19] = bitsPassOnePho       ; 
   selvec[20] = bitsPassEleMuOSOFL   ; 
-
+//std::cout<<selvec[5]<<std::endl;
   selkey[0]  = keyPassOneEleSig    ; 
   selkey[1]  = keyPassTwoEleSig    ; 
   selkey[2]  = keyPassOneMuSig     ; 
@@ -280,7 +299,8 @@ TFile *outfile_bkgest = 0;
   selkey[18] = keyPassEleMuOSOF    ; 
   selkey[19] = keyPassOnePho       ; 
   selkey[20] = keyPassEleMuOSOFL   ; 
-
+//std::cout<<selkey[5]<<std::endl;
+//std::cout<<"---------------------------------------------------------------"<<std::endl;
   dofillselbin[0]  = ( ( bitsPassOneEleSig    >> 0) &1) ; 
   dofillselbin[1]  = ( ( bitsPassTwoEleSig    >> 0) &1) ; 
   dofillselbin[2]  = ( ( bitsPassOneMuSig     >> 0) &1) ; 
@@ -376,10 +396,25 @@ TFile *outfile_bkgest = 0;
 
    /// quick hack to only write phase spaces we care about
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
-    fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
-    if( dofillselbin[i] ){
-     fillSelectedHistograms( fullweight, i );
+    //fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
+    //fillDiCutflowHistograms( fullweight, i, selvec[i]);
 
+    if( dofillselbin[i] ){
+        //std::cout<<".................."<<std::endl;
+        //std::cout<<"This is region:"<<i<<std::endl;
+        //std::cout<<"fourVec_l1's pt,eta,phi,E is :"<<fourVec_l1.Pt()<<" & "<<fourVec_l1.Eta()<<" & "<<fourVec_l1.Phi()<<" & "<<fourVec_l1.E()<<std::endl;
+        //std::cout<<"fourVec_l2's pt,eta,phi,E is :"<<fourVec_l2.Pt()<<" & "<<fourVec_l2.Eta()<<" & "<<fourVec_l2.Phi()<<" & "<<fourVec_l2.E()<<std::endl;
+        //std::cout<<"fourVec_l1+2's pt,eta,phi,E is :"<<fourVec_ll.Pt()<<" & "<<fourVec_ll.Eta()<<" & "<<abs(fourVec_l1.Phi()-fourVec_l2.Phi())<<" & "<<fourVec_ll.E()<<std::endl;
+        //std::cout<<"dilep_mass is:"<<dilep_mass<<" and  dilep_pt is:"<<dilep_pt<<std::endl;
+
+     if(i==9){h_AODEventWeight->Fill(event_weight);
+              h_AODTotWeight->Fill(fullweight);}
+     fillSelectedHistograms( fullweight, i );
+    //std::cout<<"EventWeight in region"<<i<<":"<<event_weight<<std::endl;
+    //std::cout<<"AODnTruePU in region"<<i<<":"<<AODnTruePU<<std::endl;
+
+    //std::cout<<"Total Weight in region"<< i <<":"<<fullweight<<std::endl;
+    //std::cout<<"---------------------------------------------"<<std::endl;
      //jets
      if(jetMultOn){
      for( unsigned int k=0; k<jetmultnames.size(); ++k){
@@ -410,6 +445,11 @@ TFile *outfile_bkgest = 0;
  std::cout << std::endl;
  std::cout << std::endl;
  std::cout << " Summary     cleaning dR=" << objcleandRcut << std::endl;
+ //std::cout << " Zmcount=" << Zmcount << std::endl;
+ //std::cout << " OJcount=" << OJcount << std::endl;
+ //std::cout << " goodVcount=" << goodVcount << std::endl;
+ //std::cout << " DEcount=" << DEcount << std::endl;
+ //std::cout << " DMcount=" << DMcount << std::endl;
 
  std::cout << " Total events processed  " << n_tot << std::endl;
 
@@ -480,9 +520,15 @@ TFile *outfile_bkgest = 0;
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity
     //scaleVariableBinHistograms( i ); //broken
+     if(i==9){hist_file_out[i]->cd();	
+	h_AODEventWeight->Write();	
+	h_AODTotWeight->Write();	
+
+	}
      
      writeSelectedHistograms( i );
-     writeCutflowHistograms( i );
+     //writeCutflowHistograms( i );
+     //writeDiCutflowHistograms( i );
 
      //jet
      if(jetMultOn){

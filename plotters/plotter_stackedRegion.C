@@ -114,10 +114,42 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  variables.clear();
 
 /////variables.push_back("nSelectedAODCaloJetTag");
-/////variables.push_back("AOD_dilepton_Pt");
+variables.push_back("AOD_dilepton_Pt");
+variables.push_back("AOD_dilepton_Mass");
+//variables.push_back("pt_leadpt");   
+//variables.push_back("pt_leadEta");  
+//variables.push_back("pt_leadE");    
+//variables.push_back("pt_lagpt");    
+//variables.push_back("pt_lagEta");   
+//variables.push_back("pt_lagE");     
+//variables.push_back("pt_dilepEta"); 
+//variables.push_back("pt_dilepdiff");  
+//variables.push_back("pt_dilepE");   
+//variables.push_back("lowpt_leadpt");   
+//variables.push_back("lowpt_leadEta");  
+//variables.push_back("lowpt_leadE");    
+//variables.push_back("lowpt_lagpt");    
+//variables.push_back("lowpt_lagEta");   
+//variables.push_back("lowpt_lagE");     
+//variables.push_back("lowpt_dileppt");  
+//variables.push_back("lowpt_dilepEta"); 
+//variables.push_back("lowpt_dilepdiff");  
+//variables.push_back("lowpt_dilepE");   
+//variables.push_back("lowpt_dilepMass");
+//variables.push_back("highpt_leadpt");   
+//variables.push_back("highpt_leadEta");  
+//variables.push_back("highpt_leadE");    
+//variables.push_back("highpt_lagpt");    
+//variables.push_back("highpt_lagEta");   
+//variables.push_back("highpt_lagE");     
+//variables.push_back("highpt_dileppt");  
+//variables.push_back("highpt_dilepEta"); 
+//variables.push_back("highpt_dilepdiff");  
+//variables.push_back("highpt_dilepE");   
+//variables.push_back("highpt_dilepMass");
 /////variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
 /////variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
-/////variables.push_back("AllJets_AODCaloJetAlphaMax");
+//variables.push_back("AllJets_AODCaloJetAlphaMax");
 
  //variables.push_back("nSelectedAODCaloJet_L1PFTag");
  //variables.push_back("AllJets_AODCaloJet_L1PFMedianLog10IPSig");
@@ -139,16 +171,6 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 ///// variables.push_back("AOD_phoPt");                 
 ///// variables.push_back("AOD_phoEta");                 
 ///// variables.push_back("AOD_phoPhi");                 
-///// variables.push_back("AOD_nEle");                   
-///// variables.push_back("AOD_elePt");                  
-///// variables.push_back("AOD_eleEta");                 
-///// variables.push_back("AOD_elePhi");                 
-///// variables.push_back("AOD_nMu");                    
-///// variables.push_back("AOD_muPt");                   
-///// variables.push_back("AOD_muEta");                  
-///// variables.push_back("AOD_muPhi");                  
- variables.push_back("AOD_nEle");                  
- 
  //variables.push_back("htall"); 
  //variables.push_back("htaodcalojets");
  //variables.push_back("AOD_nSelectedPho");
@@ -165,9 +187,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  //variables.push_back("AllJets_AODCaloJetdR_Tag0");
  //variables.push_back("AllJets_AODCaloJetNCleanMatchedTracks");
  //variables.push_back("AllJets_AODCaloJetNCleanMatchedTracks_Tag0");
-///// variables.push_back("AllJets_AODCaloJetPt");                      
+  variables.push_back("AllJets_AODCaloJetPt");                      
 ///// //variables.push_back("AllJets_AODCaloJetEn");                      
-///// variables.push_back("AllJets_AODCaloJetEta");                     
+  variables.push_back("AllJets_AODCaloJetEta");                     
 ///// variables.push_back("AllJets_AODCaloJetPhi");                     
  //-----all variables after NMinus will have dolog=true, sorry
  //variables.push_back("NMinus");                   
@@ -611,9 +633,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 //// file_Data_SingleEle_D              =  TFile::Open( inpath + "Data_SingleEle_D_"+region+"_histograms.root"      ) ; 
 //// file_Data_SingleEle_C              =  TFile::Open( inpath + "Data_SingleEle_C_"+region+"_histograms.root"      ) ; 
 //// file_Data_SingleEle_B_2            =  TFile::Open( inpath + "Data_SingleEle_B_2_"+region+"_histograms.root"    ) ; 
- file_Data_SinglePhoton_H_3         =  TFile::Open( inpath + "Data_SinglePhoton_H_3_"+region+"_histograms.root" ) ; 
- file_Data_SinglePhoton_H_2         =  TFile::Open( inpath + "Data_SinglePhoton_H_2_"+region+"_histograms.root" ) ; 
- file_Data_SinglePhoton_G           =  TFile::Open( inpath + "Data_SinglePhoton_G_"+region+"_histograms.root"   ) ; 
+/// file_Data_SinglePhoton_H_3         =  TFile::Open( inpath + "Data_SinglePhoton_H_3_"+region+"_histograms.root" ) ; 
+/// file_Data_SinglePhoton_H_2         =  TFile::Open( inpath + "Data_SinglePhoton_H_2_"+region+"_histograms.root" ) ; 
+/// file_Data_SinglePhoton_G           =  TFile::Open( inpath + "Data_SinglePhoton_G_"+region+"_histograms.root"   ) ; 
 // file_Data_SinglePhoton_F           =  TFile::Open( inpath + "Data_SinglePhoton_F_"+region+"_histograms.root"   ) ; 
 // file_Data_SinglePhoton_E           =  TFile::Open( inpath + "Data_SinglePhoton_E_"+region+"_histograms.root"   ) ; 
 // file_Data_SinglePhoton_D           =  TFile::Open( inpath + "Data_SinglePhoton_D_"+region+"_histograms.root"   ) ; 
@@ -656,7 +678,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
         variable.Contains("Log10IPSig") || 
         variable.Contains("Log10TrackAngle") || 
         variable.Contains("AlphaMax")) ) {
-      drawData=false;
+      drawData=true;
     }
     if(variable.Contains("Raw")){
      drawData=false;
@@ -776,9 +798,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      //h_Data_SingleEle_C      = (TH1F*) file_Data_SingleEle_C      -> Get("h_"+varname)->Clone( "Data_SingleEle_C"       ) ; 
      //h_Data_SingleEle_B_2    = (TH1F*) file_Data_SingleEle_B_2    -> Get("h_"+varname)->Clone( "Data_SingleEle_B_2"     ) ; 
      */
-     h_Data_SinglePhoton_H_3 = (TH1F*) file_Data_SinglePhoton_H_3 -> Get("h_"+varname)->Clone( "Data_SinglePhoton_H_3"  ) ; 
-     h_Data_SinglePhoton_H_2 = (TH1F*) file_Data_SinglePhoton_H_2 -> Get("h_"+varname)->Clone( "Data_SinglePhoton_H_2"  ) ; 
-     h_Data_SinglePhoton_G   = (TH1F*) file_Data_SinglePhoton_G   -> Get("h_"+varname)->Clone( "Data_SinglePhoton_G"    ) ; 
+     //h_Data_SinglePhoton_H_3 = (TH1F*) file_Data_SinglePhoton_H_3 -> Get("h_"+varname)->Clone( "Data_SinglePhoton_H_3"  ) ; 
+     //h_Data_SinglePhoton_H_2 = (TH1F*) file_Data_SinglePhoton_H_2 -> Get("h_"+varname)->Clone( "Data_SinglePhoton_H_2"  ) ; 
+     //h_Data_SinglePhoton_G   = (TH1F*) file_Data_SinglePhoton_G   -> Get("h_"+varname)->Clone( "Data_SinglePhoton_G"    ) ; 
      //h_Data_SinglePhoton_F   = (TH1F*) file_Data_SinglePhoton_F   -> Get("h_"+varname)->Clone( "Data_SinglePhoton_F"    ) ; 
      //h_Data_SinglePhoton_E   = (TH1F*) file_Data_SinglePhoton_E   -> Get("h_"+varname)->Clone( "Data_SinglePhoton_E"    ) ; 
      //h_Data_SinglePhoton_D   = (TH1F*) file_Data_SinglePhoton_D   -> Get("h_"+varname)->Clone( "Data_SinglePhoton_D"    ) ; 
@@ -984,17 +1006,17 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
         h_Data->Add( h_Data_DoubleMu_H_2 )     ; 
         h_Data->Add( h_Data_DoubleMu_H_3 )     ; 
      }
-     if( region.Contains("OnePho") ){
-        h_Data = (TH1F*)h_Data_SinglePhoton_G->Clone("Data");
-        h_Data->Add( h_Data_SinglePhoton_H_2 )     ; 
-        h_Data->Add( h_Data_SinglePhoton_H_3 )     ; 
-     }
+     //if( region.Contains("OnePho") ){
+     //   h_Data = (TH1F*)h_Data_SinglePhoton_G->Clone("Data");
+     //   h_Data->Add( h_Data_SinglePhoton_H_2 )     ; 
+     //   h_Data->Add( h_Data_SinglePhoton_H_3 )     ; 
+     //}
      if( region.Contains("EleMu") ){
         h_Data = (TH1F*)h_Data_MuonEG_G->Clone("Data");
         h_Data->Add( h_Data_MuonEG_H_2 )     ; 
         h_Data->Add( h_Data_MuonEG_H_3 )     ; 
      }
-     
+     	h_Data->Scale(1.8); 
      //CSV-style printout for Ted
      if(varname.Contains("nSelectedAODCaloJetTag") && !extraname.Contains("log") && uncbin==""){
        TString fname = "forTed_"; fname+=varname; fname+=".csv";
@@ -1165,9 +1187,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      // Float_t  int_Data_SingleEle_D         = h_Data_SingleEle_D                ->Integral(0,-1);                   
      // Float_t  int_Data_SingleEle_C         = h_Data_SingleEle_C                ->Integral(0,-1);                   
      // Float_t  int_Data_SingleEle_B_2       = h_Data_SingleEle_B_2              ->Integral(0,-1);                   
-     Float_t  int_Data_SinglePhoton_H_3    = h_Data_SinglePhoton_H_3           ->Integral(0,-1);                     
-     Float_t  int_Data_SinglePhoton_H_2    = h_Data_SinglePhoton_H_2           ->Integral(0,-1);                     
-     Float_t  int_Data_SinglePhoton_G      = h_Data_SinglePhoton_G             ->Integral(0,-1);                     
+     //Float_t  int_Data_SinglePhoton_H_3    = h_Data_SinglePhoton_H_3           ->Integral(0,-1);                     
+     //Float_t  int_Data_SinglePhoton_H_2    = h_Data_SinglePhoton_H_2           ->Integral(0,-1);                     
+     //Float_t  int_Data_SinglePhoton_G      = h_Data_SinglePhoton_G             ->Integral(0,-1);                     
      // Float_t  int_Data_SinglePhoton_F      = h_Data_SinglePhoton_F             ->Integral(0,-1);                     
      // Float_t  int_Data_SinglePhoton_E      = h_Data_SinglePhoton_E             ->Integral(0,-1);                     
      // Float_t  int_Data_SinglePhoton_D      = h_Data_SinglePhoton_D             ->Integral(0,-1);                     
@@ -1350,9 +1372,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
   //   fprintf (outfulltable, "Data SingleEle C        & %3.1f \\\\\n", int_Data_SingleEle_C       ) ; 
   //   fprintf (outfulltable, "Data SingleEle B 2      & %3.1f \\\\\n", int_Data_SingleEle_B_2     ) ; 
   */
-       fprintf (outfulltable, "Data SinglePhoton H 3   & %3.1f \\\\\n", int_Data_SinglePhoton_H_3  ) ; 
-       fprintf (outfulltable, "Data SinglePhoton H 2   & %3.1f \\\\\n", int_Data_SinglePhoton_H_2  ) ; 
-       fprintf (outfulltable, "Data SinglePhoton G     & %3.1f \\\\\n", int_Data_SinglePhoton_G    ) ; 
+  //     fprintf (outfulltable, "Data SinglePhoton H 3   & %3.1f \\\\\n", int_Data_SinglePhoton_H_3  ) ; 
+  //     fprintf (outfulltable, "Data SinglePhoton H 2   & %3.1f \\\\\n", int_Data_SinglePhoton_H_2  ) ; 
+  //     fprintf (outfulltable, "Data SinglePhoton G     & %3.1f \\\\\n", int_Data_SinglePhoton_G    ) ; 
   //   fprintf (outfulltable, "Data SinglePhoton F     & %3.1f \\\\\n", int_Data_SinglePhoton_F    ) ; 
   //   fprintf (outfulltable, "Data SinglePhoton E     & %3.1f \\\\\n", int_Data_SinglePhoton_E    ) ; 
   //   fprintf (outfulltable, "Data SinglePhoton D     & %3.1f \\\\\n", int_Data_SinglePhoton_D    ) ; 

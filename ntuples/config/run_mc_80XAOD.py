@@ -16,7 +16,7 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 #process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(30) ) 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(20000) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 # input files
@@ -27,8 +27,16 @@ process.source = cms.Source('PoolSource',
 #'file:gjets400to600_20F153C7-E8BB-E611-BE31-0CC47A4C8E82.root' 
 #'file:D420E413-FDC8-E611-869C-00259021A342.root' 
 #'file:/uscms_data/d3/tmperry/roots/AOD_ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_D6822833-FEC8-E611-8CD1-002590E7D7DE.root',
-'file:/uscms_data/d3/tmperry/roots/AOD_TTJets_BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root',
-
+#'file:/uscms_data/d3/tmperry/roots/AOD_TTJets_BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/1C57415B-EBE4-E611-9C22-0025905A60F8.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/1AEF583B-D6E4-E611-9962-FA163ECBDEE3.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/18F2221D-E3E4-E611-80CA-A0000420FE80.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/18AAD61B-E8E3-E611-9E75-008CFA1980B8.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/18A9646C-C9E3-E611-95CB-0090FAA57310.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/16A526DB-15E5-E611-8AF8-0025901D4936.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/16A21D0F-F8E4-E611-A579-FA163EC163E2.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/1495F6B3-01E5-E611-AFC1-A0000420FE80.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/80000/120C9EE6-F8E4-E611-9671-02163E012D99.root'
 #'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root'
 
  ),
@@ -126,6 +134,7 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
  AODVertexSrc              = cms.InputTag('offlinePrimaryVertices', '', 'RECO'),
  AODTrackSrc               = cms.InputTag('generalTracks', '', 'RECO'),
+ AODGenEventInfoSrc               = cms.InputTag('generator', '', 'SIM'), 
  vertexFitterConfig = cms.PSet(
         finder = cms.string('avf'),
         sigmacut = cms.double(10.),
