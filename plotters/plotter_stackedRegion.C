@@ -113,7 +113,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  std::vector<TString> variables;
  variables.clear();
 
-/////variables.push_back("nSelectedAODCaloJetTag");
+variables.push_back("nSelectedAODCaloJetTag");
 /////variables.push_back("AOD_dilepton_Pt");
 /////variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
 /////variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
@@ -147,7 +147,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 ///// variables.push_back("AOD_muPt");                   
 ///// variables.push_back("AOD_muEta");                  
 ///// variables.push_back("AOD_muPhi");                  
- variables.push_back("AOD_nEle");                  
+///// variables.push_back("AOD_nEle");                  
  
  //variables.push_back("htall"); 
  //variables.push_back("htaodcalojets");
@@ -653,17 +653,17 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
     //Override drawData for nTag signal region
     if(region.Contains("ZH") && 
        (variable=="nSelectedAODCaloJetTag" || 
-        variable.Contains("Log10IPSig") || 
-        variable.Contains("Log10TrackAngle") || 
-        variable.Contains("AlphaMax")) ) {
+	variable.Contains("Log10IPSig") || 
+	variable.Contains("Log10TrackAngle") || 
+	variable.Contains("AlphaMax")) ) {
       drawData=false;
     }
     if(variable.Contains("Raw")){
      drawData=false;
     }
     if( variable.Contains("NMinus")   ||
-        variable.Contains("Onecut")   ||               
-        variable.Contains("Cutflow") ) {
+	variable.Contains("Onecut")   ||               
+	variable.Contains("Cutflow") ) {
      dolog=true;
     }
 
@@ -744,7 +744,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      h_Sig_ZH_MS55ct100    = (TH1F*)file_Sig_ZH_MS55ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct100" +uncbin ) ;
      h_Sig_ZH_MS55ct10     = (TH1F*)file_Sig_ZH_MS55ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct10"  +uncbin ) ;
      h_Sig_ZH_MS55ct1      = (TH1F*)file_Sig_ZH_MS55ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct1"   +uncbin ) ;
-                                                                                                                      
+														      
      h_Sig_ggZH_MS15ct1000 = (TH1F*)file_Sig_ggZH_MS15ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct1000"+uncbin ) ;
      h_Sig_ggZH_MS15ct100  = (TH1F*)file_Sig_ggZH_MS15ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct100" +uncbin ) ;
      h_Sig_ggZH_MS15ct10   = (TH1F*)file_Sig_ggZH_MS15ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct10"  +uncbin ) ;
@@ -970,9 +970,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      //  //}
      //}
      if( region.Contains("TwoEle") ){
-        h_Data = (TH1F*)h_Data_DoubleEG_G->Clone("Data");
-        h_Data->Add( h_Data_DoubleEG_H_2 )     ; 
-        h_Data->Add( h_Data_DoubleEG_H_3 )     ; 
+	h_Data = (TH1F*)h_Data_DoubleEG_G->Clone("Data");
+	h_Data->Add( h_Data_DoubleEG_H_2 )     ; 
+	h_Data->Add( h_Data_DoubleEG_H_3 )     ; 
      }
      //if( region.Contains("OneMu") ){
      //   h_Data = (TH1F*)h_Data_SingleMu_G->Clone("Data");
@@ -980,19 +980,19 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      //   h_Data->Add( h_Data_SingleMu_H_3 )     ; 
      //}
      if( region.Contains("TwoMu") ){
-        h_Data = (TH1F*)h_Data_DoubleMu_G->Clone("Data");
-        h_Data->Add( h_Data_DoubleMu_H_2 )     ; 
-        h_Data->Add( h_Data_DoubleMu_H_3 )     ; 
+	h_Data = (TH1F*)h_Data_DoubleMu_G->Clone("Data");
+	h_Data->Add( h_Data_DoubleMu_H_2 )     ; 
+	h_Data->Add( h_Data_DoubleMu_H_3 )     ; 
      }
      if( region.Contains("OnePho") ){
-        h_Data = (TH1F*)h_Data_SinglePhoton_G->Clone("Data");
-        h_Data->Add( h_Data_SinglePhoton_H_2 )     ; 
-        h_Data->Add( h_Data_SinglePhoton_H_3 )     ; 
+	h_Data = (TH1F*)h_Data_SinglePhoton_G->Clone("Data");
+	h_Data->Add( h_Data_SinglePhoton_H_2 )     ; 
+	h_Data->Add( h_Data_SinglePhoton_H_3 )     ; 
      }
      if( region.Contains("EleMu") ){
-        h_Data = (TH1F*)h_Data_MuonEG_G->Clone("Data");
-        h_Data->Add( h_Data_MuonEG_H_2 )     ; 
-        h_Data->Add( h_Data_MuonEG_H_3 )     ; 
+	h_Data = (TH1F*)h_Data_MuonEG_G->Clone("Data");
+	h_Data->Add( h_Data_MuonEG_H_2 )     ; 
+	h_Data->Add( h_Data_MuonEG_H_3 )     ; 
      }
      
      //CSV-style printout for Ted
@@ -1093,7 +1093,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      Float_t  int_ZZTo2L2Q                 = h_ZZTo2L2Q                        ->Integral(0,-1); 
      Float_t  int_ZZTo2Q2Nu                = h_ZZTo2Q2Nu                       ->Integral(0,-1); 
      Float_t  int_ZZTo4L                   = h_ZZTo4L                          ->Integral(0,-1); 
-                               
+			       
      Float_t  int_Sig_ZH_MS15ct1000        = h_Sig_ZH_MS15ct1000               ->Integral(0,-1);                   
      Float_t  int_Sig_ZH_MS15ct100         = h_Sig_ZH_MS15ct100                ->Integral(0,-1);                   
      Float_t  int_Sig_ZH_MS15ct10          = h_Sig_ZH_MS15ct10                 ->Integral(0,-1);                   
@@ -1207,14 +1207,14 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      //          int_Data_SingleMu_F   ;
      /*
      Float_t int_Data_SingleEleGH =
-              int_Data_SingleEle_G   +
-              int_Data_SingleEle_H_2 +
-              int_Data_SingleEle_H_3 ;
+	      int_Data_SingleEle_G   +
+	      int_Data_SingleEle_H_2 +
+	      int_Data_SingleEle_H_3 ;
 
      Float_t int_Data_SingleMuGH =
-              int_Data_SingleMu_G   +
-              int_Data_SingleMu_H_2 +
-              int_Data_SingleMu_H_3 ;
+	      int_Data_SingleMu_G   +
+	      int_Data_SingleMu_H_2 +
+	      int_Data_SingleMu_H_3 ;
      */
      //Float_t int_Data_DoubleEGBCDEF =
      //         int_Data_DoubleEG_B_2 +
@@ -1231,14 +1231,14 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      //         int_Data_DoubleMu_F   ;
 
      Float_t int_Data_DoubleEGGH =
-              int_Data_DoubleEG_G   +
-              int_Data_DoubleEG_H_2 +
-              int_Data_DoubleEG_H_3 ;
+	      int_Data_DoubleEG_G   +
+	      int_Data_DoubleEG_H_2 +
+	      int_Data_DoubleEG_H_3 ;
 
      Float_t int_Data_DoubleMuGH =
-              int_Data_DoubleMu_G   +
-              int_Data_DoubleMu_H_2 +
-              int_Data_DoubleMu_H_3 ;
+	      int_Data_DoubleMu_G   +
+	      int_Data_DoubleMu_H_2 +
+	      int_Data_DoubleMu_H_3 ;
 
 
      // output tables
@@ -1470,7 +1470,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 
      h_Data  -> SetLineColor(kBlack);
      h_Data  -> SetMarkerStyle(8);
-     h_Data  -> SetMarkerSize(1);
+     h_Data  -> SetMarkerSize(1.5);
      h_Data  -> SetLineWidth(3);
 
      h_DY        ->SetFillStyle(1001);
@@ -1486,16 +1486,16 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      h_QCD       ->SetFillStyle(1001);
      h_ZH        ->SetFillStyle(1001);
 
-     h_DY        ->SetFillColor(kAzure-3);
-     h_altDY     ->SetFillColor(kAzure-3);
+     h_DY        ->SetFillColor(kAzure-4);
+     h_altDY     ->SetFillColor(kAzure-4);
      h_GJets     ->SetFillColor(kViolet+3);
      h_ST        ->SetFillColor(kOrange+8);
      h_TT        ->SetFillColor(kGreen+1);
      h_altTT     ->SetFillColor(kGreen+1);
-     h_WJetsToLNu->SetFillColor(kViolet-3);
-     h_VV        ->SetFillColor(kRed);
-     h_altVV     ->SetFillColor(kRed);
-     h_VG        ->SetFillColor(kPink+9);
+     h_WJetsToLNu->SetFillColor(kViolet);
+     h_VV        ->SetFillColor(kYellow);
+     h_altVV     ->SetFillColor(kYellow);
+     h_VG        ->SetFillColor(kPink+1);
      h_QCD       ->SetFillColor(kGray+1);
      h_ZH        ->SetFillColor(kCyan);
 
@@ -1512,18 +1512,18 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      h_QCD       ->SetLineColor(kBlack); 
      h_ZH        ->SetLineColor(kBlack); 
 
-     h_DY        ->SetLineWidth(2);
-     h_altDY     ->SetLineWidth(2);
-     h_GJets     ->SetLineWidth(2);
-     h_ST        ->SetLineWidth(2);
-     h_TT        ->SetLineWidth(2);
-     h_altTT     ->SetLineWidth(2);
-     h_WJetsToLNu->SetLineWidth(2);
-     h_VV        ->SetLineWidth(2);
-     h_altVV     ->SetLineWidth(2);
-     h_VG        ->SetLineWidth(2);
-     h_QCD       ->SetLineWidth(2);
-     h_ZH        ->SetLineWidth(2);
+     h_DY        ->SetLineWidth(0);
+     h_altDY     ->SetLineWidth(0);
+     h_GJets     ->SetLineWidth(0);
+     h_ST        ->SetLineWidth(0);
+     h_TT        ->SetLineWidth(0);
+     h_altTT     ->SetLineWidth(0);
+     h_WJetsToLNu->SetLineWidth(0);
+     h_VV        ->SetLineWidth(0);
+     h_altVV     ->SetLineWidth(0);
+     h_VG        ->SetLineWidth(0);
+     h_QCD       ->SetLineWidth(0);
+     h_ZH        ->SetLineWidth(0);
 
      h_bkgtotal->SetFillColorAlpha(kYellow+1, 0.7);
      h_bkgtotal->SetFillStyle(1001);
@@ -1556,7 +1556,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      THStack *bgstack = new THStack("bgstack","");
      if(dolog){
       std::sort(v.begin(), v.end(),
-                [](TH1F *a, TH1F *b) { return a->Integral() < b->Integral(); });
+		[](TH1F *a, TH1F *b) { return a->Integral() < b->Integral(); });
       for(int zz=0; zz<v.size(); zz++)
       {
        bgstack->Add(v[zz]);
@@ -1565,26 +1565,26 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      }
      else{
        if(useAlt){
-         bgstack->Add(h_altDY      ); 
-         bgstack->Add(h_GJets      );
-         bgstack->Add(h_ST         ); 
-         bgstack->Add(h_altTT      ); 
-         bgstack->Add(h_WJetsToLNu ); 
-         bgstack->Add(h_altVV      ); 
-         bgstack->Add(h_VG         );
-         bgstack->Add(h_QCD        );
-         bgstack->Add(h_ZH         );
+	 bgstack->Add(h_altDY      ); 
+	 bgstack->Add(h_GJets      );
+	 bgstack->Add(h_ST         ); 
+	 bgstack->Add(h_altTT      ); 
+	 bgstack->Add(h_WJetsToLNu ); 
+	 bgstack->Add(h_altVV      ); 
+	 bgstack->Add(h_VG         );
+	 bgstack->Add(h_QCD        );
+	 bgstack->Add(h_ZH         );
        }
        else {
-         bgstack->Add(h_DY         ); 
-         bgstack->Add(h_GJets      );
-         bgstack->Add(h_ST         ); 
-         bgstack->Add(h_TT         ); 
-         bgstack->Add(h_WJetsToLNu ); 
-         bgstack->Add(h_VV         ); 
-         bgstack->Add(h_VG         );
-         bgstack->Add(h_QCD        );
-         bgstack->Add(h_ZH         );
+	 bgstack->Add(h_DY         ); 
+	 bgstack->Add(h_GJets      );
+	 bgstack->Add(h_ST         ); 
+	 bgstack->Add(h_TT         ); 
+	 bgstack->Add(h_WJetsToLNu ); 
+	 bgstack->Add(h_VV         ); 
+	 bgstack->Add(h_VG         );
+	 bgstack->Add(h_QCD        );
+	 bgstack->Add(h_ZH         );
        }
      }
       double tot = 0.0; 
@@ -1619,7 +1619,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 
      // make legend
      TLegend *leg;
-     leg = new TLegend(0.2,0.7,0.88,0.88);
+     leg = new TLegend(0.2,0.73,0.88,0.89);
      leg->SetBorderSize(0);
      leg->SetNColumns(2);
      leg->SetFillColor(kWhite);
@@ -1663,11 +1663,11 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      ymax = std::max(h_Data->GetMaximum(), h_bkgtotal->GetMaximum() );
      
      if(dolog){
-      bgstack->SetMaximum(500*ymax); 
+      bgstack->SetMaximum(50000*ymax); 
       bgstack->SetMinimum(1.0e-6);
      } 
      else {
-      bgstack->SetMaximum(ymax*1.4);
+      bgstack->SetMaximum(ymax*2);
      }
       
      plotpad->cd();
@@ -1678,7 +1678,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      bgstack->GetYaxis()->SetTitleSize(40);
      bgstack->GetYaxis()->SetTitleFont(43);
      bgstack->GetYaxis()->SetTitleOffset(1.75);
-     bgstack->GetXaxis()->SetTitle(varname + "    "+description);
+     bgstack->GetXaxis()->SetTitle(region+"_"+varname + "    "+description);
      if(!drawData){
        bgstack->GetXaxis()->SetTitleSize(40);
        bgstack->GetXaxis()->SetTitleFont(43);
@@ -1743,24 +1743,25 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
        h_ratio->GetXaxis()->SetTitleSize(40);
        h_ratio->GetXaxis()->SetTitleFont(43);
        h_ratio->GetXaxis()->SetTitle((TString)h_Data->GetTitle()+description);
+       h_ratio->GetXaxis()->SetTitle(region+"_"+(TString)h_Data->GetTitle()+description);
        h_ratio->GetXaxis()->SetTitleOffset(4.0);
        h_ratio->GetXaxis()->SetLabelFont(43); //43 Absolute font size in pixel (precision 3)
        h_ratio->GetXaxis()->SetLabelSize(30);//20
        h_ratio->SetMarkerStyle(20);
-       h_ratio->SetMarkerColor(kRed);
-       h_ratio->SetMarkerSize(1);
+      // h_ratio->SetMarkerColor(kRed);
+       h_ratio->SetMarkerSize(1.5);
        h_ratio->GetYaxis()->SetRangeUser(0.4,1.6);
        h_ratio->Draw("ep");  // draw first to get ranges set internally inside root
               
-       h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
-       h_ratiostaterr->Divide(h_bkgtotal);
+       //h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
+       //h_ratiostaterr->Divide(h_bkgtotal);
        
        ratiopad->Update();       // need to update pad to get X min/max
        TLine *line = new TLine(ratiopad->GetUxmin(),1,ratiopad->GetUxmax(),1);
        line->SetLineColor(kBlue);
        line->SetLineWidth(3);
        line->SetLineStyle(9);
-       h_ratiostaterr->Draw("e2 same");
+       //h_ratiostaterr->Draw("e2 same");
 
        line->Draw();
        h_ratio->Draw("ep same"); // draw points above line
@@ -1794,7 +1795,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
      h_other_alt   ->Write();
      if( drawData ){
       h_ratio       ->Write();
-      h_ratiostaterr->Write();
+      //h_ratiostaterr->Write();
      }
      bgstack       ->Write();
      
