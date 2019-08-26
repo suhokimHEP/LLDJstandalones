@@ -19,7 +19,8 @@ Float_t analyzer_scalefactors::makeEventWeight(Float_t crossSec,
   // 1.0 for real data
   event_weight=1.0;
   Float_t crossSecScl = crossSec;
-  if(isMC){ event_weight=lumi*crossSecScl/nrEvents; }
+  //if(isMC){ event_weight=lumi*crossSecScl/nrEvents; }
+  if(isMC){ event_weight=lumi*crossSecScl*AODGenEventWeight*0.8546545/nrEvents; }
   //printf("isMC: %i lumi: %0.9f crossSec: %0.9f nrEvents: %0.9f",isMC,lumi,crossSecScl,nrEvents);
   //printf("  event_weight: %0.9f\n",event_weight);
 

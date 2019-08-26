@@ -85,6 +85,7 @@ public :
    // AOD
    float jetmatchdRcut ;
    float objcleandRcut ;
+   float sum_AODGenEventWeight;
 
    // ID bits for collections
    TString phoid;

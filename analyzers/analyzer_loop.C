@@ -54,7 +54,7 @@ TFile *outfile_bkgest = 0;
    outfile_bkgest = TFile::Open(outfilename+"_BkgEst.root","RECREATE");
    loadMistagRate();
  }
-
+ TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -87,7 +87,8 @@ TFile *outfile_bkgest = 0;
 
   shiftCollections(uncbin);
   n_tot++;
-
+  sum_AODGenEventWeight+=AODGenEventWeight;
+  h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
@@ -188,6 +189,7 @@ TFile *outfile_bkgest = 0;
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
   passPTOSSF  = (dilep_pt>100.);
+  passLowPTOSSF  = (dilep_pt<100. && dilep_pt>10.);
   passGoodVtx = AODnGoodVtx>0; 
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
@@ -380,8 +382,10 @@ TFile *outfile_bkgest = 0;
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight * PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight*PUweight_DoubleEG;
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight*PUweight_DoubleMu;
+     //if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight*0.841901*PUweight_DoubleEG;
+     //if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight*0.867408*PUweight_DoubleMu;
      if(i==18) fullweight = event_weight * PUweight_MuonEG;
      if(i==20) fullweight = event_weight * PUweight_MuonEG;
      if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
@@ -420,6 +424,10 @@ TFile *outfile_bkgest = 0;
 
 
   //printf("make log: %0.i\n",makelog);
+//  for(unsigned int i =0; i<aodcalojet_list.size(); i++){
+//     int aodcalojetindex = aodcalojet_list[i];
+//     //if(Shifted_CaloJetAlphaMax.at( aodcalojetindex )>0.99999) std::cout <<"AlphaMax: "<<Shifted_CaloJetAlphaMax.at( aodcalojetindex )<<std::endl;
+//   }
   
  } // end loop over entries
 
@@ -461,6 +469,13 @@ TFile *outfile_bkgest = 0;
  std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
  std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
  std::cout<<std::endl<<std::endl;
+ 
+ TFile *outfile_GEW = 0;
+ outfile_GEW = TFile::Open(outfilename+"_AODGenEventWeight.root","RECREATE");
+ outfile_GEW->cd();
+ h_sum_AODGenEventWeight->Write();
+ h_sum_AODGenEventWeight->Delete();
+ outfile_GEW->Close();
 
  if(doBkgEst && uncbin.EqualTo("")){
    //Can choose more regions here

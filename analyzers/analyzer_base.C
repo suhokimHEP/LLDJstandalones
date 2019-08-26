@@ -24,7 +24,7 @@ Long64_t analyzer_base::LoadTree(Long64_t entry)
 }
 
 //----------------------------Init
-void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
+void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString Tsample)
 {
 
    isMC = isitMC;
@@ -178,6 +178,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    AOD_elePassConversionVeto = 0;
    AOD_eled0 = 0;
    AOD_eledz = 0;
+   AODGenEventWeight = 1;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -397,5 +398,6 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    fChain->SetBranchAddress("AOD_CaloMET_phi", &AOD_CaloMET_phi, &b_AOD_CaloMET_phi);
    fChain->SetBranchAddress("AOD_pfChMET_phi", &AOD_pfChMET_phi, &b_AOD_pfChMET_phi);
    fChain->SetBranchAddress("AOD_pfMET_phi", &AOD_pfMET_phi, &b_AOD_pfMET_phi);
+   if(Tsample == "DYJetsToLL_M-50" || Tsample == "ST_s-channel_4f_leptonDecays")fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
 
 }
