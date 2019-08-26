@@ -249,6 +249,7 @@ public :
    Float_t         AOD_CaloMET_phi;
    Float_t         AOD_pfChMET_phi;
    Float_t         AOD_pfMET_phi;
+   Float_t         AODGenEventWeight;
 
    // List of branches
    TBranch        *b_run;   //!
@@ -465,11 +466,12 @@ public :
    TBranch        *b_AOD_CaloMET_phi;   //!
    TBranch        *b_AOD_pfChMET_phi;   //!
    TBranch        *b_AOD_pfMET_phi;   //!
+   TBranch        *b_AODGenEventWeight;   //!
 
    //analyzer_base(TTree *tree=0);
    analyzer_base();
    virtual ~analyzer_base();
-   virtual void     Init(TChain *tree, Bool_t isitMC, Bool_t domakelog);
+   virtual void     Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString Tsample);
    virtual Long64_t LoadTree(Long64_t entry);
    
 };

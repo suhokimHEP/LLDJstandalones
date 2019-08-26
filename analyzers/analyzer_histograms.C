@@ -339,13 +339,16 @@ Bool_t analyzer_histograms::initLepHistograms( TString uncbin ){
   //deleteLepHistograms(i);
   TString hname_AOD_dilepton_Mass = "h_"+selbinnames[i]+"_AOD_dilepton_Mass"+uncbin; 
   TString hname_AOD_dilepton_Pt   = "h_"+selbinnames[i]+"_AOD_dilepton_Pt"  +uncbin; 
+  TString hname_AOD_dileptonNewB_Pt   = "h_"+selbinnames[i]+"_AOD_dileptonNewB_Pt"  +uncbin; 
   TString hname_AOD_OSOFdilepton_Mass = "h_"+selbinnames[i]+"_AOD_OSOFdilepton_Mass"+uncbin; 
   TString hname_AOD_OSOFdilepton_Pt   = "h_"+selbinnames[i]+"_AOD_OSOFdilepton_Pt"  +uncbin; 
 
   h_AOD_dilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_dilepton_Mass, "AOD_dilepton_Mass", 30,  60, 120) ;  
-  h_AOD_dilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Pt  , "AOD_dilepton_Pt  ", 50,   0, 500) ;  
+  h_AOD_dileptonNewB_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dileptonNewB_Pt  , "AOD_dileptonNewB_Pt  ", 50,   0, 500) ;  
+  h_AOD_dilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Pt  , "AOD_dilepton_Pt  ", 24, x_bins); //50,   0, 500) ;  
   h_AOD_OSOFdilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Mass, "AOD_OSOFdilepton_Mass", 30,  60, 120) ;  
-  h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 50,   0, 500) ;  
+  //h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 50,   0, 500) ;  
+  h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 24,x_bins);//50,   0, 500) ;  
  }
  return kTRUE;
 }
@@ -356,6 +359,7 @@ Bool_t analyzer_histograms::fillLepHistograms(Float_t weight, int selbin )
   hist_file_out[selbin]->cd();
   h_AOD_dilepton_Mass  [selbin]->Fill( dilep_mass, weight );
   h_AOD_dilepton_Pt    [selbin]->Fill( dilep_pt, weight );
+  h_AOD_dileptonNewB_Pt    [selbin]->Fill( dilep_pt, weight );
   h_AOD_OSOFdilepton_Mass  [selbin]->Fill( OSOF_mass, weight );
   h_AOD_OSOFdilepton_Pt    [selbin]->Fill( OSOF_pt, weight );
   return kTRUE;
@@ -367,6 +371,7 @@ Bool_t analyzer_histograms::writeLepHistograms(int selbin)
   hist_file_out[selbin]->cd();
  h_AOD_dilepton_Mass           [selbin]->Write();
  h_AOD_dilepton_Pt             [selbin]->Write();
+ h_AOD_dileptonNewB_Pt             [selbin]->Write();
  h_AOD_OSOFdilepton_Mass       [selbin]->Write();
  h_AOD_OSOFdilepton_Pt         [selbin]->Write();
  return kTRUE;
@@ -379,6 +384,7 @@ Bool_t analyzer_histograms::deleteLepHistograms(int selbin)
   hist_file_out[selbin]->cd();
   if(h_AOD_dilepton_Mass    [selbin]!=NULL)   h_AOD_dilepton_Mass           [selbin]->Delete();
   if(h_AOD_dilepton_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
+  if(h_AOD_dileptonNewB_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
   if(h_AOD_OSOFdilepton_Mass[selbin]!=NULL)   h_AOD_OSOFdilepton_Mass       [selbin]->Delete();
   if(h_AOD_OSOFdilepton_Pt  [selbin]!=NULL)   h_AOD_OSOFdilepton_Pt         [selbin]->Delete();  
   return kTRUE;
@@ -463,11 +469,17 @@ Bool_t analyzer_histograms::initMETHTHistograms( TString uncbin ){
     TString hname_AOD_MET_pt                  = "h_"+selbinnames[i]+"_AOD_MET_pt"   +uncbin ; 
     TString hname_htall                       = "h_"+selbinnames[i]+"_htall"        +uncbin ;
     TString hname_htaodcalojets               = "h_"+selbinnames[i]+"_htaodcalojets"+uncbin ;
+    TString hname_AODnGoodVtx                 = "h_"+selbinnames[i]+"_AODnGoodVtx"+uncbin ;
+    TString hname_AODnVtx                     = "h_"+selbinnames[i]+"_AODnVtx"+uncbin ;
+    TString hname_AODnTruePU                  = "h_"+selbinnames[i]+"_AODnTruePU"+uncbin ;
     
     h_AOD_MET_phi    [i] = initSingleHistogramTH1F( hname_AOD_MET_phi   , "AOD_MET_phi  " , 30, -5, 5); 
     h_AOD_MET_pt     [i] = initSingleHistogramTH1F( hname_AOD_MET_pt    , "AOD_MET_pt   " , 50, 0, 100); 
     h_htall          [i] = initSingleHistogramTH1F( hname_htall         , "htall        " , 50,0,1000) ; 
     h_htaodcalojets  [i] = initSingleHistogramTH1F( hname_htaodcalojets , "htaodcalojets" , 50,0,1000) ; 
+    h_AODnGoodVtx    [i] = initSingleHistogramTH1F( hname_AODnGoodVtx , "AODnGoodVtx" , 150,0,150) ; 
+    h_AODnVtx        [i] = initSingleHistogramTH1F( hname_AODnVtx , "AODnVtx" , 150,0,150) ; 
+    h_AODnTruePU     [i] = initSingleHistogramTH1F( hname_AODnTruePU , "AODnTruePU" , 150,0,150) ; 
   }
   
   return kTRUE;
@@ -481,6 +493,9 @@ Bool_t analyzer_histograms::fillMETHTHistograms(Float_t weight, int selbin)
  h_AOD_MET_pt              [selbin]->Fill( themet         , weight);  
  h_htall                   [selbin]->Fill( htall          , weight); 
  h_htaodcalojets           [selbin]->Fill( htaodcalojets  , weight); 
+ h_AODnGoodVtx             [selbin]->Fill( AODnGoodVtx  , weight); 
+ h_AODnVtx                 [selbin]->Fill( AODnVtx  , weight); 
+ h_AODnTruePU              [selbin]->Fill( AODnTruePU  , weight); 
  return kTRUE;
 }
 
@@ -492,6 +507,9 @@ Bool_t analyzer_histograms::writeMETHTHistograms(int selbin)
   h_AOD_MET_pt              [selbin]->Write(); 
   h_htall                   [selbin]->Write(); 
   h_htaodcalojets           [selbin]->Write(); 
+  h_AODnGoodVtx             [selbin]->Write(); 
+  h_AODnVtx                 [selbin]->Write(); 
+  h_AODnTruePU              [selbin]->Write(); 
   return kTRUE;
 }
 
@@ -504,6 +522,9 @@ Bool_t analyzer_histograms::deleteMETHTHistograms(int selbin)
   if(h_AOD_MET_pt   [selbin]!=NULL)   h_AOD_MET_pt              [selbin]->Delete(); 
   if(h_htall        [selbin]!=NULL)   h_htall                   [selbin]->Delete(); 
   if(h_htaodcalojets[selbin]!=NULL)   h_htaodcalojets           [selbin]->Delete(); 
+  if(h_AODnGoodVtx[selbin]!=NULL)     h_AODnGoodVtx             [selbin]->Delete(); 
+  if(h_AODnVtx[selbin]!=NULL)         h_AODnVtx                 [selbin]->Delete(); 
+  if(h_AODnTruePU[selbin]!=NULL)      h_AODnTruePU              [selbin]->Delete(); 
   return kTRUE;
 }
 
@@ -553,7 +574,7 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	h_AODCaloJetPt                             [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPt                             , "AODCaloJetPt                            ", 50,0,500  ); 
 	h_AODCaloJetEta                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetEta                            , "AODCaloJetEta                           ", 30,-5,5   ); 
 	h_AODCaloJetPhi                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPhi                            , "AODCaloJetPhi                           ", 30,-5,5   ); 
-	h_AODCaloJetAlphaMax                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax                       , "AODCaloJetAlphaMax                      ", 50, 0, 1  ); 
+	h_AODCaloJetAlphaMax                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax                       , "AODCaloJetAlphaMax                      ", 60, 0, 1.2  ); 
 	h_AODCaloJetAlphaMax2                      [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax2                      , "AODCaloJetAlphaMax2                     ", 50, 0, 1  ); 
 	h_AODCaloJetAlphaMaxPrime                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime                  , "AODCaloJetAlphaMaxPrime                 ", 50, 0, 1  ); 
 	h_AODCaloJetAlphaMaxPrime2                 [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime2                 , "AODCaloJetAlphaMaxPrime2                ", 50, 0, 1  ); 

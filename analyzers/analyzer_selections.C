@@ -99,18 +99,21 @@ void analyzer_selections::setSelections()
 
  selvecBaseZH   .push_back( passGoodVtx );
  selvecBaseZH   .push_back( passZWindow );
+ //selvecBaseZH   .push_back( true  );
  selvecBaseZH   .push_back( passPTOSSF  );
  selvecBaseZH   .push_back( passOneJet  );
 
  selvecBaseDY      .push_back( passGoodVtx );
  selvecBaseDY      .push_back( passZWindow );
- selvecBaseDY      .push_back( !passPTOSSF );
+ //selvecBaseDY      .push_back( true );
+ selvecBaseDY      .push_back( passLowPTOSSF );
  selvecBaseDY      .push_back( passOneJet  );
 
- selvecBaseOffZ    .push_back( passGoodVtx  );
- selvecBaseOffZ    .push_back( !passZWindow );
- selvecBaseOffZ    .push_back( passOSSF     );
- selvecBaseOffZ    .push_back( passOneJet   );
+ //Usually not used. Hacking right now to get inclusive Z plots
+ selvecBaseOffZ    .push_back( passGoodVtx );  //.push_back( passGoodVtx  );
+ selvecBaseOffZ    .push_back( passZWindow );  //.push_back( !passZWindow );
+ selvecBaseOffZ    .push_back( true );         //.push_back( passOSSF     );
+ selvecBaseOffZ    .push_back( passOneJet  );  //.push_back( passOneJet   );
 
  selvecBaseNoPair  .push_back( passGoodVtx  );
  selvecBaseNoPair  .push_back( !passZWindow );
@@ -307,3 +310,16 @@ Bool_t analyzer_selections::askPassMuEG()
  } // if(muon_list.size()>0 && electron_list.size()>0)
  return doespass;
 }
+
+
+//Bool_t analyzer_selections::askPassDoubleMuTest()
+//{
+// Bool_t doespass = kFALSE;
+// if(muon_list.size()>1){ 
+//  //if(isMC) doespass = kTRUE;
+//  //else doespass = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
+//  if(TTOC) doespass = kTRUE;
+//  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
+// } 
+// return doespass;
+//}
