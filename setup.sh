@@ -2,7 +2,7 @@
 
 export depot="/eos/uscms/store/group/lpchbb/LLDJntuples"
 export depot2="/store/group/lpchbb/LLDJntuples"
-export nversion="topRWT"
+export nversion="RadvsTA"
 #export aversion="Systematics"
 export aversion="2016PU"
 #export aversion="CRTTOC_4"

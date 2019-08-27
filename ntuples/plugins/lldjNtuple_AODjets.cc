@@ -56,8 +56,8 @@ edm::Handle<edm::View<reco::PFJet>   >  AODak4PFJetsCHSHandle;
 edm::Handle<edm::View<pat::Jet>      >  selectedPatJetsHandle;  
 edm::Handle<edm::View<reco::Vertex>  >  AODVertexHandle;
 edm::Handle<edm::View<reco::Track>   >  AODTrackHandle;
-edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
-edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
+//edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
+//edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
 edm::Handle<reco::BeamSpot> beamspotHandle_;
 edm::ESHandle<MagneticField> magneticField;
 // transient tracks
@@ -548,8 +548,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  e.getByToken( selectedPatJetsLabel_,  selectedPatJetsHandle );  
  e.getByToken( AODVertexLabel_      ,  AODVertexHandle );
  e.getByToken( AODTrackLabel_       ,  AODTrackHandle );
- e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
- e.getByToken(genParticlesCollection_, genParticlesHandle);
+ //e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
+ //e.getByToken(genParticlesCollection_, genParticlesHandle);
 
  // Magnetic field
  es.get<IdealMagneticFieldRecord>().get(magneticField);
@@ -592,15 +592,15 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  AODallTrackdxy             .clear(); 
  AODallTrackdxyerr          .clear(); 
 
-//Gen Jets-----------------------------
-  for (vector<reco::GenParticle>::const_iterator ip = genParticlesHandle->begin(); ip != genParticlesHandle->end(); ++ip) {
-   nGenPtcls_++;
-  if (ip->charge()!=0 && ip->status()==1) {
-  GenPtclPt.push_back(ip->pt());
-  GenPtclEta.push_back(ip->eta());
-  GenPtclPhi.push_back(ip->phi());}
- 
-          }
+////Gen Jets-----------------------------
+//  for (vector<reco::GenParticle>::const_iterator ip = genParticlesHandle->begin(); ip != genParticlesHandle->end(); ++ip) {
+//   nGenPtcls_++;
+//  if (ip->charge()!=0 && ip->status()==1) {
+//  GenPtclPt.push_back(ip->pt());
+//  GenPtclEta.push_back(ip->eta());
+//  GenPtclPhi.push_back(ip->phi());}
+// 
+//          }
  for(int j = 0; j < (int)AODTrackHandle->size(); j++){
 
   // get track j using the AOD track handle 
