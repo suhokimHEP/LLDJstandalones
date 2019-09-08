@@ -200,9 +200,9 @@ Float_t analyzer_scalefactors::makeMuonTriggerEffi( std::vector<int> &muon_list 
 //----------------------------makeTTWeight
 Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
   Float_t TTSF = 1.; 
-  if(toppts->size() == 2){ 
-   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
-  }
+  //if(toppts->size() == 2){ 
+  // TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
+  //}
  return TTSF;
 }
 

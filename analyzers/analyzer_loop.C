@@ -154,7 +154,7 @@ TFile *outfile_bkgest = 0;
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
-  event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  event_weight = makeEventWeight(crossSec,lumi,nevts);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
   if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;

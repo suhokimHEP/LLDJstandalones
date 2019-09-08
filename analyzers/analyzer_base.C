@@ -70,6 +70,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    AODCaloJetLogTrackAngle = 0;
    AODCaloJetMedianLog10TrackAngle = 0;
    AODCaloJetTotalTrackAngle = 0;
+   MinMatchedRadius = 0;
    AODCaloJetAvfVx = 0;
    AODCaloJetAvfVy = 0;
    AODCaloJetAvfVz = 0;
@@ -193,19 +194,19 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
    fChain->SetBranchAddress("AODisPVGood", &AODisPVGood, &b_AODisPVGood);
-   fChain->SetBranchAddress("llpId", &llpId, &b_llpId);
-   fChain->SetBranchAddress("llpStatus", &llpStatus, &b_llpStatus);
-   fChain->SetBranchAddress("llpPt", &llpPt, &b_llpPt);
-   fChain->SetBranchAddress("llpEta", &llpEta, &b_llpEta);
-   fChain->SetBranchAddress("llpPhi", &llpPhi, &b_llpPhi);
-   fChain->SetBranchAddress("llpMass", &llpMass, &b_llpMass);
-   fChain->SetBranchAddress("llpDaughterId", &llpDaughterId, &b_llpDaughterId);
-   fChain->SetBranchAddress("llpDaughterStatus", &llpDaughterStatus, &b_llpDaughterStatus);
-   fChain->SetBranchAddress("llpDaughterPt", &llpDaughterPt, &b_llpDaughterPt);
-   fChain->SetBranchAddress("llpDaughterEta", &llpDaughterEta, &b_llpDaughterEta);
-   fChain->SetBranchAddress("llpDaughterPhi", &llpDaughterPhi, &b_llpDaughterPhi);
-   fChain->SetBranchAddress("llpDaughterMass", &llpDaughterMass, &b_llpDaughterMass);
-   fChain->SetBranchAddress("toppts", &toppts, &b_toppts);
+   //fChain->SetBranchAddress("llpId", &llpId, &b_llpId);
+   //fChain->SetBranchAddress("llpStatus", &llpStatus, &b_llpStatus);
+   //fChain->SetBranchAddress("llpPt", &llpPt, &b_llpPt);
+   //fChain->SetBranchAddress("llpEta", &llpEta, &b_llpEta);
+   //fChain->SetBranchAddress("llpPhi", &llpPhi, &b_llpPhi);
+   //fChain->SetBranchAddress("llpMass", &llpMass, &b_llpMass);
+   //fChain->SetBranchAddress("llpDaughterId", &llpDaughterId, &b_llpDaughterId);
+   //fChain->SetBranchAddress("llpDaughterStatus", &llpDaughterStatus, &b_llpDaughterStatus);
+   //fChain->SetBranchAddress("llpDaughterPt", &llpDaughterPt, &b_llpDaughterPt);
+   //fChain->SetBranchAddress("llpDaughterEta", &llpDaughterEta, &b_llpDaughterEta);
+   //fChain->SetBranchAddress("llpDaughterPhi", &llpDaughterPhi, &b_llpDaughterPhi);
+   //fChain->SetBranchAddress("llpDaughterMass", &llpDaughterMass, &b_llpDaughterMass);
+   //fChain->SetBranchAddress("toppts", &toppts, &b_toppts);
    //single ele
    fChain->SetBranchAddress("AOD_HLT_Ele23Loose", &AOD_HLT_Ele23Loose, &b_AOD_HLT_Ele23Loose);
    fChain->SetBranchAddress("AOD_HLT_Ele27Tight", &AOD_HLT_Ele27Tight, &b_AOD_HLT_Ele27Tight);
@@ -278,6 +279,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    fChain->SetBranchAddress("AODCaloJetLogTrackAngle", &AODCaloJetLogTrackAngle, &b_AODCaloJetLogTrackAngle);
    fChain->SetBranchAddress("AODCaloJetMedianLog10TrackAngle", &AODCaloJetMedianLog10TrackAngle, &b_AODCaloJetMedianLog10TrackAngle);
    fChain->SetBranchAddress("AODCaloJetTotalTrackAngle", &AODCaloJetTotalTrackAngle, &b_AODCaloJetTotalTrackAngle);
+   fChain->SetBranchAddress("MinMatchedRadius", &MinMatchedRadius, &b_MinMatchedRadius);
    fChain->SetBranchAddress("AODCaloJetAvfVx", &AODCaloJetAvfVx, &b_AODCaloJetAvfVx);
    fChain->SetBranchAddress("AODCaloJetAvfVy", &AODCaloJetAvfVy, &b_AODCaloJetAvfVy);
    fChain->SetBranchAddress("AODCaloJetAvfVz", &AODCaloJetAvfVz, &b_AODCaloJetAvfVz);

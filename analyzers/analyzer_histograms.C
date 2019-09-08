@@ -545,6 +545,7 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	TString hname_AODCaloJetLogTrackAngle                 = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetLogTrackAngle"        +uncbin; 
 	TString hname_AODCaloJetMedianLog10TrackAngle         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle"+uncbin; 
 	TString hname_AODCaloJetTotalTrackAngle               = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetTotalTrackAngle"      +uncbin; 
+	TString hname_TAvsMinMatchedRadius               = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_TAvsMinMatchedRadius"      +uncbin; 
 	TString hname_AODCaloJetMinDR                         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMinDR"                +uncbin; 
 	TString hname_AODCaloJetCSV                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetCSV"                  +uncbin; 
 	TString hname_AODCaloJetPartonFlavour                 = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPartonFlavour"        +uncbin; 
@@ -567,6 +568,7 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	h_AODCaloJetLogTrackAngle                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetLogTrackAngle                  , "AODCaloJetLogTrackAngle                 ", 50, -3, 3 ); 
 	h_AODCaloJetMedianLog10TrackAngle          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle          , "AODCaloJetMedianLog10TrackAngle         ", 50, -5, 2 ); 
 	h_AODCaloJetTotalTrackAngle                [i][k] = initSingleHistogramTH1F( hname_AODCaloJetTotalTrackAngle                , "AODCaloJetTotalTrackAngle               ", 50, -3, 3 ); 
+	h_TAvsMinMatchedRadius [i][k] = initSingleHistogramTH2F( hname_TAvsMinMatchedRadius, "TAvsMinMatchedRadius",50,-4,2,50,2,6 );
 	h_AODCaloJetMinDR                          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMinDR                          , "AODCaloJetMinDR                         ", 30, 0, 5 ); 
 	h_AODCaloJetCSV                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetCSV                            , "AODCaloJetCSV                           ", 24, -.1, 1.1 ); 
 	h_AODCaloJetPartonFlavour                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPartonFlavour                  , "AODCaloJetPartonFlavour                 ", 35, -10, 25 ); 
@@ -612,6 +614,7 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetMedianLog10IPSig               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
       h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
       h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Fill( AODCaloJetTotalTrackAngle                ->at( aodcalojetindex ), weight );  
+      h_TAvsMinMatchedRadius                 [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex), MinMatchedRadius->at(aodcalojetindex), weight );  
       h_AODCaloJetMinDR                          [selbin][jetbin]->Fill( aodcalojet_minDR_list                     .at( aodcalojetindex ), weight );  
       h_AODCaloJetCSV                            [selbin][jetbin]->Fill( aodcalojet_matchedCSV_list                .at( aodcalojetindex ), weight );  
       h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
@@ -638,6 +641,7 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetMedianLog10IPSig               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
       h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
       h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Fill( AODCaloJetTotalTrackAngle                ->at( aodcalojetindex ), weight );  
+      h_TAvsMinMatchedRadius                 [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex), MinMatchedRadius->at(aodcalojetindex), weight );  
       h_AODCaloJetMinDR                          [selbin][jetbin]->Fill( aodcalojet_minDR_list                     .at( aodcalojetindex ), weight );  
       h_AODCaloJetCSV                            [selbin][jetbin]->Fill( aodcalojet_matchedCSV_list                .at( aodcalojetindex ), weight );  
       h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
@@ -677,6 +681,7 @@ Bool_t analyzer_histograms::writeAODCaloJetBasicHistograms(int selbin, int jetbi
   h_AODCaloJetLogTrackAngle                  [selbin][jetbin]->Write(); 
   h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Write(); 
   h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Write(); 
+  h_TAvsMinMatchedRadius                [selbin][jetbin]->Write(); 
   h_AODCaloJetMinDR                          [selbin][jetbin]->Write(); 
   h_AODCaloJetCSV                            [selbin][jetbin]->Write(); 
   h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Write(); 
@@ -718,6 +723,7 @@ Bool_t analyzer_histograms::deleteAODCaloJetBasicHistograms(int selbin, int jetb
   if(h_AODCaloJetLogTrackAngle        [selbin][jetbin]!=NULL)    h_AODCaloJetLogTrackAngle                  [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetMedianLog10TrackAngle[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetTotalTrackAngle      [selbin][jetbin]!=NULL)    h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Delete(); 
+  if(h_TAvsMinMatchedRadius      [selbin][jetbin]!=NULL)    h_TAvsMinMatchedRadius                [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetMinDR                [selbin][jetbin]!=NULL)    h_AODCaloJetMinDR                          [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetCSV                  [selbin][jetbin]!=NULL)    h_AODCaloJetCSV                            [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetPartonFlavour        [selbin][jetbin]!=NULL)    h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Delete(); 

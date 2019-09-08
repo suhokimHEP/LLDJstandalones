@@ -358,6 +358,7 @@ public :
  TH1F*  h_AODCaloJetLogTrackAngle                  [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMedianLog10TrackAngle          [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetTotalTrackAngle                [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH2F*  h_TAvsMinMatchedRadius                     [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMinDR                          [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetCSV                            [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetPartonFlavour                  [SELBINNAMESIZE][JETMULTNAMESIZE];
