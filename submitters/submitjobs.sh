@@ -5,7 +5,7 @@
 
 # source xx/LLDJ/setup.sh for ${aversion}
 
-doSubmit=false
+doSubmit=true
 lumi=16226.2 # 7.57582+8.43466+0.2156965 
 nevents=-1
 maxfilesperjob=200   # 500=6h
@@ -13,18 +13,18 @@ maxfilesperjob=200   # 500=6h
 samples=(  \
 ### Data
 # SingleMu
- "Data_SingleMu_H_3"      \
- "Data_SingleMu_H_2"      \
- "Data_SingleMu_G"        \
+# "Data_SingleMu_H_3"      \
+# "Data_SingleMu_H_2"      \
+# "Data_SingleMu_G"        \
 # "Data_SingleMu_F"        \
 # "Data_SingleMu_E"        \
 # "Data_SingleMu_D"        \
 # "Data_SingleMu_C"        \
 # "Data_SingleMu_B_2"      \
 # SingleEle
- "Data_SingleEle_H_3"     \
- "Data_SingleEle_H_2"     \
- "Data_SingleEle_G"       \
+# "Data_SingleEle_H_3"     \
+# "Data_SingleEle_H_2"     \
+# "Data_SingleEle_G"       \
 # "Data_SingleEle_F"       \
 # "Data_SingleEle_E"       \
 # "Data_SingleEle_D"       \
@@ -69,16 +69,16 @@ samples=(  \
 ## MC backgrounds
 # DY
 # "DYJetsToLL_M-5to50_HT-70to100"   \
- "DYJetsToLL_M-5to50_HT-100to200"  \
- "DYJetsToLL_M-5to50_HT-200to400"  \
- "DYJetsToLL_M-5to50_HT-400to600"  \
- "DYJetsToLL_M-5to50_HT-600toInf"  \
- "DYJetsToLL_M-10to50"             \
+# "DYJetsToLL_M-5to50_HT-100to200"  \
+# "DYJetsToLL_M-5to50_HT-200to400"  \
+# "DYJetsToLL_M-5to50_HT-400to600"  \
+# "DYJetsToLL_M-5to50_HT-600toInf"  \
+# "DYJetsToLL_M-10to50"             \
 "DYJetsToLL_M-50"                 \
 # WJets
  "WJetsToLNu"     \
 # TTbar
-"TTJets"         \
+ "TTJets"         \
  "TTtoLL"         \
  "TTtoLfromTbar"  \
  "TTtoLfromT"     \
@@ -98,15 +98,15 @@ samples=(  \
  "WW"               \
  "WZ"               \
  "ZZ"               \
- "WWTo2L2Nu"        \
- "WWToLNuQQ"        \
- "WZTo1L3Nu"        \
- "WZTo3LNu"         \
- "WZToLNu2QorQQ2L"  \
- "ZZTo2L2Nu"        \
- "ZZTo2L2Q"         \
- "ZZTo2Q2Nu"        \
- "ZZTo4L"           \
+# "WWTo2L2Nu"        \
+# "WWToLNuQQ"        \
+# "WZTo1L3Nu"        \
+# "WZTo3LNu"         \
+# "WZToLNu2QorQQ2L"  \
+# "ZZTo2L2Nu"        \
+# "ZZTo2L2Q"         \
+# "ZZTo2Q2Nu"        \
+# "ZZTo4L"           \
 # VGamma
  "ZGTo2LG"  \
  "WGToLNuG" \
@@ -213,6 +213,8 @@ makeasubmitdir () {
  haddfile_EleMuOSOF_histograms="./haddit_EleMuOSOF_histograms.sh"                           
  haddfile_EleMuOSOFL_histograms="./haddit_EleMuOSOFL_histograms.sh"                           
  haddfile_OnePho_histograms="./haddit_OnePho_histograms.sh"                           
+ catfile_TwoEleZH_edmEventPick="./cat_TwoEleZH_edmEventPick.sh"                           
+ catfile_TwoMuZH_edmEventPick="./cat_TwoMuZH_edmEventPick.sh"                           
 
 
  hadddir="${rootdir}/${aversion}"
@@ -241,6 +243,8 @@ makeasubmitdir () {
  printf "#!/bin/bash\n\n" > ${haddfile_OPTtree}          
  printf "#!/bin/bash\n\n" > ${haddfile_NM1trees}          
  printf "#!/bin/bash\n\n" > ${haddfile_BkgEst}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_edmEventPick}
 
  # make checker
  checkfile="./checker.sh"
@@ -272,6 +276,9 @@ makeasubmitdir () {
  printf "hadd ${hadddir}/$1_OPTtree.root"                  >>       ${haddfile_OPTtree}           
  printf "hadd ${hadddir}/$1_NM1tree.root"                  >>       ${haddfile_NM1trees}           
  printf "hadd ${hadddir}/$1_BkgEst.root"                   >>       ${haddfile_BkgEst}           
+ printf "cat "  >> ${catfile_TwoEleZH_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_edmEventPick}           
+ #printf "hadd ${hadddir}/$1_edmEventPick.txt"                   >>       ${haddfile_edmEventPick}           
 
  # breaking up input file list
  nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list" )
@@ -337,6 +344,8 @@ makeasubmitdir () {
   printf "\n $(pwd)/$1_${jobfilenr}_OPTtree.root"                  >> ${haddfile_OPTtree}           
   printf "\n $(pwd)/$1_${jobfilenr}_NM1tree.root"                  >> ${haddfile_NM1trees}           
   printf "\n $(pwd)/$1_${jobfilenr}_BkgEst.root"                   >> ${haddfile_BkgEst}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_edmEventPick.txt "    >> ${catfile_TwoEleZH_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_edmEventPick.txt "    >> ${catfile_TwoMuZH_edmEventPick}
 
   # add file to checker, all histos are made at the same time, so only check one
   printf "\n if [ ! -f $(pwd)/$1_${jobfilenr}_OPTtree.root ]; then printf \" $(pwd)/$1_${jobfilenr}_OPTtree.root \\n\"; fi " >> ${checkfile}
@@ -372,6 +381,8 @@ makeasubmitdir () {
  printf "\n\n" >> ${haddfile_OPTtree}           
  printf "\n\n" >> ${haddfile_NM1trees}           
  printf "\n\n" >> ${haddfile_BkgEst}
+ printf ">> ${hadddir}/$1_cat_TwoEleZH_edmEventPick.txt" >> ${catfile_TwoEleZH_edmEventPick}
+ printf ">> ${hadddir}/$1_cat_TwoMuZH_edmEventPick.txt" >> ${catfile_TwoMuZH_edmEventPick}
 
  if [ ${doSubmit} = true ]
  then

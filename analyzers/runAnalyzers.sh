@@ -6,7 +6,7 @@ for sample in \
 
 do
 #  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "-1" -i "../lists" -o "junk" -n 999999999 -a 1 -d -m
-  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "50" -i "../lists" -o "junk" -n 500 -a 1 -d -m
+  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "10000" -i "../lists" -o "junk" -n 5 -a 1 -d -m
 
 done #for sample in DY50..
 
