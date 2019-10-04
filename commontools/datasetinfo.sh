@@ -6,7 +6,41 @@
 thedasmap="${listdir}/ntuple/dasmap.list"
 
 samples=( \
- "ggZH_HToSSTobbbb_MS-55_ctauS-1" \
+ "WJetsToLNu"                       \
+ 
+# "WplusH_HToSSTobbbb_MS-55_ctauS-1"    \
+# "WplusH_HToSSTobbbb_MS-55_ctauS-10"   \
+# "WplusH_HToSSTobbbb_MS-55_ctauS-100"  \
+# "WplusH_HToSSTobbbb_MS-55_ctauS-1000" \
+# "WplusH_HToSSTobbbb_MS-40_ctauS-1"    \
+# "WplusH_HToSSTobbbb_MS-40_ctauS-10"   \
+# "WplusH_HToSSTobbbb_MS-40_ctauS-100"  \
+# "WplusH_HToSSTobbbb_MS-40_ctauS-1000" \
+# "WplusH_HToSSTobbbb_MS-15_ctauS-1"    \
+# "WplusH_HToSSTobbbb_MS-15_ctauS-10"   \
+# "WplusH_HToSSTobbbb_MS-15_ctauS-100"  \
+# "WplusH_HToSSTobbbb_MS-15_ctauS-1000" \
+# "WminusH_HToSSTobbbb_MS-55_ctauS-1"    \
+# "WminusH_HToSSTobbbb_MS-55_ctauS-10"   \
+# "WminusH_HToSSTobbbb_MS-55_ctauS-100"  \
+# "WminusH_HToSSTobbbb_MS-55_ctauS-1000" \
+# "WminusH_HToSSTobbbb_MS-40_ctauS-1"    \
+# "WminusH_HToSSTobbbb_MS-40_ctauS-10"   \
+# "WminusH_HToSSTobbbb_MS-40_ctauS-100"  \
+# "WminusH_HToSSTobbbb_MS-40_ctauS-1000" \
+# "WminusH_HToSSTobbbb_MS-15_ctauS-1"    \
+# "WminusH_HToSSTobbbb_MS-15_ctauS-10"   \
+# "WminusH_HToSSTobbbb_MS-15_ctauS-100"  \
+# "WminusH_HToSSTobbbb_MS-15_ctauS-1000" \
+ 
+ "QCD_HT100to200"    \
+ "QCD_HT200to300"    \
+ "QCD_HT300to500"    \
+ "QCD_HT500to700"    \
+ "QCD_HT700to1000"   \
+ "QCD_HT1000to1500"  \
+ "QCD_HT1500to2000"  \
+ "QCD_HT2000toInf"   \
 )
 
 # "ggZH_HToSSTobbbb_MS40_ctauS0"     \
@@ -16,7 +50,7 @@ samples=( \
 # "ggZH_HToSSTobbbb_MS40_ctauS100"   \
 # "ggZH_HToSSTobbbb_MS40_ctauS1000"  \
 # "ggZH_HToSSTobbbb_MS40_ctauS10000" \
-
+   
 # "DoubleEG"                            \
 # "DoubleMuon"                          \
 # "MuonEG"                              \

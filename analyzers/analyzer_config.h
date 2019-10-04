@@ -25,7 +25,7 @@ public :
    //std::vector<TString> lepnames;
    // jetmultnames = Leading, Subleading, Third, Fourth, All
    //static const int SELBINNAMESIZE  = 8;        
-   static const int SELBINNAMESIZE  = 21;  
+   static const int SELBINNAMESIZE  = 27;  
    static const int JETMULTNAMESIZE = 5;  
    static const int TAGMULTNAMESIZE = 5;  
    static const int UNCBINNAMESIZE  = 3;
@@ -53,8 +53,8 @@ public :
    
    Bool_t doTTOC(); 
    
-   //static const Bool_t jetMultOn = kTRUE; // loggit
-   static const Bool_t jetMultOn = kFALSE;  // loggit
+   static const Bool_t jetMultOn = kTRUE; // loggit
+   //static const Bool_t jetMultOn = kFALSE;  // loggit
 };
 
 #endif

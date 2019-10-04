@@ -1,7 +1,7 @@
 #!/bin/bash
 
 regions=( \ 
- "EleMuOSOF"     \
+# "EleMuOSOF"     \
 # "EleMuOSOFL"    \
 # "OnePho"        \
 # "TwoEleDY"      \
@@ -10,6 +10,12 @@ regions=( \
 # "TwoMuDY"       \
 # "TwoMuSig"      \
 # "TwoMuZH"       \
+ "EleWHSig"  \
+ "MuWHSig"   \
+ "EleWH"     \
+ "MuWH"      \
+ "EleLowPtWH" \
+ "MuLowPtWH"  \
 ) 
 
 dologs=( \

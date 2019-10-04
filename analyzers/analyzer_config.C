@@ -131,7 +131,12 @@ void analyzer_config::initSelectionCategories( ){
   selbinnames.push_back("EleMuOSOF");
   selbinnames.push_back("OnePho");
   selbinnames.push_back("EleMuOSOFL");
-
+  selbinnames.push_back("EleWH"); 
+  selbinnames.push_back("MuWH");  
+  selbinnames.push_back("EleWHSig");
+  selbinnames.push_back("MuWHSig");  
+  selbinnames.push_back("EleLowPtWH");
+  selbinnames.push_back("MuLowPtWH");  
 }
 
 Bool_t analyzer_config::doTTOC(){

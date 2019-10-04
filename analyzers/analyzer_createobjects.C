@@ -718,7 +718,90 @@ Float_t analyzer_createobjects::getMET(){
  themephi = AOD_pfMET_phi; // AOD_pfChMET_phi;
 }
 
+//-------------------------getMT  
+void analyzer_createobjects::getMT(){
 
+if((electron_list.size()==1)&&(muon_list.size()==0)){
+		double elephi = AOD_elePhi->at(0);
+		double METphi = AOD_pfMET_phi;	
+		transversemass =fabs(TMath::Sqrt((2*(AOD_eleEn->at(0))*(AOD_pfMET_pt)*(1 - TMath::Cos(DeltaPhi(elephi, METphi))))));
+//		std::cout << "electron list: " << electron_list.size() << std::endl;
+//		std::cout << "muon list: " << muon_list.size() << std::endl;
+//		std::cout <<"this is the value of the transverse mass:" << transversemass <<std::endl;
+		}	
+
+else if((electron_list.size()==0)&&(muon_list.size()==1)){		
+		double muphi  = AOD_muPhi->at(0);
+		double METphi = AOD_pfMET_phi; 	
+		transversemass = fabs(TMath::Sqrt((2*(AOD_muEn->at(0))*(AOD_pfMET_pt)*(1 - TMath::Cos(DeltaPhi(muphi, METphi))))));
+//  		std::cout << "electron list: " << electron_list.size() << std::endl;
+//              std::cout << "muon list: " << muon_list.size() << std::endl;
+//		std::cout <<"this is the value of the transverse mass:" << transversemass <<std::endl;
+		}
+else {          
+		transversemass =-99 ;      
+//		std::cout << "electron list: " << electron_list.size() << std::endl;
+//              std::cout << "muon list: " << muon_list.size() << std::endl;
+//		std::cout <<"this is the value of the transverse mass:" << transversemass <<std::endl;
+}
+
+ return;
+}
+
+//------------------------getWPT ----- Transverse Momentum of W boson   
+void analyzer_createobjects::getWPT(){
+
+if((electron_list.size()==1)&&(muon_list.size()==0)) {
+		Float_t elept   = AOD_elePt->at(0);
+                double elephi   = AOD_elePhi->at(0);
+                double METphi   = AOD_pfMET_phi;
+
+		Float_t elept_x = elept*(TMath::Cos(elephi)); 	
+		Float_t elept_y = elept*(TMath::Sin(elephi));
+
+		Float_t METpt_x = (AOD_pfMET_pt)*(TMath::Cos(METphi));
+		Float_t METpt_y = (AOD_pfMET_pt)*(TMath::Sin(METphi));
+				
+		Float_t Wpt_x = elept_x + METpt_x ;
+		Float_t Wpt_y = elept_y + METpt_y ;
+		
+		Wpt = fabs(TMath::Sqrt((Wpt_x)*(Wpt_x) + (Wpt_y)*(Wpt_y)));
+//		  Wphi = TMath::Tan((Wpt_y)/(Wpt_x));
+//                std::cout << "electron list: " << electron_list.size() << std::endl;
+//                std::cout << "muon list: " << muon_list.size() << std::endl;
+//		std::cout << "this is the pt of the W boson: "<< Wpt <<std::endl;
+}
+
+else if((electron_list.size()==0)&&(muon_list.size()==1)) {
+		Float_t mupt   = AOD_muPt->at(0);
+                double muphi   = AOD_muPhi->at(0);
+                double METphi  = AOD_pfMET_phi;
+
+		Float_t mupt_x = mupt*(TMath::Cos(muphi)); 	
+		Float_t mupt_y = mupt*(TMath::Sin(muphi));
+
+		Float_t METpt_x = AOD_pfMET_pt*(TMath::Cos(METphi));
+		Float_t METpt_y = AOD_pfMET_pt*(TMath::Sin(METphi));
+				
+		Float_t Wpt_x = mupt_x + METpt_x ;
+		Float_t Wpt_y = mupt_y + METpt_y ;
+		
+		Wpt = fabs(TMath::Sqrt((Wpt_x)*(Wpt_x) + (Wpt_y)*(Wpt_y)));
+//		  Wphi = TMath::Tan((Wpt_y)/(Wpt_x));
+//                std::cout << "electron list: " << electron_list.size() << std::endl;
+//                std::cout << "muon list: " << muon_list.size() << std::endl;
+//		std::cout << "this is the pt of the W boson: "<< Wpt <<std::endl;
+}
+else {
+		Wpt = -99;
+//                std::cout << "electron list: " << electron_list.size() << std::endl;
+//                std::cout << "muon list: " << muon_list.size() << std::endl;
+//		std::cout << "this is the pt of the W boson: "<< Wpt <<std::endl;
+}
+
+
+return;
+}
 
 //-------------------------calculateHT
 void analyzer_createobjects::calculateHT(){
@@ -749,8 +832,6 @@ void analyzer_createobjects::calculateHT(){
 
   return;
 }
-
-
 //-------------------------makeDiLepton
 void analyzer_createobjects::makeDiLepton(){
 
@@ -880,6 +961,8 @@ void analyzer_createobjects::makeDilep(TLorentzVector *fv_1, TLorentzVector *fv_
    return;                                                          
                                                                    
 }
+
+
 
 void analyzer_createobjects::shiftCollections( TString uncbin )
 {

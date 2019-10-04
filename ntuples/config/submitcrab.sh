@@ -191,6 +191,10 @@ samples=( \
 #  "ggZH_Hbb_1"           \
 #  "ggZH_Hbb_2"           \
 #  "ggZH_Hbb_3"           \
+#  "WminusH_Hbb_1"         \
+#  "WminusH_Hbb_2"         \
+#  "WplusH_Hbb_1"          \
+#  "WplusH_Hbb_2"          \
 #  "GJets_HT40to100_1"    \
 #  "GJets_HT40to100_2"    \
 #  "GJets_HT100to200_1"   \

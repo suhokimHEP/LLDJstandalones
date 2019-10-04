@@ -2,8 +2,10 @@
 
 export depot="/eos/uscms/store/group/lpchbb/LLDJntuples"
 export depot2="/store/group/lpchbb/LLDJntuples"
-export nversion="topRWT"
+#export nversion="topRWT"
+export nversion="WHntuples_v4"
 export aversion="2016Comparisons_noPUWeights"
+#export aversion="amc_ProperWeights_inclusive2"
 
 pushd `dirname ${BASH_SOURCE[0]}` > /dev/null
 export basedir=`pwd`

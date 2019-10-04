@@ -1,6 +1,8 @@
 #!/bin/bash
 
+
 for sample in \
+
  "DYJetsToLL_M-50"  \
  "mad_DYJetsToLL_M-50"  \
 
