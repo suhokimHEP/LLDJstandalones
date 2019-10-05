@@ -381,8 +381,8 @@ makeasubmitdir () {
  printf "\n\n" >> ${haddfile_OPTtree}           
  printf "\n\n" >> ${haddfile_NM1trees}           
  printf "\n\n" >> ${haddfile_BkgEst}
- printf ">> ${hadddir}/$1_cat_TwoEleZH_edmEventPick.txt" >> ${catfile_TwoEleZH_edmEventPick}
- printf ">> ${hadddir}/$1_cat_TwoMuZH_edmEventPick.txt" >> ${catfile_TwoMuZH_edmEventPick}
+ printf ">> ${hadddir}/$1/$1_cat_TwoEleZH_edmEventPick.txt" >> ${catfile_TwoEleZH_edmEventPick}
+ printf ">> ${hadddir}/$1/$1_cat_TwoMuZH_edmEventPick.txt" >> ${catfile_TwoMuZH_edmEventPick}
 
  if [ ${doSubmit} = true ]
  then
