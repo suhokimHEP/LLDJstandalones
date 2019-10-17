@@ -5,6 +5,7 @@
 mkdir -p "${rootdir}/${aversion}"
 mkdir -p "${plotdir}/${aversion}"
 mkdir -p "${plotdir}/${aversion}/logs"
+thedasmap="${listdir}/ntuple/dasmapAOD.list"
 
 samples=( \
 #### Data
@@ -49,7 +50,7 @@ samples=( \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"        \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
 # DY
 # "DYJetsToLL_M-5to50_HT-70to100"   \
 # "DYJetsToLL_M-5to50_HT-100to200"  \
@@ -61,43 +62,7 @@ samples=( \
 # WJets
  "WJetsToLNu"     \
 # TTbar
- "TTJets"         \
- "TTtoLL"         \
- "TTtoLfromTbar"  \
- "TTtoLfromT"     \
-# Single Top
- "ST_s-channel_4f_leptonDecays"             \
- "ST_t-channel_antitop_4f_inclusiveDecays"  \
- "ST_t-channel_top_4f_inclusiveDecays"      \
- "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
- "ST_tW_top_5f_NoFullyHadronicDecays"       \
-# GJets
- "GJets_HT-40To100"   \
- "GJets_HT-100To200"  \
- "GJets_HT-200To400"  \
- "GJets_HT-400To600"  \
- "GJets_HT-600ToInf"  \
-# Diboson
- "WW"               \
- "WZ"               \
- "ZZ"               \
-# "WWTo2L2Nu"        \
-# "WWToLNuQQ"        \
-# "WZTo1L3Nu"        \
-# "WZTo3LNu"         \
-# "WZToLNu2QorQQ2L"  \
-# "ZZTo2L2Nu"        \
-# "ZZTo2L2Q"         \
-# "ZZTo2Q2Nu"        \
-# "ZZTo4L"           \
-# VGamma
- "ZGTo2LG"  \
- "WGToLNuG" \
-# ZH
- "ggZH_HToBB_ZToLL"  \
- "ZH_HToBB_ZToLL"    \
-# QCD 
- "QCD_HT100to200"    \
+"QCD_HT100to200"    \
  "QCD_HT200to300"    \
  "QCD_HT300to500"    \
  "QCD_HT500to700"    \
@@ -110,11 +75,29 @@ samples=( \
 for sample in ${samples[@]}
 do
 
+ mkdir -p "${rootdir}/${aversion}/${sample}/TwoEleZH"
+ mkdir -p "${rootdir}/${aversion}/${sample}/TwoMuZH"
+
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/cat_TwoEleZH_edmEventPick.sh"    
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/cat_TwoMuZH_edmEventPick.sh"    
 
 
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/cat_TwoEleZH_edmEventPick.sh"    
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/cat_TwoMuZH_edmEventPick.sh"    
+
+done
+
+
+
+for sample in ${samples[@]}
+do
+ datasetname="$(grep -P ${samplename} ${thedasmap} | sed -n -e "s@ ${samplename}    @@p")"
+ DATASET="'${datasetname}'"
+ cd "${rootdir}/${aversion}/${sample}/TwoEleZH"
+ edmPickEvent.py ${DATASET} ${sample}_cat_TwoEleZH_edmEventPick.txt  
+ crab submit -c pickevents_crab.py
+ cd "${rootdir}/${aversion}/${sample}/TwoMuZH"
+ edmPickEvent.py ${DATASET} ${sample}_cat_TwoMuZH_edmEventPick.txt  
+ crab submit -c pickevents_crab.py
 
 done
