@@ -76,28 +76,42 @@ vector<float>  AODCaloJetPhi_;
 // TrackPT
 vector<float>  AODCaloJet1TrackPt_;
 vector<float>  AODCaloJet1TrackEta_;
-vector<float>  AODCaloJet1TrackPhi_;
+//vector<float>  AODCaloJet1TrackPhi_;
 float  AODCaloJet1EMEnergyFrac_;
 float  AODCaloJet1HadEnergyFrac_;
 
 vector<float>  AODCaloJet2TrackPt_;
 vector<float>  AODCaloJet2TrackEta_;
-vector<float>  AODCaloJet2TrackPhi_;
+//vector<float>  AODCaloJet2TrackPhi_;
 float  AODCaloJet2EMEnergyFrac_;
 float  AODCaloJet2HadEnergyFrac_;
 
 vector<float>  AODCaloJet3TrackPt_;
 vector<float>  AODCaloJet3TrackEta_;
-vector<float>  AODCaloJet3TrackPhi_;
+//vector<float>  AODCaloJet3TrackPhi_;
 float  AODCaloJet3EMEnergyFrac_;
 float  AODCaloJet3HadEnergyFrac_;
 
 vector<float>  AODCaloJet4TrackPt_;
 vector<float>  AODCaloJet4TrackEta_;
-vector<float>  AODCaloJet4TrackPhi_;
+//vector<float>  AODCaloJet4TrackPhi_;
 float  AODCaloJet4EMEnergyFrac_;
 float  AODCaloJet4HadEnergyFrac_;
 // TrackPT
+
+// LeadPT & 2D hist
+float  AODCaloJet1_LeadTrackPt_;
+float  AODCaloJet1_LeadTrackEta_;
+
+float  AODCaloJet2_LeadTrackPt_;
+float  AODCaloJet2_LeadTrackEta_;
+
+float  AODCaloJet3_LeadTrackPt_;
+float  AODCaloJet3_LeadTrackEta_;
+
+float  AODCaloJet4_LeadTrackPt_;
+float  AODCaloJet4_LeadTrackEta_;
+// LeadPT & 2D hist
 
 vector<float>  AODCaloJetAlphaMax_;
 vector<float>  AODCaloJetAlphaMax2_;
@@ -231,28 +245,42 @@ void lldjNtuple::branchesAODJets(TTree* tree) {
 // TrackPT
   tree->Branch("AODCaloJet1TrackPt"  , &AODCaloJet1TrackPt_  );
   tree->Branch("AODCaloJet1TrackEta" , &AODCaloJet1TrackEta_ );
-  tree->Branch("AODCaloJet1TrackPhi" , &AODCaloJet1TrackPhi_ );
+  //tree->Branch("AODCaloJet1TrackPhi" , &AODCaloJet1TrackPhi_ );
   tree->Branch("AODCaloJet1EMEnergyFrac_"  , &AODCaloJet1EMEnergyFrac_ );
   tree->Branch("AODCaloJet1HadEnergyFrac_" , &AODCaloJet1HadEnergyFrac_);
 
   tree->Branch("AODCaloJet2TrackPt"  , &AODCaloJet2TrackPt_  );
   tree->Branch("AODCaloJet2TrackEta" , &AODCaloJet2TrackEta_ );
-  tree->Branch("AODCaloJet2TrackPhi" , &AODCaloJet2TrackPhi_ );
+  //tree->Branch("AODCaloJet2TrackPhi" , &AODCaloJet2TrackPhi_ );
   tree->Branch("AODCaloJet2EMEnergyFrac_"  , &AODCaloJet2EMEnergyFrac_ );
   tree->Branch("AODCaloJet2HadEnergyFrac_" , &AODCaloJet2HadEnergyFrac_);
 
   tree->Branch("AODCaloJet3TrackPt"  , &AODCaloJet3TrackPt_  );
   tree->Branch("AODCaloJet3TrackEta" , &AODCaloJet3TrackEta_ );
-  tree->Branch("AODCaloJet3TrackPhi" , &AODCaloJet3TrackPhi_ );
+  //tree->Branch("AODCaloJet3TrackPhi" , &AODCaloJet3TrackPhi_ );
   tree->Branch("AODCaloJet3EMEnergyFrac_"  , &AODCaloJet3EMEnergyFrac_ );
   tree->Branch("AODCaloJet3HadEnergyFrac_" , &AODCaloJet3HadEnergyFrac_);
 
   tree->Branch("AODCaloJet4TrackPt"  , &AODCaloJet4TrackPt_  );
   tree->Branch("AODCaloJet4TrackEta" , &AODCaloJet4TrackEta_ );
-  tree->Branch("AODCaloJet4TrackPhi" , &AODCaloJet4TrackPhi_ );
+  //tree->Branch("AODCaloJet4TrackPhi" , &AODCaloJet4TrackPhi_ );
   tree->Branch("AODCaloJet4EMEnergyFrac_"  , &AODCaloJet4EMEnergyFrac_ );
   tree->Branch("AODCaloJet4HadEnergyFrac_" , &AODCaloJet4HadEnergyFrac_);
 // TrackPT
+
+// LeadPT & 2Dhist
+  tree->Branch("AODCaloJet1_LeadTrackPt"  , &AODCaloJet1_LeadTrackPt_  );
+  tree->Branch("AODCaloJet1_LeadTrackEta" , &AODCaloJet1_LeadTrackEta_ );
+
+  tree->Branch("AODCaloJet2_LeadTrackPt"  , &AODCaloJet2_LeadTrackPt_  );
+  tree->Branch("AODCaloJet2_LeadTrackEta" , &AODCaloJet2_LeadTrackEta_ );
+
+  tree->Branch("AODCaloJet3_LeadTrackPt"  , &AODCaloJet3_LeadTrackPt_  );
+  tree->Branch("AODCaloJet3_LeadTrackEta" , &AODCaloJet3_LeadTrackEta_ );
+
+  tree->Branch("AODCaloJet4_LeadTrackPt"  , &AODCaloJet4_LeadTrackPt_  );
+  tree->Branch("AODCaloJet4_LeadTrackEta" , &AODCaloJet4_LeadTrackEta_ );
+// LeadPT & 2Dhist
 
   tree->Branch("AODCaloJetAlphaMax"            , &AODCaloJetAlphaMax_);                               
   tree->Branch("AODCaloJetAlphaMax2"           , &AODCaloJetAlphaMax2_);                               
@@ -366,16 +394,16 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 // TrackPT
   AODCaloJet1TrackPt_  .clear();
   AODCaloJet1TrackEta_ .clear();
-  AODCaloJet1TrackPhi_ .clear();
+  //AODCaloJet1TrackPhi_ .clear();
   AODCaloJet2TrackPt_  .clear();
   AODCaloJet2TrackEta_ .clear();
-  AODCaloJet2TrackPhi_ .clear();
+  //AODCaloJet2TrackPhi_ .clear();
   AODCaloJet3TrackPt_  .clear();
   AODCaloJet3TrackEta_ .clear();
-  AODCaloJet3TrackPhi_ .clear();
+  //AODCaloJet3TrackPhi_ .clear();
   AODCaloJet4TrackPt_  .clear();
   AODCaloJet4TrackEta_ .clear();
-  AODCaloJet4TrackPhi_ .clear();
+  //AODCaloJet4TrackPhi_ .clear();
   AODCaloJet1EMEnergyFrac_  = -1.; 
   AODCaloJet1HadEnergyFrac_ = -1.; 
   AODCaloJet2EMEnergyFrac_  = -1.; 
@@ -386,6 +414,17 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   AODCaloJet4HadEnergyFrac_ = -1.; 
 // TrackPT
 
+// LeadPT & 2Dhist
+  AODCaloJet1_LeadTrackPt_  = 0.;
+  AODCaloJet1_LeadTrackEta_ = -9.9;
+  AODCaloJet2_LeadTrackPt_  = 0.;
+  AODCaloJet2_LeadTrackEta_ = -9.9;
+  AODCaloJet3_LeadTrackPt_  = 0.;
+  AODCaloJet3_LeadTrackEta_ = -9.9;
+  AODCaloJet4_LeadTrackPt_  = 0.;
+  AODCaloJet4_LeadTrackEta_ = -9.9;
+// LeadPT & 2Dhist
+ 
  AODCaloJetAlphaMax_.clear();                               
  AODCaloJetAlphaMax2_.clear();                               
  AODCaloJetAlphaMaxPrime_.clear();                               
@@ -713,8 +752,11 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 
      AODCaloJet1TrackPt_ .push_back( AODallTrackPt [caloJetTrackIDs[i]] );
      AODCaloJet1TrackEta_.push_back( AODallTrackEta[caloJetTrackIDs[i]] );
-     AODCaloJet1TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
+     //AODCaloJet1TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
+     //AODCaloJet1_LeadTrackEta_ = *std::max_element(AODCaloJet1TrackEta_.begin(),AODCaloJet1TrackEta_.end());	
    }
+     AODCaloJet1_LeadTrackPt_ = *std::max_element(AODCaloJet1TrackPt_.begin(),AODCaloJet1TrackPt_.end());
+     AODCaloJet1_LeadTrackEta_ = *std::max_element(AODCaloJet1TrackEta_.begin(),AODCaloJet1TrackEta_.end());
   }
   if(njet==2){
    AODCaloJet2EMEnergyFrac_  = iJet->emEnergyFraction() ; 
@@ -722,8 +764,10 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    for( int i=0; i<(int)caloJetTrackIDs.size(); i++){
      AODCaloJet2TrackPt_ .push_back( AODallTrackPt [caloJetTrackIDs[i]] );
      AODCaloJet2TrackEta_.push_back( AODallTrackEta[caloJetTrackIDs[i]] );
-     AODCaloJet2TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
+     //AODCaloJet2TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
    }
+     AODCaloJet2_LeadTrackPt_ = *std::max_element(AODCaloJet2TrackPt_.begin(),AODCaloJet2TrackPt_.end());
+     AODCaloJet2_LeadTrackEta_ = *std::max_element(AODCaloJet2TrackEta_.begin(),AODCaloJet2TrackEta_.end());
   }
   if(njet==3){
    AODCaloJet3EMEnergyFrac_  = iJet->emEnergyFraction() ; 
@@ -731,8 +775,10 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    for( int i=0; i<(int)caloJetTrackIDs.size(); i++){
      AODCaloJet3TrackPt_ .push_back( AODallTrackPt [caloJetTrackIDs[i]] );
      AODCaloJet3TrackEta_.push_back( AODallTrackEta[caloJetTrackIDs[i]] );
-     AODCaloJet3TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
+     //AODCaloJet3TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
    }
+     AODCaloJet3_LeadTrackPt_ = *std::max_element(AODCaloJet3TrackPt_.begin(),AODCaloJet3TrackPt_.end());
+     AODCaloJet3_LeadTrackEta_ = *std::max_element(AODCaloJet3TrackEta_.begin(),AODCaloJet3TrackEta_.end());
   }
   if(njet==4){
    AODCaloJet4EMEnergyFrac_  = iJet->emEnergyFraction() ; 
@@ -740,8 +786,10 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    for( int i=0; i<(int)caloJetTrackIDs.size(); i++){
      AODCaloJet4TrackPt_ .push_back( AODallTrackPt [caloJetTrackIDs[i]] );
      AODCaloJet4TrackEta_.push_back( AODallTrackEta[caloJetTrackIDs[i]] );
-     AODCaloJet4TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
+     //AODCaloJet4TrackPhi_.push_back( AODallTrackPhi[caloJetTrackIDs[i]] );
    }
+     AODCaloJet4_LeadTrackPt_ = *std::max_element(AODCaloJet4TrackPt_.begin(),AODCaloJet4TrackPt_.end());
+     AODCaloJet4_LeadTrackEta_ = *std::max_element(AODCaloJet4TrackEta_.begin(),AODCaloJet4TrackEta_.end());
   }
 //TrackPT
 

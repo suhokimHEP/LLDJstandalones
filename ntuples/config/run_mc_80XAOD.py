@@ -16,21 +16,19 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 #process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(30) ) 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 # input files
 process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
- #'file:DY.root',
+#'file:/eos/uscms/store/group/lpchbb/LLDJntuples/ZH_track/skimmedAODs/ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1/pickevents_1.root',
 #'file:/uscms_data/d3/tmperry/aLLDJ_slc6_530_CMSSW_8_0_26_patch1/src/AOD_ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_4A859964-FEC8-E611-B0B8-20CF3027A561.root'
 #'file:gjets400to600_20F153C7-E8BB-E611-BE31-0CC47A4C8E82.root' 
 #'file:D420E413-FDC8-E611-869C-00259021A342.root' 
 #'file:/uscms_data/d3/tmperry/roots/AOD_ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_D6822833-FEC8-E611-8CD1-002590E7D7DE.root',
-'file:/uscms_data/d3/tmperry/roots/AOD_TTJets_BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root',
-
-#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer16DR80Premix/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/70000/BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root'
-
+#'file:/uscms_data/d3/tmperry/roots/AOD_TTJets_BC767BF0-84E9-E611-B4B4-0025B3E05BE9.root',
+'root://cmsxrootd.fnal.gov//store/user/suho/ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1_TuneCUETP8M1_13TeV-powheg-pythia8/crab_pickEvents/191013_170339/0000/pickevents_9.root'
  ),
 )
 
