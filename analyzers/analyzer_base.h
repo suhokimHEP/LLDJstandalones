@@ -116,6 +116,14 @@ public :
    std::vector<float>   *AODCaloJetPt;
    std::vector<float>   *AODCaloJetEta;
    std::vector<float>   *AODCaloJetPhi;
+   Float_t   AODCaloJet1_LeadTrackPt;
+   Float_t   AODCaloJet1_LeadTrackEta;
+   Float_t   AODCaloJet2_LeadTrackPt;
+   Float_t   AODCaloJet2_LeadTrackEta;
+   Float_t   AODCaloJet3_LeadTrackPt;
+   Float_t   AODCaloJet3_LeadTrackEta;
+   Float_t   AODCaloJet4_LeadTrackPt;
+   Float_t   AODCaloJet4_LeadTrackEta;
    std::vector<float>   *AODCaloJetAlphaMax;
    std::vector<float>   *AODCaloJetAlphaMax2;
    std::vector<float>   *AODCaloJetAlphaMaxPrime;
@@ -333,6 +341,14 @@ public :
    TBranch        *b_AODCaloJetPt;   //!
    TBranch        *b_AODCaloJetEta;   //!
    TBranch        *b_AODCaloJetPhi;   //!
+   TBranch        *b_AODCaloJet1_LeadTrackPt;   //!
+   TBranch        *b_AODCaloJet1_LeadTrackEta;   //!
+   TBranch        *b_AODCaloJet2_LeadTrackPt;   //!
+   TBranch        *b_AODCaloJet2_LeadTrackEta;   //!
+   TBranch        *b_AODCaloJet3_LeadTrackPt;   //!
+   TBranch        *b_AODCaloJet3_LeadTrackEta;   //!
+   TBranch        *b_AODCaloJet4_LeadTrackPt;   //!
+   TBranch        *b_AODCaloJet4_LeadTrackEta;   //!
    TBranch        *b_AODCaloJetAlphaMax;   //!
    TBranch        *b_AODCaloJetAlphaMax2;   //!
    TBranch        *b_AODCaloJetAlphaMaxPrime;   //!

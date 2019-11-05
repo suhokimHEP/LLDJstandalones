@@ -357,6 +357,9 @@ public :
  TH1F*  h_AODCaloJetPtVar                          [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetEta                            [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetPhi                            [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH2F*  h_AODCaloJet_LeadTrackPtvAM                            [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH2F*  h_AODCaloJet_LeadTrackPtvIPSig                            [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH2F*  h_AODCaloJet_LeadTrackPtvTA                            [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMax                       [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMax2                      [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMaxPrime                  [SELBINNAMESIZE][JETMULTNAMESIZE];

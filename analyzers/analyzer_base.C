@@ -56,6 +56,14 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    AODCaloJetPt = 0;
    AODCaloJetEta = 0;
    AODCaloJetPhi = 0;
+   AODCaloJet1_LeadTrackPt = 0;
+   AODCaloJet1_LeadTrackEta = 0;
+   AODCaloJet2_LeadTrackPt = 0;
+   AODCaloJet2_LeadTrackEta = 0;
+   AODCaloJet3_LeadTrackPt = 0;
+   AODCaloJet3_LeadTrackEta = 0;
+   AODCaloJet4_LeadTrackPt = 0;
+   AODCaloJet4_LeadTrackEta = 0;
    AODCaloJetAlphaMax = 0;
    AODCaloJetAlphaMax2 = 0;
    AODCaloJetAlphaMaxPrime = 0;
@@ -265,6 +273,14 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AODCaloJetPt", &AODCaloJetPt, &b_AODCaloJetPt);
    fChain->SetBranchAddress("AODCaloJetEta", &AODCaloJetEta, &b_AODCaloJetEta);
    fChain->SetBranchAddress("AODCaloJetPhi", &AODCaloJetPhi, &b_AODCaloJetPhi);
+   fChain->SetBranchAddress("AODCaloJet1_LeadTrackPt", &AODCaloJet1_LeadTrackPt, &b_AODCaloJet1_LeadTrackPt);
+   fChain->SetBranchAddress("AODCaloJet1_LeadTrackEta", &AODCaloJet1_LeadTrackEta, &b_AODCaloJet1_LeadTrackEta);
+   fChain->SetBranchAddress("AODCaloJet2_LeadTrackPt", &AODCaloJet2_LeadTrackPt, &b_AODCaloJet2_LeadTrackPt);
+   fChain->SetBranchAddress("AODCaloJet2_LeadTrackEta", &AODCaloJet2_LeadTrackEta, &b_AODCaloJet2_LeadTrackEta);
+   fChain->SetBranchAddress("AODCaloJet3_LeadTrackPt", &AODCaloJet3_LeadTrackPt, &b_AODCaloJet3_LeadTrackPt);
+   fChain->SetBranchAddress("AODCaloJet3_LeadTrackEta", &AODCaloJet3_LeadTrackEta, &b_AODCaloJet3_LeadTrackEta);
+   fChain->SetBranchAddress("AODCaloJet4_LeadTrackPt", &AODCaloJet4_LeadTrackPt, &b_AODCaloJet4_LeadTrackPt);
+   fChain->SetBranchAddress("AODCaloJet4_LeadTrackEta", &AODCaloJet4_LeadTrackEta, &b_AODCaloJet4_LeadTrackEta);
    fChain->SetBranchAddress("AODCaloJetAlphaMax", &AODCaloJetAlphaMax, &b_AODCaloJetAlphaMax);
    fChain->SetBranchAddress("AODCaloJetAlphaMax2", &AODCaloJetAlphaMax2, &b_AODCaloJetAlphaMax2);
    fChain->SetBranchAddress("AODCaloJetAlphaMaxPrime", &AODCaloJetAlphaMaxPrime, &b_AODCaloJetAlphaMaxPrime);
@@ -398,6 +414,6 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AOD_CaloMET_phi", &AOD_CaloMET_phi, &b_AOD_CaloMET_phi);
    fChain->SetBranchAddress("AOD_pfChMET_phi", &AOD_pfChMET_phi, &b_AOD_pfChMET_phi);
    fChain->SetBranchAddress("AOD_pfMET_phi", &AOD_pfMET_phi, &b_AOD_pfMET_phi);
-   if(Tsample == "DYJetsToLL_M-50" || Tsample == "ST_s-channel_4f_leptonDecays")fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
+   //if(Tsample == "DYJetsToLL_M-50" || Tsample == "ST_s-channel_4f_leptonDecays")fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
 
 }

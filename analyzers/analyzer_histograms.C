@@ -554,6 +554,10 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	TString hname_AODCaloJetPtVar                         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPtVar"                +uncbin; 
 	TString hname_AODCaloJetEta                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetEta"                  +uncbin; 
 	TString hname_AODCaloJetPhi                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPhi"                  +uncbin; 
+	TString hname_AODCaloJet_LeadTrackPtvAM                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_LeadTrackPtvAM"                  +uncbin; 
+	TString hname_AODCaloJet_LeadTrackPtvIPSig                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_LeadTrackPtvIPSig"                  +uncbin; 
+	TString hname_AODCaloJet_LeadTrackPtvTA                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_LeadTrackPtvTA"                  +uncbin; 
+	TString hname_AODCaloJetLead                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPhi"                  +uncbin; 
 	TString hname_AODCaloJetAlphaMax                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax"             +uncbin; 
 	TString hname_AODCaloJetAlphaMax2                     = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax2"            +uncbin; 
 	TString hname_AODCaloJetAlphaMaxPrime                 = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMaxPrime"        +uncbin; 
@@ -576,6 +580,9 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	h_AODCaloJetPt                             [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPt                             , "AODCaloJetPt                            ", 50,0,500  ); 
 	h_AODCaloJetEta                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetEta                            , "AODCaloJetEta                           ", 30,-5,5   ); 
 	h_AODCaloJetPhi                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPhi                            , "AODCaloJetPhi                           ", 30,-5,5   ); 
+	h_AODCaloJet_LeadTrackPtvAM                            [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_LeadTrackPtvAM                            , "AODCaloJet_LeadTrackPtvAM                           ", 99,5,500,60,0,1.2   ); 
+	h_AODCaloJet_LeadTrackPtvIPSig                            [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_LeadTrackPtvIPSig                            , "AODCaloJet_LeadTrackPtvIPSig                           ", 99,5,500,50,-3,4   ); 
+	h_AODCaloJet_LeadTrackPtvTA                            [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_LeadTrackPtvTA                            , "AODCaloJet_LeadTrackPtvTA                           ", 99,5,500,50,-5,2   ); 
 	h_AODCaloJetAlphaMax                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax                       , "AODCaloJetAlphaMax                      ", 60, 0, 1.2  ); 
 	h_AODCaloJetAlphaMax2                      [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax2                      , "AODCaloJetAlphaMax2                     ", 50, 0, 1  ); 
 	h_AODCaloJetAlphaMaxPrime                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime                  , "AODCaloJetAlphaMaxPrime                 ", 50, 0, 1  ); 
@@ -623,6 +630,11 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetPtVar                          [selbin][jetbin]->Fill( AODCaloJetPt                             ->at( aodcalojetindex ), weight );  
       h_AODCaloJetEta                            [selbin][jetbin]->Fill( AODCaloJetEta                            ->at( aodcalojetindex ), weight );  
       h_AODCaloJetPhi                            [selbin][jetbin]->Fill( AODCaloJetPhi                            ->at( aodcalojetindex ), weight );  
+     if (aodcalojet_list.size()==1){
+      h_AODCaloJet_LeadTrackPtvAM                            [selbin][jetbin]->Fill( AODCaloJet1_LeadTrackPt,Shifted_CaloJetAlphaMax.at( aodcalojetindex ), weight );  
+      h_AODCaloJet_LeadTrackPtvIPSig                            [selbin][jetbin]->Fill( AODCaloJet1_LeadTrackPt,Shifted_CaloJetMedianLog10IPSig.at( aodcalojetindex ), weight );  
+      h_AODCaloJet_LeadTrackPtvTA                            [selbin][jetbin]->Fill( AODCaloJet1_LeadTrackPt,Shifted_CaloJetMedianLog10TrackAngle.at( aodcalojetindex ), weight );  
+}
       h_AODCaloJetAlphaMax                       [selbin][jetbin]->Fill( Shifted_CaloJetAlphaMax                   .at( aodcalojetindex ), weight );  
       h_AODCaloJetAlphaMax2                      [selbin][jetbin]->Fill( AODCaloJetAlphaMax2                      ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAlphaMaxPrime                  [selbin][jetbin]->Fill( AODCaloJetAlphaMaxPrime                  ->at( aodcalojetindex ), weight );  
@@ -649,6 +661,11 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetPtVar                          [selbin][jetbin]->Fill( AODCaloJetPt                             ->at( aodcalojetindex ), weight );  
       h_AODCaloJetEta                            [selbin][jetbin]->Fill( AODCaloJetEta                            ->at( aodcalojetindex ), weight );  
       h_AODCaloJetPhi                            [selbin][jetbin]->Fill( AODCaloJetPhi                            ->at( aodcalojetindex ), weight );  
+      if(aodcalojet_list.size()==1){
+      h_AODCaloJet_LeadTrackPtvAM                            [selbin][jetbin]->Fill( AODCaloJet1_LeadTrackPt,Shifted_CaloJetAlphaMax.at( aodcalojetindex ), weight );  
+      h_AODCaloJet_LeadTrackPtvIPSig                            [selbin][jetbin]->Fill( AODCaloJet1_LeadTrackPt,Shifted_CaloJetMedianLog10IPSig.at( aodcalojetindex ), weight );  
+      h_AODCaloJet_LeadTrackPtvTA                            [selbin][jetbin]->Fill( AODCaloJet1_LeadTrackPt,Shifted_CaloJetMedianLog10TrackAngle.at( aodcalojetindex ), weight );  
+}
       h_AODCaloJetAlphaMax                       [selbin][jetbin]->Fill( Shifted_CaloJetAlphaMax                   .at( aodcalojetindex ), weight );  
       h_AODCaloJetAlphaMax2                      [selbin][jetbin]->Fill( AODCaloJetAlphaMax2                      ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAlphaMaxPrime                  [selbin][jetbin]->Fill( AODCaloJetAlphaMaxPrime                  ->at( aodcalojetindex ), weight );  
@@ -686,6 +703,9 @@ Bool_t analyzer_histograms::writeAODCaloJetBasicHistograms(int selbin, int jetbi
   h_AODCaloJetPtVar                          [selbin][jetbin]->Write(); 
   h_AODCaloJetEta                            [selbin][jetbin]->Write(); 
   h_AODCaloJetPhi                            [selbin][jetbin]->Write(); 
+  h_AODCaloJet_LeadTrackPtvAM                            [selbin][jetbin]->Write(); 
+  h_AODCaloJet_LeadTrackPtvIPSig                            [selbin][jetbin]->Write(); 
+  h_AODCaloJet_LeadTrackPtvTA                            [selbin][jetbin]->Write(); 
   h_AODCaloJetAlphaMax                       [selbin][jetbin]->Write(); 
   h_AODCaloJetAlphaMax2                      [selbin][jetbin]->Write(); 
   h_AODCaloJetAlphaMaxPrime                  [selbin][jetbin]->Write(); 
@@ -727,6 +747,9 @@ Bool_t analyzer_histograms::deleteAODCaloJetBasicHistograms(int selbin, int jetb
   if(h_AODCaloJetPtVar                [selbin][jetbin]!=NULL)    h_AODCaloJetPtVar                          [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetEta                  [selbin][jetbin]!=NULL)    h_AODCaloJetEta                            [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetPhi                  [selbin][jetbin]!=NULL)    h_AODCaloJetPhi                            [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJet_LeadTrackPtvAM                  [selbin][jetbin]!=NULL)    h_AODCaloJet_LeadTrackPtvAM                            [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJet_LeadTrackPtvIPSig                  [selbin][jetbin]!=NULL)    h_AODCaloJet_LeadTrackPtvIPSig                            [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJet_LeadTrackPtvTA                  [selbin][jetbin]!=NULL)    h_AODCaloJet_LeadTrackPtvTA                            [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetAlphaMax             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax                       [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetAlphaMax2            [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax2                      [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetAlphaMaxPrime        [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMaxPrime                  [selbin][jetbin]->Delete(); 

@@ -5,7 +5,6 @@
 #include <TCanvas.h>
 #include <iostream>
 #include <iomanip>
-#include <fstream>
 
 using namespace std;
 
@@ -27,9 +26,7 @@ void analyzer_loop::Loop(TString outfilename,
  if(makelog){
   logfile = fopen( outfilename+".txt", "w"); 
  }
-ofstream ZHDiElefile, ZHDiMufile;
-ZHDiElefile.open(outfilename+"_cat_TwoEleZH_edmEventPick"+".txt");
-ZHDiMufile.open(outfilename+"_cat_TwoMuZH_edmEventPick"+".txt");
+
  if (fChain == 0) return;
 
  Long64_t nentries = fChain->GetEntriesFast();
@@ -402,8 +399,6 @@ TFile *outfile_bkgest = 0;
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
-     if (i==9) {ZHDiElefile <<run<<":"<<lumis<<":"<<event<<"\n";}
-     if (i==11) {ZHDiMufile <<run<<":"<<lumis<<":"<<event<<"\n";}
 
      //jets
      if(jetMultOn){
@@ -536,8 +531,6 @@ TFile *outfile_bkgest = 0;
 
   } 
  } // if i== one of the phase spaces we want to write
-ZHDiElefile.close();
-ZHDiMufile.close();
 } // end analyzer_loop::Loop()
 
 
