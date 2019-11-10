@@ -497,12 +497,12 @@ TFile *outfile_bkgest = 0;
  std::cout<<" n_passEleMuOSOF    " << setw(width) << left << n_passEleMuOSOF    << setw(width) << left << (float) n_passEleMuOSOF   / (float) n_tot << std::endl;   
  std::cout<<" n_passEleMuOSOFL   " << setw(width) << left << n_passEleMuOSOFL   << setw(width) << left << (float) n_passEleMuOSOFL  / (float) n_tot << std::endl;   
  std::cout<<" n_passOnePho       " << setw(width) << left << n_passOnePho       << setw(width) << left << (float) n_passOnePho      / (float) n_tot << std::endl;   
- std::cout<<" n_passEleWH   	 " << setw(width) << left << n_passEleWH        << setw(width) << left << (float) n_passEleWH       / (float) n_tot << std::endl; 
- std::cout<<" n_passMuWH  	 " << setw(width) << left << n_passMuWH         << setw(width) << left << (float) n_passMuWH        / (float) n_tot << std::endl;   
- std::cout<<" n_passEleWHSig 	 " << setw(width) << left << n_passEleWHSig     << setw(width) << left << (float) n_passEleWHSig    / (float) n_tot << std::endl;
- std::cout<<" n_passMuWHSig  	 " << setw(width) << left << n_passMuWHSig      << setw(width) << left << (float) n_passMuWHSig     / (float) n_tot << std::endl;  
- std::cout<<" n_passEleLowPtWH	 " << setw(width) << left << n_passEleLowPtWH   << setw(width) << left << (float) n_passEleLowPtWH  / (float) n_tot << std::endl;
- std::cout<<" n_passMuLowPtWH  	 " << setw(width) << left << n_passMuLowPtWH    << setw(width) << left << (float) n_passMuLowPtWH   / (float) n_tot << std::endl;  
+ std::cout<<" n_passEleWH        " << setw(width) << left << n_passEleWH        << setw(width) << left << (float) n_passEleWH       / (float) n_tot << std::endl; 
+ std::cout<<" n_passMuWH         " << setw(width) << left << n_passMuWH         << setw(width) << left << (float) n_passMuWH        / (float) n_tot << std::endl;   
+ std::cout<<" n_passEleWHSig     " << setw(width) << left << n_passEleWHSig     << setw(width) << left << (float) n_passEleWHSig    / (float) n_tot << std::endl;
+ std::cout<<" n_passMuWHSig      " << setw(width) << left << n_passMuWHSig      << setw(width) << left << (float) n_passMuWHSig     / (float) n_tot << std::endl;  
+ std::cout<<" n_passEleLowPtWH   " << setw(width) << left << n_passEleLowPtWH   << setw(width) << left << (float) n_passEleLowPtWH  / (float) n_tot << std::endl;
+ std::cout<<" n_passMuLowPtWH    " << setw(width) << left << n_passMuLowPtWH    << setw(width) << left << (float) n_passMuLowPtWH   / (float) n_tot << std::endl;  
  std::cout<<std::endl;
 
  std::cout<<" Jet Matching "<<std::endl;

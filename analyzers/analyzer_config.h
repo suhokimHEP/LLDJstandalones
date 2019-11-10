@@ -53,8 +53,8 @@ public :
    
    Bool_t doTTOC(); 
    
-   static const Bool_t jetMultOn = kTRUE; // loggit
-   //static const Bool_t jetMultOn = kFALSE;  // loggit
+   //static const Bool_t jetMultOn = kTRUE; // loggit
+   static const Bool_t jetMultOn = kFALSE;  // loggit
 };
 
 #endif
