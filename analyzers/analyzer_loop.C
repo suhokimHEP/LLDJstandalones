@@ -155,7 +155,7 @@ TFile *outfile_bkgest = 0;
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
-  event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  event_weight = makeEventWeight(crossSec,lumi,nevts);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
   if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
@@ -166,11 +166,12 @@ TFile *outfile_bkgest = 0;
   if(isMC) event_weight *= makeElectronWeight( electron_list );
   if(isMC) event_weight *= makeTTWeight( avgTTSF );
   //if(isMC) event_weight *= makeEleTriggerEffi( electron_list );
-
   //if(isMC) event_weight *= makeMuonWeight( muon_list );
   //if(isMC) event_weight *= makeMuonIso( muon_list );
   //if(isMC) event_weight *= .99;
   //if(isMC) event_weight *= makeMuonTriggerEffi( muon_list );
+  //float ctauReweight = ctauEventWeight->at(0);
+  //if(isMC) event_weight *= ctauReweight;
  
 
 
@@ -396,6 +397,7 @@ TFile *outfile_bkgest = 0;
 
    /// quick hack to only write phase spaces we care about
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
+   //if(i==18){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
@@ -430,7 +432,6 @@ TFile *outfile_bkgest = 0;
 //   }
   
  } // end loop over entries
-
  std::cout << std::endl;
  std::cout << std::endl;
  std::cout << " Summary     cleaning dR=" << objcleandRcut << std::endl;

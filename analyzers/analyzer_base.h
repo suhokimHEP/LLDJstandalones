@@ -58,6 +58,7 @@ public :
    std::vector<float>   *llpDaughterPhi;
    std::vector<float>   *llpDaughterMass;
    std::vector<float>   *toppts;
+   std::vector<float>   *ctauEventWeight;
    //single ele
    ULong64_t       AOD_HLT_Ele23Loose;
    ULong64_t       AOD_HLT_Ele27Tight;
@@ -274,6 +275,7 @@ public :
    TBranch        *b_llpDaughterPhi;   //!
    TBranch        *b_llpDaughterMass;   //!
    TBranch        *b_toppts;   //!
+   TBranch        *b_ctauEventWeight;   //!
    //single ele
    TBranch        *b_AOD_HLT_Ele23Loose;   //!
    TBranch        *b_AOD_HLT_Ele27Tight;   //!

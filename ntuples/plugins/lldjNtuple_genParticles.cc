@@ -5,7 +5,7 @@
 
 using namespace std;
 bool ctauWeight = true; //Determine whether to weight or not weight the SigMC
-float targetdist = 300; //To weight it, determine the target distance
+float targetdist = 30; //To weight it, determine the target distance
 //Recommended targetdist range : 10mm sample->1mm<ct<10mm
 			//	 100mm sample->10mm<ct<100mm
 			//	 1000mm	samplet->100mm<ct<1000mm
@@ -27,7 +27,8 @@ vector<float> llpDaughterMass;
 vector<float> toppts;
 vector<float> Decaydist;
 vector<float> Simweight;
-vector<float> ctauEventWeight;
+//vector<float> ctauEventWeight;
+Float_t ctauEventWeight;
 
 
 void lldjNtuple::branchesGenPart(TTree* tree) {
@@ -69,7 +70,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
   toppts.clear();
   if (ctauWeight){Decaydist.clear();
   Simweight.clear();
-  ctauEventWeight.clear();
+  ctauEventWeight = 0.0;
 }
   //Gen particles handle
   edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
@@ -132,7 +133,8 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
    TTSF = TTSF * exp( 0.0615 - 0.0005*toppts.at(0)) * exp( 0.0615 - 0.0005*toppts.at(1));
   }
   hTTSF_->Fill( TTSF );
-  if(ctauWeight) ctauEventWeight.push_back(totEventWeight);
+  //if(ctauWeight) ctauEventWeight.push_back(totEventWeight);
+  if(ctauWeight) ctauEventWeight = totEventWeight;
   //std::cout<<"TTSF   "<<TTSF<<std::endl;
 
 }
