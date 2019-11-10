@@ -104,9 +104,15 @@ void analyzer_selections::setSelections()
  selvecBaseZH   .push_back( passOneJet  );
 
  selvecBaseDY      .push_back( passGoodVtx );
+<<<<<<< Updated upstream
  selvecBaseDY      .push_back( passZWindow );
  //selvecBaseDY      .push_back( true );
  selvecBaseDY      .push_back( passLowPTOSSF );
+=======
+ if (!TTOC) {selvecBaseDY      .push_back( passZWindow );}
+ else {selvecBaseDY      .push_back( kTRUE );}
+ selvecBaseDY      .push_back( !passPTOSSF );
+>>>>>>> Stashed changes
  selvecBaseDY      .push_back( passOneJet  );
 
  //Usually not used. Hacking right now to get inclusive Z plots
@@ -181,12 +187,12 @@ void analyzer_selections::setSelections()
  selvecEleMuOSOF .push_back( passMuEG     );
  selvecEleMuOSOF .push_back( passGoodVtx  );
  selvecEleMuOSOF .push_back( passOneJet   );
- if(!TTOC) selvecEleMuOSOF .push_back( passPTOSOF  && passZWinOSOF );
+ /*if(!TTOC)*/ selvecEleMuOSOF .push_back( /*passPTOSOF  &&*/ passZWinOSOF );
  // EleMu OSOF LowPt
  selvecEleMuOSOFL .push_back( passMuEG     );
  selvecEleMuOSOFL .push_back( passGoodVtx  );
  selvecEleMuOSOFL .push_back( passOneJet   );
- if(!TTOC) selvecEleMuOSOFL .push_back( (!passPTOSOF)  && passZWinOSOF );
+ /*if(!TTOC)*/ selvecEleMuOSOFL .push_back( (!passPTOSOF)  && passZWinOSOF );
  // One Photon
  selvecOnePho .push_back( passSinglePho);
  selvecOnePho .push_back( passGoodVtx  );

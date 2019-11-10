@@ -36,11 +36,15 @@ public :
  static const int PhoEtaBinMin  = -5;
  static const int MuEtaBinMin   = -5;
  static const int EleEtaBinMin  = -5;
+<<<<<<< Updated upstream
  Float_t x_bins[25]={150.0,170.0,200.0,230.0,260.0,290.0,320.0,350.0,390.0,430.0,470.0,510.0,550.0,590.0,640.0,690.0,740.0,790.0,840.0,900.0,960.0,1020.0,1090.0,1160.0,1250.0};
  float sf_qcd[24]={ 1.47528, 1.5428, 1.49376, 1.39119, 1.40538, 1.44661, 1.38176, 1.37381, 1.29145, 1.33452, 1.25765, 1.24265, 1.24331, 1.16187, 1.07349, 1.10748, 1.06617, 1.05616, 1.1149, 1.03164, 1.06872, 0.981645, 0.81729, 0.924246};
  float sf_ewk[24]={ 1.4319, 1.48791, 1.42907, 1.31989, 1.32353, 1.35149, 1.28102, 1.26278, 1.17513, 1.20228, 1.12253, 1.09894, 1.08927, 1.00814, 0.921107, 0.940267, 0.895919, 0.878745, 0.918173, 0.84037, 0.861633, 0.783389, 0.645409, 0.721987};
 
 
+=======
+ int EMucount, EMuTriggercount;
+>>>>>>> Stashed changes
  // Histograms
 
  // make 1D,2D histograms (helper function)
@@ -171,12 +175,16 @@ public :
  TH1F*  h_TTOCMu1Eta               [SELBINNAMESIZE];
  TH1F*  h_TTOCMu2Eta               [SELBINNAMESIZE];
  TH2F*  h_TTOCMuEta                [SELBINNAMESIZE];
+ TH1F*  h_dataTTOCMuPt                [SELBINNAMESIZE];
+ TH1F*  h_dataTTOCMuEta               [SELBINNAMESIZE];
  TH1F*  h_TTOCEle1Pt               [SELBINNAMESIZE];
  TH1F*  h_TTOCEle2Pt               [SELBINNAMESIZE];
  TH2F*  h_TTOCElePt                [SELBINNAMESIZE];
  TH1F*  h_TTOCEle1Eta              [SELBINNAMESIZE];
  TH1F*  h_TTOCEle2Eta              [SELBINNAMESIZE];
  TH2F*  h_TTOCEleEta               [SELBINNAMESIZE];
+ TH1F*  h_dataTTOCElePt                [SELBINNAMESIZE];
+ TH1F*  h_dataTTOCEleEta               [SELBINNAMESIZE];
  //EMu->leadElectronPt>leadMuonPt, MuE->leadMuonPt>leadElectronPt
  TH1F*  h_TTOCEMu_ElePt            [SELBINNAMESIZE];
  TH1F*  h_TTOCEMu_MuPt             [SELBINNAMESIZE];
@@ -194,12 +202,16 @@ public :
  TH1F*  h_TTOCPhoEta               [SELBINNAMESIZE];
  
  //--Double Muon
- TH1F*  h_TTOCTriggerDMu1Pt        [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerDMu2Pt        [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerDMuPt         [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerDMu1Eta       [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerDMu2Eta       [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerDMuEta        [SELBINNAMESIZE];//here
+ TH1F*  h_TTOC_Mu17Mu8_DMu1Pt        [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Mu17Mu8_DMu2Pt        [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Mu17Mu8_DMuPt         [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Mu17Mu8_DMu1Eta       [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Mu17Mu8_DMu2Eta       [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Mu17Mu8_DMuEta        [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DMuPt17        [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DMuEta17       [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DMuPt8        [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DMuEta8        [SELBINNAMESIZE];//here
  TH1F*  h_TTOCTriggerDTkMu1Eta     [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerDTkMu2Eta     [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerDTkMu1Pt      [SELBINNAMESIZE];
@@ -223,12 +235,16 @@ public :
  TH1F*  h_TTOCTrigger24TkMuPt      [SELBINNAMESIZE];
  
 //Double Electron
- TH1F*  h_TTOCTrigger23DEle1Eta    [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23DEle2Eta    [SELBINNAMESIZE];
- TH2F*  h_TTOCTrigger23DEleEta     [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23DEle1Pt     [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23DEle2Pt     [SELBINNAMESIZE];
- TH2F*  h_TTOCTrigger23DElePt      [SELBINNAMESIZE];//here
+ TH1F*  h_TTOC_Ele23Ele12_DEle1Eta    [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Ele12_DEle2Eta    [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Ele12_DEleEta     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Ele12_DEle1Pt     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Ele12_DEle2Pt     [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Ele12_DElePt      [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DElePt23      [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DEleEta23      [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DElePt12      [SELBINNAMESIZE];//here
+ TH1F*  h_dataTTOC_DEleEta12      [SELBINNAMESIZE];//here
  TH1F*  h_TTOCTrigger17DEle1Eta    [SELBINNAMESIZE];
  TH1F*  h_TTOCTrigger17DEle2Eta    [SELBINNAMESIZE];
  TH1F*  h_TTOCTrigger17DEle1Pt     [SELBINNAMESIZE];
@@ -242,19 +258,19 @@ public :
  TH1F*  h_TTOCTriggerPhoEta        [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerPhoPt         [SELBINNAMESIZE];
  //--EMu
- TH1F*  h_TTOCTriggerEMu_ElePt     [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerEMu_MuPt      [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerEMuPt         [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerEMu_EleEta    [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerEMu_MuEta     [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerEMuEta        [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_ElePt     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_MuPt      [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Mu12_EMuPt         [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_EleEta    [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_MuEta     [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Mu12_EMuEta        [SELBINNAMESIZE];
  //--MuE
- TH1F*  h_TTOCTriggerMuE_ElePt     [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerMuE_MuPt      [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerMuEPt         [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerMuE_EleEta    [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerMuE_MuEta     [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerMuEEta        [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_ElePt     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_MuPt      [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele12Mu23_MuEPt         [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_EleEta    [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_MuEta     [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele12Mu23_MuEEta        [SELBINNAMESIZE];
  
 
  // Cutflow histograms
