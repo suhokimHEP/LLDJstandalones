@@ -40,13 +40,13 @@ void plotter_stackedRegion(TString region, Bool_t dolog, Bool_t HIP, Bool_t useE
 
 // // Draw signal as lines
 Bool_t drawSignal = kFALSE; //kTRUE; //kFALSE
-Bool_t drawWHSignal = kTRUE;
+//Bool_t drawWHSignal = kTRUE;
 // Bool_t drawRatio = kTRUE;
 
  // Setup running configuration: IO, naming, SFs, ..
  /////////////////////////////////////////////////////
 
- bool drawData = false; //karem (used to be 'true')
+ bool drawData = true;
  bool useAlt = false; 
  bool doUncPlots = false;
 
@@ -109,17 +109,17 @@ Bool_t drawWHSignal = kTRUE;
 
  int loopEnd;
  if (doUncPlots) loopEnd=uncbins.size(); else loopEnd=1;
- if(drawSignal){extraname+="_wsig";}
- if(drawWHSignal){extraname+="_wWHsig";}
+//if(drawSignal){extraname+="_wsig";}
+//if(drawWHSignal){extraname+="_wWHsig";}
 // variables to plot
  std::vector<TString> variables;
  variables.clear();
 
-variables.push_back("nSelectedAODCaloJetTag");
-variables.push_back("AOD_dilepton_Pt");
-/////variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
-/////variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
-/////variables.push_back("AllJets_AODCaloJetAlphaMax");
+//variables.push_back("nSelectedAODCaloJetTag");
+//variables.push_back("AOD_dilepton_Pt");
+variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
+variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
+variables.push_back("AllJets_AODCaloJetAlphaMax");
 
  //variables.push_back("nSelectedAODCaloJet_L1PFTag");
  //variables.push_back("AllJets_AODCaloJet_L1PFMedianLog10IPSig");
@@ -1276,8 +1276,8 @@ variables.push_back("AOD_dilepton_Pt");
      Float_t  int_ggZH_HToBB_ZToLL         = h_ggZH_HToBB_ZToLL                ->Integral(0,-1); 
      Float_t  int_ZH_HToBB_ZToLL           = h_ZH_HToBB_ZToLL                  ->Integral(0,-1); 
      
-     Float_t  int_WminusH_HToBB_WToLNu     = h_WminusH_HToBB_WToLNu	       ->Integral(0,-1);
-     Float_t  int_WplusH_HToBB_WToLNu      = h_WplusH_HToBB_WToLNu             ->Integral(0,-1);
+     //Float_t  int_WminusH_HToBB_WToLNu     = h_WminusH_HToBB_WToLNu	       ->Integral(0,-1);
+     //Float_t  int_WplusH_HToBB_WToLNu      = h_WplusH_HToBB_WToLNu             ->Integral(0,-1);
 
      Float_t  int_GJets_HT40To100          = h_GJets_HT40To100                 ->Integral(0,-1); 
      Float_t  int_GJets_HT100To200         = h_GJets_HT100To200                ->Integral(0,-1); 
@@ -1813,7 +1813,6 @@ variables.push_back("AOD_dilepton_Pt");
        fprintf (tinytable, "\\end{document}\n\n");
       fclose (tinytable);
      }
-
      // set attributes
      h_DY         -> SetLineColor(kBlack); 
      h_altDY      -> SetLineColor(kBlack); 
@@ -1875,7 +1874,7 @@ variables.push_back("AOD_dilepton_Pt");
      h_VG        ->SetLineColor(kBlack); 
      h_QCD       ->SetLineColor(kBlack); 
      h_ZH        ->SetLineColor(kBlack); 
-     h_WH        ->SetLineColor(kBlack); 
+     //h_WH        ->SetLineColor(kBlack); 
 
 
      h_DY        ->SetLineWidth(0);
