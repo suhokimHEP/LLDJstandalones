@@ -1,20 +1,26 @@
 #!/bin/bash
 
 regions=( \ 
- "EleMuOSOF"     \
+# "EleMuOSOF"     \
 # "EleMuOSOFL"    \
 # "OnePho"        \
-# "TwoEleDY"      \
+ "TwoEleDY"      \
 # "TwoEleSig"     \
 # "TwoEleZH"      \
-# "TwoMuDY"       \
+ "TwoMuDY"       \
 # "TwoMuSig"      \
 # "TwoMuZH"       \
+# "EleWHSig"  \
+# "MuWHSig"   \
+# "EleWH"     \
+# "MuWH"      \
+# "EleLowPtWH" \
+# "MuLowPtWH"  \
 ) 
 
 dologs=( \
-# "kFALSE" \
- "kTRUE" \
+ "kFALSE" \
+# "kTRUE" \
 )
 
 doHIPs=( \

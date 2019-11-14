@@ -177,12 +177,15 @@ TFile *outfile_bkgest = 0;
  if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
   getMET();
+  getWPT();
+  getMT(); 
 
   calculateHT();
 
   makeDiLepton();
 
-  // set booleans if pass selections 
+  // set booleans if pass selections
+
   passOSSF = (dilep_mass>20.);
   passOSOF = (OSOF_mass>20.);
   passPTOSOF = (OSOF_pt>100.);
@@ -194,6 +197,7 @@ TFile *outfile_bkgest = 0;
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
   passTwoTag  = false; if (taggedjet_list.size()>1) passTwoTag=true;  
+  passWPT     = (Wpt>100.);  
   
   passSingleEle = askPassSingleEle();
   passSingleMu  = askPassSingleMu();
@@ -201,6 +205,9 @@ TFile *outfile_bkgest = 0;
   passDoubleMu  = askPassDoubleMu();
   passMuEG      = askPassMuEG();
   passSinglePho = askPassSinglePho();
+  passOnlyOneEle = askPassOnlyOneEle(); // WH mode
+  passOnlyOneMu  = askPassOnlyOneMu() ; // WH mode 
+  passTruth      = askPassTruth();      // WH mode
 
   // clear then reset selection vectors
   clearSelections();
@@ -228,6 +235,12 @@ TFile *outfile_bkgest = 0;
   bitsPassEleMuOSOF    = setSelBits( selvecEleMuOSOF    , n_passEleMuOSOF    );   
   bitsPassEleMuOSOFL   = setSelBits( selvecEleMuOSOFL   , n_passEleMuOSOFL   );   
   bitsPassOnePho       = setSelBits( selvecOnePho       , n_passOnePho       );
+  bitsPassEleWH        = setSelBits( selvecEleWH 	, n_passEleWH 	     ); 
+  bitsPassMuWH 	       = setSelBits( selvecMuWH  	, n_passMuWH 	     ); 
+  bitsPassEleWHSig     = setSelBits( selvecEleWHSig     , n_passEleWHSig     );  
+  bitsPassMuWHSig      = setSelBits( selvecMuWHSig  	, n_passMuWHSig      ); 
+  bitsPassEleLowPtWH   = setSelBits( selvecEleLowPtWH 	, n_passEleLowPtWH   ); 
+  bitsPassMuLowPtWH    = setSelBits( selvecMuLowPtWH  	, n_passMuLowPtWH    ); 
 
   keyPassOneEleSig    = setSelKey( selvecOneEleSig    ); 
   keyPassTwoEleSig    = setSelKey( selvecTwoEleSig    ); 
@@ -250,6 +263,12 @@ TFile *outfile_bkgest = 0;
   keyPassEleMuOSOF    = setSelKey( selvecEleMuOSOF    ); 
   keyPassEleMuOSOFL   = setSelKey( selvecEleMuOSOFL   ); 
   keyPassOnePho       = setSelKey( selvecOnePho       ); 
+  keyPassEleWH 	      = setSelKey( selvecEleWH        ); 
+  keyPassMuWH         = setSelKey( selvecMuWH         ); 
+  keyPassEleWHSig     = setSelKey( selvecEleWHSig     ); 
+  keyPassMuWHSig      = setSelKey( selvecMuWHSig      ); 
+  keyPassEleLowPtWH   = setSelKey( selvecEleLowPtWH   ); 
+  keyPassMuLowPtWH    = setSelKey( selvecMuLowPtWH    ); 
 
   //debug_printbitset(); // this is a big printout
   //debug_printbitkeys(); // this is a big printout
@@ -276,6 +295,13 @@ TFile *outfile_bkgest = 0;
   selvec[18] = bitsPassEleMuOSOF    ; 
   selvec[19] = bitsPassOnePho       ; 
   selvec[20] = bitsPassEleMuOSOFL   ; 
+  selvec[21] = bitsPassEleWH 	    ; 
+  selvec[22] = bitsPassMuWH  	    ; 
+  selvec[23] = bitsPassEleWHSig     ;
+  selvec[24] = bitsPassMuWHSig      ;
+  selvec[25] = bitsPassEleLowPtWH   ; 
+  selvec[26] = bitsPassMuLowPtWH    ; 
+
 
   selkey[0]  = keyPassOneEleSig    ; 
   selkey[1]  = keyPassTwoEleSig    ; 
@@ -298,6 +324,12 @@ TFile *outfile_bkgest = 0;
   selkey[18] = keyPassEleMuOSOF    ; 
   selkey[19] = keyPassOnePho       ; 
   selkey[20] = keyPassEleMuOSOFL   ; 
+  selkey[21] = keyPassEleWH 	   ; 
+  selkey[22] = keyPassMuWH  	   ; 
+  selkey[23] = keyPassEleWHSig     ;
+  selkey[24] = keyPassMuWHSig  	   ; 
+  selkey[25] = keyPassEleLowPtWH   ;
+  selkey[26] = keyPassMuLowPtWH    ;
 
   dofillselbin[0]  = ( ( bitsPassOneEleSig    >> 0) &1) ; 
   dofillselbin[1]  = ( ( bitsPassTwoEleSig    >> 0) &1) ; 
@@ -320,6 +352,12 @@ TFile *outfile_bkgest = 0;
   dofillselbin[18] = ( ( bitsPassEleMuOSOF    >> 0) &1) ; 
   dofillselbin[19] = ( ( bitsPassOnePho       >> 0) &1) ; 
   dofillselbin[20] = ( ( bitsPassEleMuOSOFL   >> 0) &1) ; 
+  dofillselbin[21] = ( ( bitsPassEleWH 	      >> 0) &1) ;  
+  dofillselbin[22] = ( ( bitsPassMuWH         >> 0) &1) ;  
+  dofillselbin[23] = ( ( bitsPassEleWHSig     >> 0) &1) ; 
+  dofillselbin[24] = ( ( bitsPassMuWHSig      >> 0) &1) ; 
+  dofillselbin[25] = ( ( bitsPassEleLowPtWH   >> 0) &1) ;  
+  dofillselbin[26] = ( ( bitsPassMuLowPtWH    >> 0) &1) ;  
 
   // fake rate code
   if(doBkgEst && uncbin.EqualTo("")){
@@ -382,8 +420,8 @@ TFile *outfile_bkgest = 0;
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight*PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight*PUweight_DoubleMu;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)   fullweight = event_weight*PUweight_DoubleEG;
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) fullweight = event_weight*PUweight_DoubleMu;
      //if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight*0.841901*PUweight_DoubleEG;
      //if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight*0.867408*PUweight_DoubleMu;
      if(i==18) fullweight = event_weight * PUweight_MuonEG;
@@ -395,8 +433,9 @@ TFile *outfile_bkgest = 0;
    }
 
    /// quick hack to only write phase spaces we care about
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
+   //for (int i=0; i<27 ; i++) { std::cout << dofillselbin[i] << std::endl; }
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
 
@@ -458,6 +497,12 @@ TFile *outfile_bkgest = 0;
  std::cout<<" n_passEleMuOSOF    " << setw(width) << left << n_passEleMuOSOF    << setw(width) << left << (float) n_passEleMuOSOF   / (float) n_tot << std::endl;   
  std::cout<<" n_passEleMuOSOFL   " << setw(width) << left << n_passEleMuOSOFL   << setw(width) << left << (float) n_passEleMuOSOFL  / (float) n_tot << std::endl;   
  std::cout<<" n_passOnePho       " << setw(width) << left << n_passOnePho       << setw(width) << left << (float) n_passOnePho      / (float) n_tot << std::endl;   
+ std::cout<<" n_passEleWH        " << setw(width) << left << n_passEleWH        << setw(width) << left << (float) n_passEleWH       / (float) n_tot << std::endl; 
+ std::cout<<" n_passMuWH         " << setw(width) << left << n_passMuWH         << setw(width) << left << (float) n_passMuWH        / (float) n_tot << std::endl;   
+ std::cout<<" n_passEleWHSig     " << setw(width) << left << n_passEleWHSig     << setw(width) << left << (float) n_passEleWHSig    / (float) n_tot << std::endl;
+ std::cout<<" n_passMuWHSig      " << setw(width) << left << n_passMuWHSig      << setw(width) << left << (float) n_passMuWHSig     / (float) n_tot << std::endl;  
+ std::cout<<" n_passEleLowPtWH   " << setw(width) << left << n_passEleLowPtWH   << setw(width) << left << (float) n_passEleLowPtWH  / (float) n_tot << std::endl;
+ std::cout<<" n_passMuLowPtWH    " << setw(width) << left << n_passMuLowPtWH    << setw(width) << left << (float) n_passMuLowPtWH   / (float) n_tot << std::endl;  
  std::cout<<std::endl;
 
  std::cout<<" Jet Matching "<<std::endl;
@@ -505,8 +550,9 @@ TFile *outfile_bkgest = 0;
 
  // make outfile and save histograms
  // write the histograms
+ // i==21, i==22, i==23, i==24 conditons are added for WH and WHSig mode (ele, mu)  
  for(unsigned int i=0; i<selbinnames.size(); ++i){
-  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
+  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
 
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity
@@ -514,7 +560,6 @@ TFile *outfile_bkgest = 0;
      
      writeSelectedHistograms( i );
      writeCutflowHistograms( i );
-
      //jet
      if(jetMultOn){
      for( unsigned int k=0; k<jetmultnames.size(); ++k){
@@ -763,7 +808,18 @@ void analyzer_loop::debug_printbitset()
  std::cout<<std::endl;
  std::cout<<" bitsPassOnePho       "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassOnePho       >>i)&1 ); } 
  std::cout<<std::endl;
-
+ std::cout<<" bitsPassEleWH        "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassEleWH 	   >>i)&1 ); }
+ std::cout<<std::endl; 
+ std::cout<<" bitsPassMuWH	   "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassMuWH	   >>i)&1 ); }
+ std::cout<<std::endl; 
+ std::cout<<" bitsPassEleWHSig	   "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassEleWHSig 	   >>i)&1 ); }
+ std::cout<<std::endl;
+ std::cout<<" bitsPassMuWHSig	   "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassMuWHSig      >>i)&1 ); }
+ std::cout<<std::endl; 
+ std::cout<<" bitsPassEleLowPtWH   "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassEleLowPtWH   >>i)&1 ); }
+ std::cout<<std::endl; 
+ std::cout<<" bitsPassMuLowPtWH    "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( bitsPassMuLowPtWH    >>i)&1 ); }
+ std::cout<<std::endl; 
  return;
 
 }
@@ -814,6 +870,18 @@ void analyzer_loop::debug_printbitkeys()
  std::cout<<std::endl;
  std::cout<<" keyPassOnePho       "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassOnePho       >>i)&1 ); } 
  std::cout<<std::endl;
+ std::cout<<" keyPassEleWH 	  "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassEleWH 	 >>i)&1 ); }
+ std::cout <<std::endl;
+ std::cout<<" keyPassMuWH 	  "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassMuWH 	 >>i)&1 ); }
+ std::cout <<std::endl;
+ std::cout<<" keyPassEleWHSig	  "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassEleWHSig	 >>i)&1 ); }
+ std::cout <<std::endl;
+ std::cout<<" keyPassMuWHSig	  "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassMuWHSig 	 >>i)&1 ); }
+ std::cout <<std::endl;
+ std::cout<<" keyPassEleLowPtWH   "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassEleLowPtWH	 >>i)&1 ); }
+ std::cout <<std::endl;
+ std::cout<<" keyPassMuLowPtWH    "; for(unsigned int i=0; i<8; ++i){ std::cout<<( ( keyPassMuLowPtWH 	 >>i)&1 ); }
+ std::cout <<std::endl;
  return;
 
 }

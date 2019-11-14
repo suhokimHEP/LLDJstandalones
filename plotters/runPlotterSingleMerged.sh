@@ -3,8 +3,8 @@
  # region, varname, dolog, HIP
 
 regions=( \ 
- "OnePho"        \
- "EleMuOSOF"     \
+# "OnePho"        \
+# "EleMuOSOF"     \
 # "OneEleDY"      \
 # "OneEleNoPair"  \
 # "OneEleOffZ"    \
@@ -23,21 +23,27 @@ regions=( \
 # "TwoMuOffZ"     \
 # "TwoMuSig"      \
 # "TwoMuZH"       \
+ "OnlyOneEleWH"   \
+ "OnlyOneMuWH"    \
 ) 
 
 variables=( \
- "nSelectedAODCaloJetTag"                     \
- "AllJets_AODCaloJetMedianLog10IPSig"         \
- "AllJets_AODCaloJetMedianLog10TrackAngle"    \
- "AllJets_AODCaloJetAlphaMax"                 \
-# "AOD_elePt"                                  \     
+# "nSelectedAODCaloJetTag"                     \
+# "AllJets_AODCaloJetMedianLog10IPSig"         \
+# "AllJets_AODCaloJetMedianLog10TrackAngle"    \
+# "AllJets_AODCaloJetAlphaMax"                 \
+ "AOD_elePt"                                  \     
 # "AOD_eleEta"                                 \     
-# "AOD_elePhi"                                 \     
-# "AOD_muPt"                                   \     
+ "AOD_elePhi"                                 \     
+ "AOD_muPt"                                   \     
 # "AOD_muEta"                                  \     
-# "AOD_muPhi"                                  \     
+ "AOD_muPhi"                                  \     
+ "AOD_MET_pt"                                 \ ## MET VARIABLE NAME
+ "AOD_MET_phi"                                 \
 # "htall"                                      \ 
 # "htaodcalojets"                              \
+ "Wpt"					       \	
+ "transversemass"                              \ 
 # "AOD_nSelectedEle"                           \
 # "AOD_nSelectedMu"                            \
 # "nSelectedAODCaloJet"                        \

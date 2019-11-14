@@ -74,6 +74,8 @@ public :
  Float_t       getMuonPt(int i, TString sysbinname);
 
  Float_t       getMET();
+ virtual void  getWPT(); //Transverse momentum of W boson
+ virtual void  getMT();  //TransverseMass
 
  virtual void  shiftCollections(TString uncbin);
  virtual void  calculateHT();

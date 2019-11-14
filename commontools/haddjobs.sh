@@ -7,7 +7,7 @@ mkdir -p "${plotdir}/${aversion}"
 mkdir -p "${plotdir}/${aversion}/logs"
 
 samples=( \
-#### Data
+### Data
 # DoubleMu
  "Data_DoubleMu_H_3"      \
  "Data_DoubleMu_H_2"      \
@@ -24,8 +24,8 @@ samples=( \
  "Data_SinglePhoton_H_3"  \
  "Data_SinglePhoton_H_2"  \
  "Data_SinglePhoton_G"    \
-## Monte Carlo Samples
-# Signal
+# Monte Carlo Samples
+ Signal
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"      \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"     \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"    \
@@ -50,7 +50,32 @@ samples=( \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
-# DY
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+# "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+# "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
+
+## DY
 # "DYJetsToLL_M-5to50_HT-70to100"   \
  "DYJetsToLL_M-5to50_HT-100to200"  \
  "DYJetsToLL_M-5to50_HT-200to400"  \
@@ -96,6 +121,9 @@ samples=( \
 # ZH
  "ggZH_HToBB_ZToLL"  \
  "ZH_HToBB_ZToLL"    \
+## WH
+# "WminusH_HToBB_WToLNu" \
+# "WplusH_HToBB_WToLNu"  \
 # QCD 
  "QCD_HT100to200"    \
  "QCD_HT200to300"    \
@@ -110,13 +138,13 @@ samples=( \
 for sample in ${samples[@]}
 do
 
- chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
- chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
- chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleSig_histograms.sh"    
- chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuSig_histograms.sh"    
- chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoMuSig_histograms.sh"    
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoMuSig_histograms.sh"    
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleDY_histograms.sh"    
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleDY_histograms.sh"    
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuDY_histograms.sh"    
@@ -133,16 +161,21 @@ do
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuNoPair_histograms.sh"    
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleMuOSOF_histograms.sh"    
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleMuOSOFL_histograms.sh"    
- chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OnePho_histograms.sh"    
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OnePho_histograms.sh"    
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleWH_histograms.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_MuWH_histograms.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleWHSig_histograms.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_MuWHSig_histograms.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleLowPtWH_histograms.sh"
+ #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_MuLowPtWH_histograms.sh"
 
-
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleSig_histograms.sh"    
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuSig_histograms.sh"    
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoMuSig_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoMuSig_histograms.sh"    
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleDY_histograms.sh"    
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleDY_histograms.sh"    
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuDY_histograms.sh"    
@@ -159,6 +192,11 @@ do
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuNoPair_histograms.sh"    
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleMuOSOF_histograms.sh"    
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleMuOSOFL_histograms.sh"    
- bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OnePho_histograms.sh"    
-
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OnePho_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleWH_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_MuWH_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleWHSig_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_MuWHSig_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_EleLowPtWH_histograms.sh"    
+ #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_MuLowPtWH_histograms.sh"    
 done

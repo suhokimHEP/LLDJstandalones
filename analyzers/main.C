@@ -252,7 +252,6 @@ int main(int argc, char **argv){
 //   unccategories.push_back("_TagVarsUp");
 //   unccategories.push_back("_TagVarsDown");
 //  }
- 
  // make the analyzer, init some stuff
  analyzer_loop analyzer;
  analyzer.Init(theChain, isMC, makelog, Tsample);
@@ -279,6 +278,8 @@ int main(int argc, char **argv){
   analyzer.initLepHistograms( unccategory );
   analyzer.initPhoHistograms( unccategory );
   analyzer.initMETHTHistograms( unccategory );
+  analyzer.initTransverseMassHistograms( unccategory ); 
+  analyzer.initWbosonPtHistograms( unccategory ); 
   //analyzer.initExtraHistograms( unccategory );
   analyzer.initAODCaloJetBasicHistograms( unccategory );
   analyzer.initAODCaloJetStudyHistograms( unccategory );

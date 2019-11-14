@@ -5,26 +5,26 @@
 
 # source xx/LLDJ/setup.sh for ${aversion}
 
-doSubmit=false
+doSubmit=true
 lumi=16226.2 # 7.57582+8.43466+0.2156965 
 nevents=-1
 maxfilesperjob=200   # 500=6h
 
 samples=(  \
 ### Data
-# SingleMu
- "Data_SingleMu_H_3"      \
- "Data_SingleMu_H_2"      \
- "Data_SingleMu_G"        \
+## SingleMu
+# "Data_SingleMu_H_3"      \
+# "Data_SingleMu_H_2"      \
+# "Data_SingleMu_G"        \
 # "Data_SingleMu_F"        \
 # "Data_SingleMu_E"        \
 # "Data_SingleMu_D"        \
 # "Data_SingleMu_C"        \
 # "Data_SingleMu_B_2"      \
-# SingleEle
- "Data_SingleEle_H_3"     \
- "Data_SingleEle_H_2"     \
- "Data_SingleEle_G"       \
+## SingleEle
+# "Data_SingleEle_H_3"     \
+# "Data_SingleEle_H_2"     \
+# "Data_SingleEle_G"       \
 # "Data_SingleEle_F"       \
 # "Data_SingleEle_E"       \
 # "Data_SingleEle_D"       \
@@ -74,7 +74,7 @@ samples=(  \
  "DYJetsToLL_M-5to50_HT-400to600"  \
  "DYJetsToLL_M-5to50_HT-600toInf"  \
  "DYJetsToLL_M-10to50"             \
-"DYJetsToLL_M-50"                 \
+ "DYJetsToLL_M-50"                 \
 # WJets
  "WJetsToLNu"     \
 # TTbar
@@ -113,6 +113,9 @@ samples=(  \
 # ZH
  "ggZH_HToBB_ZToLL"  \
  "ZH_HToBB_ZToLL"    \
+#WH
+# "WplusH_HToBB_WToLNu"  \
+# "WminusH_HToBB_WToLNu" \
 # QCD
  "QCD_HT100to200"    \
  "QCD_HT200to300"    \
@@ -147,6 +150,31 @@ samples=(  \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
+#
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+##  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
 )
 
 printf "Version: ${aversion}\n"
@@ -193,9 +221,9 @@ makeasubmitdir () {
  haddfile_NM1trees="./haddit_NM1trees.sh"
  haddfile_BkgEst="./haddit_BkgEst.sh"
  #haddfile_OneEleSig_histograms="./haddit_OneEleSig_histograms.sh"                           
- haddfile_TwoEleSig_histograms="./haddit_TwoEleSig_histograms.sh"                           
+ #haddfile_TwoEleSig_histograms="./haddit_TwoEleSig_histograms.sh"                           
  #haddfile_OneMuSig_histograms="./haddit_OneMuSig_histograms.sh"                           
- haddfile_TwoMuSig_histograms="./haddit_TwoMuSig_histograms.sh"                           
+ #haddfile_TwoMuSig_histograms="./haddit_TwoMuSig_histograms.sh"                           
  #haddfile_OneEleDY_histograms="./haddit_OneEleDY_histograms.sh"                           
  haddfile_TwoEleDY_histograms="./haddit_TwoEleDY_histograms.sh"                           
  #haddfile_OneMuDY_histograms="./haddit_OneMuDY_histograms.sh"                           
@@ -213,14 +241,26 @@ makeasubmitdir () {
  haddfile_EleMuOSOF_histograms="./haddit_EleMuOSOF_histograms.sh"                           
  haddfile_EleMuOSOFL_histograms="./haddit_EleMuOSOFL_histograms.sh"                           
  haddfile_OnePho_histograms="./haddit_OnePho_histograms.sh"                           
+ haddfile_EleWH_histograms="./haddit_EleWH_histograms.sh"
+ 
+ haddfile_MuWH_histograms="./haddit_MuWH_histograms.sh"
+
+ haddfile_EleWHSig_histograms="./haddit_EleWHSig_histograms.sh"
+
+ haddfile_MuWHSig_histograms="./haddit_MuWHSig_histograms.sh"
+
+ haddfile_EleLowPtWH_histograms="./haddit_EleLowPtWH_histograms.sh"
+
+ haddfile_MuLowPtWH_histograms="./haddit_MuLowPtWH_histograms.sh"
+ 
 
 
  hadddir="${rootdir}/${aversion}"
  mkdir -p ${hadddir}
  #printf "#!/bin/bash\n\n" > ${haddfile_OneEleSig_histograms}    
- printf "#!/bin/bash\n\n" > ${haddfile_TwoEleSig_histograms}    
+ #printf "#!/bin/bash\n\n" > ${haddfile_TwoEleSig_histograms}    
  #printf "#!/bin/bash\n\n" > ${haddfile_OneMuSig_histograms}     
- printf "#!/bin/bash\n\n" > ${haddfile_TwoMuSig_histograms}     
+ #printf "#!/bin/bash\n\n" > ${haddfile_TwoMuSig_histograms}     
  #printf "#!/bin/bash\n\n" > ${haddfile_OneEleDY_histograms}     
  printf "#!/bin/bash\n\n" > ${haddfile_TwoEleDY_histograms}     
  #printf "#!/bin/bash\n\n" > ${haddfile_OneMuDY_histograms}      
@@ -238,6 +278,12 @@ makeasubmitdir () {
  printf "#!/bin/bash\n\n" > ${haddfile_EleMuOSOF_histograms}    
  printf "#!/bin/bash\n\n" > ${haddfile_EleMuOSOFL_histograms}    
  printf "#!/bin/bash\n\n" > ${haddfile_OnePho_histograms}       
+ printf "#!/bin/bash\n\n" > ${haddfile_EleWH_histograms}
+ printf "#!/bin/bash\n\n" > ${haddfile_MuWH_histograms}
+ printf "#!/bin/bash\n\n" > ${haddfile_EleWHSig_histograms}
+ printf "#!/bin/bash\n\n" > ${haddfile_MuWHSig_histograms}
+ printf "#!/bin/bash\n\n" > ${haddfile_EleLowPtWH_histograms}
+ printf "#!/bin/bash\n\n" > ${haddfile_MuLowPtWH_histograms}
  printf "#!/bin/bash\n\n" > ${haddfile_OPTtree}          
  printf "#!/bin/bash\n\n" > ${haddfile_NM1trees}          
  printf "#!/bin/bash\n\n" > ${haddfile_BkgEst}
@@ -249,9 +295,9 @@ makeasubmitdir () {
  # hadd command to go in haddfile
   # name of final merged file
  #printf "hadd ${hadddir}/$1_OneEleSig_histograms.root"     >>       ${haddfile_OneEleSig_histograms}    
- printf "hadd ${hadddir}/$1_TwoEleSig_histograms.root"     >>       ${haddfile_TwoEleSig_histograms}    
+ #printf "hadd ${hadddir}/$1_TwoEleSig_histograms.root"     >>       ${haddfile_TwoEleSig_histograms}    
  #printf "hadd ${hadddir}/$1_OneMuSig_histograms.root"      >>       ${haddfile_OneMuSig_histograms}     
- printf "hadd ${hadddir}/$1_TwoMuSig_histograms.root"      >>       ${haddfile_TwoMuSig_histograms}     
+ #printf "hadd ${hadddir}/$1_TwoMuSig_histograms.root"      >>       ${haddfile_TwoMuSig_histograms}     
  #printf "hadd ${hadddir}/$1_OneEleDY_histograms.root"      >>       ${haddfile_OneEleDY_histograms}     
  printf "hadd ${hadddir}/$1_TwoEleDY_histograms.root"      >>       ${haddfile_TwoEleDY_histograms}     
  #printf "hadd ${hadddir}/$1_OneMuDY_histograms.root"       >>       ${haddfile_OneMuDY_histograms}      
@@ -272,6 +318,12 @@ makeasubmitdir () {
  printf "hadd ${hadddir}/$1_OPTtree.root"                  >>       ${haddfile_OPTtree}           
  printf "hadd ${hadddir}/$1_NM1tree.root"                  >>       ${haddfile_NM1trees}           
  printf "hadd ${hadddir}/$1_BkgEst.root"                   >>       ${haddfile_BkgEst}           
+ printf "hadd ${hadddir}/$1_EleWH_histograms.root"         >>       ${haddfile_EleWH_histograms}
+ printf "hadd ${hadddir}/$1_MuWH_histograms.root"          >>       ${haddfile_MuWH_histograms}
+ printf "hadd ${hadddir}/$1_EleWHSig_histograms.root"      >>       ${haddfile_EleWHSig_histograms}
+ printf "hadd ${hadddir}/$1_MuWHSig_histograms.root"       >>       ${haddfile_MuWHSig_histograms}
+ printf "hadd ${hadddir}/$1_EleLowPtWH_histograms.root"    >>       ${haddfile_EleLowPtWH_histograms}
+ printf "hadd ${hadddir}/$1_MuLowPtWH_histograms.root"	   >>       ${haddfile_MuLowPtWH_histograms}
 
  # breaking up input file list
  nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list" )
@@ -289,9 +341,9 @@ makeasubmitdir () {
 
   # add files to be produced to haddfiles
   #printf "\\"  >> ${haddfile_OneEleSig_histograms}    
-  printf "\\"  >> ${haddfile_TwoEleSig_histograms}    
+  #printf "\\"  >> ${haddfile_TwoEleSig_histograms}    
   #printf "\\"  >> ${haddfile_OneMuSig_histograms}     
-  printf "\\"  >> ${haddfile_TwoMuSig_histograms}     
+  #printf "\\"  >> ${haddfile_TwoMuSig_histograms}     
   #printf "\\"  >> ${haddfile_OneEleDY_histograms}     
   printf "\\"  >> ${haddfile_TwoEleDY_histograms}     
   #printf "\\"  >> ${haddfile_OneMuDY_histograms}      
@@ -312,11 +364,17 @@ makeasubmitdir () {
   printf "\\"  >> ${haddfile_OPTtree}           
   printf "\\"  >> ${haddfile_NM1trees}           
   printf "\\"  >> ${haddfile_BkgEst}           
+  printf "\\"  >> ${haddfile_EleWH_histograms}
+  printf "\\"  >> ${haddfile_MuWH_histograms}
+  printf "\\"  >> ${haddfile_EleWHSig_histograms}
+  printf "\\"  >> ${haddfile_MuWHSig_histograms}
+  printf "\\"  >> ${haddfile_EleLowPtWH_histograms}
+  printf "\\"  >> ${haddfile_MuLowPtWH_histograms}
 
   #printf "\n $(pwd)/$1_${jobfilenr}_OneEleSig_histograms.root"     >> ${haddfile_OneEleSig_histograms}    
-  printf "\n $(pwd)/$1_${jobfilenr}_TwoEleSig_histograms.root"     >> ${haddfile_TwoEleSig_histograms}    
+  #printf "\n $(pwd)/$1_${jobfilenr}_TwoEleSig_histograms.root"     >> ${haddfile_TwoEleSig_histograms}    
   #printf "\n $(pwd)/$1_${jobfilenr}_OneMuSig_histograms.root"      >> ${haddfile_OneMuSig_histograms}     
-  printf "\n $(pwd)/$1_${jobfilenr}_TwoMuSig_histograms.root"      >> ${haddfile_TwoMuSig_histograms}     
+  #printf "\n $(pwd)/$1_${jobfilenr}_TwoMuSig_histograms.root"      >> ${haddfile_TwoMuSig_histograms}     
   #printf "\n $(pwd)/$1_${jobfilenr}_OneEleDY_histograms.root"      >> ${haddfile_OneEleDY_histograms}     
   printf "\n $(pwd)/$1_${jobfilenr}_TwoEleDY_histograms.root"      >> ${haddfile_TwoEleDY_histograms}     
   #printf "\n $(pwd)/$1_${jobfilenr}_OneMuDY_histograms.root"       >> ${haddfile_OneMuDY_histograms}      
@@ -334,6 +392,12 @@ makeasubmitdir () {
   printf "\n $(pwd)/$1_${jobfilenr}_EleMuOSOF_histograms.root"     >> ${haddfile_EleMuOSOF_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_EleMuOSOFL_histograms.root"    >> ${haddfile_EleMuOSOFL_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_OnePho_histograms.root"        >> ${haddfile_OnePho_histograms}       
+  printf "\n $(pwd)/$1_${jobfilenr}_EleWH_histograms.root"         >> ${haddfile_EleWH_histograms}
+  printf "\n $(pwd)/$1_${jobfilenr}_MuWH_histograms.root"          >> ${haddfile_MuWH_histograms}
+  printf "\n $(pwd)/$1_${jobfilenr}_EleWHSig_histograms.root"      >> ${haddfile_EleWHSig_histograms}
+  printf "\n $(pwd)/$1_${jobfilenr}_MuWHSig_histograms.root"   	   >> ${haddfile_MuWHSig_histograms}
+  printf "\n $(pwd)/$1_${jobfilenr}_EleLowPtWH_histograms.root"    >> ${haddfile_EleLowPtWH_histograms}
+  printf "\n $(pwd)/$1_${jobfilenr}_MuLowPtWH_histograms.root"     >> ${haddfile_MuLowPtWH_histograms}
   printf "\n $(pwd)/$1_${jobfilenr}_OPTtree.root"                  >> ${haddfile_OPTtree}           
   printf "\n $(pwd)/$1_${jobfilenr}_NM1tree.root"                  >> ${haddfile_NM1trees}           
   printf "\n $(pwd)/$1_${jobfilenr}_BkgEst.root"                   >> ${haddfile_BkgEst}
@@ -349,9 +413,9 @@ makeasubmitdir () {
  done # until filenrlow > nfilesinlist
 
  #printf "\n\n" >> ${haddfile_OneEleSig_histograms}    
- printf "\n\n" >> ${haddfile_TwoEleSig_histograms}    
+ #printf "\n\n" >> ${haddfile_TwoEleSig_histograms}    
  #printf "\n\n" >> ${haddfile_OneMuSig_histograms}     
- printf "\n\n" >> ${haddfile_TwoMuSig_histograms}     
+ #printf "\n\n" >> ${haddfile_TwoMuSig_histograms}     
  #printf "\n\n" >> ${haddfile_OneEleDY_histograms}     
  printf "\n\n" >> ${haddfile_TwoEleDY_histograms}     
  #printf "\n\n" >> ${haddfile_OneMuDY_histograms}      
@@ -372,6 +436,13 @@ makeasubmitdir () {
  printf "\n\n" >> ${haddfile_OPTtree}           
  printf "\n\n" >> ${haddfile_NM1trees}           
  printf "\n\n" >> ${haddfile_BkgEst}
+
+ printf "\n\n" >> ${haddfile_EleWH_histograms}
+ printf "\n\n" >> ${haddfile_MuWH_histograms}
+ printf "\n\n" >> ${haddfile_EleWHSig_histograms}
+ printf "\n\n" >> ${haddfile_MuWHSig_histograms}
+ printf "\n\n" >> ${haddfile_EleLowPtWH_histograms}
+ printf "\n\n" >> ${haddfile_MuLowPtWH_histograms}
 
  if [ ${doSubmit} = true ]
  then

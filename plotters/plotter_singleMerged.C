@@ -19,7 +19,7 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
 {
 
 // // Draw signal as lines
-// Bool_t drawSignal = kFALSE; //kTRUE;
+ Bool_t drawSignal =kTRUE ; // kFALSE; 
 // Bool_t drawRatio = kTRUE;
 
  // Setup running configuration: IO, naming, SFs, ..
@@ -147,18 +147,46 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  TH1F* h_altDY ;
  TH1F* h_altVV ;
  TH1F* h_altTT ;
- TH1F* h_Sig_MS15ct1000 ;
- TH1F* h_Sig_MS15ct100  ;
- TH1F* h_Sig_MS15ct10   ;
- TH1F* h_Sig_MS15ct1    ;
- TH1F* h_Sig_MS40ct1000 ;
- TH1F* h_Sig_MS40ct100  ;
- TH1F* h_Sig_MS40ct10   ;
- TH1F* h_Sig_MS40ct1    ;
- TH1F* h_Sig_MS55ct1000 ;
- TH1F* h_Sig_MS55ct100  ;
- TH1F* h_Sig_MS55ct10   ;
- TH1F* h_Sig_MS55ct1    ;
+// TH1F* h_Sig_MS15ct1000 ;
+// TH1F* h_Sig_MS15ct100  ;
+// TH1F* h_Sig_MS15ct10   ;
+// TH1F* h_Sig_MS15ct1    ;
+// TH1F* h_Sig_MS40ct1000 ;
+// TH1F* h_Sig_MS40ct100  ;
+// TH1F* h_Sig_MS40ct10   ;
+// TH1F* h_Sig_MS40ct1    ;
+// TH1F* h_Sig_MS55ct1000 ;
+// TH1F* h_Sig_MS55ct100  ;
+// TH1F* h_Sig_MS55ct10   ;
+// TH1F* h_Sig_MS55ct1    ;
+ 
+ TH1F* h_Sig_WplusH_MS15ct1000 ;
+ TH1F* h_Sig_WplusH_MS15ct100  ;
+ TH1F* h_Sig_WplusH_MS15ct10   ;
+ TH1F* h_Sig_WplusH_MS15ct1    ;
+ TH1F* h_Sig_WplusH_MS40ct1000 ;
+ TH1F* h_Sig_WplusH_MS40ct100  ;
+ TH1F* h_Sig_WplusH_MS40ct10   ;
+ TH1F* h_Sig_WplusH_MS40ct1    ;
+ TH1F* h_Sig_WplusH_MS55ct1000 ;
+ TH1F* h_Sig_WplusH_MS55ct100  ;
+ TH1F* h_Sig_WplusH_MS55ct10   ;
+ TH1F* h_Sig_WplusH_MS55ct1    ;
+
+ TH1F* h_Sig_WminusH_MS15ct1000 ;
+ TH1F* h_Sig_WminusH_MS15ct100  ;
+ TH1F* h_Sig_WminusH_MS15ct10   ;
+ TH1F* h_Sig_WminusH_MS15ct1    ;
+ TH1F* h_Sig_WminusH_MS40ct1000 ;
+ TH1F* h_Sig_WminusH_MS40ct100  ;
+ TH1F* h_Sig_WminusH_MS40ct10   ;
+ TH1F* h_Sig_WminusH_MS40ct1    ;
+ TH1F* h_Sig_WminusH_MS55ct1000 ;
+ TH1F* h_Sig_WminusH_MS55ct100  ;
+ TH1F* h_Sig_WminusH_MS55ct10   ;
+ TH1F* h_Sig_WminusH_MS55ct1    ;
+
+
  TH1F* h_Data   ;
  THStack* bgstack;
 
@@ -174,18 +202,18 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  TH1F* h_mctotal_TADown     ;
  TH1F* h_mctotal_TagVarsUp  ;
  TH1F* h_mctotal_TagVarsDown;
- TH1F* h_Sig_MS40ct10_EGSUp       ;
- TH1F* h_Sig_MS40ct10_EGSDown     ;   
- TH1F* h_Sig_MS40ct10_MESUp       ;
- TH1F* h_Sig_MS40ct10_MESDown     ;   
- TH1F* h_Sig_MS40ct10_AMaxUp      ;   
- TH1F* h_Sig_MS40ct10_AMaxDown    ;   
- TH1F* h_Sig_MS40ct10_IPSigUp     ;   
- TH1F* h_Sig_MS40ct10_IPSigDown   ;   
- TH1F* h_Sig_MS40ct10_TAUp        ;
- TH1F* h_Sig_MS40ct10_TADown      ;   
- TH1F* h_Sig_MS40ct10_TagVarsUp   ;   
- TH1F* h_Sig_MS40ct10_TagVarsDown ;
+// TH1F* h_Sig_MS40ct10_EGSUp       ;
+// TH1F* h_Sig_MS40ct10_EGSDown     ;   
+// TH1F* h_Sig_MS40ct10_MESUp       ;
+// TH1F* h_Sig_MS40ct10_MESDown     ;   
+// TH1F* h_Sig_MS40ct10_AMaxUp      ;   
+// TH1F* h_Sig_MS40ct10_AMaxDown    ;   
+// TH1F* h_Sig_MS40ct10_IPSigUp     ;   
+// TH1F* h_Sig_MS40ct10_IPSigDown   ;   
+// TH1F* h_Sig_MS40ct10_TAUp        ;
+// TH1F* h_Sig_MS40ct10_TADown      ;   
+// TH1F* h_Sig_MS40ct10_TagVarsUp   ;   
+// TH1F* h_Sig_MS40ct10_TagVarsDown ;
 
 
  // load histogram file / histograms
@@ -205,18 +233,45 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_altDY          = (TH1F*)file_input->Get("altDY"         )->Clone("altDY"         )  ;
  h_altVV          = (TH1F*)file_input->Get("altVV"         )->Clone("altVV"         )  ;
  h_altTT          = (TH1F*)file_input->Get("altTT"         )->Clone("altTT"         )  ;
- h_Sig_MS15ct1000 = (TH1F*)file_input->Get("Sig_MS15ct1000")->Clone("Sig_MS15ct1000")  ;
- h_Sig_MS15ct100  = (TH1F*)file_input->Get("Sig_MS15ct100" )->Clone("Sig_MS15ct100" )  ;
- h_Sig_MS15ct10   = (TH1F*)file_input->Get("Sig_MS15ct10"  )->Clone("Sig_MS15ct10"  )  ;
- h_Sig_MS15ct1    = (TH1F*)file_input->Get("Sig_MS15ct1"   )->Clone("Sig_MS15ct1"   )  ;
- h_Sig_MS40ct1000 = (TH1F*)file_input->Get("Sig_MS40ct1000")->Clone("Sig_MS40ct1000")  ;
- h_Sig_MS40ct100  = (TH1F*)file_input->Get("Sig_MS40ct100" )->Clone("Sig_MS40ct100" )  ;
- h_Sig_MS40ct10   = (TH1F*)file_input->Get("Sig_MS40ct10"  )->Clone("Sig_MS40ct10"  )  ;
- h_Sig_MS40ct1    = (TH1F*)file_input->Get("Sig_MS40ct1"   )->Clone("Sig_MS40ct1"   )  ;
- h_Sig_MS55ct1000 = (TH1F*)file_input->Get("Sig_MS55ct1000")->Clone("Sig_MS55ct1000")  ;
- h_Sig_MS55ct100  = (TH1F*)file_input->Get("Sig_MS55ct100" )->Clone("Sig_MS55ct100" )  ;
- h_Sig_MS55ct10   = (TH1F*)file_input->Get("Sig_MS55ct10"  )->Clone("Sig_MS55ct10"  )  ;
- h_Sig_MS55ct1    = (TH1F*)file_input->Get("Sig_MS55ct1"   )->Clone("Sig_MS55ct1"   )  ;
+// h_Sig_MS15ct1000 = (TH1F*)file_input->Get("Sig_MS15ct1000")->Clone("Sig_MS15ct1000")  ;
+// h_Sig_MS15ct100  = (TH1F*)file_input->Get("Sig_MS15ct100" )->Clone("Sig_MS15ct100" )  ;
+// h_Sig_MS15ct10   = (TH1F*)file_input->Get("Sig_MS15ct10"  )->Clone("Sig_MS15ct10"  )  ;
+// h_Sig_MS15ct1    = (TH1F*)file_input->Get("Sig_MS15ct1"   )->Clone("Sig_MS15ct1"   )  ;
+// h_Sig_MS40ct1000 = (TH1F*)file_input->Get("Sig_MS40ct1000")->Clone("Sig_MS40ct1000")  ;
+// h_Sig_MS40ct100  = (TH1F*)file_input->Get("Sig_MS40ct100" )->Clone("Sig_MS40ct100" )  ;
+// h_Sig_MS40ct10   = (TH1F*)file_input->Get("Sig_MS40ct10"  )->Clone("Sig_MS40ct10"  )  ;
+// h_Sig_MS40ct1    = (TH1F*)file_input->Get("Sig_MS40ct1"   )->Clone("Sig_MS40ct1"   )  ;
+// h_Sig_MS55ct1000 = (TH1F*)file_input->Get("Sig_MS55ct1000")->Clone("Sig_MS55ct1000")  ;
+// h_Sig_MS55ct100  = (TH1F*)file_input->Get("Sig_MS55ct100" )->Clone("Sig_MS55ct100" )  ;
+// h_Sig_MS55ct10   = (TH1F*)file_input->Get("Sig_MS55ct10"  )->Clone("Sig_MS55ct10"  )  ;
+// h_Sig_MS55ct1    = (TH1F*)file_input->Get("Sig_MS55ct1"   )->Clone("Sig_MS55ct1"   )  ;
+ 
+ h_Sig_WminusH_MS15ct1000 = (TH1F*)file_input->Get("Sig_WminusH_MS15ct1000")->Clone("Sig_WminusH_MS15ct1000")  ;
+ h_Sig_WminusH_MS15ct100  = (TH1F*)file_input->Get("Sig_WminusH_MS15ct100" )->Clone("Sig_WminusH_MS15ct100" )  ;
+ h_Sig_WminusH_MS15ct10   = (TH1F*)file_input->Get("Sig_WminusH_MS15ct10"  )->Clone("Sig_WminusH_MS15ct10"  )  ;
+ h_Sig_WminusH_MS15ct1    = (TH1F*)file_input->Get("Sig_WminusH_MS15ct1"   )->Clone("Sig_WminusH_MS15ct1"   )  ;
+ h_Sig_WminusH_MS40ct1000 = (TH1F*)file_input->Get("Sig_WminusH_MS40ct1000")->Clone("Sig_WminusH_MS40ct1000")  ;
+ h_Sig_WminusH_MS40ct100  = (TH1F*)file_input->Get("Sig_WminusH_MS40ct100" )->Clone("Sig_WminusH_MS40ct100" )  ;
+ h_Sig_WminusH_MS40ct10   = (TH1F*)file_input->Get("Sig_WminusH_MS40ct10"  )->Clone("Sig_WminusH_MS40ct10"  )  ;
+ h_Sig_WminusH_MS40ct1    = (TH1F*)file_input->Get("Sig_WminusH_MS40ct1"   )->Clone("Sig_WminusH_MS40ct1"   )  ;
+ h_Sig_WminusH_MS55ct1000 = (TH1F*)file_input->Get("Sig_WminusH_MS55ct1000")->Clone("Sig_WminusH_MS55ct1000")  ;
+ h_Sig_WminusH_MS55ct100  = (TH1F*)file_input->Get("Sig_WminusH_MS55ct100" )->Clone("Sig_WminusH_MS55ct100" )  ;
+ h_Sig_WminusH_MS55ct10   = (TH1F*)file_input->Get("Sig_WminusH_MS55ct10"  )->Clone("Sig_WminusH_MS55ct10"  )  ;
+ h_Sig_WminusH_MS55ct1    = (TH1F*)file_input->Get("Sig_WminusH_MS55ct1"   )->Clone("Sig_WminusH_MS55ct1"   )  ;
+
+ h_Sig_WplusH_MS15ct1000 = (TH1F*)file_input->Get("Sig_WplusH_MS15ct1000")->Clone("Sig_WplusH_MS15ct1000")  ;
+ h_Sig_WplusH_MS15ct100  = (TH1F*)file_input->Get("Sig_WplusH_MS15ct100" )->Clone("Sig_WplusH_MS15ct100" )  ;
+ h_Sig_WplusH_MS15ct10   = (TH1F*)file_input->Get("Sig_WplusH_MS15ct10"  )->Clone("Sig_WplusH_MS15ct10"  )  ;
+ h_Sig_WplusH_MS15ct1    = (TH1F*)file_input->Get("Sig_WplusH_MS15ct1"   )->Clone("Sig_WplusH_MS15ct1"   )  ;
+ h_Sig_WplusH_MS40ct1000 = (TH1F*)file_input->Get("Sig_WplusH_MS40ct1000")->Clone("Sig_WplusH_MS40ct1000")  ;
+ h_Sig_WplusH_MS40ct100  = (TH1F*)file_input->Get("Sig_WplusH_MS40ct100" )->Clone("Sig_WplusH_MS40ct100" )  ;
+ h_Sig_WplusH_MS40ct10   = (TH1F*)file_input->Get("Sig_WplusH_MS40ct10"  )->Clone("Sig_WplusH_MS40ct10"  )  ;
+ h_Sig_WplusH_MS40ct1    = (TH1F*)file_input->Get("Sig_WplusH_MS40ct1"   )->Clone("Sig_WplusH_MS40ct1"   )  ;
+ h_Sig_WplusH_MS55ct1000 = (TH1F*)file_input->Get("Sig_WplusH_MS55ct1000")->Clone("Sig_WplusH_MS55ct1000")  ;
+ h_Sig_WplusH_MS55ct100  = (TH1F*)file_input->Get("Sig_WplusH_MS55ct100" )->Clone("Sig_WplusH_MS55ct100" )  ;
+ h_Sig_WplusH_MS55ct10   = (TH1F*)file_input->Get("Sig_WplusH_MS55ct10"  )->Clone("Sig_WplusH_MS55ct10"  )  ;
+ h_Sig_WplusH_MS55ct1    = (TH1F*)file_input->Get("Sig_WplusH_MS55ct1"   )->Clone("Sig_WplusH_MS55ct1"   )  ;
+
  h_Data           = (TH1F*)file_input->Get("Data"          )->Clone("Data"          )  ;
 
  file_input_EGSUp       = new TFile( inpath + infilename + "_EGSUp.root"      ) ; 
@@ -244,19 +299,19 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_mctotal_TADown      = (TH1F*)file_input_TADown     ->Get("bkgtotal")->Clone("bkgtotal_TADown     " )  ;
  h_mctotal_TagVarsUp   = (TH1F*)file_input_TagVarsUp  ->Get("bkgtotal")->Clone("bkgtotal_TagVarsUp  " )  ;
  h_mctotal_TagVarsDown = (TH1F*)file_input_TagVarsDown->Get("bkgtotal")->Clone("bkgtotal_TagVarsDown" )  ;
- h_Sig_MS40ct10_EGSUp      = (TH1F*)file_input_EGSUp      ->Get("Sig_MS40ct10")->Clone("Sig_EGSUp      " ) ;
- h_Sig_MS40ct10_EGSDown    = (TH1F*)file_input_EGSDown    ->Get("Sig_MS40ct10")->Clone("Sig_EGSDown    " ) ;
- h_Sig_MS40ct10_MESUp      = (TH1F*)file_input_MESUp      ->Get("Sig_MS40ct10")->Clone("Sig_MESUp      " ) ;
- h_Sig_MS40ct10_MESDown    = (TH1F*)file_input_MESDown    ->Get("Sig_MS40ct10")->Clone("Sig_MESDown    " ) ;
- h_Sig_MS40ct10_AMaxUp     = (TH1F*)file_input_AMaxUp     ->Get("Sig_MS40ct10")->Clone("Sig_AMaxUp     " ) ;
- h_Sig_MS40ct10_AMaxDown   = (TH1F*)file_input_AMaxDown   ->Get("Sig_MS40ct10")->Clone("Sig_AMaxDown   " ) ;
- h_Sig_MS40ct10_IPSigUp    = (TH1F*)file_input_IPSigUp    ->Get("Sig_MS40ct10")->Clone("Sig_IPSigUp    " ) ;
- h_Sig_MS40ct10_IPSigDown  = (TH1F*)file_input_IPSigDown  ->Get("Sig_MS40ct10")->Clone("Sig_IPSigDown  " ) ;
- h_Sig_MS40ct10_TAUp       = (TH1F*)file_input_TAUp       ->Get("Sig_MS40ct10")->Clone("Sig_TAUp       " ) ;
- h_Sig_MS40ct10_TADown     = (TH1F*)file_input_TADown     ->Get("Sig_MS40ct10")->Clone("Sig_TADown     " ) ;
- h_Sig_MS40ct10_TagVarsUp  = (TH1F*)file_input_TagVarsUp  ->Get("Sig_MS40ct10")->Clone("Sig_TagVarsUp  " ) ;
- h_Sig_MS40ct10_TagVarsDown= (TH1F*)file_input_TagVarsDown->Get("Sig_MS40ct10")->Clone("Sig_TagVarsDown" ) ;
-
+// h_Sig_MS40ct10_EGSUp      = (TH1F*)file_input_EGSUp      ->Get("Sig_MS40ct10")->Clone("Sig_EGSUp      " ) ;
+// h_Sig_MS40ct10_EGSDown    = (TH1F*)file_input_EGSDown    ->Get("Sig_MS40ct10")->Clone("Sig_EGSDown    " ) ;
+// h_Sig_MS40ct10_MESUp      = (TH1F*)file_input_MESUp      ->Get("Sig_MS40ct10")->Clone("Sig_MESUp      " ) ;
+// h_Sig_MS40ct10_MESDown    = (TH1F*)file_input_MESDown    ->Get("Sig_MS40ct10")->Clone("Sig_MESDown    " ) ;
+// h_Sig_MS40ct10_AMaxUp     = (TH1F*)file_input_AMaxUp     ->Get("Sig_MS40ct10")->Clone("Sig_AMaxUp     " ) ;
+// h_Sig_MS40ct10_AMaxDown   = (TH1F*)file_input_AMaxDown   ->Get("Sig_MS40ct10")->Clone("Sig_AMaxDown   " ) ;
+// h_Sig_MS40ct10_IPSigUp    = (TH1F*)file_input_IPSigUp    ->Get("Sig_MS40ct10")->Clone("Sig_IPSigUp    " ) ;
+// h_Sig_MS40ct10_IPSigDown  = (TH1F*)file_input_IPSigDown  ->Get("Sig_MS40ct10")->Clone("Sig_IPSigDown  " ) ;
+// h_Sig_MS40ct10_TAUp       = (TH1F*)file_input_TAUp       ->Get("Sig_MS40ct10")->Clone("Sig_TAUp       " ) ;
+// h_Sig_MS40ct10_TADown     = (TH1F*)file_input_TADown     ->Get("Sig_MS40ct10")->Clone("Sig_TADown     " ) ;
+// h_Sig_MS40ct10_TagVarsUp  = (TH1F*)file_input_TagVarsUp  ->Get("Sig_MS40ct10")->Clone("Sig_TagVarsUp  " ) ;
+// h_Sig_MS40ct10_TagVarsDown= (TH1F*)file_input_TagVarsDown->Get("Sig_MS40ct10")->Clone("Sig_TagVarsDown" ) ;
+/*
  h_mctotal_EGSUp      -> Add( h_Sig_MS40ct10_EGSUp       )  ;
  h_mctotal_EGSDown    -> Add( h_Sig_MS40ct10_EGSDown     )  ;
  h_mctotal_MESUp      -> Add( h_Sig_MS40ct10_MESUp       )  ;
@@ -269,7 +324,7 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_mctotal_TADown     -> Add( h_Sig_MS40ct10_TADown      )  ;
  h_mctotal_TagVarsUp  -> Add( h_Sig_MS40ct10_TagVarsUp   )  ;
  h_mctotal_TagVarsDown-> Add( h_Sig_MS40ct10_TagVarsDown )  ;
-
+*/
  // rebin
  h_DY             ->Rebin(rebin); 
  h_GJets          ->Rebin(rebin); 
@@ -285,19 +340,46 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_altDY          ->Rebin(rebin); 
  h_altVV          ->Rebin(rebin); 
  h_altTT          ->Rebin(rebin); 
- h_Sig_MS15ct1000 ->Rebin(rebin); 
- h_Sig_MS15ct100  ->Rebin(rebin); 
- h_Sig_MS15ct10   ->Rebin(rebin); 
- h_Sig_MS15ct1    ->Rebin(rebin); 
- h_Sig_MS40ct1000 ->Rebin(rebin); 
- h_Sig_MS40ct100  ->Rebin(rebin); 
- h_Sig_MS40ct10   ->Rebin(rebin); 
- h_Sig_MS40ct1    ->Rebin(rebin); 
- h_Sig_MS55ct1000 ->Rebin(rebin); 
- h_Sig_MS55ct100  ->Rebin(rebin); 
- h_Sig_MS55ct10   ->Rebin(rebin); 
- h_Sig_MS55ct1    ->Rebin(rebin); 
- h_Data           ->Rebin(rebin); 
+// h_Sig_MS15ct1000 ->Rebin(rebin); 
+// h_Sig_MS15ct100  ->Rebin(rebin); 
+// h_Sig_MS15ct10   ->Rebin(rebin); 
+// h_Sig_MS15ct1    ->Rebin(rebin); 
+// h_Sig_MS40ct1000 ->Rebin(rebin); 
+// h_Sig_MS40ct100  ->Rebin(rebin); 
+// h_Sig_MS40ct10   ->Rebin(rebin); 
+// h_Sig_MS40ct1    ->Rebin(rebin); 
+// h_Sig_MS55ct1000 ->Rebin(rebin); 
+// h_Sig_MS55ct100  ->Rebin(rebin); 
+// h_Sig_MS55ct10   ->Rebin(rebin); 
+// h_Sig_MS55ct1    ->Rebin(rebin); 
+
+ h_Sig_WminusH_MS15ct1000 ->Rebin(rebin); 
+ h_Sig_WminusH_MS15ct100  ->Rebin(rebin); 
+ h_Sig_WminusH_MS15ct10   ->Rebin(rebin); 
+ h_Sig_WminusH_MS15ct1    ->Rebin(rebin); 
+ h_Sig_WminusH_MS40ct1000 ->Rebin(rebin); 
+ h_Sig_WminusH_MS40ct100  ->Rebin(rebin); 
+ h_Sig_WminusH_MS40ct10   ->Rebin(rebin); 
+ h_Sig_WminusH_MS40ct1    ->Rebin(rebin); 
+ h_Sig_WminusH_MS55ct1000 ->Rebin(rebin); 
+ h_Sig_WminusH_MS55ct100  ->Rebin(rebin); 
+ h_Sig_WminusH_MS55ct10   ->Rebin(rebin); 
+ h_Sig_WminusH_MS55ct1    ->Rebin(rebin); 
+ 
+ h_Sig_WplusH_MS15ct1000 ->Rebin(rebin); 
+ h_Sig_WplusH_MS15ct100  ->Rebin(rebin); 
+ h_Sig_WplusH_MS15ct10   ->Rebin(rebin); 
+ h_Sig_WplusH_MS15ct1    ->Rebin(rebin); 
+ h_Sig_WplusH_MS40ct1000 ->Rebin(rebin); 
+ h_Sig_WplusH_MS40ct100  ->Rebin(rebin); 
+ h_Sig_WplusH_MS40ct10   ->Rebin(rebin); 
+ h_Sig_WplusH_MS40ct1    ->Rebin(rebin); 
+ h_Sig_WplusH_MS55ct1000 ->Rebin(rebin); 
+ h_Sig_WplusH_MS55ct100  ->Rebin(rebin); 
+ h_Sig_WplusH_MS55ct10   ->Rebin(rebin); 
+ h_Sig_WplusH_MS55ct1    ->Rebin(rebin); 
+
+ h_Data  	         ->Rebin(rebin); 
 
  h_mctotal                  ->Rebin(rebin); 
  h_mctotal_EGSUp            ->Rebin(rebin); 
@@ -312,18 +394,18 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_mctotal_TADown           ->Rebin(rebin); 
  h_mctotal_TagVarsUp        ->Rebin(rebin); 
  h_mctotal_TagVarsDown      ->Rebin(rebin); 
- h_Sig_MS40ct10_EGSUp       ->Rebin(rebin); 
- h_Sig_MS40ct10_EGSDown     ->Rebin(rebin); 
- h_Sig_MS40ct10_MESUp       ->Rebin(rebin); 
- h_Sig_MS40ct10_MESDown     ->Rebin(rebin); 
- h_Sig_MS40ct10_AMaxUp      ->Rebin(rebin); 
- h_Sig_MS40ct10_AMaxDown    ->Rebin(rebin); 
- h_Sig_MS40ct10_IPSigUp     ->Rebin(rebin); 
- h_Sig_MS40ct10_IPSigDown   ->Rebin(rebin); 
- h_Sig_MS40ct10_TAUp        ->Rebin(rebin); 
- h_Sig_MS40ct10_TADown      ->Rebin(rebin); 
- h_Sig_MS40ct10_TagVarsUp   ->Rebin(rebin); 
- h_Sig_MS40ct10_TagVarsDown ->Rebin(rebin); 
+// h_Sig_MS40ct10_EGSUp       ->Rebin(rebin); 
+// h_Sig_MS40ct10_EGSDown     ->Rebin(rebin); 
+// h_Sig_MS40ct10_MESUp       ->Rebin(rebin); 
+// h_Sig_MS40ct10_MESDown     ->Rebin(rebin); 
+// h_Sig_MS40ct10_AMaxUp      ->Rebin(rebin); 
+// h_Sig_MS40ct10_AMaxDown    ->Rebin(rebin); 
+// h_Sig_MS40ct10_IPSigUp     ->Rebin(rebin); 
+// h_Sig_MS40ct10_IPSigDown   ->Rebin(rebin); 
+// h_Sig_MS40ct10_TAUp        ->Rebin(rebin); 
+// h_Sig_MS40ct10_TADown      ->Rebin(rebin); 
+// h_Sig_MS40ct10_TagVarsUp   ->Rebin(rebin); 
+// h_Sig_MS40ct10_TagVarsDown ->Rebin(rebin); 
 
  // make stack
  std::vector<TH1F *> v;
@@ -336,7 +418,35 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  v.push_back(h_VG);
  v.push_back(h_QCD);
  v.push_back(h_ZH);
- v.push_back(h_Sig_MS40ct10);
+// v.push_back(h_Sig_MS40ct10);
+
+ v.push_back(h_Sig_WminusH_MS15ct1000);
+ v.push_back(h_Sig_WminusH_MS15ct100);
+ v.push_back(h_Sig_WminusH_MS15ct10); 
+ v.push_back(h_Sig_WminusH_MS15ct1);  
+ v.push_back(h_Sig_WminusH_MS40ct1000);
+ v.push_back(h_Sig_WminusH_MS40ct100);
+ v.push_back(h_Sig_WminusH_MS40ct10); 
+ v.push_back(h_Sig_WminusH_MS40ct1);
+ v.push_back(h_Sig_WminusH_MS55ct1000);
+ v.push_back(h_Sig_WminusH_MS55ct100);
+ v.push_back(h_Sig_WminusH_MS55ct10);
+ v.push_back(h_Sig_WminusH_MS55ct1);
+
+ v.push_back(h_Sig_WplusH_MS15ct1000);
+ v.push_back(h_Sig_WplusH_MS15ct100);
+ v.push_back(h_Sig_WplusH_MS15ct10); 
+ v.push_back(h_Sig_WplusH_MS15ct1);  
+ v.push_back(h_Sig_WplusH_MS40ct1000);
+ v.push_back(h_Sig_WplusH_MS40ct100);
+ v.push_back(h_Sig_WplusH_MS40ct10); 
+ v.push_back(h_Sig_WplusH_MS40ct1);
+ v.push_back(h_Sig_WplusH_MS55ct1000);
+ v.push_back(h_Sig_WplusH_MS55ct100);
+ v.push_back(h_Sig_WplusH_MS55ct10);
+ v.push_back(h_Sig_WplusH_MS55ct1);
+
+
 
  THStack *mcstack = new THStack("mcstack","");
  if(dolog){
@@ -358,8 +468,33 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
   mcstack->Add(h_VG         );
   mcstack->Add(h_QCD        );
   mcstack->Add(h_ZH         );
-  mcstack->Add(h_Sig_MS40ct10         );
- }
+//  mcstack->Add(h_Sig_MS40ct10         );
+  mcstack->Add(h_Sig_WminusH_MS15ct1000 );
+  mcstack->Add(h_Sig_WminusH_MS15ct100  );
+  mcstack->Add(h_Sig_WminusH_MS15ct10   );
+  mcstack->Add(h_Sig_WminusH_MS15ct1    );
+  mcstack->Add(h_Sig_WminusH_MS40ct1000 );
+  mcstack->Add(h_Sig_WminusH_MS40ct100  );
+  mcstack->Add(h_Sig_WminusH_MS40ct10   );
+  mcstack->Add(h_Sig_WminusH_MS40ct1    );
+  mcstack->Add(h_Sig_WminusH_MS55ct1000 );
+  mcstack->Add(h_Sig_WminusH_MS55ct100  );
+  mcstack->Add(h_Sig_WminusH_MS55ct10   );
+  mcstack->Add(h_Sig_WminusH_MS55ct1    );
+  
+  mcstack->Add(h_Sig_WplusH_MS15ct1000  );
+  mcstack->Add(h_Sig_WplusH_MS15ct100   );
+  mcstack->Add(h_Sig_WplusH_MS15ct10    );
+  mcstack->Add(h_Sig_WplusH_MS15ct1     );
+  mcstack->Add(h_Sig_WplusH_MS40ct1000  );
+  mcstack->Add(h_Sig_WplusH_MS40ct100   );
+  mcstack->Add(h_Sig_WplusH_MS40ct10    );
+  mcstack->Add(h_Sig_WplusH_MS40ct1     );
+  mcstack->Add(h_Sig_WplusH_MS55ct1000  );
+  mcstack->Add(h_Sig_WplusH_MS55ct100   );
+  mcstack->Add(h_Sig_WplusH_MS55ct10    );
+  mcstack->Add(h_Sig_WplusH_MS55ct1     );
+  }
 
 
  // set attributes
@@ -418,11 +553,91 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  //h_ggZH_HToSSTobbbb_MS40_ctauS100   -> SetLineWidth(2) ;
  //h_ggZH_HToSSTobbbb_MS40_ctauS1000  -> SetLineWidth(2) ;
  //h_ggZH_HToSSTobbbb_MS40_ctauS10000 -> SetLineWidth(2) ;
+ 
+ h_Sig_WminusH_MS15ct1000    	-> SetLineWidth(2) ;  
+ h_Sig_WminusH_MS15ct100     	-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS15ct10      	-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS15ct1		-> SetLineWidth(2) ;	
+ h_Sig_WminusH_MS40ct1000   	-> SetLineWidth(2) ;  
+ h_Sig_WminusH_MS40ct100	-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS40ct10		-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS40ct1		-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS55ct1000 	-> SetLineWidth(2) ;  
+ h_Sig_WminusH_MS55ct100	-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS55ct10		-> SetLineWidth(2) ;
+ h_Sig_WminusH_MS55ct1		-> SetLineWidth(2) ;
 
- h_Data  -> SetLineColor(kBlack);
- h_Data  -> SetMarkerStyle(8);
- h_Data  -> SetMarkerSize(1);
- h_Data  -> SetLineWidth(3);
+ h_Sig_WplusH_MS15ct1000	-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS15ct100		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS15ct10		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS15ct1		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS40ct1000	-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS40ct100		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS40ct10		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS40ct1		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS55ct1000	-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS55ct100		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS55ct10		-> SetLineWidth(2) ;
+ h_Sig_WplusH_MS55ct1		-> SetLineWidth(2) ;
+ 
+ h_Sig_WminusH_MS15ct1000	->SetFillStyle(1001);
+ h_Sig_WminusH_MS15ct100	->SetFillStyle(1001);
+ h_Sig_WminusH_MS15ct10		->SetFillStyle(1001);
+ h_Sig_WminusH_MS15ct1		->SetFillStyle(1001);
+ h_Sig_WminusH_MS40ct1000	->SetFillStyle(1001);
+ h_Sig_WminusH_MS40ct100	->SetFillStyle(1001);
+ h_Sig_WminusH_MS40ct10		->SetFillStyle(1001);
+ h_Sig_WminusH_MS40ct1		->SetFillStyle(1001);
+ h_Sig_WminusH_MS55ct1000	->SetFillStyle(1001);
+ h_Sig_WminusH_MS55ct100	->SetFillStyle(1001);
+ h_Sig_WminusH_MS55ct10		->SetFillStyle(1001);
+ h_Sig_WminusH_MS55ct1		->SetFillStyle(1001);
+
+ h_Sig_WplusH_MS15ct1000	->SetFillStyle(1001);
+ h_Sig_WplusH_MS15ct100		->SetFillStyle(1001);
+ h_Sig_WplusH_MS15ct10		->SetFillStyle(1001);
+ h_Sig_WplusH_MS15ct1		->SetFillStyle(1001);
+ h_Sig_WplusH_MS40ct1000	->SetFillStyle(1001);
+ h_Sig_WplusH_MS40ct100		->SetFillStyle(1001);
+ h_Sig_WplusH_MS40ct10		->SetFillStyle(1001);
+ h_Sig_WplusH_MS40ct1		->SetFillStyle(1001);
+ h_Sig_WplusH_MS55ct1000	->SetFillStyle(1001);
+ h_Sig_WplusH_MS55ct100		->SetFillStyle(1001);
+ h_Sig_WplusH_MS55ct10		->SetFillStyle(1001);
+ h_Sig_WplusH_MS55ct1		->SetFillStyle(1001);
+
+ 
+/*
+ h_Sig_WminusH_MS15ct1000
+ h_Sig_WminusH_MS15ct100
+ h_Sig_WminusH_MS15ct10
+ h_Sig_WminusH_MS15ct1
+ h_Sig_WminusH_MS40ct1000
+ h_Sig_WminusH_MS40ct100
+ h_Sig_WminusH_MS40ct10
+ h_Sig_WminusH_MS40ct1
+ h_Sig_WminusH_MS55ct1000
+ h_Sig_WminusH_MS55ct100
+ h_Sig_WminusH_MS55ct10
+ h_Sig_WminusH_MS55ct1
+
+ h_Sig_WplusH_MS15ct1000
+ h_Sig_WplusH_MS15ct100
+ h_Sig_WplusH_MS15ct10
+ h_Sig_WplusH_MS15ct1
+ h_Sig_WplusH_MS40ct1000
+ h_Sig_WplusH_MS40ct100
+ h_Sig_WplusH_MS40ct10
+ h_Sig_WplusH_MS40ct1
+ h_Sig_WplusH_MS55ct1000
+ h_Sig_WplusH_MS55ct100
+ h_Sig_WplusH_MS55ct10
+ h_Sig_WplusH_MS55ct1
+*/ 
+// h_Data  -> SetLineColor(kBlack);
+// h_Data  -> SetMarkerStyle(8);
+// h_Data  -> SetMarkerSize(1);
+// h_Data  -> SetLineWidth(3);
 
  h_DY           ->SetFillStyle(1001);
  h_GJets        ->SetFillStyle(1001);
@@ -433,7 +648,8 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_VG           ->SetFillStyle(1001);
  h_ZH           ->SetFillStyle(1001);
  h_QCD          ->SetFillStyle(1001);
- h_Sig_MS40ct10 ->SetFillStyle(1001);
+// h_Sig_MS40ct10 ->SetFillStyle(1001);
+
 
  h_DY           ->SetFillColor(kAzure-3);
  h_GJets        ->SetFillColor(kViolet+3);
@@ -444,7 +660,59 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_VG           ->SetFillColor(kPink+9);
  h_ZH           ->SetFillColor(kCyan);
  h_QCD          ->SetFillColor(kGray+1);
- h_Sig_MS40ct10 ->SetFillColor(kGreen);
+// h_Sig_MS40ct10 ->SetFillColor(kGreen);
+ 
+ h_Sig_WminusH_MS15ct1000	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS15ct100	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS15ct10	 	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS15ct1 		->SetFillColor(kAzure);
+ h_Sig_WminusH_MS40ct1000	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS40ct100	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS40ct10		->SetFillColor(kAzure);
+ h_Sig_WminusH_MS40ct1		->SetFillColor(kAzure);
+ h_Sig_WminusH_MS55ct1000	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS55ct100	->SetFillColor(kAzure);
+ h_Sig_WminusH_MS55ct10		->SetFillColor(kAzure);
+ h_Sig_WminusH_MS55ct1		->SetFillColor(kAzure);
+
+ h_Sig_WplusH_MS15ct1000	->SetFillColor(kViolet);
+ h_Sig_WplusH_MS15ct100		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS15ct10		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS15ct1		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS40ct1000	->SetFillColor(kViolet);
+ h_Sig_WplusH_MS40ct100		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS40ct10		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS40ct1		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS55ct1000	->SetFillColor(kViolet);
+ h_Sig_WplusH_MS55ct100		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS55ct10		->SetFillColor(kViolet);
+ h_Sig_WplusH_MS55ct1		->SetFillColor(kViolet);
+
+ h_Sig_WminusH_MS15ct1000	->SetLineColor(kBlack);
+ h_Sig_WminusH_MS15ct100	->SetLineColor(kBlack);
+ h_Sig_WminusH_MS15ct10		->SetLineColor(kBlack);
+ h_Sig_WminusH_MS15ct1		->SetLineColor(kBlack);
+ h_Sig_WminusH_MS40ct1000	->SetLineColor(kBlack);
+ h_Sig_WminusH_MS40ct100	->SetLineColor(kBlack);
+ h_Sig_WminusH_MS40ct10		->SetLineColor(kBlack);
+ h_Sig_WminusH_MS40ct1		->SetLineColor(kBlack);
+ h_Sig_WminusH_MS55ct1000	->SetLineColor(kBlack);
+ h_Sig_WminusH_MS55ct100	->SetLineColor(kBlack);
+ h_Sig_WminusH_MS55ct10		->SetLineColor(kBlack);
+ h_Sig_WminusH_MS55ct1		->SetLineColor(kBlack);
+		
+ h_Sig_WplusH_MS15ct1000	->SetLineColor(kBlack);
+ h_Sig_WplusH_MS15ct100		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS15ct10		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS15ct1		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS40ct1000	->SetLineColor(kBlack);
+ h_Sig_WplusH_MS40ct100		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS40ct10		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS40ct1		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS55ct1000	->SetLineColor(kBlack);
+ h_Sig_WplusH_MS55ct100		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS55ct10		->SetLineColor(kBlack);
+ h_Sig_WplusH_MS55ct1		->SetLineColor(kBlack);
 
  h_DY           ->SetLineColor(kBlack); 
  h_GJets        ->SetLineColor(kBlack); 
@@ -454,7 +722,7 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_VV           ->SetLineColor(kBlack); 
  h_VG           ->SetLineColor(kBlack); 
  h_ZH           ->SetLineColor(kBlack); 
- h_Sig_MS40ct10 ->SetLineColor(kBlack); 
+// h_Sig_MS40ct10 ->SetLineColor(kBlack); 
  h_QCD          ->SetLineColor(kBlack); 
  h_mctotal      ->SetLineColor(kBlack);
 
@@ -466,7 +734,7 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  h_VV           ->SetLineWidth(2);
  h_VG           ->SetLineWidth(2);
  h_ZH           ->SetLineWidth(2);
- h_Sig_MS40ct10 ->SetLineWidth(2);
+// h_Sig_MS40ct10 ->SetLineWidth(2);
  h_QCD          ->SetLineWidth(2);
  h_mctotal      ->SetLineWidth(2);
 
@@ -489,21 +757,33 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
  leg->AddEntry(h_VG           , "V#gamma", "f");
  leg->AddEntry(h_ZH           , "ZH#rightarrowLLbb", "f");
  leg->AddEntry(h_QCD          , "QCD", "f"); 
- leg->AddEntry(h_Sig_MS40ct10 , "Signal M_{S}40 c#tau 10", "f");
- leg->AddEntry(h_mctotal      , "MC bkg. stat. err.", "f");
 
- TLegend *sigleg = new TLegend(0.15,0.6,0.65,0.85);
+// leg->AddEntry(h_Sig_MS40ct10 , "Signal M_{S}40 c#tau 10", "f");
+ 
+ TLegend *WHsigleg = new TLegend(0.15,0.6,0.65,0.85);
+ if(drawSignal){
+	WHsigleg->SetBorderSize(0);
+	WHsigleg->SetFillColor(kWhite);
+	WHsigleg->SetHeader("W(H#rightarrow SS#rightarrow bbbb)","C");
+	WHsigleg->AddEntry(h_Sig_WminusH_MS40ct100 	, "Signal Wminus M_{40} c#tau 100", "f"); 
+	WHsigleg->AddEntry(h_Sig_WplusH_MS40ct100  , "Signal Wplus M_{40} c#tau 100", "f");
+ 	WHsigleg->AddEntry(h_mctotal      , "MC bkg. stat. err.", "f");
+}
+
+
+
+// TLegend *ZHsigleg = new TLegend(0.15,0.6,0.65,0.85);
  //if(drawSignal){
- //  //sigleg->SetBorderSize(0);
- //  //sigleg->SetFillColor(kWhite);
- //  //sigleg->SetHeader("Z(H#rightarrow SS#rightarrow bbbb)","C");
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS0     , "M_{S}=40 c#tau_{S}=0    ", "l" ) ;
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS0p05  , "M_{S}=40 c#tau_{S}=0p05 ", "l" ) ;
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS1     , "M_{S}=40 c#tau_{S}=1    ", "l" ) ;
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS10    , "M_{S}=40 c#tau_{S}=10   ", "l" ) ;
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS100   , "M_{S}=40 c#tau_{S}=100  ", "l" ) ;
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS1000  , "M_{S}=40 c#tau_{S}=1000 ", "l" ) ;
- //  //sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS10000 , "M_{S}=40 c#tau_{S}=10000", "l" ) ;
+ //  //ZHsigleg->SetBorderSize(0);
+ //  //ZHsigleg->SetFillColor(kWhite);
+ //  //ZHsigleg->SetHeader("Z(H#rightarrow SS#rightarrow bbbb)","C");
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS0     , "M_{S}=40 c#tau_{S}=0    ", "l" ) ;
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS0p05  , "M_{S}=40 c#tau_{S}=0p05 ", "l" ) ;
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS1     , "M_{S}=40 c#tau_{S}=1    ", "l" ) ;
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS10    , "M_{S}=40 c#tau_{S}=10   ", "l" ) ;
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS100   , "M_{S}=40 c#tau_{S}=100  ", "l" ) ;
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS1000  , "M_{S}=40 c#tau_{S}=1000 ", "l" ) ;
+ //  //ZHsigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS10000 , "M_{S}=40 c#tau_{S}=10000", "l" ) ;
  // }
 
  TLegend *uncleg = new TLegend(0.5,0.3,0.85,0.65);
@@ -564,7 +844,10 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
   h_mctotal->Draw("e2 sames");
   h_Data->Draw("sames E"); 
 
-//    if(drawSignal){
+   if(drawSignal){
+
+     h_Sig_WplusH_MS40ct100  ->Draw("hist sames") ;
+     h_Sig_WminusH_MS40ct100 ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS0p05  ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS1     ->Draw("hist sames") ;
@@ -572,10 +855,14 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
 //     h_ggZH_HToSSTobbbb_MS40_ctauS100   ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Draw("hist sames") ;
-//     sigleg->Draw();
-//    }
-    leg->Draw();
-  if(drawuncs){
+//     ZHsigleg->Draw();
+     WHsigleg->Draw();
+   }
+    
+ leg->Draw();
+ 
+
+ if(drawuncs){
    uncleg->Draw();
   }
 
@@ -716,7 +1003,7 @@ void plotter_singleMerged(TString region, TString varname, Bool_t dolog, Bool_t 
      //h_VV          ->Write();
      //h_VG          ->Write();
      //h_ZH          ->Write();
-     //h_mctotal    ->Write();
+     //h_mctotal     ->Write();
      //h_ratio       ->Write();
      //h_ratiostaterr->Write();
      //mcstack       ->Write();
