@@ -55,7 +55,6 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
-  "ZH_HToSSTobbbb_MS-15_ctauS-1000"    \
 )
 
 # Signal Samples
@@ -107,6 +106,70 @@ samples=( \
 #  "WminusH_HToSSTobbbb_MS-15_ctauS-10"   \
 #  "WminusH_HToSSTobbbb_MS-15_ctauS-100"  \
 #  "WminusH_HToSSTobbbb_MS-15_ctauS-1000" \
+#  "ZH_HToSSTo4Tau_MS-55_ctauS-1"      \
+#  "ZH_HToSSTo4Tau_MS-55_ctauS-10"     \
+#  "ZH_HToSSTo4Tau_MS-55_ctauS-100"    \
+#  "ZH_HToSSTo4Tau_MS-55_ctauS-1000"   \
+#  "ZH_HToSSTo4Tau_MS-40_ctauS-1"      \
+#  "ZH_HToSSTo4Tau_MS-40_ctauS-10"     \
+#  "ZH_HToSSTo4Tau_MS-40_ctauS-100"    \
+#  "ZH_HToSSTo4Tau_MS-40_ctauS-1000"   \
+#  "ZH_HToSSTo4Tau_MS-15_ctauS-1"      \
+#  "ZH_HToSSTo4Tau_MS-15_ctauS-10"     \
+#  "ZH_HToSSTo4Tau_MS-15_ctauS-100"    \
+#  "ZH_HToSSTo4Tau_MS-15_ctauS-1000"   \
+#  "ZH_HToSSTo4Tau_MS-7_ctauS-1"      \
+#  "ZH_HToSSTo4Tau_MS-7_ctauS-10"     \
+#  "ZH_HToSSTo4Tau_MS-7_ctauS-100"    \
+#  "ZH_HToSSTo4Tau_MS-7_ctauS-1000"   \
+#  "ggZH_HToSSTo4Tau_MS-55_ctauS-1"    \
+#  "ggZH_HToSSTo4Tau_MS-55_ctauS-10"   \
+#  "ggZH_HToSSTo4Tau_MS-55_ctauS-100"  \
+#  "ggZH_HToSSTo4Tau_MS-55_ctauS-1000" \
+#  "ggZH_HToSSTo4Tau_MS-40_ctauS-1"    \
+#  "ggZH_HToSSTo4Tau_MS-40_ctauS-10"   \
+#  "ggZH_HToSSTo4Tau_MS-40_ctauS-100"  \
+#  "ggZH_HToSSTo4Tau_MS-40_ctauS-1000" \
+#  "ggZH_HToSSTo4Tau_MS-15_ctauS-1"    \
+#  "ggZH_HToSSTo4Tau_MS-15_ctauS-10"   \
+#  "ggZH_HToSSTo4Tau_MS-15_ctauS-100"  \
+#  "ggZH_HToSSTo4Tau_MS-15_ctauS-1000" \
+#  "ggZH_HToSSTo4Tau_MS-7_ctauS-1"    \
+#  "ggZH_HToSSTo4Tau_MS-7_ctauS-10"   \
+#  "ggZH_HToSSTo4Tau_MS-7_ctauS-100"  \
+#  "ggZH_HToSSTo4Tau_MS-7_ctauS-1000" \
+#  "ZH_HToSSTodddd_MS-55_ctauS-1"      \
+#  "ZH_HToSSTodddd_MS-55_ctauS-10"     \
+#  "ZH_HToSSTodddd_MS-55_ctauS-100"    \
+#  "ZH_HToSSTodddd_MS-55_ctauS-1000"   \
+#  "ZH_HToSSTodddd_MS-40_ctauS-1"      \
+#  "ZH_HToSSTodddd_MS-40_ctauS-10"     \
+#  "ZH_HToSSTodddd_MS-40_ctauS-100"    \
+#  "ZH_HToSSTodddd_MS-40_ctauS-1000"   \
+#  "ZH_HToSSTodddd_MS-15_ctauS-1"      \
+#  "ZH_HToSSTodddd_MS-15_ctauS-10"     \
+#  "ZH_HToSSTodddd_MS-15_ctauS-100"    \
+#  "ZH_HToSSTodddd_MS-15_ctauS-1000"   \
+#  "ZH_HToSSTodddd_MS-7_ctauS-1"      \
+#  "ZH_HToSSTodddd_MS-7_ctauS-10"     \
+#  "ZH_HToSSTodddd_MS-7_ctauS-100"    \
+#  "ZH_HToSSTodddd_MS-7_ctauS-1000"   \
+#  "ggZH_HToSSTodddd_MS-55_ctauS-1"    \
+#  "ggZH_HToSSTodddd_MS-55_ctauS-10"   \
+#  "ggZH_HToSSTodddd_MS-55_ctauS-100"  \
+#  "ggZH_HToSSTodddd_MS-55_ctauS-1000" \
+#  "ggZH_HToSSTodddd_MS-40_ctauS-1"    \
+#  "ggZH_HToSSTodddd_MS-40_ctauS-10"   \
+#  "ggZH_HToSSTodddd_MS-40_ctauS-100"  \
+#  "ggZH_HToSSTodddd_MS-40_ctauS-1000" \
+#  "ggZH_HToSSTodddd_MS-15_ctauS-1"    \
+#  "ggZH_HToSSTodddd_MS-15_ctauS-10"   \
+#  "ggZH_HToSSTodddd_MS-15_ctauS-100"  \
+#  "ggZH_HToSSTodddd_MS-15_ctauS-1000" \
+#  "ggZH_HToSSTodddd_MS-7_ctauS-1"    \
+#  "ggZH_HToSSTodddd_MS-7_ctauS-10"   \
+#  "ggZH_HToSSTodddd_MS-7_ctauS-100"  \
+#  "ggZH_HToSSTodddd_MS-7_ctauS-1000" \
 
 # Datasets
 #  "Data_SingleEle_H_3"   \
