@@ -4,7 +4,7 @@
 #include <TLorentzVector.h>
 
 using namespace std;
-bool ctauWeight = true; //Determine whether to weight or not weight the SigMC
+bool ctauWeight = false; //Determine whether to weight or not weight the SigMC
 float targetdist = 300; //To weight it, determine the target distance
 //Recommended targetdist range : 10mm sample->1mm<ct<10mm
 			//	 100mm sample->10mm<ct<100mm
@@ -29,7 +29,19 @@ vector<float> Decaydist;
 vector<float> Simweight;
 vector<float> ctauEventWeight;
 
+vector<float> Zpt;
+vector<float> Zmass;
+vector<vector<int>>   Z_daughterID;
+vector<vector<int>>   Z_daughterPt;
+vector<vector<int>>   Z_daughterEta;
+vector<vector<int>>   Z_daughterPhi;
 
+vector<float> llpvX;
+vector<float> llpvY;
+vector<float> llpvZ;
+vector<float> llpDaughtervX;
+vector<float> llpDaughtervY;
+vector<float> llpDaughtervZ;
 void lldjNtuple::branchesGenPart(TTree* tree) {
 
   tree->Branch("llpId",             &llpId);
@@ -49,6 +61,20 @@ void lldjNtuple::branchesGenPart(TTree* tree) {
   tree->Branch("Simweight",         &Simweight);
   tree->Branch("ctauEventWeight",   &ctauEventWeight);
 }
+  tree->Branch("Zpt",    &Zpt);
+  tree->Branch("Zmass",  &Zmass);
+  tree->Branch("Z_daughterID",   &Z_daughterID);
+  tree->Branch("Z_daughterPt",   &Z_daughterPt);
+  tree->Branch("Z_daughterEta",  &Z_daughterEta);
+  tree->Branch("Z_daughterPhi",  &Z_daughterPhi);
+
+  tree->Branch("llpvX",             &llpvX);
+  tree->Branch("llpvY",             &llpvY);
+  tree->Branch("llpvZ",             &llpvZ);
+  tree->Branch("llpDaughtervX",             &llpDaughtervX);
+  tree->Branch("llpDaughtervY",             &llpDaughtervY);
+  tree->Branch("llpDaughtervZ",             &llpDaughtervZ);
+
 }
 
 void lldjNtuple::fillGenPart(const edm::Event& e) {
@@ -71,6 +97,20 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
   Simweight.clear();
   ctauEventWeight.clear();
 }
+  Zpt.clear();
+  Zmass.clear();
+  Z_daughterID.clear();
+  Z_daughterPt.clear();
+  Z_daughterEta.clear();
+  Z_daughterPhi.clear();
+
+  llpvX.clear();
+  llpvY.clear();
+  llpvZ.clear();
+  llpDaughtervX.clear();
+  llpDaughtervY.clear();
+  llpDaughtervZ.clear();
+
   //Gen particles handle
   edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
   e.getByToken(genParticlesCollection_, genParticlesHandle);
@@ -87,6 +127,26 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
     if( abs(ip->pdgId()) == 6 && ip->isLastCopy() ){
      toppts.push_back( ip->pt() );
     }
+    //Save Z particles
+    vector<int> Z_daughterID_;
+    vector<int> Z_daughterPt_;
+    vector<int> Z_daughterEta_;
+    vector<int> Z_daughterPhi_;
+    if( ip->pdgId() == 23 && ip->isLastCopy() && ip->status()==62 ){
+     Zpt.push_back  ( ip->pt() );
+     Zmass.push_back( ip->mass() );
+     for(size_t i=0; i<ip->numberOfDaughters(); ++i){
+       const reco::Candidate* Z_d = ip->daughter(i);
+       Z_daughterID_.push_back(Z_d->pdgId());
+       Z_daughterPt_.push_back(Z_d->pt());
+       Z_daughterEta_.push_back(Z_d->eta());
+       Z_daughterPhi_.push_back(Z_d->phi());
+     }
+     Z_daughterID.push_back(Z_daughterID_);
+     Z_daughterPt.push_back(Z_daughterPt_);
+     Z_daughterEta.push_back(Z_daughterEta_);
+     Z_daughterPhi.push_back(Z_daughterPhi_);
+    }
 
     //Save long lived BSM particles
     if( abs(ip->pdgId()) == 9000006 ){
@@ -96,9 +156,15 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
       llpEta.push_back(     ip->eta()   );
       llpPhi.push_back(     ip->phi()   );
       llpMass.push_back(    ip->mass()  );
+      llpvX.push_back(    ip->vx()  );
+      llpvY.push_back(    ip->vy()  );
+      llpvZ.push_back(    ip->vz()  );
       TVector3 mother,daughter,diff;	
       for(size_t j=0; j<ip->numberOfDaughters(); ++j){
 	const reco::Candidate* d = ip->daughter(j);
+	  llpDaughtervX.push_back(d->vx());
+	  llpDaughtervY.push_back(d->vy());
+	  llpDaughtervZ.push_back(d->vz());
 	  mother.SetXYZ(ip->vx(),ip->vy(),ip->vz());
 	  daughter.SetXYZ(d->vx(),d->vy(),d->vz());
    	  diff.SetXYZ(mother.X()-daughter.X(),mother.Y()-daughter.Y(),mother.Z()-daughter.Z());	
