@@ -93,18 +93,18 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  std::vector<TString> uncbins;
  uncbins.clear();
  uncbins.push_back(""             ); 
-// uncbins.push_back("_EGSUp"       ); 
-// uncbins.push_back("_EGSDown"     );    
-// uncbins.push_back("_MESUp"       );    
-// uncbins.push_back("_MESDown"     );    
-// uncbins.push_back("_AMaxUp"      );    
-// uncbins.push_back("_AMaxDown"    );    
-// uncbins.push_back("_IPSigUp"     );    
-// uncbins.push_back("_IPSigDown"   );    
-// uncbins.push_back("_TAUp"        );    
-// uncbins.push_back("_TADown"      );    
-// uncbins.push_back("_TagVarsUp"   ); 
-// uncbins.push_back("_TagVarsDown" );  
+ uncbins.push_back("_EGSUp"       ); 
+ uncbins.push_back("_EGSDown"     );    
+ uncbins.push_back("_MESUp"       );    
+ uncbins.push_back("_MESDown"     );    
+ uncbins.push_back("_AMaxUp"      );    
+ uncbins.push_back("_AMaxDown"    );    
+ uncbins.push_back("_IPSigUp"     );    
+ uncbins.push_back("_IPSigDown"   );    
+ uncbins.push_back("_TAUp"        );    
+ uncbins.push_back("_TADown"      );    
+ uncbins.push_back("_TagVarsUp"   ); 
+ uncbins.push_back("_TagVarsDown" );  
 
  int loopEnd;
  if (doUncPlots) loopEnd=uncbins.size(); else loopEnd=1;
@@ -115,9 +115,9 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 
 variables.push_back("nSelectedAODCaloJetTag");
 /////variables.push_back("AOD_dilepton_Pt");
-variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
-variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
-variables.push_back("AllJets_AODCaloJetAlphaMax");
+/////variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
+/////variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
+/////variables.push_back("AllJets_AODCaloJetAlphaMax");
 
  //variables.push_back("nSelectedAODCaloJet_L1PFTag");
  //variables.push_back("AllJets_AODCaloJet_L1PFMedianLog10IPSig");
@@ -1789,7 +1789,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 //     if( h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) > 0.1){ ;
 //        h_ggZH_HToSSTobbbb_MS40_ctauS10000  ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) ); 
 //     }
-
+std::cout<<"Does it get here?"<<std::endl;
      // make legend
      TLegend *leg;
      leg = new TLegend(0.2,0.73,0.88,0.89);
@@ -1926,15 +1926,15 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        h_ratio->GetYaxis()->SetRangeUser(0.4,1.6);
        h_ratio->Draw("ep");  // draw first to get ranges set internally inside root
               
-       //h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
-       //h_ratiostaterr->Divide(h_bkgtotal);
+       h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
+       h_ratiostaterr->Divide(h_bkgtotal);
        
        ratiopad->Update();       // need to update pad to get X min/max
        TLine *line = new TLine(ratiopad->GetUxmin(),1,ratiopad->GetUxmax(),1);
        line->SetLineColor(kBlue);
        line->SetLineWidth(3);
        line->SetLineStyle(9);
-       //h_ratiostaterr->Draw("e2 same");
+       h_ratiostaterr->Draw("e2 same");
 
        line->Draw();
        h_ratio->Draw("ep same"); // draw points above line
