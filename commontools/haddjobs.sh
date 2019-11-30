@@ -25,7 +25,7 @@ samples=( \
  "Data_SinglePhoton_H_2"  \
  "Data_SinglePhoton_G"    \
 # Monte Carlo Samples
- Signal
+# Signal
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"      \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"     \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"    \
@@ -74,6 +74,38 @@ samples=( \
 # "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
 # "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
 # "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"      \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"    \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"   \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"        \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"       \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"      \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"      \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"    \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"   \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"        \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"       \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"      \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"      \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"    \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"   \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"        \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"       \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"      \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"      \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"     \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"    \
+ "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"   \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"        \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"       \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"      \
+ "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"     \
 
 ## DY
 # "DYJetsToLL_M-5to50_HT-70to100"   \

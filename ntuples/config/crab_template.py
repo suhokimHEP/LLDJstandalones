@@ -15,6 +15,7 @@ if __name__ == '__main__':
     config.JobType.pluginName         = 'Analysis' # PrivateMC
     config.JobType.psetName           = CMSRUNCONFIG
     #config.JobType.inputFiles         = [INPUTFILES]
+    config.JobType.allowUndistributedCMSSW = True
     config.JobType.sendExternalFolder = True
     config.JobType.maxMemoryMB        = MAXMEM
     config.JobType.numCores           = 4
