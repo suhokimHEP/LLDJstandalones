@@ -4,8 +4,8 @@
 #include <TLorentzVector.h>
 
 using namespace std;
-bool ctauWeight = false; //Determine whether to weight or not weight the SigMC
-float targetdist = 3; //To weight it, determine the target distance
+bool ctauWeight = true; //Determine whether to weight or not weight the SigMC
+float targetdist = 30; //To weight it, determine the target distance
 //Recommended targetdist range : 10mm sample->1mm<ct<10mm
 			//	 100mm sample->10mm<ct<100mm
 			//	 1000mm	samplet->100mm<ct<1000mm
@@ -107,7 +107,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
 
 	TLorentzVector scalar;
 	scalar.SetPtEtaPhiM(ip->pt(),ip->eta(),ip->phi(),ip->mass());
-	float dist = diff.Mag()/(scalar.Gamma());
+	float dist = diff.Mag()/(scalar.Gamma()*abs(scalar.Beta()));
         if(ctauWeight){Decaydist.push_back(dist);
 	float weight = calculatectauEventWeight(dist);
 	Simweight.push_back(weight); 
@@ -142,16 +142,16 @@ Float_t lldjNtuple::calculatectauEventWeight( float dist )
  float weight, factor;
 if (targetdist<10 && 1 < targetdist) {
 	factor = 10./targetdist;
-        weight = exp(-1*(factor-1)*dist)/factor;
+        weight = factor*exp(-1*(factor-1)*dist);
 }
 else if (targetdist<100 && 10 < targetdist) {
 	factor = 100./targetdist;
-        weight = exp(-0.1*(factor-1)*dist)/factor;
+        weight = factor*exp(-.1*(factor-1)*dist);
 }
 
 else if (targetdist<1000 && 100< targetdist) {
 	factor = 1000./targetdist;
-        weight = exp(-0.01*(factor-1)*dist)/factor;
+        weight = factor*exp(-.01*(factor-1)*dist);
 }
 else  {   
     std::cerr << "Targetdist out of range. Please read insturction for targetdist range for each SigMC sample." <<std::endl;

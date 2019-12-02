@@ -171,7 +171,7 @@ TFile *outfile_bkgest = 0;
   //if(isMC) event_weight *= .99;
   //if(isMC) event_weight *= makeMuonTriggerEffi( muon_list );
   //if(isMC) event_weight *= ctauEventWeight->at(0);
-  if(isMC) event_weight *= ctauEventWeight;
+  //if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
  //std::cout<<ctauEventWeight->at(0)<<std::endl; 
 
 
