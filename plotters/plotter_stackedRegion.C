@@ -48,7 +48,7 @@ Bool_t drawSignal = kFALSE; //kTRUE; //kFALSE
 
  bool drawData = true;
  bool useAlt = false; 
- bool doUncPlots = false;
+ bool doUncPlots = true;
 
  TString outpath = TString("../plots/");
  TString aversion = TString(getenv("aversion"));
@@ -395,6 +395,25 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
  TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
 */
+ TFile* file_Sig_ZH_MS15ct300     ;
+ TFile* file_Sig_ZH_MS15ct30      ;
+ TFile* file_Sig_ZH_MS15ct3       ;
+ TFile* file_Sig_ZH_MS40ct300     ;
+ TFile* file_Sig_ZH_MS40ct30      ;
+ TFile* file_Sig_ZH_MS40ct3       ;
+ TFile* file_Sig_ZH_MS55ct300     ;
+ TFile* file_Sig_ZH_MS55ct30      ;
+ TFile* file_Sig_ZH_MS55ct3       ;
+ TFile* file_Sig_ggZH_MS15ct300   ;
+ TFile* file_Sig_ggZH_MS15ct30    ;
+ TFile* file_Sig_ggZH_MS15ct3     ;
+ TFile* file_Sig_ggZH_MS40ct300   ;
+ TFile* file_Sig_ggZH_MS40ct30    ;
+ TFile* file_Sig_ggZH_MS40ct3     ;
+ TFile* file_Sig_ggZH_MS55ct300   ;
+ TFile* file_Sig_ggZH_MS55ct30    ;
+ TFile* file_Sig_ggZH_MS55ct3     ;
+
  // initialize histos
  TH1F* h_DY50                                ;
  TH1F* h_DY5to50_HT100To200                  ; 
@@ -498,6 +517,25 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
  TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
  */
+ TH1F* h_Sig_ZH_MS15ct300     ;
+ TH1F* h_Sig_ZH_MS15ct30      ;
+ TH1F* h_Sig_ZH_MS15ct3       ;
+ TH1F* h_Sig_ZH_MS40ct300     ;
+ TH1F* h_Sig_ZH_MS40ct30      ;
+ TH1F* h_Sig_ZH_MS40ct3       ;
+ TH1F* h_Sig_ZH_MS55ct300     ;
+ TH1F* h_Sig_ZH_MS55ct30      ;
+ TH1F* h_Sig_ZH_MS55ct3       ;
+ TH1F* h_Sig_ggZH_MS15ct300   ;
+ TH1F* h_Sig_ggZH_MS15ct30    ;
+ TH1F* h_Sig_ggZH_MS15ct3     ;
+ TH1F* h_Sig_ggZH_MS40ct300   ;
+ TH1F* h_Sig_ggZH_MS40ct30    ;
+ TH1F* h_Sig_ggZH_MS40ct3     ;
+ TH1F* h_Sig_ggZH_MS55ct300   ;
+ TH1F* h_Sig_ggZH_MS55ct30    ;
+ TH1F* h_Sig_ggZH_MS55ct3     ;
+
  //TH1F* h_Data_SingleMu_H_3     ;
  //TH1F* h_Data_SingleMu_H_2     ;
  //TH1F* h_Data_SingleMu_G       ;
@@ -600,6 +638,17 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_Sig_WH_MS55ct10  ; 
  TH1F* h_Sig_WH_MS55ct1   ;
  */
+
+ TH1F* h_Sig_MS15ct300 ;
+ TH1F* h_Sig_MS15ct30  ;
+ TH1F* h_Sig_MS15ct3   ;
+ TH1F* h_Sig_MS40ct300 ;
+ TH1F* h_Sig_MS40ct30  ;
+ TH1F* h_Sig_MS40ct3   ;
+ TH1F* h_Sig_MS55ct300 ;
+ TH1F* h_Sig_MS55ct30  ;
+ TH1F* h_Sig_MS55ct3   ;
+
  TH1F* h_Data   ;
  // load histogram files
  file_DY5to50_HT100To200      = TFile::Open( inpath + "DYJetsToLL_M-5to50_HT-100to200_"+region+"_histograms.root"  ) ; 
@@ -706,6 +755,25 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"  ) ;
  */
 
+ file_Sig_ZH_MS15ct300  = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct30   = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct3    = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct300  = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct30   = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct3    = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct300  = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct30   = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct3    = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_ggZH_MS15ct300  = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct30   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct3    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct300  = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct30   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct3    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct300  = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct30   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct3    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3_"+region+"_histograms.root"   ) ; 
 // file_Data_SingleMu_H_3             =  TFile::Open( inpath + "Data_SingleMu_H_3_"+region+"_histograms.root"     ) ; 
 // file_Data_SingleMu_H_2             =  TFile::Open( inpath + "Data_SingleMu_H_2_"+region+"_histograms.root"     ) ; 
 // file_Data_SingleMu_G               =  TFile::Open( inpath + "Data_SingleMu_G_"+region+"_histograms.root"       ) ; 
@@ -898,6 +966,25 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100"+uncbin  ) ;
      h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000"+uncbin ) ;
  */
+     h_Sig_ZH_MS15ct300   = (TH1F*)file_Sig_ZH_MS15ct300   ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct300"+uncbin ) ;
+     h_Sig_ZH_MS15ct30    = (TH1F*)file_Sig_ZH_MS15ct30    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct30" +uncbin ) ;
+     h_Sig_ZH_MS15ct3     = (TH1F*)file_Sig_ZH_MS15ct3     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct3"  +uncbin ) ;
+     h_Sig_ZH_MS40ct300   = (TH1F*)file_Sig_ZH_MS40ct300   ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct300"+uncbin ) ;
+     h_Sig_ZH_MS40ct30    = (TH1F*)file_Sig_ZH_MS40ct30    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct30" +uncbin ) ;
+     h_Sig_ZH_MS40ct3     = (TH1F*)file_Sig_ZH_MS40ct3     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct3"  +uncbin ) ;
+     h_Sig_ZH_MS55ct300   = (TH1F*)file_Sig_ZH_MS55ct300   ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct300"+uncbin ) ;
+     h_Sig_ZH_MS55ct30    = (TH1F*)file_Sig_ZH_MS55ct30    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct30" +uncbin ) ;
+     h_Sig_ZH_MS55ct3     = (TH1F*)file_Sig_ZH_MS55ct3     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct3"  +uncbin ) ;
+                                                                                                                      
+     h_Sig_ggZH_MS15ct300 = (TH1F*)file_Sig_ggZH_MS15ct300 ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct300"+uncbin ) ;
+     h_Sig_ggZH_MS15ct30  = (TH1F*)file_Sig_ggZH_MS15ct30  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct30" +uncbin ) ;
+     h_Sig_ggZH_MS15ct3   = (TH1F*)file_Sig_ggZH_MS15ct3   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct3"  +uncbin ) ;
+     h_Sig_ggZH_MS40ct300 = (TH1F*)file_Sig_ggZH_MS40ct300 ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct300"+uncbin ) ;
+     h_Sig_ggZH_MS40ct30  = (TH1F*)file_Sig_ggZH_MS40ct30  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct30" +uncbin ) ;
+     h_Sig_ggZH_MS40ct3   = (TH1F*)file_Sig_ggZH_MS40ct3   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct3"  +uncbin ) ;
+     h_Sig_ggZH_MS55ct300 = (TH1F*)file_Sig_ggZH_MS55ct300 ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct300"+uncbin ) ;
+     h_Sig_ggZH_MS55ct30  = (TH1F*)file_Sig_ggZH_MS55ct30  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct30" +uncbin ) ;
+     h_Sig_ggZH_MS55ct3   = (TH1F*)file_Sig_ggZH_MS55ct3   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct3"  +uncbin ) ;
      /*
      h_Data_SingleMu_H_3     = (TH1F*) file_Data_SingleMu_H_3     -> Get("h_"+varname)->Clone( "Data_SingleMu_H_3"      ) ; 
      h_Data_SingleMu_H_2     = (TH1F*) file_Data_SingleMu_H_2     -> Get("h_"+varname)->Clone( "Data_SingleMu_H_2"      ) ; 
@@ -1020,6 +1107,16 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_Sig_MS55ct10    = (TH1F*) h_Sig_ZH_MS55ct10     ->Clone( "Sig_MS55ct10  " ) ;
      h_Sig_MS55ct1     = (TH1F*) h_Sig_ZH_MS55ct1      ->Clone( "Sig_MS55ct1   " ) ;
 
+     h_Sig_MS15ct300  = (TH1F*) h_Sig_ZH_MS15ct300   ->Clone( "Sig_MS15ct300" ) ;
+     h_Sig_MS15ct30   = (TH1F*) h_Sig_ZH_MS15ct30    ->Clone( "Sig_MS15ct30 " ) ;
+     h_Sig_MS15ct3    = (TH1F*) h_Sig_ZH_MS15ct3     ->Clone( "Sig_MS15ct3  " ) ;
+     h_Sig_MS40ct300  = (TH1F*) h_Sig_ZH_MS40ct300   ->Clone( "Sig_MS40ct300" ) ;
+     h_Sig_MS40ct30   = (TH1F*) h_Sig_ZH_MS40ct30    ->Clone( "Sig_MS40ct30 " ) ;
+     h_Sig_MS40ct3    = (TH1F*) h_Sig_ZH_MS40ct3     ->Clone( "Sig_MS40ct3  " ) ;
+     h_Sig_MS55ct300  = (TH1F*) h_Sig_ZH_MS55ct300   ->Clone( "Sig_MS55ct300" ) ;
+     h_Sig_MS55ct30   = (TH1F*) h_Sig_ZH_MS55ct30    ->Clone( "Sig_MS55ct30 " ) ;
+     h_Sig_MS55ct3    = (TH1F*) h_Sig_ZH_MS55ct3     ->Clone( "Sig_MS55ct3  " ) ;
+
      h_Sig_MS15ct1000 ->Add( h_Sig_ggZH_MS15ct1000 ) ;
      h_Sig_MS15ct100  ->Add( h_Sig_ggZH_MS15ct100  ) ;
      h_Sig_MS15ct10   ->Add( h_Sig_ggZH_MS15ct10   ) ;
@@ -1063,6 +1160,15 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  h_Sig_WH_MS55ct1    ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ) ;
  */
 
+     h_Sig_MS15ct300 ->Add( h_Sig_ggZH_MS15ct300 ) ;
+     h_Sig_MS15ct30  ->Add( h_Sig_ggZH_MS15ct30  ) ;
+     h_Sig_MS15ct3   ->Add( h_Sig_ggZH_MS15ct3   ) ;
+     h_Sig_MS40ct300 ->Add( h_Sig_ggZH_MS40ct300 ) ;
+     h_Sig_MS40ct30  ->Add( h_Sig_ggZH_MS40ct30  ) ;
+     h_Sig_MS40ct3   ->Add( h_Sig_ggZH_MS40ct3   ) ;
+     h_Sig_MS55ct300 ->Add( h_Sig_ggZH_MS55ct300 ) ;
+     h_Sig_MS55ct30  ->Add( h_Sig_ggZH_MS55ct30  ) ;
+     h_Sig_MS55ct3   ->Add( h_Sig_ggZH_MS55ct3   ) ;
      // rescale MC to match eras used
      h_DY         ->Scale(MCSF); 
      h_GJets      ->Scale(MCSF); 
@@ -1105,6 +1211,17 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
     h_Sig_WH_MS15ct10   ->Scale(MCSF);
     h_Sig_WH_MS15ct100  ->Scale(MCSF);
     h_Sig_WH_MS15ct1000 ->Scale(MCSF);*/
+     h_Sig_MS15ct300 ->Scale(MCSF);
+     h_Sig_MS15ct30  ->Scale(MCSF);
+     h_Sig_MS15ct3   ->Scale(MCSF);
+     h_Sig_MS40ct300 ->Scale(MCSF);
+     h_Sig_MS40ct30  ->Scale(MCSF);
+     h_Sig_MS40ct3   ->Scale(MCSF);
+     h_Sig_MS55ct300 ->Scale(MCSF);
+     h_Sig_MS55ct30  ->Scale(MCSF);
+     h_Sig_MS55ct3   ->Scale(MCSF);
+
+
      h_bkgtotal= (TH1F*)h_DY->Clone("bkgtotal");
       h_bkgtotal->Add(h_GJets ) ;
       h_bkgtotal->Add(h_ST    ) ;
@@ -1364,7 +1481,26 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Integral(0,-1);
 
      
-// integrals of summed histograms
+     Float_t  int_Sig_ZH_MS15ct300        = h_Sig_ZH_MS15ct300               ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS15ct30         = h_Sig_ZH_MS15ct30                ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS15ct3          = h_Sig_ZH_MS15ct3                 ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS40ct300        = h_Sig_ZH_MS40ct300               ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS40ct30         = h_Sig_ZH_MS40ct30                ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS40ct3          = h_Sig_ZH_MS40ct3                 ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS55ct300        = h_Sig_ZH_MS55ct300               ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS55ct30         = h_Sig_ZH_MS55ct30                ->Integral(0,-1);                   
+     Float_t  int_Sig_ZH_MS55ct3          = h_Sig_ZH_MS55ct3                 ->Integral(0,-1);                   
+
+     Float_t  int_Sig_ggZH_MS15ct300      = h_Sig_ggZH_MS15ct300             ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS15ct30       = h_Sig_ggZH_MS15ct30              ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS15ct3        = h_Sig_ggZH_MS15ct3               ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS40ct300      = h_Sig_ggZH_MS40ct300             ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS40ct30       = h_Sig_ggZH_MS40ct30              ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS40ct3        = h_Sig_ggZH_MS40ct3               ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS55ct300      = h_Sig_ggZH_MS55ct300             ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS55ct30       = h_Sig_ggZH_MS55ct30              ->Integral(0,-1);                   
+     Float_t  int_Sig_ggZH_MS55ct3        = h_Sig_ggZH_MS55ct3               ->Integral(0,-1);                   
+     // integrals of summed histograms
      Float_t int_DY        = h_DY       ->Integral(0,-1); 
      Float_t int_altDY     = h_altDY    ->Integral(0,-1); 
      Float_t int_GJets     = h_GJets    ->Integral(0,-1); 
@@ -1406,7 +1542,15 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      Float_t int_Sig_WH_MS55ct10   = h_Sig_WH_MS55ct10   ->Integral();
      Float_t int_Sig_WH_MS55ct1    = h_Sig_WH_MS55ct1    ->Integral();
 */
-
+     Float_t int_Sig_MS15ct300 = h_Sig_MS15ct300 ->Integral(0,-1);
+     Float_t int_Sig_MS15ct30  = h_Sig_MS15ct30  ->Integral(0,-1);
+     Float_t int_Sig_MS15ct3   = h_Sig_MS15ct3   ->Integral(0,-1);
+     Float_t int_Sig_MS40ct300 = h_Sig_MS40ct300 ->Integral(0,-1);
+     Float_t int_Sig_MS40ct30  = h_Sig_MS40ct30  ->Integral(0,-1);
+     Float_t int_Sig_MS40ct3   = h_Sig_MS40ct3   ->Integral(0,-1);
+     Float_t int_Sig_MS55ct300 = h_Sig_MS55ct300 ->Integral(0,-1);
+     Float_t int_Sig_MS55ct30  = h_Sig_MS55ct30  ->Integral(0,-1);
+     Float_t int_Sig_MS55ct3   = h_Sig_MS55ct3   ->Integral(0,-1);
      /*
      Float_t  int_Data_SingleMu_H_3        = h_Data_SingleMu_H_3               ->Integral(0,-1);                   
      Float_t  int_Data_SingleMu_H_2        = h_Data_SingleMu_H_2               ->Integral(0,-1);                   
@@ -1673,6 +1817,27 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100   ) ;
        fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000  ) ;
 	*/
+       fprintf (outfulltable, "Sig ZH MS15ct300       & %3.1f \\\\\n", int_Sig_ZH_MS15ct300      ) ; 
+       fprintf (outfulltable, "Sig ZH MS15ct30        & %3.1f \\\\\n", int_Sig_ZH_MS15ct30       ) ; 
+       fprintf (outfulltable, "Sig ZH MS15ct3         & %3.1f \\\\\n", int_Sig_ZH_MS15ct3        ) ; 
+       fprintf (outfulltable, "Sig ZH MS40ct300       & %3.1f \\\\\n", int_Sig_ZH_MS40ct300      ) ; 
+       fprintf (outfulltable, "Sig ZH MS40ct30        & %3.1f \\\\\n", int_Sig_ZH_MS40ct30       ) ; 
+       fprintf (outfulltable, "Sig ZH MS40ct3         & %3.1f \\\\\n", int_Sig_ZH_MS40ct3        ) ; 
+       fprintf (outfulltable, "Sig ZH MS55ct300       & %3.1f \\\\\n", int_Sig_ZH_MS55ct300      ) ; 
+       fprintf (outfulltable, "Sig ZH MS55ct30        & %3.1f \\\\\n", int_Sig_ZH_MS55ct30       ) ; 
+       fprintf (outfulltable, "Sig ZH MS55ct3         & %3.1f \\\\\n", int_Sig_ZH_MS55ct3        ) ; 
+       fprintf (outfulltable, " \\hline \n");
+
+       fprintf (outfulltable, "Sig ggZH MS15ct300     & %3.1f \\\\\n", int_Sig_ggZH_MS15ct300    ) ; 
+       fprintf (outfulltable, "Sig ggZH MS15ct30      & %3.1f \\\\\n", int_Sig_ggZH_MS15ct30     ) ; 
+       fprintf (outfulltable, "Sig ggZH MS15ct3       & %3.1f \\\\\n", int_Sig_ggZH_MS15ct3      ) ; 
+       fprintf (outfulltable, "Sig ggZH MS40ct300     & %3.1f \\\\\n", int_Sig_ggZH_MS40ct300    ) ; 
+       fprintf (outfulltable, "Sig ggZH MS40ct30      & %3.1f \\\\\n", int_Sig_ggZH_MS40ct30     ) ; 
+       fprintf (outfulltable, "Sig ggZH MS40ct3       & %3.1f \\\\\n", int_Sig_ggZH_MS40ct3      ) ; 
+       fprintf (outfulltable, "Sig ggZH MS55ct300     & %3.1f \\\\\n", int_Sig_ggZH_MS55ct300    ) ; 
+       fprintf (outfulltable, "Sig ggZH MS55ct30      & %3.1f \\\\\n", int_Sig_ggZH_MS55ct30     ) ; 
+       fprintf (outfulltable, "Sig ggZH MS55ct3       & %3.1f \\\\\n", int_Sig_ggZH_MS55ct3      ) ; 
+       fprintf (outfulltable, " \\hline \n");
        /*
        fprintf (outfulltable, "Data SingleMu H 3       & %3.1f \\\\\n", int_Data_SingleMu_H_3      ) ; 
        fprintf (outfulltable, "Data SingleMu H 2       & %3.1f \\\\\n", int_Data_SingleMu_H_2      ) ; 
@@ -1775,6 +1940,15 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WH_MS15ct1000  ) ;
 	*/
 
+       fprintf (summarytable, "Sig MS15ct300  & %3.1f \\\\\n", int_Sig_MS15ct300 ) ; 
+       fprintf (summarytable, "Sig MS15ct30   & %3.1f \\\\\n", int_Sig_MS15ct30  ) ; 
+       fprintf (summarytable, "Sig MS15ct3    & %3.1f \\\\\n", int_Sig_MS15ct3   ) ; 
+       fprintf (summarytable, "Sig MS40ct300  & %3.1f \\\\\n", int_Sig_MS40ct300 ) ; 
+       fprintf (summarytable, "Sig MS40ct30   & %3.1f \\\\\n", int_Sig_MS40ct30  ) ; 
+       fprintf (summarytable, "Sig MS40ct3    & %3.1f \\\\\n", int_Sig_MS40ct3   ) ; 
+       fprintf (summarytable, "Sig MS55ct300  & %3.1f \\\\\n", int_Sig_MS55ct300 ) ; 
+       fprintf (summarytable, "Sig MS55ct30   & %3.1f \\\\\n", int_Sig_MS55ct30  ) ; 
+       fprintf (summarytable, "Sig MS55ct3    & %3.1f \\\\\n", int_Sig_MS55ct3   ) ; 
        fprintf (summarytable, "Total Backgrounds    & %3.1f \\\\\n", int_bkgtotal ) ; 
        fprintf (summarytable, " \\hline \n");
        //fprintf (summarytable, "Data                 & %3.1f  \\\\\n", int_Data   ) ;
@@ -2223,8 +2397,18 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
     h_Sig_WH_MS15ct100  ->Write();
     h_Sig_WH_MS15ct1000 ->Write();
  */
-    outfile->Close();
-    std::cout<<" closed writing:\n  "<<outname<<std::endl;
+     h_Sig_MS15ct300 ->Write(); 
+     h_Sig_MS15ct30  ->Write(); 
+     h_Sig_MS15ct3   ->Write(); 
+     h_Sig_MS40ct300 ->Write(); 
+     h_Sig_MS40ct30  ->Write(); 
+     h_Sig_MS40ct3   ->Write(); 
+     h_Sig_MS55ct300 ->Write(); 
+     h_Sig_MS55ct30  ->Write(); 
+     h_Sig_MS55ct3   ->Write(); 
+     
+     outfile->Close();
+     std::cout<<" closed writing:\n  "<<outname<<std::endl;
      
    } 
   }

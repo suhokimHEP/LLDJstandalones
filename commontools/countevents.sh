@@ -149,60 +149,60 @@ countalist () {
 #countalist "Data_SingleMu_H_3"      
 #countalist "Data_SingleMu_H_2"      
 #countalist "Data_SingleMu_G"        
-#countalist "Data_SingleMu_F"        
-#countalist "Data_SingleMu_E"        
-#countalist "Data_SingleMu_D"        
-#countalist "Data_SingleMu_C"        
-#countalist "Data_SingleMu_B_2"      
-
+##countalist "Data_SingleMu_F"        
+##countalist "Data_SingleMu_E"        
+##countalist "Data_SingleMu_D"        
+##countalist "Data_SingleMu_C"        
+##countalist "Data_SingleMu_B_2"      
+#
 #countalist "Data_SingleEle_H_3"     
 #countalist "Data_SingleEle_H_2"     
 #countalist "Data_SingleEle_G"       
-#countalist "Data_SingleEle_F"       
-#countalist "Data_SingleEle_E"       
-#countalist "Data_SingleEle_D"       
-#countalist "Data_SingleEle_C"       
-#countalist "Data_SingleEle_B_2"     
-
+##countalist "Data_SingleEle_F"       
+##countalist "Data_SingleEle_E"       
+##countalist "Data_SingleEle_D"       
+##countalist "Data_SingleEle_C"       
+##countalist "Data_SingleEle_B_2"     
+#
 #countalist "Data_DoubleMu_H_3"      
 #countalist "Data_DoubleMu_H_2"      
 #countalist "Data_DoubleMu_G"        
-#countalist "Data_DoubleMu_F"        
-#countalist "Data_DoubleMu_E"        
-#countalist "Data_DoubleMu_D"        
-#countalist "Data_DoubleMu_C"        
-#countalist "Data_DoubleMu_B_2"      
-
+##countalist "Data_DoubleMu_F"        
+##countalist "Data_DoubleMu_E"        
+##countalist "Data_DoubleMu_D"        
+##countalist "Data_DoubleMu_C"        
+##countalist "Data_DoubleMu_B_2"      
+#
 #countalist "Data_DoubleEG_H_3"      
 #countalist "Data_DoubleEG_H_2"      
 #countalist "Data_DoubleEG_G"        
-#countalist "Data_DoubleEG_F"        
-#countalist "Data_DoubleEG_E"        
-#countalist "Data_DoubleEG_D"        
-#countalist "Data_DoubleEG_C"        
-#countalist "Data_DoubleEG_B_2"      
-
+##countalist "Data_DoubleEG_F"        
+##countalist "Data_DoubleEG_E"        
+##countalist "Data_DoubleEG_D"        
+##countalist "Data_DoubleEG_C"        
+##countalist "Data_DoubleEG_B_2"      
+#
 #countalist "Data_MuonEG_H_3"        
 #countalist "Data_MuonEG_H_2"        
 #countalist "Data_MuonEG_G"          
-#countalist "Data_MuonEG_F"          
-#countalist "Data_MuonEG_E"          
-#countalist "Data_MuonEG_D"          
-#countalist "Data_MuonEG_C"          
-#countalist "Data_MuonEG_B_2"        
-
+##countalist "Data_MuonEG_F"          
+##countalist "Data_MuonEG_E"          
+##countalist "Data_MuonEG_D"          
+##countalist "Data_MuonEG_C"          
+##countalist "Data_MuonEG_B_2"        
+#
 #countalist "Data_SinglePhoton_H_3"  
 #countalist "Data_SinglePhoton_H_2"  
 #countalist "Data_SinglePhoton_G"    
-#countalist "Data_SinglePhoton_F"    
-#countalist "Data_SinglePhoton_E"    
-#countalist "Data_SinglePhoton_D"    
-#countalist "Data_SinglePhoton_C"    
-#countalist "Data_SinglePhoton_B_2"  
-
-## MC backgrounds
-
-# DY
+##countalist "Data_SinglePhoton_F"    
+##countalist "Data_SinglePhoton_E"    
+##countalist "Data_SinglePhoton_D"    
+##countalist "Data_SinglePhoton_C"    
+##countalist "Data_SinglePhoton_B_2"  
+#
+### MC backgrounds
+#
+## DY
 #countalist "DYJetsToLL_M-5to50_HT-70to100"     ${xcDY5to50_HT70To100}   
 #countalist "DYJetsToLL_M-5to50_HT-100to200"    ${xcDY5to50_HT100To200}  
 #countalist "DYJetsToLL_M-5to50_HT-200to400"    ${xcDY5to50_HT200To400}  
@@ -210,31 +210,31 @@ countalist () {
 #countalist "DYJetsToLL_M-5to50_HT-600toInf"    ${xcDY5to50_HT600ToInf}  
 #countalist "DYJetsToLL_M-10to50"               ${xcDY10to50}            
 #countalist "DYJetsToLL_M-50"                   ${xcDY50}                
-
-# WJets
+#
+## WJets
 #countalist "WJetsToLNu"     ${xcWJetsToLNu}                      
-
-# TTbar
+#
+## TTbar
 #countalist "TTJets"         ${xcTTJets}
 #countalist "TTtoLL"         ${xcTTtoLL}        
 #countalist "TTtoLfromTbar"  ${xcTTtoLfromTbar} 
 #countalist "TTtoLfromT"     ${xcTTtoLfromT}    
-
-# Single Top
+#
+## Single Top
 #countalist  "ST_s-channel_4f_leptonDecays"             ${xcST_s}
 #countalist  "ST_t-channel_antitop_4f_inclusiveDecays"  ${xcSTbar_t}
 #countalist  "ST_t-channel_top_4f_inclusiveDecays"      ${xcST_t}
 #countalist  "ST_tW_antitop_5f_NoFullyHadronicDecays"   ${xcSTbar_tW}
 #countalist  "ST_tW_top_5f_NoFullyHadronicDecays"       ${xcST_tW}
-
-# GJets
+#
+## GJets
 #countalist "GJets_HT-40To100"      ${xcGJets_HT40To100}  
 #countalist "GJets_HT-100To200"     ${xcGJets_HT100To200} 
 #countalist "GJets_HT-200To400"     ${xcGJets_HT200To400} 
 #countalist "GJets_HT-400To600"     ${xcGJets_HT400To600} 
 #countalist "GJets_HT-600ToInf"     ${xcGJets_HT600ToInf} 
-
-# Diboson
+#
+## Diboson
 #countalist "WW"                 ${xcWW} 
 #countalist "WZ"                 ${xcWZ} 
 #countalist "ZZ"                 ${xcZZ} 
@@ -247,20 +247,16 @@ countalist () {
 #countalist "ZZTo2L2Q"           ${xcZZToLLQQ}       
 #countalist "ZZTo2Q2Nu"          ${xcZZToNuNuQQ}     
 #countalist "ZZTo4L"             ${xcZZToLLLL}       
-
-# VGamma
+#
+## VGamma
 #countalist "ZGTo2LG"              ${xcZG} 
 #countalist "WGToLNuG"             ${xcWG} 
-
-# ZH
+#
+## ZH
 #countalist "ggZH_HToBB_ZToLL"      ${xcggZH_HToBB_ZToLL} 
 #countalist "ZH_HToBB_ZToLL"        ${xcZH_HToBB_ZToLL}   
-
-#WH
-#countalist "WminusH_HToBB_WToLNu" ${xcWminusH_HToBB_WToLNu}
-#countalist "WplusH_HToBB_WToLNu"  ${xcWplusH_HToBB_WToLNu}
-
-# QCD
+#
+## QCD
 #countalist "QCD_HT100to200"       ${xcQCD_HT100to200}
 #countalist "QCD_HT200to300"       ${xcQCD_HT200to300}
 #countalist "QCD_HT300to500"       ${xcQCD_HT300to500}
@@ -269,8 +265,8 @@ countalist () {
 #countalist "QCD_HT1000to1500"     ${xcQCD_HT1000to1500}
 #countalist "QCD_HT1500to2000"     ${xcQCD_HT1500to2000}
 #countalist "QCD_HT2000toInf"      ${xcQCD_HT2000toInf}
-
-# Signal Samples
+#
+## Signal Samples
 #countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"     ${xcZH_HToSSTobbbb}
 #countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"    ${xcZH_HToSSTobbbb}
 #countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"   ${xcZH_HToSSTobbbb}
@@ -353,3 +349,21 @@ countalist () {
 #countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"    ${xcggZH_HToSSTobbbb}
 #countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"   ${xcggZH_HToSSTobbbb}
 #countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"  ${xcggZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"    ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"   ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"  ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"    ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"   ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"  ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"    ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"   ${xcZH_HToSSTobbbb}
+countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"  ${xcZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"     ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"    ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"   ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"     ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"    ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"     ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"    ${xcggZH_HToSSTobbbb}
+countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"   ${xcggZH_HToSSTobbbb}

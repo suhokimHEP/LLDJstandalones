@@ -22,11 +22,16 @@ if [[ ${lineone} != *"analyzed"* ]]; then
   for linethree in $(cat templayer3.out)
   do
   
-   xrdfs root://cmseos.fnal.gov ls ${linethree} > templayer4.out
-   for linefour in $(cat templayer4.out)
-   do 
+   xrdfs root://cmseos.fnal.gov ls ${linetwo} > templayer3.out
+   for linethree in $(cat templayer3.out)
+   do
    
-   xrdfs root://cmseos.fnal.gov ls ${linefour} >> ${outdir}/allfiles.masterlist 
+    xrdfs root://cmseos.fnal.gov ls ${linethree} > templayer4.out
+    for linefour in $(cat templayer4.out)
+    do 
+    
+    xrdfs root://cmseos.fnal.gov ls ${linefour} >> ${outdir}/allfiles.masterlist 
+    done
    done
   done
  done

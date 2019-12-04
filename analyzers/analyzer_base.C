@@ -47,6 +47,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    llpDaughterPhi = 0;
    llpDaughterMass = 0;
    toppts = 0;
+   ctauEventWeight = 0;
    AODPATJetPartonFlavour = 0;
    AODPATJetPt = 0;
    AODPATJetEta = 0;
@@ -208,6 +209,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("llpDaughterPhi", &llpDaughterPhi, &b_llpDaughterPhi);
    fChain->SetBranchAddress("llpDaughterMass", &llpDaughterMass, &b_llpDaughterMass);
    fChain->SetBranchAddress("toppts", &toppts, &b_toppts);
+   if(Tsample.Contains("ctauS-3")) fChain->SetBranchAddress("ctauEventWeight", &ctauEventWeight, &b_ctauEventWeight);
    //single ele
    fChain->SetBranchAddress("AOD_HLT_Ele23Loose", &AOD_HLT_Ele23Loose, &b_AOD_HLT_Ele23Loose);
    fChain->SetBranchAddress("AOD_HLT_Ele27Tight", &AOD_HLT_Ele27Tight, &b_AOD_HLT_Ele27Tight);
