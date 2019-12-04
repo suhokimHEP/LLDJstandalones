@@ -99,7 +99,8 @@ xcggZH_HToBB_ZToLL="0.0071462"
 xcggZH_HToSSTobbbb="0.0024783"      
 xcZH_HToSSTobbbb="0.015374718"      
 #https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV#ZH_Process
-#BR(HToSSTobbbb)~20%, BR(ZToll)~10.099%, BR(HToBB)~0.5767
+#BR(HToSSTobbbb)~20%, BR(ZToll)~10.099% (combined for three lepton species), BR(HToBB)~0.5767
+#xcZH(combined)= 0.7612, xcggZH = 0.1227
 
 xcWJetsToLNu="74447.3"   
 #xcWJetsToLNu="61526.7" * 1.21  
@@ -116,6 +117,19 @@ xcQCD_HT1500to2000="151.074" #1.26*119.9
 xcQCD_HT2000toInf="31.8024" #1.26*25.24
 #Ref: https://twiki.cern.ch/twiki/bin/viewauth/CMS/SummaryTable1G25ns#QCD
 #1.26 from http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_224_v23.pdf
+
+#WH Mode
+xcWplusH_HToBB_WToLNu="0.163079"
+xcWplusH_HToSSTobbbb="0.056556" 
+#https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV#WH_Process
+#BR(HToSSTobbbb)~20%, BR(WplusToLNu)~10.86% (per lepton species), BR(HToBB)~0.5767, (WplusHToHLNu)=9.426E-2
+
+xcWminusH_HToBB_WToLNu="0.103512"
+xcWminusH_HToSSTobbbb="0.035898" 
+#https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV#WH_Process
+#BR(HToSSTobbbb)~20%, BR(WminusToLNu)~10.86% (per lepton species), BR(HToBB)~0.5767, (WminusHToHLNu)=5.983E-2
+
+
 
 countalist () {
  printf "Making %s\n" $1
@@ -189,6 +203,7 @@ countalist () {
 ### MC backgrounds
 #
 ## DY
+
 #countalist "DYJetsToLL_M-5to50_HT-70to100"     ${xcDY5to50_HT70To100}   
 #countalist "DYJetsToLL_M-5to50_HT-100to200"    ${xcDY5to50_HT100To200}  
 #countalist "DYJetsToLL_M-5to50_HT-200to400"    ${xcDY5to50_HT200To400}  
@@ -196,31 +211,39 @@ countalist () {
 #countalist "DYJetsToLL_M-5to50_HT-600toInf"    ${xcDY5to50_HT600ToInf}  
 #countalist "DYJetsToLL_M-10to50"               ${xcDY10to50}            
 #countalist "DYJetsToLL_M-50"                   ${xcDY50}                
+
 #
 ## WJets
 #countalist "WJetsToLNu"     ${xcWJetsToLNu}                      
 #
 ## TTbar
+
 #countalist "TTJets"         ${xcTTJets}
 #countalist "TTtoLL"         ${xcTTtoLL}        
 #countalist "TTtoLfromTbar"  ${xcTTtoLfromTbar} 
 #countalist "TTtoLfromT"     ${xcTTtoLfromT}    
+
 #
 ## Single Top
+
 #countalist  "ST_s-channel_4f_leptonDecays"             ${xcST_s}
 #countalist  "ST_t-channel_antitop_4f_inclusiveDecays"  ${xcSTbar_t}
 #countalist  "ST_t-channel_top_4f_inclusiveDecays"      ${xcST_t}
 #countalist  "ST_tW_antitop_5f_NoFullyHadronicDecays"   ${xcSTbar_tW}
 #countalist  "ST_tW_top_5f_NoFullyHadronicDecays"       ${xcST_tW}
+
 #
 ## GJets
+
 #countalist "GJets_HT-40To100"      ${xcGJets_HT40To100}  
 #countalist "GJets_HT-100To200"     ${xcGJets_HT100To200} 
 #countalist "GJets_HT-200To400"     ${xcGJets_HT200To400} 
 #countalist "GJets_HT-400To600"     ${xcGJets_HT400To600} 
 #countalist "GJets_HT-600ToInf"     ${xcGJets_HT600ToInf} 
+
 #
 ## Diboson
+
 #countalist "WW"                 ${xcWW} 
 #countalist "WZ"                 ${xcWZ} 
 #countalist "ZZ"                 ${xcZZ} 
@@ -233,6 +256,7 @@ countalist () {
 #countalist "ZZTo2L2Q"           ${xcZZToLLQQ}       
 #countalist "ZZTo2Q2Nu"          ${xcZZToNuNuQQ}     
 #countalist "ZZTo4L"             ${xcZZToLLLL}       
+
 #
 ## VGamma
 #countalist "ZGTo2LG"              ${xcZG} 
@@ -243,6 +267,7 @@ countalist () {
 #countalist "ZH_HToBB_ZToLL"        ${xcZH_HToBB_ZToLL}   
 #
 ## QCD
+
 #countalist "QCD_HT100to200"       ${xcQCD_HT100to200}
 #countalist "QCD_HT200to300"       ${xcQCD_HT200to300}
 #countalist "QCD_HT300to500"       ${xcQCD_HT300to500}
@@ -251,8 +276,10 @@ countalist () {
 #countalist "QCD_HT1000to1500"     ${xcQCD_HT1000to1500}
 #countalist "QCD_HT1500to2000"     ${xcQCD_HT1500to2000}
 #countalist "QCD_HT2000toInf"      ${xcQCD_HT2000toInf}
+
 #
 ## Signal Samples
+
 #countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"     ${xcZH_HToSSTobbbb}
 #countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"    ${xcZH_HToSSTobbbb}
 #countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"   ${xcZH_HToSSTobbbb}
@@ -278,6 +305,7 @@ countalist () {
 #countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"    ${xcggZH_HToSSTobbbb}
 #countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"   ${xcggZH_HToSSTobbbb}
 
+
 countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"    ${xcZH_HToSSTobbbb}
 countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"   ${xcZH_HToSSTobbbb}
 countalist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"  ${xcZH_HToSSTobbbb}
@@ -296,3 +324,62 @@ countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   ${xcggZH_HToSSTobbb
 countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"     ${xcggZH_HToSSTobbbb}
 countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"    ${xcggZH_HToSSTobbbb}
 countalist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"   ${xcggZH_HToSSTobbbb}
+
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"           		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000"			${xcWplusH_HToSSTobbbb} 
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" 		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  		${xcWplusH_HToSSTobbbb}
+#countalist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000"			${xcWplusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" 		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" 		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  		${xcWminusH_HToSSTobbbb}
+#countalist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000"		${xcWminusH_HToSSTobbbb}
+
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"     ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"    ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"   ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"  ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"     ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"    ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"   ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"  ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"     ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"    ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"   ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"  ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"     ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"    ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"   ${xcZH_HToSSTobbbb}
+#countalist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"  ${xcZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"     ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"    ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"   ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"  ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"     ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"    ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"   ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"  ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"     ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"    ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"   ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"  ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"     ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"    ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"   ${xcggZH_HToSSTobbbb}
+#countalist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"  ${xcggZH_HToSSTobbbb}
+

@@ -62,7 +62,7 @@ public :
 
    // for dilepton
    TLorentzVector fourVec_ee, fourVec_mm, fourVec_ll, fourVec_em;
-   TLorentzVector fourVec_l1, fourVec_l2;
+   TLorentzVector fourVec_l1, fourVec_l2, fourVec_l3, fourVec_l4;
    TLorentzVector fourVec_met;
    Float_t dilep_mass, OSOF_mass;
    Float_t dilep_pt, OSOF_pt;
@@ -72,6 +72,9 @@ public :
    Float_t themephi;
    Float_t htall;
    Float_t htaodcalojets;
+   Float_t transversemass; 
+   Float_t Wpt; 	  
+   Float_t SummedGenWeight;
 
    // Uncertainty shifted collections
    std::vector<float>   Shifted_CaloJetPt;
@@ -121,6 +124,13 @@ public :
    Int_t bitsPassEleMuOSOF   ;
    Int_t bitsPassEleMuOSOFL  ;
    Int_t bitsPassOnePho      ;
+   Int_t bitsPassEleWH       ;
+   Int_t bitsPassMuWH        ;
+   Int_t bitsPassEleWHSig    ; 
+   Int_t bitsPassMuWHSig     ;
+   Int_t bitsPassEleLowPtWH  ;
+   Int_t bitsPassMuLowPtWH   ;
+
 
    // key all pass bitsets
    Int_t keyPassOneEleSig   ;
@@ -144,6 +154,13 @@ public :
    Int_t keyPassEleMuOSOF   ;
    Int_t keyPassEleMuOSOFL  ;
    Int_t keyPassOnePho      ;
+   Int_t keyPassEleWH       ;
+   Int_t keyPassMuWH        ;
+   Int_t keyPassEleWHSig    ;
+   Int_t keyPassMuWHSig     ;
+   Int_t keyPassEleLowPtWH  ;
+   Int_t keyPassMuLowPtWH   ;
+
 
    // selection counters (how many events pass)
    Int_t n_tot;
@@ -169,6 +186,13 @@ public :
    Int_t n_passEleMuOSOF   ;
    Int_t n_passEleMuOSOFL  ;
    Int_t n_passOnePho      ;
+   Int_t n_passEleWH       ;
+   Int_t n_passMuWH        ;
+   Int_t n_passEleWHSig	   ;
+   Int_t n_passMuWHSig 	   ;
+   Int_t n_passEleLowPtWH  ;
+   Int_t n_passMuLowPtWH   ;
+
 
    Int_t nSelectedPho;
    Int_t nSelectedEle;

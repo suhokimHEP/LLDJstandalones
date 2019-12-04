@@ -9,25 +9,25 @@ printf "%50s %4s %4s \n" Sample Tot  Left
 samples=( \
 ## Data
 # DoubleMu
- "Data_DoubleMu_H_3"      \
- "Data_DoubleMu_H_2"      \
- "Data_DoubleMu_G"        \
+# "Data_DoubleMu_H_3"      \
+# "Data_DoubleMu_H_2"      \
+# "Data_DoubleMu_G"        \
 # DoubleEG
- "Data_DoubleEG_H_3"      \
- "Data_DoubleEG_H_2"      \
- "Data_DoubleEG_G"        \
+# "Data_DoubleEG_H_3"      \
+# "Data_DoubleEG_H_2"      \
+# "Data_DoubleEG_G"        \
 # MuonEG
- "Data_MuonEG_H_3"        \
- "Data_MuonEG_H_2"        \
- "Data_MuonEG_G"          \
+# "Data_MuonEG_H_3"        \
+# "Data_MuonEG_H_2"        \
+# "Data_MuonEG_G"          \
 # SinglePhoton
- "Data_SinglePhoton_H_3"  \
- "Data_SinglePhoton_H_2"  \
- "Data_SinglePhoton_G"    \
-#
+# "Data_SinglePhoton_H_3"  \
+# "Data_SinglePhoton_H_2"  \
+# "Data_SinglePhoton_G"    \
+
 ## MC backgrounds
 # DY
-# "DYJetsToLL_M-5to50_HT-70to100"   \
+ "DYJetsToLL_M-5to50_HT-70to100"   \
  "DYJetsToLL_M-5to50_HT-100to200"  \
  "DYJetsToLL_M-5to50_HT-200to400"  \
  "DYJetsToLL_M-5to50_HT-400to600"  \
@@ -41,6 +41,7 @@ samples=( \
  "TTtoLL"         \
  "TTtoLfromTbar"  \
  "TTtoLfromT"     \
+
 # Single Top
  "ST_s-channel_4f_leptonDecays"             \
  "ST_t-channel_antitop_4f_inclusiveDecays"  \
@@ -72,6 +73,9 @@ samples=( \
 # ZH
  "ggZH_HToBB_ZToLL"  \
  "ZH_HToBB_ZToLL"    \
+# WH
+ "WminusH_HToBB_WToLNu" \
+ "WplusH_HToBB_WToLNu"  \
 # QCD 
  "QCD_HT100to200"    \
  "QCD_HT200to300"    \
@@ -106,6 +110,30 @@ samples=( \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"     \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"    \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"   \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000"  \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"     \ 
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"    \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"   \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000"  \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"     \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"    \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"   \
+ "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000"  \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+ "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
 )
 
 totin=0

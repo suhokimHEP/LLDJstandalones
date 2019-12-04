@@ -5,7 +5,7 @@ void plotter_stacked()
 {
 
  // Draw signal as lines
- Bool_t drawSignal = kFALSE; //kTRUE;
+ Bool_t drawSignal = kTRUE; //kFALSE;
  //Bool_t drawRatio = kFALSE;
  Bool_t drawRatio = kTRUE;
  // y axis plots as log
@@ -29,7 +29,7 @@ void plotter_stacked()
  std::vector<TString> regions;
  regions.clear();
  regions.push_back("NoSel");
- i//regions.push_back("Sig");
+ //regions.push_back("Sig");
  regions.push_back("ZH");
  regions.push_back("DY");
  regions.push_back("OffZ");
@@ -52,8 +52,8 @@ void plotter_stacked()
  // variables.push_back("nGoodVtx");               
  // variables.push_back("nTrksPV");                
 //  variables.push_back("rho");                    
-  //variables.push_back("pfMET");                  
-  //variables.push_back("pfMETPhi");               
+  variables.push_back("pfMET");                  
+  variables.push_back("pfMETPhi");               
 //  variables.push_back("pfMETsumEt");             
   //variables.push_back("nPho");                   
 //  variables.push_back("phoE");                   
@@ -67,22 +67,25 @@ void plotter_stacked()
 //  variables.push_back("phoSCPhi");               
 //  variables.push_back("phoSCEta");               
 //  variables.push_back("nEle");                   
- // variables.push_back("elePt");                  
+  variables.push_back("elePt");                  
 //  variables.push_back("eleEta");                 
-//  variables.push_back("elePhi");                 
+  variables.push_back("elePhi");                 
 //  variables.push_back("eleSCEn");                
 //  variables.push_back("eleSCEta");               
 //  variables.push_back("eleSCPhi");               
 //  variables.push_back("eleCalibPt");             
 //  variables.push_back("eleCalibEn");             
 //  variables.push_back("nMu");                    
-//  variables.push_back("muPt");                   
+  variables.push_back("muPt");                   
 //  variables.push_back("muEn");                   
 //  variables.push_back("muEta");                  
-//  variables.push_back("muPhi");                  
+  variables.push_back("muPhi");                  
 //  variables.push_back("nJet");                   
 //  variables.push_back("htall"); 
 //  variables.push_back("htjets");
+  variables.push_back("transversemass");
+  variables.push_back("Wpt");
+
 //  variables.push_back("nSelectedPho");
 //  variables.push_back("nSelectedEle");
 //  variables.push_back("nSelectedMuo");
@@ -130,13 +133,13 @@ void plotter_stacked()
 //  variables.push_back("AllJets_AODCaloJetdR_Tag0");
 //  variables.push_back("AllJets_AODCaloJetNCleanMatchedTracks");
 //  variables.push_back("AllJets_AODCaloJetNCleanMatchedTracks_Tag0");
- variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
- variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
- variables.push_back("AllJets_AODCaloJetAlphaMax");
- variables.push_back("AllJets_AODCaloJetPt");                      
+// variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
+// variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
+// variables.push_back("AllJets_AODCaloJetAlphaMax");
+// variables.push_back("AllJets_AODCaloJetPt");                      
  //variables.push_back("AllJets_AODCaloJetEn");                      
- variables.push_back("AllJets_AODCaloJetEta");                     
- variables.push_back("AllJets_AODCaloJetPhi");                     
+// variables.push_back("AllJets_AODCaloJetEta");                     
+// variables.push_back("AllJets_AODCaloJetPhi");                     
 
  // make canvas and text
  TCanvas* canvas = new TCanvas("canvas","canvas",900,100,500,500); 
@@ -217,6 +220,34 @@ void plotter_stacked()
  TFile* file_ZZToLLQQ                            ;
  TFile* file_ZZToNuNuQQ                          ;
  TFile* file_ZZToLLLL                            ;
+ TFile* file_WminusH_HToBB_WToLNu		 ;
+ TFIle* file_WplusH_HToBB_WToLNu		 ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
+ TFile* file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
+
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
+ TFile* file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
+
 
  // initialize histos
  TH1F* h_DY50                                ;
@@ -270,6 +301,33 @@ void plotter_stacked()
 // TH1F* h_DoubleEG                            ;
 // TH1F* h_DoubleMuon                          ;
 // TH1F* h_MuonEG                              ;
+ TH1F* h_WminusH_HToBB_WToLNu		       ;
+ TH1F* h_WplusH_HToBB_WToLNu                   ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
+ TH1F* h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
+
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
+ TH1F* h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
 
  // (combined) histos to be made
  TH1F* h_DY     ;
@@ -280,6 +338,9 @@ void plotter_stacked()
  TH1F* h_ZH     ;
  TH1F* h_TT     ;
  TH1F* h_Totbkg ;
+// TH1F* h_WminusH ; //unsure about these combined histos
+// TH1F* h_WplusH  ;
+// TH1F* h_WH      ;
 
  TH1F* h_Data   ;
 
@@ -300,6 +361,33 @@ void plotter_stacked()
 // file_ggZH_HToSSTobbbb_MS40_ctauS100    = new TFile( inpath + "ggZH_HToSSTobbbb_MS40_ctauS100.root"   ) ;
 // file_ggZH_HToSSTobbbb_MS40_ctauS1000   = new TFile( inpath + "ggZH_HToSSTobbbb_MS40_ctauS1000.root"  ) ;
 // file_ggZH_HToSSTobbbb_MS40_ctauS10000  = new TFile( inpath + "ggZH_HToSSTobbbb_MS40_ctauS10000.root" ) ;
+
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1.root"    ) ;   
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS10.root"   ) ;   
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS100.root"  ) ;
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1000.root" ) ; 
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1.root"    ) ;   
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS10.root"   ) ;   
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS100.root"  ) ;  
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1000.root" ) ; 
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS1.root"    ) ;   
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS10.root"   ) ;   
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS100.root"  ) ;  
+ file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = new TFile( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS1000.root" ) ; 
+
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1.root"    ) ;    
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS10.root"   ) ;   
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS100.root"  ) ;  
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1000.root" ) ; 
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1.root"    ) ;    
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS10.root"   ) ;  
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS100.root"  ) ;  
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1000.root" ) ; 
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS1.root"    ) ;    
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS10.root"   ) ;   
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS100.root"  ) ;  
+ file_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = new TFile( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS1000.root" ) ; 
+
  file_GJets_HT40To100                   = new TFile( inpath + "GJets_HT40To100.root"                  ) ;
  file_GJets_HT100To200                  = new TFile( inpath + "GJets_HT100To200.root"                 ) ;
  file_GJets_HT200To400                  = new TFile( inpath + "GJets_HT200To400.root"                 ) ;
@@ -370,6 +458,36 @@ void plotter_stacked()
 //    h_ggZH_HToSSTobbbb_MS40_ctauS100    = (TH1F*)file_ggZH_HToSSTobbbb_MS40_ctauS100   ->Get("h_"+varname)->Clone( "ggZH_HToSSTobbbb_MS40_ctauS100"   ) ;
 //    h_ggZH_HToSSTobbbb_MS40_ctauS1000   = (TH1F*)file_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Get("h_"+varname)->Clone( "ggZH_HToSSTobbbb_MS40_ctauS1000"  ) ;
 //    h_ggZH_HToSSTobbbb_MS40_ctauS10000  = (TH1F*)file_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Get("h_"+varname)->Clone( "ggZH_HToSSTobbbb_MS40_ctauS10000" ) ;
+ 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS10" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS100" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1000" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS10" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS100" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1000" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS10" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS100" ) ; 
+ h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = (TH1F*)file_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Get("h_"+varname)->Clone( "Wplus_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1000" ) ; 
+
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1.root"    ) ;    
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS10.root"   ) ;   
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS100.root"  ) ;  
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS1000.root" ) ; 
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1.root"    ) ;    
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS10.root"   ) ;  
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS100.root"  ) ;  
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS1000.root" ) ; 
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS1.root"    ) ;    
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS10.root"   ) ;   
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS100.root"  ) ;  
+ h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = (TH1F*)file_Wminus_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Get("h_"+varname)->Clone( "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS1000.root" ) ; 
+    
+
+
+
     h_GJets_HT40To100                   = (TH1F*)file_GJets_HT40To100                  ->Get("h_"+varname)->Clone( "GJets_HT40To100"                  ) ;
     h_GJets_HT100To200                  = (TH1F*)file_GJets_HT100To200                 ->Get("h_"+varname)->Clone( "GJets_HT100To200"                 ) ;
     h_GJets_HT200To400                  = (TH1F*)file_GJets_HT200To400                 ->Get("h_"+varname)->Clone( "GJets_HT200To400"                 ) ;
@@ -493,6 +611,32 @@ void plotter_stacked()
     //Double_t int_DoubleMuon                        = h_DoubleMuon                       ->Integral(0,-1) ;
     //Double_t int_MuonEG                            = h_MuonEG                           ->Integral(0,-1) ;
 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Integral(0,-1) ; 
+   Double_t int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = h_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Integral(0,-1) ; 
+
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Integral(0,-1) ; 
+   Double_t int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = h_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Integral(0,-1) ; 
+
 
     FILE * outtable;
     outtable = fopen (logname+".tex","w");
@@ -560,6 +704,34 @@ void plotter_stacked()
 //     fprintf (outtable, "ggZH\\_HToSSTobbbb\\_MS40\\_ctauS100    & %3.1f  \\\\\n", int_ggZH_HToSSTobbbb_MS40_ctauS100   ) ;
 //     fprintf (outtable, "ggZH\\_HToSSTobbbb\\_MS40\\_ctauS1000   & %3.1f  \\\\\n", int_ggZH_HToSSTobbbb_MS40_ctauS1000  ) ;
 //     fprintf (outtable, "ggZH\\_HToSSTobbbb\\_MS40\\_ctauS10000  & %3.1f  \\\\\n", int_ggZH_HToSSTobbbb_MS40_ctauS10000 ) ;
+     
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1     & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1     ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS10    & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10    ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS100   & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100   ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1000  & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000  ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1     & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1     ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS10    & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10    ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS100   & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100   ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1000  & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000  ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1     & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1     ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS10    & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10    ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS100   & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100   ) ;
+     fprintf (outtable, "WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000  ) ;
+    
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1     & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1     ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS10    & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10    ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS100   & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100   ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1000  & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000  ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1     & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1     ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS10    & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10    ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS100   & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100   ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1000  & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000  ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1     & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1     ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS10    & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10    ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS100   & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100   ) ;
+     fprintf (outtable, "WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000  ) ;
+    
+
      fprintf (outtable, "\\end{tabular}\n\n");
      fprintf (outtable, "\\end{document}\n\n");
     fclose (outtable);
@@ -844,6 +1016,15 @@ void plotter_stacked()
 //     sigleg->AddEntry(h_ggZH_HToSSTobbbb_MS40_ctauS10000 , "M_{S}=40 c#tau_{S}=10000", "l" ) ;
 //    }
 
+  TLegend *WHsigleg = new TLegend(0.15,0.6,0.65,0.85);
+  if(drawSignal){
+   WHsigleg->SetBorderSize(0);
+   WHsigleg->SetFillColor(kWhite);
+   WHsigleg->SetHeader("W(H#rightarrow SS#rightarrow bbbb)","C");
+   WHsigleg->AddEntry(h_WplusH_HToSSTobbbb_WToLNu_MH125_M-40_ctauS100 , "M_{S}=40 c#tau_{S}=100 ", "l" ); 
+   WHsigleg->AddEntry(h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100 , "M_{S}=40 c#tau_{S}=100 ", "l" ); 
+   }
+
     // set max and draw
      
     Double_t ymax = h_Data->GetMaximum(); //was Data
@@ -874,7 +1055,7 @@ void plotter_stacked()
 
 
 
-//    if(drawSignal){
+    if(drawSignal){
 //     h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS0p05  ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS1     ->Draw("hist sames") ;
@@ -883,7 +1064,11 @@ void plotter_stacked()
 //     h_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Draw("hist sames") ;
 //     h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Draw("hist sames") ;
 //     sigleg->Draw();
-//    }
+     h_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100   ->Draw("hist sames") ;
+     h_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Draw("hist sames") ;
+     WHsigleg->Draw();
+    }
+
     leg->Draw();
 
     // add titles

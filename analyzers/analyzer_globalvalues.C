@@ -37,6 +37,13 @@ void analyzer_globalvalues::clearglobalcounters()
  n_passEleMuOSOF    = 0;
  n_passEleMuOSOFL   = 0;
  n_passOnePho       = 0;
+ n_passEleWH        = 0; 
+ n_passMuWH         = 0; 
+ n_passEleWHSig     = 0; 
+ n_passMuWHSig      = 0; 
+ n_passEleLowPtWH   = 0; 
+ n_passMuLowPtWH    = 0; 
+
  n_totalPF          = 0;
  n_totalPFchs       = 0;
  n_totalCalo        = 0;

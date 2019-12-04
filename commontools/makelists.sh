@@ -16,6 +16,7 @@ makealist() {
  sed -i -e "s@/eos/uscms@@" ${listdir}/$1.list
 }
 
+
 ## Data
 #makealist "Data_SingleMu_H_3"        "/SingleMuon/crab_Data_SingleMu_H_3"
 #makealist "Data_SingleMu_H_2"        "/SingleMuon/crab_Data_SingleMu_H_2"
@@ -98,15 +99,19 @@ makealist() {
 #makealist "ST_t-channel_top_4f_inclusiveDecays"        "/ST_t-channel_top_4f_inclusiveDecays_"
 #makealist "ST_tW_antitop_5f_NoFullyHadronicDecays"     "/ST_tW_antitop_5f_NoFullyHadronicDecays_"
 #makealist "ST_tW_top_5f_NoFullyHadronicDecays"         "/ST_tW_top_5f_NoFullyHadronicDecays_"
+
 #
 ## GJets
+
 #makealist "GJets_HT-40To100"       "/GJets_HT-40To100_"
 #makealist "GJets_HT-100To200"      "/GJets_HT-100To200_"
 #makealist "GJets_HT-200To400"      "/GJets_HT-200To400_"
 #makealist "GJets_HT-400To600"      "/GJets_HT-400To600_"
 #makealist "GJets_HT-600ToInf"      "/GJets_HT-600ToInf_"
+
 #
 ## Diboson
+
 #makealist "WW"                    "/WW_"
 #makealist "WZ"                    "/WZ_"
 #makealist "ZZ"                    "/ZZ_"
@@ -119,6 +124,7 @@ makealist() {
 #makealist "ZZTo2L2Q"              "/ZZTo2L2Q_"
 #makealist "ZZTo2Q2Nu"             "/ZZTo2Q2Nu_"
 #makealist "ZZTo4L"                "/ZZTo4L_"
+
 #
 ## VGamma
 #makealist "ZGTo2LG"                "/ZGTo2LG_"
@@ -129,6 +135,7 @@ makealist() {
 #makealist "ZH_HToBB_ZToLL"         "/ZH_HToBB_ZToLL_M125_"
 #
 ##QCD 
+
 #makealist "QCD_HT100to200"      "/QCD_HT100to200_"
 #makealist "QCD_HT200to300"      "/QCD_HT200to300_"
 #makealist "QCD_HT300to500"      "/QCD_HT300to500_"
@@ -137,6 +144,7 @@ makealist() {
 #makealist "QCD_HT1000to1500"    "/QCD_HT1000to1500_"
 #makealist "QCD_HT1500to2000"    "/QCD_HT1500to2000_"
 #makealist "QCD_HT2000toInf"     "/QCD_HT2000toInf_"
+
 #
 ## Signal Samples
 #makealist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"       "/ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1_"
@@ -182,3 +190,62 @@ makealist "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"    "/ggZH_HToSSTobbbb_
 makealist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"        "/ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3_"
 makealist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"       "/ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30_"
 makealist "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"      "/ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300_"
+
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"                  "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"                 "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"                "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000"               "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"                  "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"                 "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"                "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000"               "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"                  "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"                 "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"                "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100_"
+#makealist "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000"               "/WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"                 "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"                "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"               "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000"              "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"                 "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"                "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"               "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000"              "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"                 "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"                "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"               "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100_"
+#makealist "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000"              "/WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000_"
+
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"         "/ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"        "/ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"       "/ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"      "/ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"         "/ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"        "/ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"       "/ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"      "/ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"         "/ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"        "/ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"       "/ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"      "/ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"         "/ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"        "/ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"       "/ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100_"
+#makealist "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"      "/ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"         "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"        "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"       "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"      "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"         "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"        "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"       "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"      "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"         "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"        "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"       "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"      "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"         "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"        "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"       "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100_"
+#makealist "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"      "/ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000_"
+

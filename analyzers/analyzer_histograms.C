@@ -27,6 +27,8 @@ Bool_t analyzer_histograms::fillSelectedHistograms(Float_t weight, int selbin)
  fillLepHistograms               ( weight, selbin );
  fillPhoHistograms               ( weight, selbin );
  fillMETHTHistograms             ( weight, selbin );
+ fillTransverseMassHistograms    ( weight, selbin );    
+ fillWbosonPtHistograms		 ( weight, selbin );  
  fillAODCaloJetMultHistograms    ( weight, selbin );
  fillAODCaloJetTagMultHistograms ( weight, selbin );
  if(TTOC) fillTTOCHistograms     ( weight, selbin );
@@ -42,6 +44,8 @@ Bool_t analyzer_histograms::writeSelectedHistograms(int selbin)
  writeLepHistograms               ( selbin );
  writePhoHistograms               ( selbin );
  writeMETHTHistograms             ( selbin );
+ writeTransverseMassHistograms    ( selbin ); 
+ writeWbosonPtHistograms          ( selbin );  
  writeAODCaloJetMultHistograms    ( selbin );
  writeAODCaloJetTagMultHistograms ( selbin );
  if(TTOC) writeTTOCHistograms     ( selbin );
@@ -476,7 +480,7 @@ Bool_t analyzer_histograms::initMETHTHistograms( TString uncbin ){
     TString hname_AODnTruePU                  = "h_"+selbinnames[i]+"_AODnTruePU"+uncbin ;
     
     h_AOD_MET_phi    [i] = initSingleHistogramTH1F( hname_AOD_MET_phi   , "AOD_MET_phi  " , 30, -5, 5); 
-    h_AOD_MET_pt     [i] = initSingleHistogramTH1F( hname_AOD_MET_pt    , "AOD_MET_pt   " , 50, 0, 100); 
+    h_AOD_MET_pt     [i] = initSingleHistogramTH1F( hname_AOD_MET_pt    , "AOD_MET_pt   " , 100, 0, 400); 
     h_htall          [i] = initSingleHistogramTH1F( hname_htall         , "htall        " , 50,0,1000) ; 
     h_htaodcalojets  [i] = initSingleHistogramTH1F( hname_htaodcalojets , "htaodcalojets" , 50,0,1000) ; 
     h_AODnGoodVtx    [i] = initSingleHistogramTH1F( hname_AODnGoodVtx , "AODnGoodVtx" , 150,0,150) ; 
@@ -530,7 +534,81 @@ Bool_t analyzer_histograms::deleteMETHTHistograms(int selbin)
   return kTRUE;
 }
 
+// WH MODE-------------------------------------------------------------------------------------------------------------
+//----------------------------initTransverseMassHistograms
+Bool_t analyzer_histograms::initTransverseMassHistograms( TString uncbin ){
+  
+  for(unsigned int i=0; i<selbinnames.size(); ++i){
+    hist_file_out[i]->cd();
+    //deleteTransverseMassHistograms(i);
+    TString hname_TransverseMass          = "h_"+selbinnames[i]+"_TransverseMass"  +uncbin ; 
+    h_TransverseMass   [i] = initSingleHistogramTH1F( hname_TransverseMass   , "TransverseMass " , 100, 0, 400); 
+  }
+  return kTRUE;
+}
 
+//----------------------------fillTransverseMassHistograms
+Bool_t analyzer_histograms::fillTransverseMassHistograms(Float_t weight, int selbin)
+{
+  hist_file_out[selbin]->cd();
+ h_TransverseMass       [selbin]->Fill( transversemass , weight);  
+ return kTRUE;
+}
+
+//----------------------------writeTransverseMassHistograms
+Bool_t analyzer_histograms::writeTransverseMassHistograms(int selbin)
+{
+  hist_file_out[selbin]->cd();
+  h_TransverseMass            [selbin]->Write(); 
+  return kTRUE;
+}
+
+//----------------------------deleteTransverseMassHistograms
+Bool_t analyzer_histograms::deleteTransverseMassHistograms(int selbin)
+{
+  //printf("deleteTransverseMassHistograms\n");
+  hist_file_out[selbin]->cd();
+  if(h_TransverseMass  [selbin]!=NULL)   h_TransverseMass       [selbin]->Delete(); 
+  return kTRUE;
+}
+
+//----------------------------initWbosonPtHistograms
+Bool_t analyzer_histograms::initWbosonPtHistograms( TString uncbin ){
+  
+  for(unsigned int i=0; i<selbinnames.size(); ++i){
+    hist_file_out[i]->cd();
+    //deleteWbosonPtHistograms(i);
+    TString hname_Wboson_pt          = "h_"+selbinnames[i]+"_Wboson_pt"  +uncbin ; 
+ 
+    h_Wboson_pt   [i] = initSingleHistogramTH1F( hname_Wboson_pt   , "Wboson_pt" , 100, 0, 400); 
+  }  
+  return kTRUE;
+}
+
+//----------------------------fillWbosonPtHistograms
+Bool_t analyzer_histograms::fillWbosonPtHistograms(Float_t weight, int selbin)
+{
+  hist_file_out[selbin]->cd();
+ h_Wboson_pt       [selbin]->Fill( Wpt , weight);  
+ return kTRUE;
+}
+
+//----------------------------writeWbosonPtHistograms
+Bool_t analyzer_histograms::writeWbosonPtHistograms(int selbin)
+{
+  hist_file_out[selbin]->cd();
+  h_Wboson_pt            [selbin]->Write(); 
+  return kTRUE;
+}
+
+//----------------------------deleteWbosonPtHistograms
+Bool_t analyzer_histograms::deleteWbosonPtHistograms(int selbin)
+{
+  //printf("deleteTransverseMassHistograms\n");
+  hist_file_out[selbin]->cd();
+  if(h_Wboson_pt  [selbin]!=NULL)   h_Wboson_pt       [selbin]->Delete(); 
+  return kTRUE;
+}
 
 ///// Jet Histograms
 //----------------------------initAODCaloJetBasicHistograms
