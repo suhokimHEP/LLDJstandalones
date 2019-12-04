@@ -2,7 +2,6 @@
 
 
 for sample in \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"  \
  "DYJetsToLL_M-50"  \
 
 do
