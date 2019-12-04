@@ -12,7 +12,7 @@ echo "" > ${outdir}/allfiles.masterlist
 # read subsequent layers into temp files until arrive at root file
 for lineone in $(cat templayer1.out);
 do
- 
+if [[ ${lineone} != *"analyzed"* ]]; then 
  xrdfs root://cmseos.fnal.gov ls ${lineone} > templayer2.out  
  echo "Text read from file: ${lineone}"
  for linetwo in $(cat templayer2.out)
@@ -30,6 +30,7 @@ do
    done
   done
  done
+fi
 done
 
 #remove bad entries from masterlist
