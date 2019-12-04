@@ -236,6 +236,7 @@ int main(int argc, char **argv){
 
  std::vector<TString> unccategories;
  unccategories.push_back("");
+
 // if( isMC ){
 //   unccategories.push_back("_EGSUp");
 //   unccategories.push_back("_EGSDown");
@@ -252,6 +253,7 @@ int main(int argc, char **argv){
 //   unccategories.push_back("_TagVarsUp");
 //   unccategories.push_back("_TagVarsDown");
 //  }
+
  // make the analyzer, init some stuff
  analyzer_loop analyzer;
  analyzer.Init(theChain, isMC, makelog, Tsample);

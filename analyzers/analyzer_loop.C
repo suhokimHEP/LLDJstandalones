@@ -166,12 +166,11 @@ TFile *outfile_bkgest = 0;
   if(isMC) event_weight *= makeElectronWeight( electron_list );
   if(isMC) event_weight *= makeTTWeight( avgTTSF );
   //if(isMC) event_weight *= makeEleTriggerEffi( electron_list );
-
   //if(isMC) event_weight *= makeMuonWeight( muon_list );
   //if(isMC) event_weight *= makeMuonIso( muon_list );
   //if(isMC) event_weight *= .99;
   //if(isMC) event_weight *= makeMuonTriggerEffi( muon_list );
- 
+  if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
 
 
  if(isMC) event_weight *= makeTTWeight( avgTTSF );
@@ -433,6 +432,7 @@ TFile *outfile_bkgest = 0;
    }
 
    /// quick hack to only write phase spaces we care about
+
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
    //for (int i=0; i<27 ; i++) { std::cout << dofillselbin[i] << std::endl; }
@@ -469,7 +469,6 @@ TFile *outfile_bkgest = 0;
 //   }
   
  } // end loop over entries
-
  std::cout << std::endl;
  std::cout << std::endl;
  std::cout << " Summary     cleaning dR=" << objcleandRcut << std::endl;

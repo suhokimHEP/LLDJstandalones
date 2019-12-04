@@ -150,6 +150,21 @@ samples=(  \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"       \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"       \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"   \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"       \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"     \
 #
 ##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
 ##  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
@@ -207,6 +222,7 @@ samples=(  \
 ##  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"       \
 ##  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"      \
 ##  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"     \
+
 )
 
 printf "Version: ${aversion}\n"
