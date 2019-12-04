@@ -13,18 +13,18 @@ maxfilesperjob=200   # 500=6h
 samples=(  \
 #### Data
 ## SingleMu
-# "Data_SingleMu_H_3"      \
-# "Data_SingleMu_H_2"      \
-# "Data_SingleMu_G"        \
+## "Data_SingleMu_H_3"      \
+## "Data_SingleMu_H_2"      \
+## "Data_SingleMu_G"        \
 ## "Data_SingleMu_F"        \
 ## "Data_SingleMu_E"        \
 ## "Data_SingleMu_D"        \
 ## "Data_SingleMu_C"        \
 ## "Data_SingleMu_B_2"      \
 ## SingleEle
-# "Data_SingleEle_H_3"     \
-# "Data_SingleEle_H_2"     \
-# "Data_SingleEle_G"       \
+## "Data_SingleEle_H_3"     \
+## "Data_SingleEle_H_2"     \
+## "Data_SingleEle_G"       \
 ## "Data_SingleEle_F"       \
 ## "Data_SingleEle_E"       \
 ## "Data_SingleEle_D"       \
@@ -154,11 +154,11 @@ samples=(  \
 # "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"      \
 # "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"     \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"     \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   \
 # "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"       \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"     \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"     \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"     \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"    \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"   \

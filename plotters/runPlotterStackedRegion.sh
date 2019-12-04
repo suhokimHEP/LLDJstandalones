@@ -22,8 +22,8 @@ doHIPs=( \
  #"kTRUE" \
 )
 
-#useEOS="kFALSE"
-useEOS="kTRUE"
+useEOS="kFALSE"
+#useEOS="kTRUE"
 description=""
 
 for region in ${regions[@]}

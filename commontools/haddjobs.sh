@@ -58,11 +58,11 @@ samples=( \
 # "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"      \
 # "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"     \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"     \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"   \
 # "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"       \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"     \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"     \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"     \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"    \
 # "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"   \
@@ -76,12 +76,12 @@ samples=( \
 # "DYJetsToLL_M-5to50_HT-400to600"  \
 # "DYJetsToLL_M-5to50_HT-600toInf"  \
 # "DYJetsToLL_M-10to50"             \
- "DYJetsToLL_M-50"                 \
+# "DYJetsToLL_M-50"                 \
 ## WJets
 # "WJetsToLNu"     \
 ## TTbar
- "TTJets"         \
- "TTtoLL"         \
+# "TTJets"         \
+# "TTtoLL"         \
 # "TTtoLfromTbar"  \
 # "TTtoLfromT"     \
 ## Single Top

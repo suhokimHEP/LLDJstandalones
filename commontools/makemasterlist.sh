@@ -13,7 +13,7 @@ echo "" > ${outdir}/allfiles.masterlist
 for lineone in $(cat templayer1.out);
 do
  echo ${lineone}
- if [[ ${lineone} != *"analyzed" ]]; then 
+ if [[ ${lineone} != *"analyzed"* ]]; then 
  
   xrdfs root://cmseos.fnal.gov ls ${lineone} > templayer2.out  
   echo "Text read from file: ${lineone}"

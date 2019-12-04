@@ -1789,7 +1789,6 @@ variables.push_back("nSelectedAODCaloJetTag");
 //     if( h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) > 0.1){ ;
 //        h_ggZH_HToSSTobbbb_MS40_ctauS10000  ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) ); 
 //     }
-std::cout<<"Does it get here?"<<std::endl;
      // make legend
      TLegend *leg;
      leg = new TLegend(0.2,0.73,0.88,0.89);
