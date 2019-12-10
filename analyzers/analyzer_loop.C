@@ -164,15 +164,12 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC 
   if(isMC) event_weight *= makeElectronWeight( electron_list );
-  if(isMC) event_weight *= makeTTWeight( avgTTSF );
-  //if(isMC) event_weight *= makeEleTriggerEffi( electron_list );
   if(isMC) event_weight *= makeMuonWeight( muon_list );
   if(isMC) event_weight *= makeMuonIso( muon_list );
-  //if(isMC) event_weight *= makeMuonTriggerEffi( muon_list );
+
   if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
 
-
- if(isMC) event_weight *= makeTTWeight( avgTTSF );
+  if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
   getMET();
   getWPT();
@@ -420,11 +417,11 @@ TFile *outfile_bkgest = 0;
      // ok I'm sorry, this is terrible
      if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)   fullweight = event_weight*PUweight_DoubleEG;
      if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) fullweight = event_weight*PUweight_DoubleMu;
-     //if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight*0.841901*PUweight_DoubleEG;
-     //if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight*0.867408*PUweight_DoubleMu;
      if(i==18) fullweight = event_weight * PUweight_MuonEG;
      if(i==20) fullweight = event_weight * PUweight_MuonEG;
      if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
+     //if(i==1||i==5||i==9||i==13) fullweight *= makeEleTriggerEffi( electron_list );
+     //if(i==3||i==7||i==11||i==15) fullweight *= makeMuonTriggerEffi( muon_list );
    }
    else{
      fullweight = event_weight;
@@ -434,10 +431,9 @@ TFile *outfile_bkgest = 0;
 
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
-   //for (int i=0; i<27 ; i++) { std::cout << dofillselbin[i] << std::endl; }
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
-
+      
      //jets
      if(jetMultOn){
      for( unsigned int k=0; k<jetmultnames.size(); ++k){

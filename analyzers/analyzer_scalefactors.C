@@ -88,6 +88,8 @@ Float_t analyzer_scalefactors::makeMuonWeight( std::vector<int> &muon_list ){
    int muindex = muon_list[d];
    Float_t mueta = AOD_muEta->at(muindex);//<------changed; don't have SCEta right now
    Float_t mupt  = AOD_muPt->at(muindex);
+   if(mupt<20){mupt=20.1;}//SF root files lowest bin is 20. Our muPt cut is 12 for lagging lepton. Bincontent is 0 pT<20
+   if(mupt>120){mupt=119.9;}//SF root files highest bin is 120. Bincontent is 0 pT>120
    Int_t tmpbinx       = MuonWeights->GetXaxis()->FindBin( mueta );
    Int_t tmpbiny       = MuonWeights->GetYaxis()->FindBin( mupt  );
    //printf(" bins %i %i\n",tmpbinx,tmpbiny);
@@ -111,12 +113,15 @@ Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list ){
    int muindex = muon_list[d];
    Float_t mueta = AOD_muEta->at(muindex);//<------changed; don't have SCEta right now
    Float_t mupt  = AOD_muPt->at(muindex);
+   if(mupt<20){mupt=20.1;}//SF root files lowest bin is 20. Our muPt cut is 12 for lagging lepton. Bincontent is 0 pT<20
+   if(mupt>120){mupt=119.9;}//SF root files highest bin is 120. Bincontent is 0 pT>120
    Int_t tmpbinx       = MuonIso->GetXaxis()->FindBin( mueta );
    Int_t tmpbiny       = MuonIso->GetYaxis()->FindBin( mupt  );
    //printf(" bins %i %i\n",tmpbinx,tmpbiny);
    Int_t tmpbin        = MuonIso->GetBin( tmpbinx, tmpbiny );
    Float_t tmpweight = MuonIso->GetBinContent(tmpbin);
    tmpsf *= tmpweight;
+   if(tmpsf==0){std::cout<<mupt<<":"<<mueta<<std::endl;}
   }//end Muons
  } // if Muons
 
@@ -135,7 +140,8 @@ Float_t analyzer_scalefactors::makeEleTriggerEffi( std::vector<int> &electron_li
    int eleindex = electron_list[d];
    Float_t eeta = AOD_eleEta->at(eleindex);//<------changed; don't have SCEta right now
    Float_t ept  = AOD_elePt->at(eleindex);
-   if(AOD_elePt->at(eleindex)>23){Int_t tmpbinx       = EleTrigEffi1->GetXaxis()->FindBin( eeta );
+   //if(AOD_elePt->at(eleindex)>23 && d==0){Int_t tmpbinx       = EleTrigEffi1->GetXaxis()->FindBin( eeta );
+   if(d==0){Int_t tmpbinx       = EleTrigEffi1->GetXaxis()->FindBin( eeta );
    Int_t tmpbiny       = EleTrigEffi1->GetYaxis()->FindBin( ept  );
    Int_t tmpbin        = EleTrigEffi1->GetBin( tmpbinx, tmpbiny );
    tmpweight = EleTrigEffi1->GetBinContent(tmpbin);}
@@ -164,12 +170,13 @@ Float_t analyzer_scalefactors::makeMuonTriggerEffi( std::vector<int> &muon_list 
    int muindex = muon_list[d];
    Float_t mueta = AOD_muEta->at(muindex);//<------changed; don't have SCEta right now
    Float_t mupt  = AOD_muPt->at(muindex);
-   if(AOD_muPt->at(muindex)>17) { //pt>17GeV leading leg's Muon Trig SF
+   //if(AOD_muPt->at(muindex)>17 && d==0) { //pt>17GeV leading leg's Muon Trig SF
+   if(d==0) { //leading leg's Muon Trig SF
    Int_t tmpbinx       = MuonTrigEffi17->GetXaxis()->FindBin( mueta );
    Int_t tmpbiny       = MuonTrigEffi17->GetYaxis()->FindBin( mupt  );
    Int_t tmpbin        = MuonTrigEffi17->GetBin( tmpbinx, tmpbiny );
    tmpweight = MuonTrigEffi17->GetBinContent(tmpbin);}
-   else { //pt<17GeV lagging leg's Muon Trig SF
+   else { //lagging leg's Muon Trig SF
    Int_t tmpbinx       = MuonTrigEffi8->GetXaxis()->FindBin( mueta );
    Int_t tmpbiny       = MuonTrigEffi8->GetYaxis()->FindBin( mupt  );
    Int_t tmpbin        = MuonTrigEffi8->GetBin( tmpbinx, tmpbiny );
