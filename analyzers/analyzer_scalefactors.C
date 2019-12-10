@@ -59,19 +59,12 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
 
  //check overlap with electrons
  if(electron_list.size()>0){
-  //printf(" esize: %lu\n",electron_list.size());
-  //printf(" esceta: %lu\n",eleSCEta->size());
-  //printf(" ept: %lu\n",AOD_elePt->size());
   for(int d=0; d<electron_list.size(); ++d){
-   //printf(" brgin looping over electrons\n");
    int eleindex = electron_list[d];
-   //printf(" d: %i eleindex: %i\n",d,eleindex);
-   //printf(" ele sceta %f pt %f \n",eleSCEta->at(eleindex),AOD_elePt->at(eleindex));
    Float_t eeta = AOD_eleEta->at(eleindex);//<------changed; don't have SCEta right now
    Float_t ept  = AOD_elePt->at(eleindex);
    Int_t tmpbinx       = EleWeights->GetXaxis()->FindBin( eeta );
    Int_t tmpbiny       = EleWeights->GetYaxis()->FindBin( ept  );
-   //printf(" bins %i %i\n",tmpbinx,tmpbiny);
    Int_t tmpbin        = EleWeights->GetBin( tmpbinx, tmpbiny );
    Float_t tmpweight = EleWeights->GetBinContent(tmpbin);
    tmpsf *= tmpweight;
@@ -138,26 +131,16 @@ Float_t analyzer_scalefactors::makeEleTriggerEffi( std::vector<int> &electron_li
 
  //check overlap with electrons
  if(electron_list.size()>0){
-  //printf(" esize: %lu\n",electron_list.size());
-  //printf(" esceta: %lu\n",eleSCEta->size());
-  //printf(" ept: %lu\n",AOD_elePt->size());
   for(int d=0; d<electron_list.size(); ++d){
-   //printf(" brgin looping over electrons\n");
    int eleindex = electron_list[d];
-   //printf(" d: %i eleindex: %i\n",d,eleindex);
-   //printf(" ele sceta %f pt %f \n",eleSCEta->at(eleindex),AOD_elePt->at(eleindex));
    Float_t eeta = AOD_eleEta->at(eleindex);//<------changed; don't have SCEta right now
    Float_t ept  = AOD_elePt->at(eleindex);
-   //if(AOD_elePt->at(eleindex)>23) {EleTrigEffi->Clone("EleTrigEffi1");} //pt>23GeV leading leg's Trig SF
-   //else {EleTrigEffi->Clone("EleTrigEffi2");} //pt<23GeV lagging leg's Trig SF
    if(AOD_elePt->at(eleindex)>23){Int_t tmpbinx       = EleTrigEffi1->GetXaxis()->FindBin( eeta );
    Int_t tmpbiny       = EleTrigEffi1->GetYaxis()->FindBin( ept  );
-   //printf(" bins %i %i\n",tmpbinx,tmpbiny);
    Int_t tmpbin        = EleTrigEffi1->GetBin( tmpbinx, tmpbiny );
    tmpweight = EleTrigEffi1->GetBinContent(tmpbin);}
    else{Int_t tmpbinx       = EleTrigEffi2->GetXaxis()->FindBin( eeta );
    Int_t tmpbiny       = EleTrigEffi2->GetYaxis()->FindBin( ept  );
-   //printf(" bins %i %i\n",tmpbinx,tmpbiny);
    Int_t tmpbin        = EleTrigEffi2->GetBin( tmpbinx, tmpbiny );
    tmpweight = EleTrigEffi2->GetBinContent(tmpbin);}
    tmpsf *= tmpweight; 
@@ -226,30 +209,11 @@ void analyzer_scalefactors::loadPUWeight(){
  PUWeights_SinglePhoton = (TH1F*)file_puweights_SinglePhoton->Get("h_PUweight")->Clone("PUWeights_SinglePhoton");
  return ;
 }
-/*
-//----------------------------loadTrigEffi
-void analyzer_scalefactors::loadTriggerEfficiency(){
- std::cout << "loading Trigger Efficiency" << std::endl;
- TString filename_muon23     = "egammaEffi_MoriondBH_eleTight" ;
- TString filename_muon17     = "egammaEffi_MoriondBH_eleLoose" ;
- TString filename_muon08       = "egammaEffi_MoriondBH_eleMedium" ;
- TString filename_muontk08 = "egammaEffi_MoriondBH_eleTight" ;
- TFile* file_filename_muon23    = new TFile( filename_muon23    ) ;
- TFile* file_filename_muon17    = new TFile( filename_muon17    ) ;
- TFile* file_filename_muon08    = new TFile( filename_muon08    ) ;
- TFile* file_filename_muontk08  = new TFile( filename_muontk08  ) ;
- //std::cout <<" filename: " << filename << std::endl;
- TrigEffi_muon23    = (TH1F*)file_filename_muon23   ->Get("EGamma_SF2D")->Clone("TrigEffi_muon23"   );
- TrigEffi_muon17    = (TH1F*)file_filename_muon17   ->Get("EGamma_SF2D")->Clone("TrigEffi_muon17"   );
- TrigEffi_muon08    = (TH1F*)file_filename_muon08   ->Get("EGamma_SF2D")->Clone("TrigEffi_muon08"   );
- TrigEffi_muontk08  = (TH1F*)file_filename_muontk08 ->Get("EGamma_SF2D")->Clone("TrigEffi_muontk08" );
- return ;
-}*/
 
 //----------------------------loadElectronWeight
 void analyzer_scalefactors::loadElectronWeight(TString eleid){
  std::cout << "loading Electron weight" << std::endl;
- TString filename = "egammaEffi_MoriondBH_ele"+eleid+".root" ;
+ TString filename = "2016LegacyReReco_Electron"+eleid+"_Fall17V2.root" ;
  TFile* file_eleweights = new TFile( filename ) ;
  std::cout << " filename: " << filename << std::endl;
  EleWeights = (TH2F*)file_eleweights->Get("EGamma_SF2D")->Clone("EleWeights");
@@ -290,9 +254,6 @@ void analyzer_scalefactors::loadEleTriggerEffi(){
  TFile* file_EleLeg2     = new TFile( filename_EleLeg2    ) ;
  EleTrigEffi1     = (TH2F*)file_EleLeg1    ->Get("TrigEffi")->Clone("EleTrigEffi1"    );
  EleTrigEffi2     = (TH2F*)file_EleLeg2    ->Get("TrigEffi")->Clone("EleTrigEffi2"    );
- //TString filename = "eleleg1.root" ;
- //TFile* file_eletrig = new TFile( filename ) ;
- //EleTrigEffi = (TH2F*)file_eletrig->Get("TrigEffi")->Clone("EleTrigEffi");
  return ;
 }
 
@@ -305,9 +266,6 @@ void analyzer_scalefactors::loadMuonTriggerEffi(){
  TFile* file_Muon8     = new TFile(  filename_Muon8  ) ;
  MuonTrigEffi17     = (TH2F*)file_Muon17    ->Get("TrigEffi")->Clone("MuonTrigEffi17"    );
  MuonTrigEffi8     = (TH2F*)file_Muon8    ->Get("TrigEffi")->Clone("MuonTrigEffi8"    );
- //TString filename = "Muon17.root" ;
- //TFile* file_muontrig = new TFile( filename ) ;
- //MuonTrigEffi = (TH2F*)file_muontrig->Get("TrigEffi")->Clone("MuonTrigEffi");
  return ;
 }
 
