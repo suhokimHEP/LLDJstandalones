@@ -335,6 +335,10 @@ public :
  TH1F*  h_GenEventWeight               [SELBINNAMESIZE];
  TH1F*  h_OtherWeight               [SELBINNAMESIZE];
  TH1F*  h_FullWeight               [SELBINNAMESIZE];
+ TH1F*  h_eleID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonISO_Unc               [SELBINNAMESIZE];
+ TH1F*  h_LeptonSF_Unc               [SELBINNAMESIZE];
 
  //WH mode
  TH1F*  h_TransverseMass       [SELBINNAMESIZE]; 

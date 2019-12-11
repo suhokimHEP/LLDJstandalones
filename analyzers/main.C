@@ -237,7 +237,7 @@ int main(int argc, char **argv){
  std::vector<TString> unccategories;
  unccategories.push_back("");
 
-// if( isMC ){
+ if( isMC ){
 //   unccategories.push_back("_EGSUp");
 //   unccategories.push_back("_EGSDown");
 //   unccategories.push_back("_MESUp");
@@ -252,7 +252,9 @@ int main(int argc, char **argv){
 //   unccategories.push_back("_TADown");
 //   unccategories.push_back("_TagVarsUp");
 //   unccategories.push_back("_TagVarsDown");
-//  }
+//   unccategories.push_back("_LeptonSFUp");
+//   unccategories.push_back("_LeptonSFDown");
+  }
 
  // make the analyzer, init some stuff
  analyzer_loop analyzer;

@@ -28,9 +28,9 @@ public :
  void            loadElectronWeight( TString eleid );
  void            loadMuonWeight( TString muoid );
  void            loadMuonIso( TString muoid );
- Float_t         makeElectronWeight( std::vector<int> &electron_list );
- Float_t         makeMuonWeight( std::vector<int> &muon_list );
- Float_t         makeMuonIso( std::vector<int> &muon_list );
+ Float_t         makeElectronWeight( std::vector<int> &electron_list, float &eleID_Unc );
+ Float_t         makeMuonWeight( std::vector<int> &muon_list, float &muonID_Unc );
+ Float_t         makeMuonIso( std::vector<int> &muon_list, float &muonISO_Unc );
  TH2F*           EleWeights;
  TH2F*		 EleTrigEffi; 
  TH2F*		 EleTrigEffi1; 
@@ -48,6 +48,7 @@ public :
  TH2F*              h_MistagRate_pteta;
  std::vector<TH2F*> h_MistagRate_pteta_sys;
 
+ float eleID_Unc,muonID_Unc,muonISO_Unc,Lepton_Unc = 0;
 };
 
 #endif

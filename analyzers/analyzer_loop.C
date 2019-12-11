@@ -152,11 +152,14 @@ TFile *outfile_bkgest = 0;
 
   nBPartonFlavour = coutNBPartonFlavour();
   if(isMC){
-  w_eleID = makeElectronWeight( electron_list);
-  w_eletot= w_eleID;
-  w_muonID = makeMuonWeight(muon_list);
-  w_muonISO = makeMuonIso(muon_list);
+  w_eleID   = makeElectronWeight( electron_list, eleID_Unc);
+  //std::cout<<eleID_Unc<<std::endl;
+  w_eletot  = w_eleID;
+  w_muonID  = makeMuonWeight(muon_list, muonID_Unc);
+  w_muonISO = makeMuonIso(muon_list, muonISO_Unc);
   w_muontot = w_muonID*w_muonISO;
+
+  Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);
   //w_Lumi = makeEventWeight(crossSec,lumi,nrEvents);
   //w_GenEventWeight = AODGenEventWeight;
   //w_other = w_Lumi*w_GenEventWeight
@@ -173,9 +176,9 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC  
-  if(isMC) event_weight *= makeElectronWeight( electron_list );
-  if(isMC) event_weight *= makeMuonWeight( muon_list );
-  if(isMC) event_weight *= makeMuonIso( muon_list );
+  if(isMC) event_weight *= w_eleID;
+  if(isMC) event_weight *= w_muonID;
+  if(isMC) event_weight *= w_muonISO;
 
   if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
 
@@ -386,7 +389,9 @@ TFile *outfile_bkgest = 0;
    else{
      fullweight = event_weight;
    }
-
+  if(uncbin.Contains("LeptonSFUp")){w_LeptonSF += Lepton_Unc; fullweight*=w_LeptonSF;}
+  else if(uncbin.Contains("LeptonSFDown")){w_LeptonSF -= Lepton_Unc; fullweight*=w_LeptonSF;}
+  else {fullweight*=w_LeptonSF;}
    /// quick hack to only write phase spaces we care about
 
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
