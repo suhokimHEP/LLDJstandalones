@@ -151,7 +151,17 @@ TFile *outfile_bkgest = 0;
   aodcalojet_matchedPartonFlavour_list = jet_matchPartonFlavour();
 
   nBPartonFlavour = coutNBPartonFlavour();
-
+  if(isMC){
+  w_eleID = makeElectronWeight( electron_list);
+  w_eletot= w_eleID;
+  w_muonID = makeMuonWeight(muon_list);
+  w_muonISO = makeMuonIso(muon_list);
+  w_muontot = w_muonID*w_muonISO;
+  //w_Lumi = makeEventWeight(crossSec,lumi,nrEvents);
+  //w_GenEventWeight = AODGenEventWeight;
+  //w_other = w_Lumi*w_GenEventWeight
+  //w_tot = w_LeptonSF*w_other;
+	}
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
@@ -162,7 +172,7 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
-  // electrons also have an associated scale factor for MC 
+  // electrons also have an associated scale factor for MC  
   if(isMC) event_weight *= makeElectronWeight( electron_list );
   if(isMC) event_weight *= makeMuonWeight( muon_list );
   if(isMC) event_weight *= makeMuonIso( muon_list );
@@ -360,6 +370,47 @@ TFile *outfile_bkgest = 0;
     fillBackgroundEstimateHistograms(event_weight);
    }
   }
+  // fill the histograms
+  for(unsigned int i=0; i<selbinnames.size(); ++i){
+
+   if(isMC){
+     // ok I'm sorry, this is terrible
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)  {fullweight = event_weight*PUweight_DoubleEG;  	w_LeptonSF= w_eletot;}
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) {fullweight = event_weight*PUweight_DoubleMu;    w_LeptonSF=w_muontot;}
+     if(i==18) {fullweight = event_weight * PUweight_MuonEG; w_LeptonSF=w_eletot*w_muontot;}
+     if(i==20) {fullweight = event_weight * PUweight_MuonEG; w_LeptonSF=w_eletot*w_muontot;}
+     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
+     //if(i==1||i==5||i==9||i==13) fullweight *= makeEleTriggerEffi( electron_list );
+     //if(i==3||i==7||i==11||i==15) fullweight *= makeMuonTriggerEffi( muon_list );
+   }
+   else{
+     fullweight = event_weight;
+   }
+
+   /// quick hack to only write phase spaces we care about
+
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
+    fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
+    if( dofillselbin[i] ){
+     fillSelectedHistograms( fullweight, i );
+      
+     //jets
+     if(jetMultOn){
+     for( unsigned int k=0; k<jetmultnames.size(); ++k){
+      fillSelectedJetHistograms( fullweight, i, k );
+     }  }
+     else{
+      fillSelectedJetHistograms( fullweight, i, (jetmultnames.size()-1) );
+     }
+
+     //tagged jets
+     for( unsigned int k=0; k<tagmultnames.size(); ++k){
+      fillSelectedTagHistograms( fullweight, i, k );
+     }  
+    } // if( dofillselbin[i] ){
+   } // if i== one of the phase spaces we want to write
+  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
+
   // tagging variable optimization tree
   if( ( (( bitsPassTwoMuZH      >> 0) &1) || (( bitsPassTwoEleZH      >> 0) &1))  && uncbin.EqualTo("") ){// TwoMuZH or TwoEleZH 
    optfile->cd();
@@ -409,47 +460,6 @@ TFile *outfile_bkgest = 0;
    setNM1EleZHtree(); 
    NM1EleZHtree->Fill();
   }
-
-  // fill the histograms
-  for(unsigned int i=0; i<selbinnames.size(); ++i){
-
-   if(isMC){
-     // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)   fullweight = event_weight*PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) fullweight = event_weight*PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight * PUweight_MuonEG;
-     if(i==20) fullweight = event_weight * PUweight_MuonEG;
-     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
-     //if(i==1||i==5||i==9||i==13) fullweight *= makeEleTriggerEffi( electron_list );
-     //if(i==3||i==7||i==11||i==15) fullweight *= makeMuonTriggerEffi( muon_list );
-   }
-   else{
-     fullweight = event_weight;
-   }
-
-   /// quick hack to only write phase spaces we care about
-
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
-    fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
-    if( dofillselbin[i] ){
-     fillSelectedHistograms( fullweight, i );
-      
-     //jets
-     if(jetMultOn){
-     for( unsigned int k=0; k<jetmultnames.size(); ++k){
-      fillSelectedJetHistograms( fullweight, i, k );
-     }  }
-     else{
-      fillSelectedJetHistograms( fullweight, i, (jetmultnames.size()-1) );
-     }
-
-     //tagged jets
-     for( unsigned int k=0; k<tagmultnames.size(); ++k){
-      fillSelectedTagHistograms( fullweight, i, k );
-     }  
-    } // if( dofillselbin[i] ){
-   } // if i== one of the phase spaces we want to write
-  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
 
   //debug_printobjects();   // helpful printout (turn off when submitting!!!)
 

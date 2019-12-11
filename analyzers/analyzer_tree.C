@@ -15,7 +15,7 @@ analyzer_tree::~analyzer_tree()
 void analyzer_tree::setOPTtree(){
 
   OPT_Event.push_back(event);
-  OPT_EventWeight.push_back(event_weight);
+  OPT_EventWeight.push_back(fullweight);
   OPT_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -55,7 +55,7 @@ void analyzer_tree::clearOPTtree(){
 void analyzer_tree::setOPTCRHeavytree(){
 
   OPTCRHeavy_Event.push_back(event);
-  OPTCRHeavy_EventWeight.push_back(event_weight);
+  OPTCRHeavy_EventWeight.push_back(fullweight);
   OPTCRHeavy_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -92,7 +92,7 @@ void analyzer_tree::clearOPTCRHeavytree(){
 void analyzer_tree::setOPTCRLighttree(){
 
   OPTCRLight_Event.push_back(event);
-  OPTCRLight_EventWeight.push_back(event_weight);
+  OPTCRLight_EventWeight.push_back(fullweight);
   OPTCRLight_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -130,7 +130,7 @@ void analyzer_tree::clearOPTCRLighttree(){
 void analyzer_tree::setOPTMuZHtree(){
 
   OPTMuZH_Event.push_back(event);
-  OPTMuZH_EventWeight.push_back(event_weight);
+  OPTMuZH_EventWeight.push_back(fullweight);
   OPTMuZH_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -168,7 +168,7 @@ void analyzer_tree::clearOPTMuZHtree(){
 void analyzer_tree::setOPTEleZHtree(){
 
   OPTEleZH_Event.push_back(event);
-  OPTEleZH_EventWeight.push_back(event_weight);
+  OPTEleZH_EventWeight.push_back(fullweight);
   OPTEleZH_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -208,7 +208,7 @@ void analyzer_tree::clearOPTEleZHtree(){
 void analyzer_tree::setNM1tree(){
 
   NM1_Event.push_back(event);
-  NM1_EventWeight.push_back(event_weight);
+  NM1_EventWeight.push_back(fullweight);
   NM1_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -248,7 +248,7 @@ void analyzer_tree::clearNM1tree(){
 void analyzer_tree::setNM1CRHeavytree(){
 
   NM1CRHeavy_Event.push_back(event);
-  NM1CRHeavy_EventWeight.push_back(event_weight);
+  NM1CRHeavy_EventWeight.push_back(fullweight);
   NM1CRHeavy_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -286,7 +286,7 @@ void analyzer_tree::clearNM1CRHeavytree(){
 void analyzer_tree::setNM1CRLighttree(){
 
   NM1CRLight_Event.push_back(event);
-  NM1CRLight_EventWeight.push_back(event_weight);
+  NM1CRLight_EventWeight.push_back(fullweight);
   NM1CRLight_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -324,7 +324,7 @@ void analyzer_tree::clearNM1CRLighttree(){
 void analyzer_tree::setNM1MuZHtree(){
 
   NM1MuZH_Event.push_back(event);
-  NM1MuZH_EventWeight.push_back(event_weight);
+  NM1MuZH_EventWeight.push_back(fullweight);
   NM1MuZH_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
@@ -362,7 +362,7 @@ void analyzer_tree::clearNM1MuZHtree(){
 void analyzer_tree::setNM1EleZHtree(){
 
   NM1EleZH_Event.push_back(event);
-  NM1EleZH_EventWeight.push_back(event_weight);
+  NM1EleZH_EventWeight.push_back(fullweight);
   NM1EleZH_nJets.push_back(aodcalojet_list.size());
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
