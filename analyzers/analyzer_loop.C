@@ -153,17 +153,11 @@ TFile *outfile_bkgest = 0;
   nBPartonFlavour = coutNBPartonFlavour();
   if(isMC){
   w_eleID   = makeElectronWeight( electron_list, eleID_Unc);
-  //std::cout<<eleID_Unc<<std::endl;
   w_eletot  = w_eleID;
   w_muonID  = makeMuonWeight(muon_list, muonID_Unc);
   w_muonISO = makeMuonIso(muon_list, muonISO_Unc);
   w_muontot = w_muonID*w_muonISO;
-
-  Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);
-  //w_Lumi = makeEventWeight(crossSec,lumi,nrEvents);
-  //w_GenEventWeight = AODGenEventWeight;
-  //w_other = w_Lumi*w_GenEventWeight
-  //w_tot = w_LeptonSF*w_other;
+  //Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);
 	}
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
@@ -176,9 +170,9 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC  
-  if(isMC) event_weight *= w_eleID;
-  if(isMC) event_weight *= w_muonID;
-  if(isMC) event_weight *= w_muonISO;
+  //if(isMC) event_weight *= w_eleID;
+  //if(isMC) event_weight *= w_muonID;
+  //if(isMC) event_weight *= w_muonISO;
 
   if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
 
@@ -378,10 +372,11 @@ TFile *outfile_bkgest = 0;
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)  {fullweight = event_weight*PUweight_DoubleEG;  	w_LeptonSF= w_eletot;}
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) {fullweight = event_weight*PUweight_DoubleMu;    w_LeptonSF=w_muontot;}
-     if(i==18) {fullweight = event_weight * PUweight_MuonEG; w_LeptonSF=w_eletot*w_muontot;}
-     if(i==20) {fullweight = event_weight * PUweight_MuonEG; w_LeptonSF=w_eletot*w_muontot;}
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)  
+	{fullweight = event_weight*PUweight_DoubleEG;  	w_LeptonSF= w_eletot; Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc);}
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) 
+	{fullweight = event_weight*PUweight_DoubleMu;    w_LeptonSF=w_muontot; Lepton_Unc = TMath::Sqrt(muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);}
+     if(i==18||i==20) {fullweight = event_weight * PUweight_MuonEG; w_LeptonSF=w_eletot*w_muontot; Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);}
      if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
      //if(i==1||i==5||i==9||i==13) fullweight *= makeEleTriggerEffi( electron_list );
      //if(i==3||i==7||i==11||i==15) fullweight *= makeMuonTriggerEffi( muon_list );

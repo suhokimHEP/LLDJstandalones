@@ -60,7 +60,6 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
  std::vector<float> tmperr;
  tmperr.clear();
  //check overlap with electrons
-   //std::cout<<"------"<<std::endl;
  if(electron_list.size()>0){
   for(int d=0; d<electron_list.size(); ++d){
    int eleindex = electron_list[d];
@@ -71,17 +70,12 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
    Int_t tmpbin        = EleWeights->GetBin( tmpbinx, tmpbiny );
    Float_t tmpweight = EleWeights->GetBinContent(tmpbin);
    tmperr.push_back(EleWeights->GetBinError(tmpbin));
-   //std::cout<<EleWeights->GetBinError(tmpbin)<<std::endl;
    tmpsf *= tmpweight;
   }//end electrons
-  //eleID_Unc = TMath::Sqrt((tmperr.at(0))*(tmperr.at(0)) + (tmperr.at(1))*(tmperr.at(1)));
   for(int d=0; d<tmperr.size(); ++d){ 
   tmpUnc += tmperr.at(d)*tmperr.at(d);
   }
-   //std::cout<<"tot_err"<<tmpUnc<<std::endl;
-
   eleID_Unc = TMath::Sqrt(tmpUnc);
-   //std::cout<<"Final_error"<<eleID_Unc<<std::endl;
  } // if electrons
 
  //printf(" done making Electron weight\n");
@@ -113,7 +107,6 @@ Float_t analyzer_scalefactors::makeMuonWeight( std::vector<int> &muon_list, floa
    Int_t tmpbin        = MuonWeights->GetBin( tmpbinx, tmpbiny );
    Float_t tmpweight = MuonWeights->GetBinContent(tmpbin);
    tmperr.push_back(MuonWeights->GetBinError(tmpbin));
-   //std::cout<<EleWeights->GetBinError(tmpbin)<<std::endl;
    tmpsf *= tmpweight;
   }//end Muons
   for(int d=0; d<tmperr.size(); ++d){ 
@@ -149,7 +142,6 @@ Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list, float &
    Float_t tmpweight = MuonIso->GetBinContent(tmpbin);
    tmperr.push_back(MuonIso->GetBinError(tmpbin));
    tmpsf *= tmpweight;
-   //if(tmpsf==0){std::cout<<mupt<<":"<<mueta<<std::endl;}
   }//end Muons
   for(int d=0; d<tmperr.size(); ++d){ 
   tmpUnc += tmperr.at(d)*tmperr.at(d);
