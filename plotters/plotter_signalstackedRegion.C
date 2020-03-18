@@ -16,13 +16,21 @@
 void print_hist(TH1F* h, TString name, FILE* file){
 
   fprintf(file, "%s", name.Data());
-  for(int i=1; i<=h->GetNbinsX(); i++){
+  for(int i=1; i<=2; i++){
     TString toprint = ", ";
-    toprint += h->GetBinContent(i);
+    if(i==2){toprint += h->Integral(2,-1);}
+    else{toprint += h->GetBinContent(i);}
     fprintf(file, "%s", toprint.Data());
   }
   fprintf(file,"\n");
 
+  //fprintf(file, "%s", name.Data());
+  //for(int i=1; i<=h->GetNbinsX(); i++){
+  //  TString toprint = ", ";
+  //  toprint += h->GetBinContent(i);
+  //  fprintf(file, "%s", toprint.Data());
+  //}
+  //fprintf(file,"\n");
   //name += " err";
   //fprintf(file, "%s", name.Data());
   ////Error
@@ -35,7 +43,7 @@ void print_hist(TH1F* h, TString name, FILE* file){
 
 }
 
-void plotter_stackedRegion(TString region, Bool_t dolog, Bool_t HIP, Bool_t doctau, Bool_t useEOS, TString description)
+void plotter_signalstackedRegion(TString region, Bool_t dolog, Bool_t HIP, Bool_t doctau, Bool_t useEOS, TString description)
 {
 
 // // Draw signal as lines
@@ -93,7 +101,6 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 
  std::vector<TString> uncbins;
  uncbins.clear();
- uncbins.push_back(""             ); 
  uncbins.push_back("_EGSUp"       ); 
  uncbins.push_back("_EGSDown"     );    
  uncbins.push_back("_MESUp"       );    
@@ -488,6 +495,8 @@ variables.push_back("nSelectedAODCaloJetTag");
  TH1F* h_Sig_ggZH_MS55ct10     ;
  TH1F* h_Sig_ggZH_MS55ct1      ;
 
+ TH1F* h_Sig_ZH_MS55ct100_NoUnc      ;
+ TH1F* h_Sig_ggZH_MS55ct100_NoUnc      ;
 
  TH1F* h_Sig_ZH_MS15ct300     ;
  TH1F* h_Sig_ZH_MS15ct30      ;
@@ -639,6 +648,7 @@ variables.push_back("nSelectedAODCaloJetTag");
  TH1F* h_Sig_MS55ct30  ;
  TH1F* h_Sig_MS55ct3   ;
 
+ TH1F* h_Sig_MS55ct100_NoUnc  ;
  /*
  TH1F* h_Sig_WH_MS15ct1000;  
  TH1F* h_Sig_WH_MS15ct100 ;  
@@ -842,10 +852,10 @@ variables.push_back("nSelectedAODCaloJetTag");
 	variable.Contains("Log10IPSig") || 
 	variable.Contains("Log10TrackAngle") || 
 	variable.Contains("AlphaMax")) ) {
-      drawData=false;
+      drawData=true;
     }
     if(variable.Contains("Raw")){
-     drawData=false;
+     drawData=true;
     }
     if( variable.Contains("NMinus")   ||
 	variable.Contains("Onecut")   ||               
@@ -853,9 +863,9 @@ variables.push_back("nSelectedAODCaloJetTag");
      dolog=true;
     }
 
-    Bool_t domaketable = kFALSE;
+    Bool_t domaketable = kTRUE;
     if(j==0){
-     domaketable = kFALSE;
+     domaketable = kTRUE;
     }
      TString varname = region+"_"+variable;
 
@@ -943,7 +953,8 @@ variables.push_back("nSelectedAODCaloJetTag");
      h_Sig_ggZH_MS55ct100  = (TH1F*)file_Sig_ggZH_MS55ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct100" +uncbin ) ;
      h_Sig_ggZH_MS55ct10   = (TH1F*)file_Sig_ggZH_MS55ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct10"  +uncbin ) ;
      h_Sig_ggZH_MS55ct1    = (TH1F*)file_Sig_ggZH_MS55ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct1"   +uncbin ) ;
-
+     h_Sig_ZH_MS55ct100_NoUnc       = (TH1F*)file_Sig_ZH_MS55ct100    ->Get("h_"+varname )->Clone( "Sig_ZH_MS55ct100_NoUnc" ) ;
+     h_Sig_ggZH_MS55ct100_NoUnc       = (TH1F*)file_Sig_ggZH_MS55ct100    ->Get("h_"+varname )->Clone( "Sig_ggZH_MS55ct100_NoUnc" ) ;
 	if(doctau){
      h_Sig_ZH_MS15ct300   = (TH1F*)file_Sig_ZH_MS15ct300   ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct300"+uncbin ) ;
      h_Sig_ZH_MS15ct30    = (TH1F*)file_Sig_ZH_MS15ct30    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct30" +uncbin ) ;
@@ -1128,6 +1139,8 @@ variables.push_back("nSelectedAODCaloJetTag");
      h_Sig_MS55ct100  ->Add( h_Sig_ggZH_MS55ct100  ) ;
      h_Sig_MS55ct10   ->Add( h_Sig_ggZH_MS55ct10   ) ;
      h_Sig_MS55ct1    ->Add( h_Sig_ggZH_MS55ct1    ) ;
+     h_Sig_MS55ct100_NoUnc   = (TH1F*) h_Sig_ZH_MS55ct100_NoUnc    ->Clone( "Sig_MS55ct100_NoUnc " ) ;
+     h_Sig_MS55ct100_NoUnc  ->Add( h_Sig_ggZH_MS55ct100_NoUnc  ) ;
 	if(doctau){
      h_Sig_MS15ct300  = (TH1F*) h_Sig_ZH_MS15ct300   ->Clone( "Sig_MS15ct300" ) ;
      h_Sig_MS15ct30   = (TH1F*) h_Sig_ZH_MS15ct30    ->Clone( "Sig_MS15ct30 " ) ;
@@ -1206,6 +1219,7 @@ variables.push_back("nSelectedAODCaloJetTag");
      h_Sig_MS55ct100  ->Scale(MCSF);
      h_Sig_MS55ct10   ->Scale(MCSF);
      h_Sig_MS55ct1    ->Scale(MCSF);
+     h_Sig_MS55ct100_NoUnc  ->Scale(MCSF);
 	if(doctau){
      h_Sig_MS15ct300 ->Scale(MCSF);
      h_Sig_MS15ct30  ->Scale(MCSF);
@@ -1310,9 +1324,10 @@ variables.push_back("nSelectedAODCaloJetTag");
 	h_Data->Add( h_Data_MuonEG_H_3 )     ; 
      }
      
-     //CSV-style printout for Ted
-     if(varname.Contains("nSelectedAODCaloJetTag") && !extraname.Contains("log") && uncbin==""){
-       TString fname = "Full_"; fname+=varname; fname+=".csv";
+     //CSV-style printout for Cristian
+     //if(varname.Contains("nSelectedAODCaloJetTag") && !extraname.Contains("log") && uncbin==""){
+     if(varname.Contains("nSelectedAODCaloJetTag") && uncbin == "donotdothis" ){
+       TString fname = "forCristian_"; fname+=varname; fname+=uncbin; fname+=".csv";
        std::cout << "Writing " << fname<< std::endl;
        FILE *f = fopen (fname, "w");
        if(!region.Contains("ZH")) print_hist(h_Data, "Data", f);
@@ -1342,27 +1357,26 @@ variables.push_back("nSelectedAODCaloJetTag");
        
 
 	//sig                   
-        //print_hist(h_Sig_ZH_MS15ct1000, "h_Sig_ZH_MS15ct1000", f);
-       print_hist(h_Sig_ZH_MS15ct100      ,"h_Sig_ZH_MS15ct100", f);
-       print_hist(h_Sig_ZH_MS15ct10       ,"h_Sig_ZH_MS15ct10", f);
-       //print_hist(h_Sig_ZH_MS15ct1        ,"h_Sig_ZH_MS15ct1", f);
-       //print_hist(h_Sig_ZH_MS40ct1000     ,"h_Sig_ZH_MS40ct1000", f);
-       print_hist(h_Sig_ZH_MS40ct100      ,"h_Sig_ZH_MS40ct100", f);
-       print_hist(h_Sig_ZH_MS40ct10       ,"h_Sig_ZH_MS40ct10", f);
-       //print_hist(h_Sig_ZH_MS40ct1        ,"h_Sig_ZH_MS40ct1", f);
-       //print_hist(h_Sig_ZH_MS55ct1000     ,"h_Sig_ZH_MS55ct1000", f);
-       print_hist(h_Sig_ZH_MS55ct100      ,"h_Sig_ZH_MS55ct100", f);
-       print_hist(h_Sig_ZH_MS55ct10       ,"h_Sig_ZH_MS55ct10", f);
-       //print_hist(h_Sig_ZH_MS55ct1        ,"h_Sig_ZH_MS55ct1", f);
-       //print_hist(h_Sig_ggZH_MS15ct1000   ,"h_Sig_ggZH_MS15ct1000", f);
-       print_hist(h_Sig_ggZH_MS15ct100    ,"h_Sig_ggZH_MS15ct100", f);
-       print_hist(h_Sig_ggZH_MS15ct10     ,"h_Sig_ggZH_MS15ct10", f);
-       //print_hist(h_Sig_ggZH_MS15ct1      ,"h_Sig_ggZH_MS15ct1", f);
-       //print_hist(h_Sig_ggZH_MS40ct1000   ,"h_Sig_ggZH_MS40ct1000", f);
-       print_hist(h_Sig_ggZH_MS40ct100    ,"h_Sig_ggZH_MS40ct100", f);
-       print_hist(h_Sig_ggZH_MS40ct10     ,"h_Sig_ggZH_MS40ct10", f);
-       //print_hist(h_Sig_ggZH_MS40ct1      ,"h_Sig_ggZH_MS40ct1", f);
-       //print_hist(h_Sig_ggZH_MS55ct1000   ,"h_Sig_ggZH_MS55ct1000", f);
+       ////print_hist(h_Sig_ZH_MS15ct1000, "h_Sig_ZH_MS15ct1000", f);
+       //print_hist(h_Sig_ZH_MS15ct100      ,"h_Sig_ZH_MS15ct100", f);
+       //print_hist(h_Sig_ZH_MS15ct10       ,"h_Sig_ZH_MS15ct10", f);
+       ////print_hist(h_Sig_ZH_MS15ct1        ,"h_Sig_ZH_MS15ct1", f);
+       ////print_hist(h_Sig_ZH_MS40ct1000     ,"h_Sig_ZH_MS40ct1000", f);
+       //print_hist(h_Sig_ZH_MS40ct100      ,"h_Sig_ZH_MS40ct100", f);
+       //print_hist(h_Sig_ZH_MS40ct10       ,"h_Sig_ZH_MS40ct10", f);
+       ////print_hist(h_Sig_ZH_MS40ct1        ,"h_Sig_ZH_MS40ct1", f);
+       ////print_hist(h_Sig_ZH_MS55ct1000     ,"h_Sig_ZH_MS55ct1000", f);
+       //print_hist(h_Sig_ZH_MS55ct10       ,"h_Sig_ZH_MS55ct10", f);
+       ////print_hist(h_Sig_ZH_MS55ct1        ,"h_Sig_ZH_MS55ct1", f);
+       ////print_hist(h_Sig_ggZH_MS15ct1000   ,"h_Sig_ggZH_MS15ct1000", f);
+       //print_hist(h_Sig_ggZH_MS15ct100    ,"h_Sig_ggZH_MS15ct100", f);
+       //print_hist(h_Sig_ggZH_MS15ct10     ,"h_Sig_ggZH_MS15ct10", f);
+       ////print_hist(h_Sig_ggZH_MS15ct1      ,"h_Sig_ggZH_MS15ct1", f);
+       ////print_hist(h_Sig_ggZH_MS40ct1000   ,"h_Sig_ggZH_MS40ct1000", f);
+       //print_hist(h_Sig_ggZH_MS40ct100    ,"h_Sig_ggZH_MS40ct100", f);
+       //print_hist(h_Sig_ggZH_MS40ct10     ,"h_Sig_ggZH_MS40ct10", f);
+       ////print_hist(h_Sig_ggZH_MS40ct1      ,"h_Sig_ggZH_MS40ct1", f);
+       ////print_hist(h_Sig_ggZH_MS55ct1000   ,"h_Sig_ggZH_MS55ct1000", f);
  
        //print_hist(h_Sig_WplusH_MS55_ct1   , "h_Sig_WplusH_MS55ct1", f); 
        //print_hist(h_Sig_WplusH_MS55_ct10  , "h_Sig_WplusH_MS55ct10", f); 
@@ -2045,18 +2059,18 @@ variables.push_back("nSelectedAODCaloJetTag");
      h_ZH        ->SetFillStyle(1001);
      //h_WH        ->SetFillStyle(1001);
 
-     h_DY        ->SetFillColor(kAzure-4);
-     h_altDY     ->SetFillColor(kAzure-4);
-     h_GJets     ->SetFillColor(kViolet+3);
-     h_ST        ->SetFillColor(kOrange+8);
-     h_TT        ->SetFillColor(kGreen+1);
-     h_altTT     ->SetFillColor(kGreen+1);
-     h_WJetsToLNu->SetFillColor(kViolet);
-     h_VV        ->SetFillColor(kYellow);
-     h_altVV     ->SetFillColor(kYellow);
-     h_VG        ->SetFillColor(kPink+1);
-     h_QCD       ->SetFillColor(kGray+1);
-     h_ZH        ->SetFillColor(kCyan);
+     //h_DY        ->SetFillColor(kAzure-4);
+     //h_altDY     ->SetFillColor(kAzure-4);
+     //h_GJets     ->SetFillColor(kViolet+3);
+     //h_ST        ->SetFillColor(kOrange+8);
+     //h_TT        ->SetFillColor(kGreen+1);
+     //h_altTT     ->SetFillColor(kGreen+1);
+     //h_WJetsToLNu->SetFillColor(kViolet);
+     //h_VV        ->SetFillColor(kYellow);
+     //h_altVV     ->SetFillColor(kYellow);
+     //h_VG        ->SetFillColor(kPink+1);
+     //h_QCD       ->SetFillColor(kGray+1);
+     //h_ZH        ->SetFillColor(kCyan);
      //h_WH        ->SetFillColor(kSpring-6);
 
      h_DY        ->SetLineColor(kBlack); 
@@ -2156,12 +2170,13 @@ variables.push_back("nSelectedAODCaloJetTag");
 
      }
       double tot = 0.0; 
-      for(int zz=0; zz<v.size(); zz++)
-      {    
-       tot +=v[zz]->Integral();
-       cout <<v[zz]->GetName()<<":  "<<v[zz]->Integral()<<std::endl;
-      }    
-      cout << "***************************** total: "<<tot<<endl;
+      //for(int zz=0; zz<v.size(); zz++)
+      //{    
+      // tot +=v[zz]->GetBinContent(3);
+      // cout <<v[zz]->GetName()<<":  "<<v[zz]->GetBinContent(3)<<std::endl;
+      //}    
+      //cout << "***************************** total: "<<tot<<endl;
+       cout <<"h_Sig_MS55ct100:"<<h_Sig_MS55ct100->GetBinContent(3)<<std::endl;
 
 //     if( h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1) > 0.1){ ;
 //        h_ggZH_HToSSTobbbb_MS40_ctauS0      ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1));
@@ -2241,13 +2256,17 @@ variables.push_back("nSelectedAODCaloJetTag");
        //leg->AddEntry(h_WH           , "WH#rightarrowLNubb", "f");      
        leg->AddEntry(h_bkgtotal     , "MC bkg. stat. err.", "f");
      }
-
-     TLegend *sigleg = new TLegend(0.54,0.6,0.88,0.7);
+	char charlegendprint[80];
+     TLegend *sigleg = new TLegend(0.54,0.6,0.88,0.8);
      if(drawSignal){
        sigleg->SetBorderSize(0);
        sigleg->SetFillColor(kWhite);
-       sigleg->AddEntry(h_Sig_MS40ct10    , "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=40 c#tau_{S}=10   ", "l" ) ;
-       sigleg->AddEntry(h_Sig_MS15ct100   , "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=15 c#tau_{S}=100  ", "l" ) ;
+	string legendprint = "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=55 c#tau_{S}=100";
+	legendprint += uncbin;
+	strcpy(charlegendprint,legendprint.c_str());	
+       //sigleg->AddEntry(h_Sig_MS55ct100   , "no", "l" ) ;
+       sigleg->AddEntry(h_Sig_MS55ct100   , charlegendprint, "l" ) ;
+       sigleg->AddEntry(h_Sig_MS55ct100_NoUnc   , "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=55 c#tau_{S}=100 NoUnc  ", "l" ) ;
      }
 
 	/*
@@ -2265,8 +2284,10 @@ variables.push_back("nSelectedAODCaloJetTag");
      double_t ymax;
      ymax = std::max(h_Data->GetMaximum(), h_bkgtotal->GetMaximum() );
      if(dolog){
-      bgstack->SetMaximum(50000*ymax); 
-      bgstack->SetMinimum(1.0e-6);
+      //bgstack->SetMaximum(50000*ymax); 
+      //bgstack->SetMinimum(1.0e-6);
+      bgstack->SetMaximum(100); 
+      bgstack->SetMinimum(1.0e-1);
      } 
      else {
       bgstack->SetMaximum(ymax*2);
@@ -2299,14 +2320,13 @@ variables.push_back("nSelectedAODCaloJetTag");
 
      if(drawSignal){
 
-       h_Sig_MS40ct10->SetLineColor(kBlack);
-       h_Sig_MS15ct100->SetLineColor(kBlack);
-       h_Sig_MS40ct10->SetLineWidth(4);
-       h_Sig_MS15ct100->SetLineWidth(4);
-       h_Sig_MS40ct10->SetLineStyle(9);
-       h_Sig_MS15ct100->SetLineStyle(2);
-       h_Sig_MS40ct10->Draw("hist sames") ;
-       h_Sig_MS15ct100->Draw("hist sames") ;
+       h_Sig_MS55ct100->SetLineColor(kGray+2);
+       h_Sig_MS55ct100->SetLineWidth(4);
+       h_Sig_MS55ct100->SetLineStyle(2);
+       h_Sig_MS55ct100->Draw("hist") ;
+       h_Sig_MS55ct100_NoUnc->SetLineColor(kBlack);
+       h_Sig_MS55ct100_NoUnc->SetLineWidth(4);
+       h_Sig_MS55ct100_NoUnc->Draw("hist sames") ;
        sigleg->Draw();
  }
 	/*	
@@ -2316,7 +2336,7 @@ variables.push_back("nSelectedAODCaloJetTag");
 	h_Sig_WH_MS40ct100   ->Draw("hist sames") ;
 	WHsigleg->Draw();
      }*/
-     leg->Draw();
+     //leg->Draw();
  
      char lumistring [50];
      int dummy; 
@@ -2337,19 +2357,19 @@ variables.push_back("nSelectedAODCaloJetTag");
      
      if(drawData){
        ratiopad->cd();
-       h_ratio = (TH1F*)h_Data->Clone("ratio");
-       if(h_Data->Integral(-1,-1)>0){
-	 h_ratio->Divide(h_bkgtotal);
+       h_ratio = (TH1F*)h_Sig_MS55ct100->Clone("ratio");
+       if(h_Sig_MS55ct100->Integral(-1,-1)>0){
+	 h_ratio->Divide(h_Sig_MS55ct100_NoUnc);
        }
        h_ratio->SetTitle(" ");
        // Y axis ratio plot settings
-       h_ratio->GetYaxis()->SetTitleSize(40);
+       h_ratio->GetYaxis()->SetTitleSize(30);
        h_ratio->GetYaxis()->SetTitleFont(43);
        h_ratio->GetYaxis()->SetTitleOffset(1.55);
        h_ratio->GetYaxis()->SetLabelFont(43); // Absolute font size in pixel (precision 3)
-       h_ratio->GetYaxis()->SetLabelSize(30);
+       h_ratio->GetYaxis()->SetLabelSize(20);
        h_ratio->GetYaxis()->SetNdivisions(-105);
-       h_ratio->GetYaxis()->SetTitle("Data/MC");
+       h_ratio->GetYaxis()->SetTitle(uncbin+"/NoUnc");
        // X axis ratio plot settings
        h_ratio->GetXaxis()->SetTitleSize(40);
        h_ratio->GetXaxis()->SetTitleFont(43);
@@ -2361,8 +2381,8 @@ variables.push_back("nSelectedAODCaloJetTag");
        h_ratio->SetMarkerStyle(20);
       // h_ratio->SetMarkerColor(kRed);
        h_ratio->SetMarkerSize(1.5);
-       h_ratio->GetYaxis()->SetRangeUser(0.4,1.6);
-       h_ratio->Draw("ep");  // draw first to get ranges set internally inside root
+       h_ratio->GetYaxis()->SetRangeUser(0.9,1.1);
+       h_ratio->Draw("HIST p");  // draw first to get ranges set internally inside root
               
        h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
        h_ratiostaterr->Divide(h_bkgtotal);
@@ -2372,18 +2392,18 @@ variables.push_back("nSelectedAODCaloJetTag");
        line->SetLineColor(kBlue);
        line->SetLineWidth(3);
        line->SetLineStyle(9);
-       h_ratiostaterr->Draw("e2 same");
+       //h_ratiostaterr->Draw("e2 same");
 
        line->Draw();
-       h_ratio->Draw("ep same"); // draw points above line
+       h_ratio->Draw("HIST p same"); // draw points above line
      }
      else{
       // ratiopad->Clear();
      }
 
      // save canvas
-     canvas->SaveAs(outname+description+".png");
-     canvas->SaveAs(outname+description+".pdf");
+     canvas->SaveAs(outname+description+"_signal.png");
+     canvas->SaveAs(outname+description+"_signal.pdf");
   
 // save histograms into single root file
      TFile *outfile = TFile::Open(outname+".root","RECREATE");

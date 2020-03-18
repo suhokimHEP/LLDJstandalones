@@ -37,6 +37,7 @@ public :
  static const int MuEtaBinMin   = -5;
  static const int EleEtaBinMin  = -5;
  Float_t x_bins[25]={150.0,170.0,200.0,230.0,260.0,290.0,320.0,350.0,390.0,430.0,470.0,510.0,550.0,590.0,640.0,690.0,740.0,790.0,840.0,900.0,960.0,1020.0,1090.0,1160.0,1250.0};
+ Float_t ntag_x_bins[4]={0,1,2,6};
  float sf_qcd[24]={ 1.47528, 1.5428, 1.49376, 1.39119, 1.40538, 1.44661, 1.38176, 1.37381, 1.29145, 1.33452, 1.25765, 1.24265, 1.24331, 1.16187, 1.07349, 1.10748, 1.06617, 1.05616, 1.1149, 1.03164, 1.06872, 0.981645, 0.81729, 0.924246};
  float sf_ewk[24]={ 1.4319, 1.48791, 1.42907, 1.31989, 1.32353, 1.35149, 1.28102, 1.26278, 1.17513, 1.20228, 1.12253, 1.09894, 1.08927, 1.00814, 0.921107, 0.940267, 0.895919, 0.878745, 0.918173, 0.84037, 0.861633, 0.783389, 0.645409, 0.721987};
 
@@ -324,21 +325,21 @@ public :
  TH1F*  h_AODnTruePU               [SELBINNAMESIZE];
 
  // Weight
- TH1F*  h_eleID              [SELBINNAMESIZE];
- TH1F*  h_eleWeight               [SELBINNAMESIZE];
- TH1F*  h_muonID                    [SELBINNAMESIZE];
- TH1F*  h_muonISO            [SELBINNAMESIZE];
- TH1F*  h_muonWeight            [SELBINNAMESIZE];
+ TH2F*  h_eleID              [SELBINNAMESIZE];
+ TH2F*  h_muonID             [SELBINNAMESIZE];
+ TH2F*  h_muonISO            [SELBINNAMESIZE];
  TH1F*  h_LeptonSF            [SELBINNAMESIZE];
+
+ TH1F*  h_eleID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonISO_Unc               [SELBINNAMESIZE];
+ TH1F*  h_LeptonSF_Unc               [SELBINNAMESIZE];
+
  TH1F*  h_LumiWeight              [SELBINNAMESIZE];
  TH1F*  h_PUWeight                  [SELBINNAMESIZE];
  TH1F*  h_GenEventWeight               [SELBINNAMESIZE];
  TH1F*  h_OtherWeight               [SELBINNAMESIZE];
  TH1F*  h_FullWeight               [SELBINNAMESIZE];
- TH1F*  h_eleID_Unc               [SELBINNAMESIZE];
- TH1F*  h_muonID_Unc               [SELBINNAMESIZE];
- TH1F*  h_muonISO_Unc               [SELBINNAMESIZE];
- TH1F*  h_LeptonSF_Unc               [SELBINNAMESIZE];
 
  //WH mode
  TH1F*  h_TransverseMass       [SELBINNAMESIZE]; 
@@ -348,6 +349,7 @@ public :
  TH1F*  h_nSelectedAODCaloJet_L1PFTag    [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJet            [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTag         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_varbin  [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB1      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB2      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB3      [SELBINNAMESIZE];

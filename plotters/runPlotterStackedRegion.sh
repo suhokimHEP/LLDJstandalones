@@ -1,9 +1,9 @@
 #!/bin/bash
 
 regions=( \ 
- "EleMuOSOF"     \
- "EleMuOSOFL"    \
- "OnePho"        \
+# "EleMuOSOF"     \
+# "EleMuOSOFL"    \
+# "OnePho"        \
  "TwoEleDY"      \
 # "TwoEleSig"     \
  "TwoEleZH"      \
@@ -19,8 +19,8 @@ regions=( \
 ) 
 
 dologs=( \
-# "kFALSE" \
- "kTRUE" \
+ "kFALSE" \
+# "kTRUE" \
 )
 
 doHIPs=( \
@@ -44,7 +44,8 @@ do
   do
    for doctau in ${doctaus[@]}
    do 
-    root -l -b -q  'plotter_stackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'oldsignal.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    root -l -b -q  'plotter_signalstackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
    done
   done
  done

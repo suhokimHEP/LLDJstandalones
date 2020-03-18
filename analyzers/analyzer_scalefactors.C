@@ -52,13 +52,14 @@ Float_t analyzer_scalefactors::makePUWeight( TString dataset ){
 }
 
 //----------------------------makeElectronWeight
-Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_list, float &eleID_Unc ){
+Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_list, float &eleID_Unc, std::vector<float> &eleID_ind ){
+ Float_t eleID = 1.;
  eleID_Unc=0.;
- Float_t tmpsf,tmpUnc;
- tmpsf = 1.;
- tmpUnc = 0.;
- std::vector<float> tmperr;
- tmperr.clear();
+ eleID_ind.clear();
+
+ std::vector<float> eleID_Unc_ind;
+ eleID_Unc_ind.clear();
+
  //check overlap with electrons
  if(electron_list.size()>0){
   for(int d=0; d<electron_list.size(); ++d){
@@ -68,30 +69,27 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
    Int_t tmpbinx       = EleWeights->GetXaxis()->FindBin( eeta );
    Int_t tmpbiny       = EleWeights->GetYaxis()->FindBin( ept  );
    Int_t tmpbin        = EleWeights->GetBin( tmpbinx, tmpbiny );
-   Float_t tmpweight = EleWeights->GetBinContent(tmpbin);
-   tmperr.push_back(EleWeights->GetBinError(tmpbin));
-   tmpsf *= tmpweight;
+   eleID_ind.push_back(EleWeights->GetBinContent(tmpbin));
+   eleID_Unc_ind.push_back(EleWeights->GetBinError(tmpbin));
   }//end electrons
-  for(int d=0; d<tmperr.size(); ++d){ 
-  tmpUnc += tmperr.at(d)*tmperr.at(d);
-  }
-  eleID_Unc = TMath::Sqrt(tmpUnc);
+  eleID = std::accumulate( eleID_ind.begin(), eleID_ind.end(), 1., std::multiplies<float>());
+  //std::cout<<"eleID:"<<eleID<<std::endl;
+  eleID_Unc = TMath::Sqrt(std::inner_product( eleID_Unc_ind.begin(), eleID_Unc_ind.end(), eleID_Unc_ind.begin(), 0.));
  } // if electrons
 
  //printf(" done making Electron weight\n");
 
- return tmpsf;
+ return eleID;
 }
 
 //----------------------------makeMuonWeight ----MuonID weight
-Float_t analyzer_scalefactors::makeMuonWeight( std::vector<int> &muon_list, float &muonID_Unc ){
-
+Float_t analyzer_scalefactors::makeMuonWeight( std::vector<int> &muon_list, float &muonID_Unc, std::vector<float> &muonID_ind ){
+ Float_t muonID = 1.;
  muonID_Unc=0.;
- Float_t tmpsf,tmpUnc;
- tmpsf = 1.;
- tmpUnc = 0.;
- std::vector<float> tmperr;
- tmperr.clear();
+ muonID_ind.clear();
+
+ std::vector<float> muonID_Unc_ind;
+ muonID_Unc_ind.clear();
 
  //check overlap with electrons
  if(muon_list.size()>0){
@@ -105,27 +103,24 @@ Float_t analyzer_scalefactors::makeMuonWeight( std::vector<int> &muon_list, floa
    Int_t tmpbiny       = MuonWeights->GetYaxis()->FindBin( mupt  );
    //printf(" bins %i %i\n",tmpbinx,tmpbiny);
    Int_t tmpbin        = MuonWeights->GetBin( tmpbinx, tmpbiny );
-   Float_t tmpweight = MuonWeights->GetBinContent(tmpbin);
-   tmperr.push_back(MuonWeights->GetBinError(tmpbin));
-   tmpsf *= tmpweight;
+   muonID_ind.push_back(MuonWeights->GetBinContent(tmpbin));
+   muonID_Unc_ind.push_back(MuonWeights->GetBinError(tmpbin));
   }//end Muons
-  for(int d=0; d<tmperr.size(); ++d){ 
-  tmpUnc += tmperr.at(d)*tmperr.at(d);
-  }
-  muonID_Unc = TMath::Sqrt(tmpUnc);
+  muonID = std::accumulate( muonID_ind.begin(), muonID_ind.end(), 1., std::multiplies<float>());
+  //std::cout<<"muonID:"<<muonID<<std::endl;
+  muonID_Unc = TMath::Sqrt(std::inner_product( muonID_Unc_ind.begin(), muonID_Unc_ind.end(), muonID_Unc_ind.begin(), 0.));
  } // if Muons
- return tmpsf;
+ return muonID;
 }
 
 //----------------------------makeMuonIso ----MuonISO weight
-Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list, float &muonISO_Unc ){
-
+Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list, float &muonISO_Unc, std::vector<float> &muonISO_ind ){
+ Float_t muonISO = 1.;
  muonISO_Unc=0.;
- Float_t tmpsf,tmpUnc;
- tmpsf = 1.;
- tmpUnc = 0.;
- std::vector<float> tmperr;
- tmperr.clear();
+ muonISO_ind.clear();
+
+ std::vector<float> muonISO_Unc_ind;
+ muonISO_Unc_ind.clear();
 
  //check overlap with electrons
  if(muon_list.size()>0){
@@ -139,19 +134,19 @@ Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list, float &
    Int_t tmpbiny       = MuonIso->GetYaxis()->FindBin( mupt  );
    //printf(" bins %i %i\n",tmpbinx,tmpbiny);
    Int_t tmpbin        = MuonIso->GetBin( tmpbinx, tmpbiny );
-   Float_t tmpweight = MuonIso->GetBinContent(tmpbin);
-   tmperr.push_back(MuonIso->GetBinError(tmpbin));
-   tmpsf *= tmpweight;
+   muonISO_ind.push_back(MuonIso->GetBinContent(tmpbin));
+   muonISO_Unc_ind.push_back(MuonIso->GetBinError(tmpbin));
   }//end Muons
-  for(int d=0; d<tmperr.size(); ++d){ 
-  tmpUnc += tmperr.at(d)*tmperr.at(d);
-  }
-  muonISO_Unc = TMath::Sqrt(tmpUnc);
+  muonISO = std::accumulate( muonISO_ind.begin(), muonISO_ind.end(), 1., std::multiplies<float>());
+  //std::cout<<"muonISO:"<<muonISO<<std::endl;
+  muonISO_Unc = TMath::Sqrt(std::inner_product( muonISO_Unc_ind.begin(), muonISO_Unc_ind.end(), muonISO_Unc_ind.begin(), 0.));
  } // if Muons
+ return muonISO;
+  // if Muons
 
 
- return tmpsf;
 }
+
 //----------------------------makeEleTriggerEffi
 Float_t analyzer_scalefactors::makeEleTriggerEffi( std::vector<int> &electron_list ){
 

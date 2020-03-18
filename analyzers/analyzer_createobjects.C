@@ -868,8 +868,8 @@ void analyzer_createobjects::makeDilep(TLorentzVector *fv_1, TLorentzVector *fv_
   //Set the electron and muon fourvectors if they have opposite sign otherwise we will use the dummy vectors.
   if(AOD_eleCharge->at(electron_list[0])*AOD_muCharge->at(muon_list[0])==-1)
   {
-    e.SetPtEtaPhiE( Shifted_elePt.at(electron_list[0]), AOD_eleEta->at(electron_list[0]), AOD_elePhi->at(electron_list[0]), AOD_eleEn->at(electron_list[0]) );
-    m.SetPtEtaPhiE( Shifted_muPt.at(    muon_list[0]), AOD_muEta ->at(    muon_list[0]), AOD_muPhi ->at(    muon_list[0]), AOD_muEn ->at(    muon_list[0]) );
+    e.SetPtEtaPhiE( Shifted_elePt.at(electron_list[0]), AOD_eleEta->at(electron_list[0]), AOD_elePhi->at(electron_list[0]), Shifted_eleEn.at(electron_list[0]) );
+    m.SetPtEtaPhiE( Shifted_muPt.at(    muon_list[0]), AOD_muEta ->at(    muon_list[0]), AOD_muPhi ->at(    muon_list[0]), Shifted_muEn.at(    muon_list[0]) );
   }
  
   *fv_1  = e;
@@ -906,13 +906,13 @@ void analyzer_createobjects::makeDilep(TLorentzVector *fv_1, TLorentzVector *fv_
              if( AOD_eleCharge->at(electron_list[i])*AOD_eleCharge->at(electron_list[j])==-1 )                     
        	{                                                               
        	  TLorentzVector temp1, temp2, temp12;
-       	  temp1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), AOD_eleEn->at(electron_list[i]) );
-       	  temp2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), AOD_eleEn->at(electron_list[j]) );  
+       	  temp1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), Shifted_eleEn.at(electron_list[i]) );
+       	  temp2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), Shifted_eleEn.at(electron_list[j]) );  
        	  temp12 = temp1+temp2;
        	  if( fabs(91.1876-temp12.M()) < fabs(91.1876 - best_ee_mass) ){
        	    best_ee_mass = temp12.M();
-            e1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), AOD_eleEn->at(electron_list[i]) );
-            e2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), AOD_eleEn->at(electron_list[j]) );  
+            e1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), Shifted_eleEn.at(electron_list[i]) );
+            e2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), Shifted_eleEn.at(electron_list[j]) );  
        	  }
        	}         
            }          
@@ -931,13 +931,13 @@ void analyzer_createobjects::makeDilep(TLorentzVector *fv_1, TLorentzVector *fv_
              if( AOD_muCharge->at(muon_list[i])*AOD_muCharge->at(muon_list[j])==-1 ) 
        	{            
        	  TLorentzVector temp1, temp2, temp12;
-       	  temp1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), AOD_muEn->at(muon_list[i]) );
-       	  temp2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), AOD_muEn->at(muon_list[j]) );  
+       	  temp1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), Shifted_muEn.at(muon_list[i]) );
+       	  temp2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), Shifted_muEn.at(muon_list[j]) );  
        	  temp12 = temp1+temp2;
        	  if( fabs(91.1876-temp12.M()) < fabs(91.1876 - best_mm_mass) ){
        	    best_mm_mass = temp12.M();
-            m1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), AOD_muEn->at(muon_list[i]) );
-            m2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), AOD_muEn->at(muon_list[j]) );  
+            m1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), Shifted_muEn.at(muon_list[i]) );
+            m2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), Shifted_muEn.at(muon_list[j]) );  
        	  } 
        	}   
            }    
@@ -970,6 +970,9 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   Shifted_elePt                       .clear();  
   Shifted_phoPt                       .clear();  
   Shifted_muPt                        .clear();  
+  Shifted_eleEn                       .clear();  
+  Shifted_phoEn                       .clear();  
+  Shifted_muEn                        .clear();  
   Shifted_CaloJetPt                   .clear();  
   Shifted_CaloJetAlphaMax             .clear();  
   Shifted_CaloJetMedianLog10IPSig     .clear();  
@@ -978,12 +981,15 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   //Objects: do shift inside get function
   for(unsigned int i=0; i<AOD_elePt->size(); ++i){
     Shifted_elePt.push_back( getElectronPt(i,uncbin) );
+    Shifted_eleEn.push_back( getElectronPt(i,uncbin)*TMath::CosH(AOD_eleEta->at(i)));
   }
   for(unsigned int i=0; i<AOD_phoPt->size(); ++i){
     Shifted_phoPt.push_back( getPhotonPt(i,uncbin) );
+    Shifted_phoEn.push_back( getPhotonPt(i,uncbin)*TMath::CosH(AOD_phoEta->at(i)) );
   }
   for(unsigned int i=0; i<AOD_muPt->size(); ++i){
     Shifted_muPt.push_back( getMuonPt(i,uncbin) );
+    Shifted_muEn.push_back( getMuonPt(i,uncbin)*TMath::CosH(AOD_muEta->at(i)) );
   }
   for(unsigned int i=0; i<AODCaloJetPt->size(); ++i){
     Shifted_CaloJetPt.push_back( AODCaloJetPt->at(i));//no correction yet

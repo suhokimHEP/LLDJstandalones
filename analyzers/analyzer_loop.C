@@ -151,14 +151,6 @@ TFile *outfile_bkgest = 0;
   aodcalojet_matchedPartonFlavour_list = jet_matchPartonFlavour();
 
   nBPartonFlavour = coutNBPartonFlavour();
-  if(isMC){
-  w_eleID   = makeElectronWeight( electron_list, eleID_Unc);
-  w_eletot  = w_eleID;
-  w_muonID  = makeMuonWeight(muon_list, muonID_Unc);
-  w_muonISO = makeMuonIso(muon_list, muonISO_Unc);
-  w_muontot = w_muonID*w_muonISO;
-  //Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);
-	}
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
@@ -169,10 +161,12 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
-  // electrons also have an associated scale factor for MC  
-  //if(isMC) event_weight *= w_eleID;
-  //if(isMC) event_weight *= w_muonID;
-  //if(isMC) event_weight *= w_muonISO;
+  // electrons and muons also have an associated scale factor for MC  
+  if(isMC){ 
+  w_eleID   = makeElectronWeight( electron_list, eleID_Unc, eleID_ind);
+  w_muonID  = makeMuonWeight(muon_list, muonID_Unc, muonID_ind);
+  w_muonISO = makeMuonIso(muon_list, muonISO_Unc, muonISO_ind);
+	}
 
   if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
 
@@ -369,29 +363,44 @@ TFile *outfile_bkgest = 0;
   }
   // fill the histograms
   for(unsigned int i=0; i<selbinnames.size(); ++i){
-
+	w_LeptonSF=1.;
    if(isMC){
      // ok I'm sorry, this is terrible
      if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15||i==21||i==23||i==25)  
-	{fullweight = event_weight*PUweight_DoubleEG;  	w_LeptonSF= w_eletot; Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc);}
+	{
+	fullweight = event_weight*PUweight_DoubleEG;  	
+	w_LeptonSF = w_eleID;
+	LeptonSF_Unc = eleID_Unc;
+	}
      if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17||i==22||i==24||i==26) 
-	{fullweight = event_weight*PUweight_DoubleMu;    w_LeptonSF=w_muontot; Lepton_Unc = TMath::Sqrt(muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);}
-     if(i==18||i==20) {fullweight = event_weight * PUweight_MuonEG; w_LeptonSF=w_eletot*w_muontot; Lepton_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);}
+	{
+	fullweight = event_weight*PUweight_DoubleMu;    
+	w_LeptonSF=w_muonID;
+	w_LeptonSF*=w_muonISO; 
+	LeptonSF_Unc = TMath::Sqrt(muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);	
+	}
+     if(i==18||i==20) 
+	{
+	fullweight = event_weight * PUweight_MuonEG; 
+	w_LeptonSF=w_eleID*w_muonID*w_muonISO; 
+	LeptonSF_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);
+	}
      if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
-     //if(i==1||i==5||i==9||i==13) fullweight *= makeEleTriggerEffi( electron_list );
-     //if(i==3||i==7||i==11||i==15) fullweight *= makeMuonTriggerEffi( muon_list );
+     if(uncbin.Contains("LeptonSFUp")){w_LeptonSF += LeptonSF_Unc; fullweight*=w_LeptonSF;}
+     else if(uncbin.Contains("LeptonSFDown")){w_LeptonSF -= LeptonSF_Unc; fullweight*=w_LeptonSF;}
+     else {fullweight*=w_LeptonSF;}
    }
    else{
      fullweight = event_weight;
    }
-  if(uncbin.Contains("LeptonSFUp")){w_LeptonSF += Lepton_Unc; fullweight*=w_LeptonSF;}
-  else if(uncbin.Contains("LeptonSFDown")){w_LeptonSF -= Lepton_Unc; fullweight*=w_LeptonSF;}
-  else {fullweight*=w_LeptonSF;}
+
+
    /// quick hack to only write phase spaces we care about
 
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
     if( dofillselbin[i] ){
+ //	std::cout<<fullweight<<std::endl;
      fillSelectedHistograms( fullweight, i );
       
      //jets

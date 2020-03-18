@@ -84,6 +84,9 @@ public :
    std::vector<float>   Shifted_muPt;
    std::vector<float>   Shifted_phoPt;
    std::vector<float>   Shifted_elePt;
+   std::vector<float>   Shifted_muEn;
+   std::vector<float>   Shifted_phoEn;
+   std::vector<float>   Shifted_eleEn;
  
    // AOD
    float jetmatchdRcut ;

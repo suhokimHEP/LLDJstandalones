@@ -19,9 +19,9 @@ cp ../../puWeights_DoubleEG_69200.root          .
 cp ../../puWeights_DoubleMu_69200.root          .
 cp ../../puWeights_MuonEG_69200.root            .
 cp ../../puWeights_SinglePhoton_69200.root      .
-cp ../../egammaEffi_MoriondBH_eleTight.root     .
-cp ../../egammaEffi_MoriondBH_eleMedium.root    .
-cp ../../egammaEffi_MoriondBH_eleLoose.root     .
+cp ../../2016LegacyReReco_ElectronTight_Fall17V2.root     .
+cp ../../2016LegacyReReco_ElectronMedium_Fall17V2.root     .
+cp ../../2016LegacyReReco_ElectronLoose_Fall17V2.root     .
 cp ../../EleLeg1.root                           .
 cp ../../EleLeg2.root                           .
 cp ../../Muon17.root                            .
