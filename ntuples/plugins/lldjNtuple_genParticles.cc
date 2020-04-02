@@ -198,8 +198,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
    TTSF = TTSF * exp( 0.0615 - 0.0005*toppts.at(0)) * exp( 0.0615 - 0.0005*toppts.at(1));
   }
   hTTSF_->Fill( TTSF );
-  if(ctauWeight) ctauEventWeight.push_back(totEventWeight);
-  //std::cout<<"TTSF   "<<TTSF<<std::endl;
+  if(ctauWeight) ctauEventWeight = totEventWeight;
 
 }
 
@@ -212,12 +211,12 @@ if (targetdist<10 && 1 < targetdist) {
 }
 else if (targetdist<100 && 10 < targetdist) {
 	factor = 100./targetdist;
-        weight = factor*exp(-0.1*(factor-1)*dist);
+        weight = factor*exp(-.1*(factor-1)*dist);
 }
 
 else if (targetdist<1000 && 100< targetdist) {
 	factor = 1000./targetdist;
-        weight = factor*exp(-0.01*(factor-1)*dist);
+        weight = factor*exp(-.01*(factor-1)*dist);
 }
 else  {   
     std::cerr << "Targetdist out of range. Please read insturction for targetdist range for each SigMC sample." <<std::endl;
