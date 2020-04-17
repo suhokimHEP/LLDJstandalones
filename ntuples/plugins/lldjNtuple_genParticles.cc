@@ -6,8 +6,8 @@
 using namespace std;
 
 bool ctauWeight = false; //Determine whether to weight or not weight the SigMC
-float targetdist = 300; //To weight it, determine the target distance
 
+float targetdist = 30; //To weight it, determine the target distance
 //Recommended targetdist range : 10mm sample->1mm<ct<10mm
 			//	 100mm sample->10mm<ct<100mm
 			//	 1000mm	samplet->100mm<ct<1000mm
