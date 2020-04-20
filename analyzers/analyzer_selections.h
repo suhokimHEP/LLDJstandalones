@@ -22,20 +22,11 @@ public :
    Bool_t        askPassSingleMu();
    Bool_t        askPassDoubleEle();
    Bool_t        askPassDoubleMu();
-   Bool_t	 askPassOnlyOneEle(); //
-   Bool_t	 askPassOnlyOneMu();  //
-   Bool_t        askPassTruth();      //
-
    Bool_t        askPassMuEG();
    Bool_t        askPassSinglePho();
 
    std::vector<Bool_t> selvecBaseSig    ;
    std::vector<Bool_t> selvecBaseZH     ;
-
-   std::vector<Bool_t> selvecBaseWH     ; 
-   std::vector<Bool_t> selvecBaseWHSig  ;
-   std::vector<Bool_t> selvecBaseLowPtWH; 
-
    std::vector<Bool_t> selvecBaseDY     ;
    std::vector<Bool_t> selvecBaseOffZ   ;
    std::vector<Bool_t> selvecBaseNoPair ;
@@ -44,7 +35,6 @@ public :
    std::vector<Bool_t> selvecTwoEleSig    ; 
    std::vector<Bool_t> selvecOneMuSig     ; 
    std::vector<Bool_t> selvecTwoMuSig     ; 
-
    std::vector<Bool_t> selvecOneEleDY     ; 
    std::vector<Bool_t> selvecTwoEleDY     ; 
    std::vector<Bool_t> selvecOneMuDY      ; 
@@ -61,16 +51,7 @@ public :
    std::vector<Bool_t> selvecOneMuNoPair  ; 
    std::vector<Bool_t> selvecEleMuOSOF    ; 
    std::vector<Bool_t> selvecEleMuOSOFL   ; 
-   std::vector<Bool_t> selvecOnePho       ;
-
-   std::vector<Bool_t> selvecEleWH        ; 
-   std::vector<Bool_t> selvecMuWH         ; 
-   std::vector<Bool_t> selvecEleWHSig     ; 
-   std::vector<Bool_t> selvecMuWHSig      ; 
-   std::vector<Bool_t> selvecEleLowPtWH   ; 
-   std::vector<Bool_t> selvecMuLowPtWH    ; 
-
- 
+   std::vector<Bool_t> selvecOnePho       ; 
    Int_t selvec[SELBINNAMESIZE];
    Int_t selkey[SELBINNAMESIZE];
 
@@ -81,22 +62,20 @@ public :
    Bool_t passDoubleEle ;
    Bool_t passDoubleMu  ;
    Bool_t passSinglePho ;
-   Bool_t passMuEG      ;
+   Bool_t passMuEG ;
    Bool_t passOSSF      ;   
    Bool_t passOSOF      ;   
    Bool_t passZWindow   ;   
    Bool_t passZWinOSOF  ;
    Bool_t passGoodVtx   ;   
    Bool_t passPTOSSF    ; 
-   Bool_t passLowPTOSSF    ; 
+   Bool_t passLowPTOSSF ; 
+   Bool_t passLowPTOSSF_2 ; 
    Bool_t passPTOSOF    ;   
    Bool_t passOneJet    ; 
    Bool_t passOneTag    ;
    Bool_t passTwoTag    ;
-   Bool_t passOnlyOneEle; 
-   Bool_t passOnlyOneMu ; 
-   Bool_t passTruth 	;
-   Bool_t passWPT	;     
+
 };
 
 #endif

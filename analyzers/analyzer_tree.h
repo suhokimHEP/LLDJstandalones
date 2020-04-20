@@ -45,6 +45,12 @@ public :
    std::vector<int>   OPT_Event;
    std::vector<float> OPT_EventWeight;
    std::vector<int>   OPT_nJets;
+   std::vector<float> OPT_ZPt;
+   std::vector<float> OPT_ZSf;
+   std::vector<float> OPT_base_weight;
+   std::vector<float> OPT_ele_weight;
+   std::vector<float> OPT_mu_weight;
+   std::vector<float> OPT_PU_weight;
    std::vector<float> OPT_AODCaloJetMedianLog10IPSig;
    std::vector<float> OPT_AODCaloJetMedianLog10TrackAngle;
    std::vector<float> OPT_AODCaloJetAlphaMax;
@@ -55,6 +61,12 @@ public :
    TBranch* bEvent       = OPTtree->Branch("OPT_Event"                              , &OPT_Event); 
    TBranch* bEventWeight = OPTtree->Branch("OPT_EventWeight"                        , &OPT_EventWeight); 
    TBranch* bnJets       = OPTtree->Branch("OPT_nJets"                              , &OPT_nJets); 
+   TBranch* bZPt         = OPTtree->Branch("OPT_ZPt"                                , &OPT_ZPt); 
+   TBranch* bZSf         = OPTtree->Branch("OPT_ZSf"                                , &OPT_ZSf); 
+   TBranch* bbase_weight = OPTtree->Branch("OPT_base_weight"                        , &OPT_base_weight); 
+   TBranch* bele_weight  = OPTtree->Branch("OPT_ele_weight"                         , &OPT_ele_weight); 
+   TBranch* bmu_weight   = OPTtree->Branch("OPT_mu_weight"                          , &OPT_mu_weight); 
+   TBranch* bPU_weight   = OPTtree->Branch("OPT_PU_weight"                          , &OPT_PU_weight); 
    TBranch* bIP          = OPTtree->Branch("OPT_AODCaloJetMedianLog10IPSig"         , &OPT_AODCaloJetMedianLog10IPSig); 
    TBranch* bTA          = OPTtree->Branch("OPT_AODCaloJetMedianLog10TrackAngle"    , &OPT_AODCaloJetMedianLog10TrackAngle); 
    TBranch* bAlpha       = OPTtree->Branch("OPT_AODCaloJetAlphaMax"                 , &OPT_AODCaloJetAlphaMax); 
