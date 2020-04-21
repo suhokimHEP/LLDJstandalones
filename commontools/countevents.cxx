@@ -41,8 +41,10 @@ double countevents(TString Tsample){
 
    // get histogram
    TH1F* h_nevents;
+// regular weight
    h_nevents = (TH1F*)theFile->Get("lldjNtuple/hEvents");
-   //h_nevents = (TH1F*)theFile->Get("noCutSignature_COUNT");
+//gen event weight
+   //h_nevents = (TH1F*)theFile->Get("lldjNtuple/hGenEventWeightSum");
 
    // add bin contents to total count
    nevents=h_nevents->GetBinContent(1);
