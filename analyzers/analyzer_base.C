@@ -47,7 +47,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    llpDaughterPhi = 0;
    llpDaughterMass = 0;
    toppts = 0;
-   ctauEventWeight = 0;
+   ctauEventWeight = 1.;
    AODPATJetPartonFlavour = 0;
    AODPATJetPt = 0;
    AODPATJetEta = 0;

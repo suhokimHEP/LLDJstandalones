@@ -48,6 +48,13 @@ public :
    Float_t tag_shiftminTA;
    Float_t tag_shiftmaxAmax;
    
+   Float_t tag_minIPsigUp;
+   Float_t tag_minTAUp;
+   Float_t tag_maxAmaxUp;
+   Float_t tag_minIPsigDown;
+   Float_t tag_minTADown;
+   Float_t tag_maxAmaxDown;
+
    //static const Bool_t TTOC = kTRUE;        // loggit
    static const Bool_t TTOC = kFALSE;     // loggit
    

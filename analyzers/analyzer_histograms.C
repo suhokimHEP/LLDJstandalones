@@ -769,6 +769,52 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	TString hname_AODCaloJetPartonFlavour                 = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPartonFlavour"        +uncbin; 
         TString hname_AODCaloJetAbsEta                        = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAbsEta"               +uncbin; 
 	TString hname_AODCaloJetPtVarAbsEtaVar                = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPtVarAbsEtaVar"       +uncbin; 
+	TString hname_AODCaloJetAlphaMax_0Tag                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_0Tag"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_0Tag              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_0Tag"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_0Tag         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_0Tag"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_1Tag                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_1Tag"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_1Tag              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_1Tag"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_1Tag         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_1Tag"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_2Tag                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_2Tag"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_2Tag              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_2Tag"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_2Tag         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_2Tag"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_Pass                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_Pass"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_Pass              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_Pass"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_Pass         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_Pass"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_UpPass                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_UpPass"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_UpPass              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_UpPass"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_UpPass         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_UpPass"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_DownPass                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_DownPass"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_DownPass              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_DownPass"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_DownPass         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_DownPass"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_alsoPass                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_alsoPass"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_alsoPass              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_alsoPass"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_alsoPass         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_alsoPass"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_UpalsoPass                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_UpalsoPass"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_UpalsoPass              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_UpalsoPass"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_UpalsoPass         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_UpalsoPass"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_DownalsoPass                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_DownalsoPass"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_DownalsoPass              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_DownalsoPass"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_DownalsoPass         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_DownalsoPass"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_Pass_wWeight                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_Pass_wWeight"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_Pass_wWeight              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_Pass_wWeight"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_Pass_wWeight         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_Pass_wWeight"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_UpPass_wWeight                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_UpPass_wWeight"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_UpPass_wWeight              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_UpPass_wWeight"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_DownPass_wWeight                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_DownPass_wWeight"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_DownPass_wWeight              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_DownPass_wWeight"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_alsoPass_wWeight                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_alsoPass_wWeight"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_alsoPass_wWeight              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_alsoPass_wWeight"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_UpalsoPass_wWeight                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_UpalsoPass_wWeight"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight"+uncbin; 
+	TString hname_AODCaloJetAlphaMax_DownalsoPass_wWeight                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAlphaMax_DownalsoPass_wWeight"             +uncbin; 
+	TString hname_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight"     +uncbin; 
+	TString hname_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight"+uncbin; 
+
 	h_AODCaloJetPt                             [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPt                             , "AODCaloJetPt                            ", 50,0,500  ); 
 	h_AODCaloJetEta                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetEta                            , "AODCaloJetEta                           ", 30,-5,5   ); 
 	h_AODCaloJetPhi                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPhi                            , "AODCaloJetPhi                           ", 30,-5,5   ); 
@@ -790,7 +836,62 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	h_AODCaloJetCSV                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetCSV                            , "AODCaloJetCSV                           ", 24, -.1, 1.1 ); 
 	h_AODCaloJetPartonFlavour                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPartonFlavour                  , "AODCaloJetPartonFlavour                 ", 35, -10, 25 ); 
         h_AODCaloJetAbsEta                         [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAbsEta                         , "AODCaloJetAbsEta                        ", 4, 0, 3 );
+	h_AODCaloJetAlphaMax_0Tag                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_0Tag                       , "AODCaloJetAlphaMax_0Tag                      ", 60, 0, 1.2  ); 
+	h_AODCaloJetMedianLog10IPSig_0Tag               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_0Tag               , "AODCaloJetMedianLog10IPSig_0Tag              ", 50, -3, 4 ); 
+	h_AODCaloJetMedianLog10TrackAngle_0Tag          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_0Tag          , "AODCaloJetMedianLog10TrackAngle_0Tag         ", 50, -5, 2 ); 
+	h_AODCaloJetAlphaMax_1Tag                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_1Tag                       , "AODCaloJetAlphaMax_1Tag                      ", 60, 0, 1.2  ); 
+	h_AODCaloJetMedianLog10IPSig_1Tag               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_1Tag               , "AODCaloJetMedianLog10IPSig_1Tag              ", 50, -3, 4 ); 
+	h_AODCaloJetMedianLog10TrackAngle_1Tag          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_1Tag          , "AODCaloJetMedianLog10TrackAngle_1Tag         ", 50, -5, 2 ); 
+	h_AODCaloJetAlphaMax_2Tag                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_2Tag                       , "AODCaloJetAlphaMax_2Tag                      ", 60, 0, 1.2  ); 
+	h_AODCaloJetMedianLog10IPSig_2Tag               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_2Tag               , "AODCaloJetMedianLog10IPSig_2Tag              ", 50, -3, 4 ); 
+	h_AODCaloJetMedianLog10TrackAngle_2Tag          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_2Tag          , "AODCaloJetMedianLog10TrackAngle_2Tag         ", 50, -5, 2 ); 
 
+	h_AODCaloJetAlphaMax_Pass                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_Pass                       , "AODCaloJetAlphaMax_Pass                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_Pass               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_Pass               , "AODCaloJetMedianLog10IPSig_Pass              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_Pass          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_Pass          , "AODCaloJetMedianLog10TrackAngle_Pass         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_UpPass                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_UpPass                       , "AODCaloJetAlphaMax_UpPass                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_UpPass               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_UpPass               , "AODCaloJetMedianLog10IPSig_UpPass              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_UpPass          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_UpPass          , "AODCaloJetMedianLog10TrackAngle_UpPass         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_DownPass                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_DownPass                       , "AODCaloJetAlphaMax_DownPass                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_DownPass               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_DownPass               , "AODCaloJetMedianLog10IPSig_DownPass              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_DownPass          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_DownPass          , "AODCaloJetMedianLog10TrackAngle_DownPass         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_alsoPass                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_alsoPass                       , "AODCaloJetAlphaMax_alsoPass                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_alsoPass               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_alsoPass               , "AODCaloJetMedianLog10IPSig_alsoPass              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_alsoPass          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_alsoPass          , "AODCaloJetMedianLog10TrackAngle_alsoPass         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_UpalsoPass                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_UpalsoPass                       , "AODCaloJetAlphaMax_UpalsoPass                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_UpalsoPass               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_UpalsoPass               , "AODCaloJetMedianLog10IPSig_UpalsoPass              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_UpalsoPass          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_UpalsoPass          , "AODCaloJetMedianLog10TrackAngle_UpalsoPass         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_DownalsoPass                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_DownalsoPass                       , "AODCaloJetAlphaMax_DownalsoPass                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_DownalsoPass               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_DownalsoPass               , "AODCaloJetMedianLog10IPSig_DownalsoPass              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_DownalsoPass          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_DownalsoPass          , "AODCaloJetMedianLog10TrackAngle_DownalsoPass         ", 2, 0, 2 ); 
+	h_AODCaloJetAlphaMax_Pass_wWeight                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_Pass_wWeight                       , "AODCaloJetAlphaMax_Pass_wWeight                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_Pass_wWeight               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_Pass_wWeight               , "AODCaloJetMedianLog10IPSig_Pass_wWeight              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_Pass_wWeight          , "AODCaloJetMedianLog10TrackAngle_Pass_wWeight         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_UpPass_wWeight                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_UpPass_wWeight                       , "AODCaloJetAlphaMax_UpPass_wWeight                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_UpPass_wWeight               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_UpPass_wWeight               , "AODCaloJetMedianLog10IPSig_UpPass_wWeight              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight          , "AODCaloJetMedianLog10TrackAngle_UpPass_wWeight         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_DownPass_wWeight                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_DownPass_wWeight                       , "AODCaloJetAlphaMax_DownPass_wWeight                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_DownPass_wWeight               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_DownPass_wWeight               , "AODCaloJetMedianLog10IPSig_DownPass_wWeight              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight          , "AODCaloJetMedianLog10TrackAngle_DownPass_wWeight         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_alsoPass_wWeight                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_alsoPass_wWeight                       , "AODCaloJetAlphaMax_alsoPass_wWeight                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_alsoPass_wWeight               , "AODCaloJetMedianLog10IPSig_alsoPass_wWeight              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight          , "AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_UpalsoPass_wWeight                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_UpalsoPass_wWeight                       , "AODCaloJetAlphaMax_UpalsoPass_wWeight                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight               , "AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight          , "AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight         ", 2, 0, 2 ); 
+
+	h_AODCaloJetAlphaMax_DownalsoPass_wWeight                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax_DownalsoPass_wWeight                       , "AODCaloJetAlphaMax_DownalsoPass_wWeight                      ", 2, 0, 2  ); 
+	h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight               , "AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight              ", 2, 0, 2 ); 
+	h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight          , "AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight         ", 2, 0, 2 ); 
 	const int Pt_n_xbins = 10;
 	float Pt_xbins[Pt_n_xbins+1] = {0, 10, 20, 30, 40, 50, 75, 100, 150, 250, 500};
 	h_AODCaloJetPtVar  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPtVar , "AODCaloJetPtVar",  Pt_n_xbins, Pt_xbins );
@@ -836,8 +937,161 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
       h_AODCaloJetAbsEta                         [selbin][jetbin]->Fill( fabs(AODCaloJetEta                       ->at( aodcalojetindex )), weight );
       h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Fill( AODCaloJetPt->at(aodcalojetindex), fabs(AODCaloJetEta->at(aodcalojetindex)), weight );  
-    }    
-  }
+
+      /*	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmax){AM_Pass=1;}
+      else{AM_Pass=0;}  
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_AmaxUp){AMUp_Pass=1;}
+      else{AMUp_Pass=0;}  
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_AmaxDown){AMDown_Pass=1;}
+      else{AMDown_Pass=0;}  
+	h_AODCaloJetAlphaMax_Pass                       [selbin][jetbin]->Fill( AM_Pass , 1 );  
+	h_AODCaloJetAlphaMax_UpPass                       [selbin][jetbin]->Fill( AMUp_Pass , 1 );  
+	h_AODCaloJetAlphaMax_DownPass                       [selbin][jetbin]->Fill( AMDown_Pass , 1 );  */
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmax)
+	{h_AODCaloJetAlphaMax_Pass                       [selbin][jetbin]->Fill(1);  
+	h_AODCaloJetAlphaMax_Pass_wWeight                       [selbin][jetbin]->Fill(1.,weight);}  
+      else{h_AODCaloJetAlphaMax_Pass                       [selbin][jetbin]->Fill(0);  
+      h_AODCaloJetAlphaMax_Pass_wWeight                       [selbin][jetbin]->Fill(0.,weight);}  
+
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsig)
+	{h_AODCaloJetMedianLog10IPSig_Pass                       [selbin][jetbin]->Fill(1);  
+	h_AODCaloJetMedianLog10IPSig_Pass_wWeight                       [selbin][jetbin]->Fill(1.,weight);}  
+      else{h_AODCaloJetMedianLog10IPSig_Pass                       [selbin][jetbin]->Fill(0);  
+      h_AODCaloJetMedianLog10IPSig_Pass_wWeight                       [selbin][jetbin]->Fill(0.,weight);}  
+     
+        if(Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTA)
+        {h_AODCaloJetMedianLog10TrackAngle_Pass               [selbin][jetbin]->Fill(1);  
+        h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight               [selbin][jetbin]->Fill(1.,weight);  }
+      else{h_AODCaloJetMedianLog10TrackAngle_Pass          [selbin][jetbin]->Fill(0);  
+      h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight          [selbin][jetbin]->Fill(0.,weight);}  
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmaxUp)
+	{h_AODCaloJetAlphaMax_UpPass                       [selbin][jetbin]->Fill( 1);  
+	h_AODCaloJetAlphaMax_UpPass_wWeight                       [selbin][jetbin]->Fill( 1.,weight);}  
+      else{h_AODCaloJetAlphaMax_UpPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetAlphaMax_UpPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsigUp)
+	{h_AODCaloJetMedianLog10IPSig_UpPass                       [selbin][jetbin]->Fill( 1 );  
+	h_AODCaloJetMedianLog10IPSig_UpPass_wWeight                       [selbin][jetbin]->Fill( 1. ,weight);}  
+      else{h_AODCaloJetMedianLog10IPSig_UpPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10IPSig_UpPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+     
+        if(Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTAUp)
+        {h_AODCaloJetMedianLog10TrackAngle_UpPass               [selbin][jetbin]->Fill( 1 );
+        h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight               [selbin][jetbin]->Fill( 1. ,weight);  }
+      else{h_AODCaloJetMedianLog10TrackAngle_UpPass          [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight          [selbin][jetbin]->Fill( 0. ,weight);}  
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmaxDown)
+	{h_AODCaloJetAlphaMax_DownPass                       [selbin][jetbin]->Fill( 1 );  
+	h_AODCaloJetAlphaMax_DownPass_wWeight                       [selbin][jetbin]->Fill( 1. ,weight);}  
+      else{h_AODCaloJetAlphaMax_DownPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetAlphaMax_DownPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsigDown)
+	{h_AODCaloJetMedianLog10IPSig_DownPass                       [selbin][jetbin]->Fill( 1 );  
+	h_AODCaloJetMedianLog10IPSig_DownPass_wWeight                       [selbin][jetbin]->Fill( 1. ,weight);}  
+      else{h_AODCaloJetMedianLog10IPSig_DownPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10IPSig_DownPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+     
+        if(Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTADown)
+        {h_AODCaloJetMedianLog10TrackAngle_DownPass               [selbin][jetbin]->Fill( 1 );  
+        h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight               [selbin][jetbin]->Fill( 1. ,weight); } 
+      else{h_AODCaloJetMedianLog10TrackAngle_DownPass          [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight          [selbin][jetbin]->Fill( 0. ,weight);}  
+
+
+
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsig  && Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTA)
+	{
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmax)
+	{h_AODCaloJetAlphaMax_alsoPass                       [selbin][jetbin]->Fill(1);  
+	h_AODCaloJetAlphaMax_alsoPass_wWeight                       [selbin][jetbin]->Fill(1.,weight);}  
+      else{h_AODCaloJetAlphaMax_alsoPass                       [selbin][jetbin]->Fill(0);  
+      h_AODCaloJetAlphaMax_alsoPass_wWeight                       [selbin][jetbin]->Fill(0.,weight);}  
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmaxUp)
+	{h_AODCaloJetAlphaMax_UpalsoPass                       [selbin][jetbin]->Fill( 1);  
+	h_AODCaloJetAlphaMax_UpalsoPass_wWeight                       [selbin][jetbin]->Fill( 1.,weight);}  
+      else{h_AODCaloJetAlphaMax_UpalsoPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetAlphaMax_UpalsoPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmaxDown)
+	{h_AODCaloJetAlphaMax_DownalsoPass                       [selbin][jetbin]->Fill( 1 );  
+	h_AODCaloJetAlphaMax_DownalsoPass_wWeight                       [selbin][jetbin]->Fill( 1. ,weight);}  
+      else{h_AODCaloJetAlphaMax_DownalsoPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetAlphaMax_DownalsoPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+	}
+
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmax  &&  Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTA)
+	{
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsig)
+	{h_AODCaloJetMedianLog10IPSig_alsoPass                       [selbin][jetbin]->Fill(1);  
+	h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight                       [selbin][jetbin]->Fill(1.,weight);}  
+      else{h_AODCaloJetMedianLog10IPSig_alsoPass                       [selbin][jetbin]->Fill(0);       
+      h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight                       [selbin][jetbin]->Fill(0.,weight);}       
+
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsigUp)
+	{h_AODCaloJetMedianLog10IPSig_UpalsoPass                       [selbin][jetbin]->Fill( 1 );  
+	h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight                       [selbin][jetbin]->Fill( 1. ,weight);}  
+      else{h_AODCaloJetMedianLog10IPSig_UpalsoPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+
+        if(Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsigDown)
+	{h_AODCaloJetMedianLog10IPSig_DownalsoPass                       [selbin][jetbin]->Fill( 1 );  
+	h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight                       [selbin][jetbin]->Fill( 1. ,weight);}  
+      else{h_AODCaloJetMedianLog10IPSig_DownalsoPass                       [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight                       [selbin][jetbin]->Fill( 0. ,weight);}  
+ 	}    
+
+	if(Shifted_CaloJetAlphaMax.at(aodcalojetindex)<tag_maxAmax && Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)>tag_minIPsig)
+	{
+        if(Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTA)
+        {h_AODCaloJetMedianLog10TrackAngle_alsoPass               [selbin][jetbin]->Fill(1);  
+        h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight               [selbin][jetbin]->Fill(1.,weight);  }
+      else{h_AODCaloJetMedianLog10TrackAngle_alsoPass          [selbin][jetbin]->Fill(0);  
+      h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight          [selbin][jetbin]->Fill(0.,weight);}  
+
+     
+        if(Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTAUp)
+        {h_AODCaloJetMedianLog10TrackAngle_UpalsoPass               [selbin][jetbin]->Fill( 1 );  
+        h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight               [selbin][jetbin]->Fill( 1. ,weight);  }
+      else{h_AODCaloJetMedianLog10TrackAngle_UpalsoPass          [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight          [selbin][jetbin]->Fill( 0. ,weight);}  
+
+        if(Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex)>tag_minTADown)
+        {h_AODCaloJetMedianLog10TrackAngle_DownalsoPass               [selbin][jetbin]->Fill( 1 ); 
+        h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight               [selbin][jetbin]->Fill( 1. ,weight); } 
+      else{h_AODCaloJetMedianLog10TrackAngle_DownalsoPass          [selbin][jetbin]->Fill( 0 );  
+      h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight          [selbin][jetbin]->Fill( 0. ,weight);}  
+	}
+
+
+
+
+    if(taggedjet_list.size()==0)
+      {
+      h_AODCaloJetAlphaMax_0Tag                       [selbin][jetbin]->Fill( Shifted_CaloJetAlphaMax                   .at( aodcalojetindex ), weight );  
+      h_AODCaloJetMedianLog10IPSig_0Tag               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
+      h_AODCaloJetMedianLog10TrackAngle_0Tag          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
+	}
+    if(taggedjet_list.size()==1)
+	{
+      h_AODCaloJetAlphaMax_1Tag                       [selbin][jetbin]->Fill( Shifted_CaloJetAlphaMax                   .at( aodcalojetindex ), weight );  
+      h_AODCaloJetMedianLog10IPSig_1Tag               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
+      h_AODCaloJetMedianLog10TrackAngle_1Tag          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
+	}
+    if(taggedjet_list.size()>1)
+	{
+      h_AODCaloJetAlphaMax_2Tag                       [selbin][jetbin]->Fill( Shifted_CaloJetAlphaMax                   .at( aodcalojetindex ), weight );  
+      h_AODCaloJetMedianLog10IPSig_2Tag               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
+      h_AODCaloJetMedianLog10TrackAngle_2Tag          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
+	}
+      }    
+    }
   else{
     if( jetbin < (int)aodcalojet_list.size() ){
       int aodcalojetindex = aodcalojet_list[jetbin];
@@ -901,6 +1155,51 @@ Bool_t analyzer_histograms::writeAODCaloJetBasicHistograms(int selbin, int jetbi
   h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Write(); 
   h_AODCaloJetAbsEta                         [selbin][jetbin]->Write();
   h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_Pass                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_Pass               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_Pass          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_UpPass                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_UpPass               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_UpPass          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_DownPass                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_DownPass               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_DownPass          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_alsoPass                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_alsoPass               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_alsoPass          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_UpalsoPass                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_UpalsoPass               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_UpalsoPass          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_DownalsoPass                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_DownalsoPass               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_DownalsoPass          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_Pass_wWeight                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_Pass_wWeight               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_UpPass_wWeight                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_UpPass_wWeight               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_DownPass_wWeight                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_DownPass_wWeight               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_alsoPass_wWeight                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_UpalsoPass_wWeight                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_DownalsoPass_wWeight                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_0Tag                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_0Tag               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_0Tag          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_1Tag                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_1Tag               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_1Tag          [selbin][jetbin]->Write(); 
+  h_AODCaloJetAlphaMax_2Tag                       [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10IPSig_2Tag               [selbin][jetbin]->Write(); 
+  h_AODCaloJetMedianLog10TrackAngle_2Tag          [selbin][jetbin]->Write(); 
  return kTRUE;
 }
 
@@ -942,6 +1241,51 @@ Bool_t analyzer_histograms::deleteAODCaloJetBasicHistograms(int selbin, int jetb
   if(h_AODCaloJetPartonFlavour        [selbin][jetbin]!=NULL)    h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetAbsEta               [selbin][jetbin]!=NULL)    h_AODCaloJetAbsEta                         [selbin][jetbin]->Delete();
   if(h_AODCaloJetPtVarAbsEtaVar       [selbin][jetbin]!=NULL)    h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_Pass             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_Pass                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_Pass     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_Pass               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_Pass[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_Pass          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_UpPass             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_UpPass                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_UpPass     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_UpPass               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_UpPass[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_UpPass          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_DownPass             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_DownPass                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_DownPass     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_DownPass               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_DownPass[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_DownPass          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_alsoPass             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_alsoPass                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_alsoPass     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_alsoPass               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_alsoPass[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_alsoPass          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_UpalsoPass             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_UpalsoPass                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_UpalsoPass     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_UpalsoPass               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_UpalsoPass[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_UpalsoPass          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_DownalsoPass             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_DownalsoPass                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_DownalsoPass     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_DownalsoPass               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_DownalsoPass[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_DownalsoPass          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_Pass_wWeight             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_Pass_wWeight                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_Pass_wWeight     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_Pass_wWeight               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_UpPass_wWeight             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_UpPass_wWeight                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_UpPass_wWeight     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_UpPass_wWeight               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_DownPass_wWeight             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_DownPass_wWeight                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_DownPass_wWeight     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_DownPass_wWeight               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_alsoPass_wWeight             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_alsoPass_wWeight                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_UpalsoPass_wWeight             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_UpalsoPass_wWeight                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_DownalsoPass_wWeight             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_DownalsoPass_wWeight                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_0Tag             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_0Tag                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_0Tag     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_0Tag               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_0Tag[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_0Tag          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_1Tag             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_1Tag                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_1Tag     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_1Tag               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_1Tag[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_1Tag          [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetAlphaMax_2Tag             [selbin][jetbin]!=NULL)    h_AODCaloJetAlphaMax_2Tag                       [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10IPSig_2Tag     [selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10IPSig_2Tag               [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetMedianLog10TrackAngle_2Tag[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle_2Tag          [selbin][jetbin]->Delete(); 
  return kTRUE;
 }
 
@@ -2386,6 +2730,7 @@ Bool_t analyzer_histograms::initAODCaloJetTagMultHistograms( TString uncbin )
       //deleteAODCaloJetTagMultHistograms(i);
       TString hname_nSelectedAODCaloJetTag        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag"+uncbin;
       TString hname_nSelectedAODCaloJetTag_varbin = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_varbin"+uncbin;
+      TString hname_nSelectedAODCaloJetTag_varbinunit = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_varbinunit"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB1     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB1"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB2     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB2"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB3     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB3"+uncbin;
@@ -2423,6 +2768,7 @@ Bool_t analyzer_histograms::initAODCaloJetTagMultHistograms( TString uncbin )
 
       h_nSelectedAODCaloJetTag                [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag            , "nSelectedAODCaloJetTag"         , 6, -0.5, 5.5);
       h_nSelectedAODCaloJetTag_varbin         [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_varbin     , "nSelectedAODCaloJetTag_varbin"  , 3, ntag_x_bins);
+      h_nSelectedAODCaloJetTag_varbinunit         [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_varbinunit     , "nSelectedAODCaloJetTag_varbinunit"  , 3, ntag_x_bins);
       h_nSelectedAODCaloJetTagSB1             [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTagSB1         , "nSelectedAODCaloJetTagSB1"      , 6, -0.5, 5.5);
       h_nSelectedAODCaloJetTagSB2             [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTagSB2         , "nSelectedAODCaloJetTagSB2"      , 6, -0.5, 5.5);
       h_nSelectedAODCaloJetTagSB3             [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTagSB3         , "nSelectedAODCaloJetTagSB3"      , 6, -0.5, 5.5);
@@ -2468,6 +2814,7 @@ Bool_t analyzer_histograms::fillAODCaloJetTagMultHistograms(Float_t weight, int 
   hist_file_out[selbin]->cd();
   h_nSelectedAODCaloJetTag       [selbin] ->Fill( float(taggedjet_list.size()), weight );
   h_nSelectedAODCaloJetTag_varbin[selbin] ->Fill( float(taggedjet_list.size()), weight );
+  h_nSelectedAODCaloJetTag_varbinunit[selbin] ->Fill( float(taggedjet_list.size()), 1 );
   h_nSelectedAODCaloJetTagSB1    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
   h_nSelectedAODCaloJetTagSB2    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
   h_nSelectedAODCaloJetTagSB3    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
@@ -2519,6 +2866,7 @@ Bool_t analyzer_histograms::writeAODCaloJetTagMultHistograms(int selbin)
 
   h_nSelectedAODCaloJetTag       [selbin] ->Write();
   h_nSelectedAODCaloJetTag_varbin[selbin] ->Write();
+  h_nSelectedAODCaloJetTag_varbinunit[selbin] ->Write();
   h_nSelectedAODCaloJetTagSB1    [selbin] ->Write();
   h_nSelectedAODCaloJetTagSB2    [selbin] ->Write();
   h_nSelectedAODCaloJetTagSB3    [selbin] ->Write();
@@ -2564,6 +2912,7 @@ Bool_t analyzer_histograms::deleteAODCaloJetTagMultHistograms(int selbin)
 
   if(h_nSelectedAODCaloJetTag      [selbin]!=NULL)    h_nSelectedAODCaloJetTag       [selbin] ->Delete();
   if(h_nSelectedAODCaloJetTag_varbin[selbin]!=NULL)    h_nSelectedAODCaloJetTag_varbin[selbin] ->Delete();
+  if(h_nSelectedAODCaloJetTag_varbinunit[selbin]!=NULL)    h_nSelectedAODCaloJetTag_varbinunit[selbin] ->Delete();
   if(h_nSelectedAODCaloJetTagSB1   [selbin]!=NULL)    h_nSelectedAODCaloJetTagSB1    [selbin] ->Delete();
   if(h_nSelectedAODCaloJetTagSB2   [selbin]!=NULL)    h_nSelectedAODCaloJetTagSB2    [selbin] ->Delete();
   if(h_nSelectedAODCaloJetTagSB3   [selbin]!=NULL)    h_nSelectedAODCaloJetTagSB3    [selbin] ->Delete();

@@ -5,6 +5,7 @@
 #include <TCanvas.h>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -26,7 +27,11 @@ void analyzer_loop::Loop(TString outfilename,
  if(makelog){
   logfile = fopen( outfilename+".txt", "w"); 
  }
-
+ ofstream ZHDiElefile, ZHDiMufile, DYDiElefile, DYDiMufile;
+DYDiElefile.open(outfilename+"_cat_TwoEleDY"+uncbin+"_edmEventPick"+".txt");
+DYDiMufile.open(outfilename+"_cat_TwoMuDY"+uncbin+"_edmEventPick"+".txt");
+ZHDiElefile.open(outfilename+"_cat_TwoEleZH"+uncbin+"_edmEventPick"+".txt");
+ZHDiMufile.open(outfilename+"_cat_TwoMuZH"+uncbin+"_edmEventPick"+".txt");
  if (fChain == 0) return;
 
  Long64_t nentries = fChain->GetEntriesFast();
@@ -168,7 +173,7 @@ TFile *outfile_bkgest = 0;
   w_muonISO = makeMuonIso(muon_list, muonISO_Unc, muonISO_ind);
 	}
 
-  if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
+  //if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
 
   if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
@@ -397,12 +402,102 @@ TFile *outfile_bkgest = 0;
 
    /// quick hack to only write phase spaces we care about
 
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==13||i==15||i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
     if( dofillselbin[i] ){
- //	std::cout<<fullweight<<std::endl;
+ 	//std::cout<<fullweight<<std::endl;
      fillSelectedHistograms( fullweight, i );
-      
+     //fillSelectedHistograms( 1, i );
+	if (taggedjet_list.size()>1){
+     if (i==5) {
+	DYDiElefile <<run<<":"<<lumis<<":"<<event<<"\n";
+	DYDiElefile <<"fullweight:"<<fullweight<<"\n";
+	DYDiElefile <<"aodcalojet_list size:"<<aodcalojet_list.size()<<"\n";
+	for(int num=0; num<aodcalojet_list.size(); ++num){
+	int tempind = aodcalojet_list.at(num);
+	DYDiElefile <<"AODCaloJet index:"<<tempind<<"\n";
+	DYDiElefile <<"noshift_AM:"<<AODCaloJetAlphaMax->at(tempind)<<"\n";
+	DYDiElefile <<"noshift_IPSig:"<<AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	DYDiElefile <<"noshift_TA:"<<AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	DYDiElefile <<"shift_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)<<"\n";
+	DYDiElefile <<"shift_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)<<"\n";
+	DYDiElefile <<"shift_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)<<"\n";
+	DYDiElefile <<"diff_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)-AODCaloJetAlphaMax->at(tempind)<<"\n";
+	DYDiElefile <<"diff_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)-AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	DYDiElefile <<"diff_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)-AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	DYDiElefile <<"-------------------------------------------"<<"\n";
+	}
+	DYDiElefile <<"taggedjet_list size:"<<taggedjet_list.size()<<"\n";
+	DYDiElefile <<"-------------------------------------------"<<"\n";
+	DYDiElefile <<"-------------------------------------------"<<"\n";
+	}
+     if (i==9) {
+	ZHDiElefile <<run<<":"<<lumis<<":"<<event<<"\n";
+	ZHDiElefile <<"fullweight:"<<fullweight<<"\n";
+	ZHDiElefile <<"aodcalojet_list size:"<<aodcalojet_list.size()<<"\n";
+	for(int num=0; num<aodcalojet_list.size(); ++num){
+	int tempind = aodcalojet_list.at(num);
+	ZHDiElefile <<"AODCaloJet index:"<<tempind<<"\n";
+	ZHDiElefile <<"noshift_AM:"<<AODCaloJetAlphaMax->at(tempind)<<"\n";
+	ZHDiElefile <<"noshift_IPSig:"<<AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	ZHDiElefile <<"noshift_TA:"<<AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	ZHDiElefile <<"shift_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)<<"\n";
+	ZHDiElefile <<"shift_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)<<"\n";
+	ZHDiElefile <<"shift_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)<<"\n";
+	ZHDiElefile <<"diff_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)-AODCaloJetAlphaMax->at(tempind)<<"\n";
+	ZHDiElefile <<"diff_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)-AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	ZHDiElefile <<"diff_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)-AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	ZHDiElefile <<"-------------------------------------------"<<"\n";
+	}
+	ZHDiElefile <<"taggedjet_list size:"<<taggedjet_list.size()<<"\n";
+	ZHDiElefile <<"-------------------------------------------"<<"\n";
+	ZHDiElefile <<"-------------------------------------------"<<"\n";
+	}
+     if (i==7) {
+	DYDiMufile <<run<<":"<<lumis<<":"<<event<<"\n";
+	DYDiMufile <<"fullweight:"<<fullweight<<"\n";
+	DYDiMufile <<"aodcalojet_list size:"<<aodcalojet_list.size()<<"\n";
+	for(int num=0; num<aodcalojet_list.size(); ++num){
+	int tempind = aodcalojet_list.at(num);
+	DYDiMufile <<"AODCaloJet index:"<<tempind<<"\n";
+	DYDiMufile <<"noshift_AM:"<<AODCaloJetAlphaMax->at(tempind)<<"\n";
+	DYDiMufile <<"noshift_IPSig:"<<AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	DYDiMufile <<"noshift_TA:"<<AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	DYDiMufile <<"shift_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)<<"\n";
+	DYDiMufile <<"shift_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)<<"\n";
+	DYDiMufile <<"shift_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)<<"\n";
+	DYDiMufile <<"diff_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)-AODCaloJetAlphaMax->at(tempind)<<"\n";
+	DYDiMufile <<"diff_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)-AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	DYDiMufile <<"diff_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)-AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	DYDiMufile <<"-------------------------------------------"<<"\n";
+	}
+	DYDiMufile <<"taggedjet_list size:"<<taggedjet_list.size()<<"\n";
+	DYDiMufile <<"-------------------------------------------"<<"\n";
+	DYDiMufile <<"-------------------------------------------"<<"\n";
+	}
+     if (i==11) {
+	ZHDiMufile <<run<<":"<<lumis<<":"<<event<<"\n";
+	ZHDiMufile <<"fullweight:"<<fullweight<<"\n";
+	ZHDiMufile <<"aodcalojet_list size:"<<aodcalojet_list.size()<<"\n";
+	for(int num=0; num<aodcalojet_list.size(); ++num){
+	int tempind = aodcalojet_list.at(num);
+	ZHDiMufile <<"AODCaloJet index:"<<tempind<<"\n";
+	ZHDiMufile <<"noshift_AM:"<<AODCaloJetAlphaMax->at(tempind)<<"\n";
+	ZHDiMufile <<"noshift_IPSig:"<<AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	ZHDiMufile <<"noshift_TA:"<<AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	ZHDiMufile <<"shift_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)<<"\n";
+	ZHDiMufile <<"shift_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)<<"\n";
+	ZHDiMufile <<"shift_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)<<"\n";
+	ZHDiMufile <<"diff_AM:"<<Shifted_CaloJetAlphaMax.at(tempind)-AODCaloJetAlphaMax->at(tempind)<<"\n";
+	ZHDiMufile <<"diff_IPSig:"<<Shifted_CaloJetMedianLog10IPSig.at(tempind)-AODCaloJetMedianLog10IPSig->at(tempind)<<"\n";
+	ZHDiMufile <<"diff_TA:"<<Shifted_CaloJetMedianLog10TrackAngle.at(tempind)-AODCaloJetMedianLog10TrackAngle->at(tempind)<<"\n";
+	ZHDiMufile <<"-------------------------------------------"<<"\n";
+	}
+	ZHDiMufile <<"taggedjet_list size:"<<taggedjet_list.size()<<"\n";
+	ZHDiMufile <<"-------------------------------------------"<<"\n";
+	ZHDiMufile <<"-------------------------------------------"<<"\n";
+	}
+	}
      //jets
      if(jetMultOn){
      for( unsigned int k=0; k<jetmultnames.size(); ++k){
@@ -565,7 +660,7 @@ TFile *outfile_bkgest = 0;
  // write the histograms
  // i==21, i==22, i==23, i==24 conditons are added for WH and WHSig mode (ele, mu)  
  for(unsigned int i=0; i<selbinnames.size(); ++i){
-  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
+  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 ||i==13||i==15|| i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
 
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity
@@ -589,6 +684,10 @@ TFile *outfile_bkgest = 0;
 
   } 
  } // if i== one of the phase spaces we want to write
+DYDiElefile.close();
+DYDiMufile.close();
+ZHDiElefile.close();
+ZHDiMufile.close();
 } // end analyzer_loop::Loop()
 
 

@@ -37,10 +37,19 @@ public :
  static const int MuEtaBinMin   = -5;
  static const int EleEtaBinMin  = -5;
  Float_t x_bins[25]={150.0,170.0,200.0,230.0,260.0,290.0,320.0,350.0,390.0,430.0,470.0,510.0,550.0,590.0,640.0,690.0,740.0,790.0,840.0,900.0,960.0,1020.0,1090.0,1160.0,1250.0};
- Float_t ntag_x_bins[4]={0,1,2,6};
+ Float_t ntag_x_bins[4]={0,1,2,4};
  float sf_qcd[24]={ 1.47528, 1.5428, 1.49376, 1.39119, 1.40538, 1.44661, 1.38176, 1.37381, 1.29145, 1.33452, 1.25765, 1.24265, 1.24331, 1.16187, 1.07349, 1.10748, 1.06617, 1.05616, 1.1149, 1.03164, 1.06872, 0.981645, 0.81729, 0.924246};
  float sf_ewk[24]={ 1.4319, 1.48791, 1.42907, 1.31989, 1.32353, 1.35149, 1.28102, 1.26278, 1.17513, 1.20228, 1.12253, 1.09894, 1.08927, 1.00814, 0.921107, 0.940267, 0.895919, 0.878745, 0.918173, 0.84037, 0.861633, 0.783389, 0.645409, 0.721987};
-
+ Int_t AM_Pass;
+ Int_t AMUp_Pass;
+ Int_t AMDown_Pass;
+ Int_t IPSig_Pass;
+ Int_t IPSigUp_Pass;
+ Int_t IPSigDown_Pass;
+ Int_t TA_Pass;
+ Int_t TAUp_Pass;
+ Int_t TADown_Pass;
+ 
 
  // Histograms
 
@@ -350,6 +359,7 @@ public :
  TH1F*  h_nSelectedAODCaloJet            [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTag         [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTag_varbin  [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_varbinunit  [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB1      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB2      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB3      [SELBINNAMESIZE];
@@ -412,6 +422,58 @@ public :
  TH1F*  h_AODCaloJetPartonFlavour                  [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAbsEta                         [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH2F*  h_AODCaloJetPtVarAbsEtaVar                 [SELBINNAMESIZE][JETMULTNAMESIZE];
+
+ TH1F*  h_AODCaloJetAlphaMax_0Tag                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_0Tag               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_0Tag          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_1Tag                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_1Tag               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_1Tag          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_2Tag                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_2Tag               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_2Tag          [SELBINNAMESIZE][JETMULTNAMESIZE];
+
+ TH1F*  h_AODCaloJetAlphaMax_Pass                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_Pass               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_Pass          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_UpPass                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_UpPass               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_UpPass          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_DownPass                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_DownPass               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_DownPass          [SELBINNAMESIZE][JETMULTNAMESIZE];
+
+ TH1F*  h_AODCaloJetAlphaMax_alsoPass                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_alsoPass               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_alsoPass          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_UpalsoPass                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_UpalsoPass               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_UpalsoPass          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_DownalsoPass                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_DownalsoPass               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_DownalsoPass          [SELBINNAMESIZE][JETMULTNAMESIZE];
+
+ TH1F*  h_AODCaloJetAlphaMax_Pass_wWeight                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_Pass_wWeight               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_Pass_wWeight          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_UpPass_wWeight                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_UpPass_wWeight               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_UpPass_wWeight          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_DownPass_wWeight                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_DownPass_wWeight               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_DownPass_wWeight          [SELBINNAMESIZE][JETMULTNAMESIZE];
+
+ TH1F*  h_AODCaloJetAlphaMax_alsoPass_wWeight                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_alsoPass_wWeight               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_alsoPass_wWeight          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_UpalsoPass_wWeight                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_UpalsoPass_wWeight               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_UpalsoPass_wWeight          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_DownalsoPass_wWeight                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_DownalsoPass_wWeight               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_DownalsoPass_wWeight          [SELBINNAMESIZE][JETMULTNAMESIZE];
+
+
 
  // Study tag var shift necessity
  TH1F*  h_AODCaloJet_Study_trk0_AlphaMax                [SELBINNAMESIZE][JETMULTNAMESIZE];

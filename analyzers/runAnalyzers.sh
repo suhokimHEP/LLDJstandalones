@@ -2,11 +2,11 @@
 
 
 for sample in \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"  \
+ "DYJetsToLL_M-50"  \
 
 do
 #  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "-1" -i "../lists" -o "junk" -n 999999999 -a 1 -d -m
-  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "-1" -i "../lists" -o "varbin" -n 5 -a 1 -d -m
+  ./runanalyzer.exe -s ${sample} -l "16226.2" -x "" -e "-1" -i "../lists" -o "junk" -n 10 -a 1 -d -m
 
 
 done #for sample in DY50..

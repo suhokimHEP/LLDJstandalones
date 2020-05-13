@@ -19,8 +19,8 @@ regions=( \
 ) 
 
 dologs=( \
- "kFALSE" \
-# "kTRUE" \
+# "kFALSE" \
+ "kTRUE" \
 )
 
 doHIPs=( \
@@ -44,8 +44,17 @@ do
   do
    for doctau in ${doctaus[@]}
    do 
+    root -l -b -q  'Sig_model.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'Sig_texout.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'Sig_calcout.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'Zdark_stackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'Sig_CSVout.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'DY_CSVout.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'Sig_stackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'DY_stackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
     #root -l -b -q  'oldsignal.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
-    root -l -b -q  'plotter_signalstackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'plotter_signalstackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
+    #root -l -b -q  'plotter_stackedRegion.C('\""${region}"\"', '"${dolog}"', '"${doHIP}"', '"${doctau}"', '"${useEOS}"', '\""${description}"\"')'
    done
   done
  done

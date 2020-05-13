@@ -397,10 +397,10 @@ void plotter_tagvarUnc(TString region, TString varname, Bool_t dolog, Bool_t HIP
      origcutval = 1.15;
     }   
     if( varname.Contains("AllJets_AODCaloJetMedianLog10TrackAngle") ) {    
-     origcutval = -1.75;
+     origcutval = -1.50;
     }   
     if( varname.Contains("AllJets_AODCaloJetAlphaMax"             ) ) { 
-     origcutval = 0.75;
+     origcutval = 0.9;
     }   
 
 //    h_NormDataInt = (TH1F*)h_DataInt->Clone("h_NormDataInt");

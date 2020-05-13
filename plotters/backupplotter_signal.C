@@ -102,19 +102,19 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  std::vector<TString> uncbins;
  uncbins.clear();
  uncbins.push_back("_EGSUp"       ); 
-// //uncbins.push_back("_EGSDown"     );    
+ uncbins.push_back("_EGSDown"     );    
  uncbins.push_back("_MESUp"       );    
-// //uncbins.push_back("_MESDown"     );    
- uncbins.push_back("_AMaxUp"      );    
-//// uncbins.push_back("_AMaxDown"    );    
- uncbins.push_back("_IPSigUp"     );    
-////// uncbins.push_back("_IPSigDown"   );    
- uncbins.push_back("_TAUp"        );    
-////// uncbins.push_back("_TADown"      );    
- uncbins.push_back("_TagVarsUp"   ); 
-////// uncbins.push_back("_TagVarsDown" );  
+ uncbins.push_back("_MESDown"     );    
+// uncbins.push_back("_AMaxUp"      );    
+// uncbins.push_back("_AMaxDown"    );    
+//// uncbins.push_back("_IPSigUp"     );    
+//// uncbins.push_back("_IPSigDown"   );    
+//// uncbins.push_back("_TAUp"        );    
+//// uncbins.push_back("_TADown"      );    
+//// uncbins.push_back("_TagVarsUp"   ); 
+//// uncbins.push_back("_TagVarsDown" );  
  uncbins.push_back("_LeptonSFUp"       );    
-//// uncbins.push_back("_LeptonSFDown"     );    
+ uncbins.push_back("_LeptonSFDown"     );    
 
  int loopEnd;
  if (doUncPlots) loopEnd=uncbins.size(); else loopEnd=1;
@@ -124,7 +124,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  std::vector<TString> variables;
  variables.clear();
 
-variables.push_back("nSelectedAODCaloJetTag_varbin");
+variables.push_back("nSelectedAODCaloJetTag");
 //variables.push_back("AOD_dilepton_Pt");
 //variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
 //variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
@@ -495,15 +495,9 @@ variables.push_back("nSelectedAODCaloJetTag_varbin");
  TH1F* h_Sig_ggZH_MS55ct10     ;
  TH1F* h_Sig_ggZH_MS55ct1      ;
 
- TH1F* h_DY50_NoUnc      ;
+ TH1F* h_Sig_ZH_MS55ct100_NoUnc      ;
+ TH1F* h_Sig_ggZH_MS55ct100_NoUnc      ;
 
- TH1F* h_DY50_MESDown      ;
- TH1F* h_DY50_EGSDown      ;
- TH1F* h_DY50_LeptonSFDown      ;
- TH1F* h_DY50_AMaxDown      ;
- TH1F* h_DY50_IPSigDown      ;
- TH1F* h_DY50_TADown      ;
- TH1F* h_DY50_TagVarsDown      ;
  TH1F* h_Sig_ZH_MS15ct300     ;
  TH1F* h_Sig_ZH_MS15ct30      ;
  TH1F* h_Sig_ZH_MS15ct3       ;
@@ -605,7 +599,6 @@ variables.push_back("nSelectedAODCaloJetTag_varbin");
  //TH1F* h_Data_DoubleEG_C       ;
  //TH1F* h_Data_DoubleEG_B_2     ;
  TH1F* h_ratio ;
- TH1F* h_ratio2 ;
  TH1F* h_ratiostaterr ;
 
 
@@ -655,14 +648,7 @@ variables.push_back("nSelectedAODCaloJetTag_varbin");
  TH1F* h_Sig_MS55ct30  ;
  TH1F* h_Sig_MS55ct3   ;
 
- TH1F* h_DY_NoUnc  ;
- TH1F* h_DY_MESDown  ;
- TH1F* h_DY_EGSDown  ;
- TH1F* h_DY_LeptonSFDown  ;
- TH1F* h_DY_AMaxDown      ;
- TH1F* h_DY_IPSigDown      ;
- TH1F* h_DY_TADown      ;
- TH1F* h_DY_TagVarsDown      ;
+ TH1F* h_Sig_MS55ct100_NoUnc  ;
  /*
  TH1F* h_Sig_WH_MS15ct1000;  
  TH1F* h_Sig_WH_MS15ct100 ;  
@@ -707,17 +693,17 @@ variables.push_back("nSelectedAODCaloJetTag_varbin");
  file_WW                      = TFile::Open( inpath + "WW_"+region+"_histograms.root"               ) ;
  file_WZ                      = TFile::Open( inpath + "WZ_"+region+"_histograms.root"               ) ;
  file_ZZ                      = TFile::Open( inpath + "ZZ_"+region+"_histograms.root"               ) ;
- //file_WWTo2L2Nu               = TFile::Open( inpath + "WWTo2L2Nu_"+region+"_histograms.root"        ) ;
- //file_WWToLNuQQ               = TFile::Open( inpath + "WWToLNuQQ_"+region+"_histograms.root"        ) ;
- //file_WZTo1L3Nu               = TFile::Open( inpath + "WZTo1L3Nu_"+region+"_histograms.root"        ) ;
- //file_WZTo3LNu                = TFile::Open( inpath + "WZTo3LNu_"+region+"_histograms.root"         ) ;
- //file_WZToLNu2QorQQ2L         = TFile::Open( inpath + "WZToLNu2QorQQ2L_"+region+"_histograms.root"  ) ;
+ file_WWTo2L2Nu               = TFile::Open( inpath + "WWTo2L2Nu_"+region+"_histograms.root"        ) ;
+ file_WWToLNuQQ               = TFile::Open( inpath + "WWToLNuQQ_"+region+"_histograms.root"        ) ;
+ file_WZTo1L3Nu               = TFile::Open( inpath + "WZTo1L3Nu_"+region+"_histograms.root"        ) ;
+ file_WZTo3LNu                = TFile::Open( inpath + "WZTo3LNu_"+region+"_histograms.root"         ) ;
+ file_WZToLNu2QorQQ2L         = TFile::Open( inpath + "WZToLNu2QorQQ2L_"+region+"_histograms.root"  ) ;
  file_ZH_HToBB_ZToLL          = TFile::Open( inpath + "ZH_HToBB_ZToLL_"+region+"_histograms.root"   ) ;
  file_ggZH_HToBB_ZToLL        = TFile::Open( inpath + "ggZH_HToBB_ZToLL_"+region+"_histograms.root" ) ;
- //file_ZZTo2L2Nu               = TFile::Open( inpath + "ZZTo2L2Nu_"+region+"_histograms.root"        ) ;
- //file_ZZTo2L2Q                = TFile::Open( inpath + "ZZTo2L2Q_"+region+"_histograms.root"         ) ;
- //file_ZZTo2Q2Nu               = TFile::Open( inpath + "ZZTo2Q2Nu_"+region+"_histograms.root"        ) ;
- //file_ZZTo4L                  = TFile::Open( inpath + "ZZTo4L_"+region+"_histograms.root"           ) ;
+ file_ZZTo2L2Nu               = TFile::Open( inpath + "ZZTo2L2Nu_"+region+"_histograms.root"        ) ;
+ file_ZZTo2L2Q                = TFile::Open( inpath + "ZZTo2L2Q_"+region+"_histograms.root"         ) ;
+ file_ZZTo2Q2Nu               = TFile::Open( inpath + "ZZTo2Q2Nu_"+region+"_histograms.root"        ) ;
+ file_ZZTo4L                  = TFile::Open( inpath + "ZZTo4L_"+region+"_histograms.root"           ) ;
   
  file_QCD_HT100to200          = TFile::Open( inpath + "QCD_HT100to200_"+region+"_histograms.root"   ) ;
  file_QCD_HT200to300          = TFile::Open( inpath + "QCD_HT200to300_"+region+"_histograms.root"   ) ;
@@ -853,7 +839,6 @@ variables.push_back("nSelectedAODCaloJetTag_varbin");
 // file_Data_MuonEG_D               =  TFile::Open( inpath + "Data_MuonEG_D_"+region+"_histograms.root"       ) ; 
 // file_Data_MuonEG_C               =  TFile::Open( inpath + "Data_MuonEG_C_"+region+"_histograms.root"       ) ; 
 // file_Data_MuonEG_B_2             =  TFile::Open( inpath + "Data_MuonEG_B_2_"+region+"_histograms.root"     ) ; 
-cout<<"where"<<endl;
 
  // Start looping over variables, systematic uncertainty bins, make plots / tables / root files
   for(unsigned int j=0; j<variables.size(); ++j){
@@ -911,7 +896,7 @@ cout<<"where"<<endl;
 
      h_ST_s                            = (TH1F*)file_ST_s                             ->Get("h_"+varname+uncbin)->Clone( "ST_s"                            +uncbin ) ;
      h_STbar_t                         = (TH1F*)file_STbar_t                          ->Get("h_"+varname+uncbin)->Clone( "STbar_t"                         +uncbin ) ;
-     //h_ST_t                            = (TH1F*)file_ST_t                             ->Get("h_"+varname+uncbin)->Clone( "ST_t"                            +uncbin ) ;
+     h_ST_t                            = (TH1F*)file_ST_t                             ->Get("h_"+varname+uncbin)->Clone( "ST_t"                            +uncbin ) ;
      h_STbar_tW                        = (TH1F*)file_STbar_tW                         ->Get("h_"+varname+uncbin)->Clone( "STbar_tW"                        +uncbin ) ;
      h_ST_tW                           = (TH1F*)file_ST_tW                            ->Get("h_"+varname+uncbin)->Clone( "ST_tW"                           +uncbin ) ;
 
@@ -925,15 +910,15 @@ cout<<"where"<<endl;
      h_WW                              = (TH1F*)file_WW                               ->Get("h_"+varname+uncbin)->Clone( "WW"                              +uncbin ) ;
      h_WZ                              = (TH1F*)file_WZ                               ->Get("h_"+varname+uncbin)->Clone( "WZ"                              +uncbin ) ;
      h_ZZ                              = (TH1F*)file_ZZ                               ->Get("h_"+varname+uncbin)->Clone( "ZZ"                              +uncbin ) ;
-     //h_WWTo2L2Nu                       = (TH1F*)file_WWTo2L2Nu                        ->Get("h_"+varname+uncbin)->Clone( "WWTo2L2Nu"                       +uncbin ) ;
-     //h_WWToLNuQQ                       = (TH1F*)file_WWToLNuQQ                        ->Get("h_"+varname+uncbin)->Clone( "WWToLNuQQ"                       +uncbin ) ;
-     //h_WZTo1L3Nu                       = (TH1F*)file_WZTo1L3Nu                        ->Get("h_"+varname+uncbin)->Clone( "WZTo1L3Nu"                       +uncbin ) ;
-     //h_WZTo3LNu                        = (TH1F*)file_WZTo3LNu                         ->Get("h_"+varname+uncbin)->Clone( "WZTo3LNu"                        +uncbin ) ;
-     //h_WZToLNu2QorQQ2L                 = (TH1F*)file_WZToLNu2QorQQ2L                  ->Get("h_"+varname+uncbin)->Clone( "WZToLNu2QorQQ2L"                 +uncbin ) ;
-     //h_ZZTo2L2Nu                       = (TH1F*)file_ZZTo2L2Nu                        ->Get("h_"+varname+uncbin)->Clone( "ZZTo2L2Nu"                       +uncbin ) ;
-     //h_ZZTo2L2Q                        = (TH1F*)file_ZZTo2L2Q                         ->Get("h_"+varname+uncbin)->Clone( "ZZTo2L2Q"                        +uncbin ) ;
-     //h_ZZTo2Q2Nu                       = (TH1F*)file_ZZTo2Q2Nu                        ->Get("h_"+varname+uncbin)->Clone( "ZZTo2Q2Nu"                       +uncbin ) ;
-     //h_ZZTo4L                          = (TH1F*)file_ZZTo4L                           ->Get("h_"+varname+uncbin)->Clone( "ZZTo4L"                          +uncbin ) ;
+     h_WWTo2L2Nu                       = (TH1F*)file_WWTo2L2Nu                        ->Get("h_"+varname+uncbin)->Clone( "WWTo2L2Nu"                       +uncbin ) ;
+     h_WWToLNuQQ                       = (TH1F*)file_WWToLNuQQ                        ->Get("h_"+varname+uncbin)->Clone( "WWToLNuQQ"                       +uncbin ) ;
+     h_WZTo1L3Nu                       = (TH1F*)file_WZTo1L3Nu                        ->Get("h_"+varname+uncbin)->Clone( "WZTo1L3Nu"                       +uncbin ) ;
+     h_WZTo3LNu                        = (TH1F*)file_WZTo3LNu                         ->Get("h_"+varname+uncbin)->Clone( "WZTo3LNu"                        +uncbin ) ;
+     h_WZToLNu2QorQQ2L                 = (TH1F*)file_WZToLNu2QorQQ2L                  ->Get("h_"+varname+uncbin)->Clone( "WZToLNu2QorQQ2L"                 +uncbin ) ;
+     h_ZZTo2L2Nu                       = (TH1F*)file_ZZTo2L2Nu                        ->Get("h_"+varname+uncbin)->Clone( "ZZTo2L2Nu"                       +uncbin ) ;
+     h_ZZTo2L2Q                        = (TH1F*)file_ZZTo2L2Q                         ->Get("h_"+varname+uncbin)->Clone( "ZZTo2L2Q"                        +uncbin ) ;
+     h_ZZTo2Q2Nu                       = (TH1F*)file_ZZTo2Q2Nu                        ->Get("h_"+varname+uncbin)->Clone( "ZZTo2Q2Nu"                       +uncbin ) ;
+     h_ZZTo4L                          = (TH1F*)file_ZZTo4L                           ->Get("h_"+varname+uncbin)->Clone( "ZZTo4L"                          +uncbin ) ;
      h_QCD_HT100to200                  = (TH1F*)file_QCD_HT100to200                   ->Get("h_"+varname+uncbin)->Clone( "QCD_HT100to200"                +uncbin   ) ;
      h_QCD_HT200to300                  = (TH1F*)file_QCD_HT200to300                   ->Get("h_"+varname+uncbin)->Clone( "QCD_HT200to300"                +uncbin   ) ;
      h_QCD_HT300to500                  = (TH1F*)file_QCD_HT300to500                   ->Get("h_"+varname+uncbin)->Clone( "QCD_HT300to500"                +uncbin   ) ;
@@ -968,14 +953,8 @@ cout<<"where"<<endl;
      h_Sig_ggZH_MS55ct100  = (TH1F*)file_Sig_ggZH_MS55ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct100" +uncbin ) ;
      h_Sig_ggZH_MS55ct10   = (TH1F*)file_Sig_ggZH_MS55ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct10"  +uncbin ) ;
      h_Sig_ggZH_MS55ct1    = (TH1F*)file_Sig_ggZH_MS55ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct1"   +uncbin ) ;
-     h_DY50_NoUnc       = (TH1F*)file_DY50    ->Get("h_"+varname )->Clone( "DY50_NoUnc" ) ;
-     h_DY50_MESDown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_MESDown" )->Clone( "DY50_MESDown" ) ;
-     h_DY50_EGSDown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_EGSDown" )->Clone( "DY50_EGSDown" ) ;
-     h_DY50_LeptonSFDown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_LeptonSFDown" )->Clone( "DY50_LeptonSFDown" ) ;
-     h_DY50_AMaxDown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_AMaxDown" )->Clone( "DY50_AMaxDown" ) ;
-     h_DY50_IPSigDown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_IPSigDown" )->Clone( "DY50_IPSigDown" ) ;
-     h_DY50_TADown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_TADown" )->Clone( "DY50_TADown" ) ;
-     h_DY50_TagVarsDown       = (TH1F*)file_DY50    ->Get("h_"+varname+"_TagVarsDown" )->Clone( "DY50_TagVarsDown" ) ;
+     h_Sig_ZH_MS55ct100_NoUnc       = (TH1F*)file_Sig_ZH_MS55ct100    ->Get("h_"+varname )->Clone( "Sig_ZH_MS55ct100_NoUnc" ) ;
+     h_Sig_ggZH_MS55ct100_NoUnc       = (TH1F*)file_Sig_ggZH_MS55ct100    ->Get("h_"+varname )->Clone( "Sig_ggZH_MS55ct100_NoUnc" ) ;
 	if(doctau){
      h_Sig_ZH_MS15ct300   = (TH1F*)file_Sig_ZH_MS15ct300   ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct300"+uncbin ) ;
      h_Sig_ZH_MS15ct30    = (TH1F*)file_Sig_ZH_MS15ct30    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct30" +uncbin ) ;
@@ -1078,7 +1057,6 @@ cout<<"where"<<endl;
      //h_Data_MuonEG_C       = (TH1F*) file_Data_MuonEG_C       -> Get("h_"+varname)->Clone( "Data_MuonEG_C"        ) ; 
      //h_Data_MuonEG_B_2     = (TH1F*) file_Data_MuonEG_B_2     -> Get("h_"+varname)->Clone( "Data_MuonEG_B_2"      ) ; 
      // merge histograms
-	cout<<"here"<<endl;
      h_DY = (TH1F*)h_DY50->Clone("DY");
       h_DY->Add(h_DY10to50           ); 
 
@@ -1096,7 +1074,7 @@ cout<<"where"<<endl;
 
      h_ST = (TH1F*)h_ST_s->Clone("ST");
       h_ST->Add(h_STbar_t);
-      //h_ST->Add(h_ST_t);
+      h_ST->Add(h_ST_t);
       h_ST->Add(h_STbar_tW);
       h_ST->Add(h_ST_tW);
 
@@ -1107,19 +1085,16 @@ cout<<"where"<<endl;
      h_altVV = (TH1F*)h_WW->Clone("altVV");
       h_altVV->Add(h_WZ             ) ;
       h_altVV->Add(h_ZZ             ) ;
-     h_VV = (TH1F*)h_WW->Clone("VV");
-      h_VV->Add(h_WZ             ) ;
-      h_VV->Add(h_ZZ             ) ;
 
-     //h_VV = (TH1F*)h_WWTo2L2Nu->Clone("VV");
-     // h_VV->Add(h_WWToLNuQQ       ) ;
-     // h_VV->Add(h_WZTo1L3Nu       ) ;
-     // h_VV->Add(h_WZTo3LNu        ) ;
-     // h_VV->Add(h_WZToLNu2QorQQ2L ) ;
-     // h_VV->Add(h_ZZTo2L2Nu       ) ;
-     // h_VV->Add(h_ZZTo2L2Q        ) ;
-     // h_VV->Add(h_ZZTo2Q2Nu       ) ;
-     // h_VV->Add(h_ZZTo4L          ) ;
+     h_VV = (TH1F*)h_WWTo2L2Nu->Clone("VV");
+      h_VV->Add(h_WWToLNuQQ       ) ;
+      h_VV->Add(h_WZTo1L3Nu       ) ;
+      h_VV->Add(h_WZTo3LNu        ) ;
+      h_VV->Add(h_WZToLNu2QorQQ2L ) ;
+      h_VV->Add(h_ZZTo2L2Nu       ) ;
+      h_VV->Add(h_ZZTo2L2Q        ) ;
+      h_VV->Add(h_ZZTo2Q2Nu       ) ;
+      h_VV->Add(h_ZZTo4L          ) ;
 
      h_altTT = (TH1F*)h_TTJets->Clone("altTT");
 
@@ -1138,6 +1113,7 @@ cout<<"where"<<endl;
       h_QCD->Add(h_QCD_HT1000to1500 );
       h_QCD->Add(h_QCD_HT1500to2000 );
       h_QCD->Add(h_QCD_HT2000toInf  );
+
 
      h_Sig_MS15ct1000  = (TH1F*) h_Sig_ZH_MS15ct1000   ->Clone( "Sig_MS15ct1000" ) ;
      h_Sig_MS15ct100   = (TH1F*) h_Sig_ZH_MS15ct100    ->Clone( "Sig_MS15ct100 " ) ;
@@ -1163,14 +1139,8 @@ cout<<"where"<<endl;
      h_Sig_MS55ct100  ->Add( h_Sig_ggZH_MS55ct100  ) ;
      h_Sig_MS55ct10   ->Add( h_Sig_ggZH_MS55ct10   ) ;
      h_Sig_MS55ct1    ->Add( h_Sig_ggZH_MS55ct1    ) ;
-     h_DY_NoUnc   = (TH1F*) h_DY50_NoUnc    ->Clone( "DY_NoUnc " ) ;
-     h_DY_MESDown   = (TH1F*) h_DY50_MESDown    ->Clone( "DY_MESDown " ) ;
-     h_DY_EGSDown   = (TH1F*) h_DY50_EGSDown    ->Clone( "DY_EGSDown " ) ;
-     h_DY_LeptonSFDown   = (TH1F*) h_DY50_LeptonSFDown    ->Clone( "DY_LeptonSFDown " ) ;
-     h_DY_AMaxDown   = (TH1F*) h_DY50_AMaxDown    ->Clone( "DY_AMaxDown " ) ;
-     h_DY_IPSigDown   = (TH1F*) h_DY50_IPSigDown    ->Clone( "DY_IPSigDown " ) ;
-     h_DY_TADown   = (TH1F*) h_DY50_TADown    ->Clone( "DY_TADown " ) ;
-     h_DY_TagVarsDown   = (TH1F*) h_DY50_TagVarsDown    ->Clone( "DY_TagVarsDown " ) ;
+     h_Sig_MS55ct100_NoUnc   = (TH1F*) h_Sig_ZH_MS55ct100_NoUnc    ->Clone( "Sig_MS55ct100_NoUnc " ) ;
+     h_Sig_MS55ct100_NoUnc  ->Add( h_Sig_ggZH_MS55ct100_NoUnc  ) ;
 	if(doctau){
      h_Sig_MS15ct300  = (TH1F*) h_Sig_ZH_MS15ct300   ->Clone( "Sig_MS15ct300" ) ;
      h_Sig_MS15ct30   = (TH1F*) h_Sig_ZH_MS15ct30    ->Clone( "Sig_MS15ct30 " ) ;
@@ -1249,14 +1219,7 @@ cout<<"where"<<endl;
      h_Sig_MS55ct100  ->Scale(MCSF);
      h_Sig_MS55ct10   ->Scale(MCSF);
      h_Sig_MS55ct1    ->Scale(MCSF);
-     h_DY_NoUnc  ->Scale(MCSF);
-     h_DY_MESDown  ->Scale(MCSF);
-     h_DY_EGSDown  ->Scale(MCSF);
-     h_DY_LeptonSFDown  ->Scale(MCSF);
-     h_DY_AMaxDown  ->Scale(MCSF);
-     h_DY_IPSigDown  ->Scale(MCSF);
-     h_DY_TADown  ->Scale(MCSF);
-     h_DY_TagVarsDown  ->Scale(MCSF);
+     h_Sig_MS55ct100_NoUnc  ->Scale(MCSF);
 	if(doctau){
      h_Sig_MS15ct300 ->Scale(MCSF);
      h_Sig_MS15ct30  ->Scale(MCSF);
@@ -1466,7 +1429,7 @@ cout<<"where"<<endl;
 
      Float_t  int_ST_s                     = h_ST_s                            ->Integral(0,-1); 
      Float_t  int_STbar_t                  = h_STbar_t                         ->Integral(0,-1); 
-     //Float_t  int_ST_t                     = h_ST_t                            ->Integral(0,-1); 
+     Float_t  int_ST_t                     = h_ST_t                            ->Integral(0,-1); 
      Float_t  int_STbar_tW                 = h_STbar_tW                        ->Integral(0,-1); 
      Float_t  int_ST_tW                    = h_ST_tW                           ->Integral(0,-1); 
 
@@ -1480,15 +1443,15 @@ cout<<"where"<<endl;
      Float_t  int_WW                       = h_WW                              ->Integral(0,-1); 
      Float_t  int_WZ                       = h_WZ                              ->Integral(0,-1); 
      Float_t  int_ZZ                       = h_ZZ                              ->Integral(0,-1); 
-     //Float_t  int_WWTo2L2Nu                = h_WWTo2L2Nu                       ->Integral(0,-1); 
-     //Float_t  int_WWToLNuQQ                = h_WWToLNuQQ                       ->Integral(0,-1); 
-     //Float_t  int_WZTo1L3Nu                = h_WZTo1L3Nu                       ->Integral(0,-1); 
-     //Float_t  int_WZTo3LNu                 = h_WZTo3LNu                        ->Integral(0,-1); 
-     //Float_t  int_WZToLNu2QorQQ2L          = h_WZToLNu2QorQQ2L                 ->Integral(0,-1); 
-     //Float_t  int_ZZTo2L2Nu                = h_ZZTo2L2Nu                       ->Integral(0,-1); 
-     //Float_t  int_ZZTo2L2Q                 = h_ZZTo2L2Q                        ->Integral(0,-1); 
-     //Float_t  int_ZZTo2Q2Nu                = h_ZZTo2Q2Nu                       ->Integral(0,-1); 
-     //Float_t  int_ZZTo4L                   = h_ZZTo4L                          ->Integral(0,-1); 
+     Float_t  int_WWTo2L2Nu                = h_WWTo2L2Nu                       ->Integral(0,-1); 
+     Float_t  int_WWToLNuQQ                = h_WWToLNuQQ                       ->Integral(0,-1); 
+     Float_t  int_WZTo1L3Nu                = h_WZTo1L3Nu                       ->Integral(0,-1); 
+     Float_t  int_WZTo3LNu                 = h_WZTo3LNu                        ->Integral(0,-1); 
+     Float_t  int_WZToLNu2QorQQ2L          = h_WZToLNu2QorQQ2L                 ->Integral(0,-1); 
+     Float_t  int_ZZTo2L2Nu                = h_ZZTo2L2Nu                       ->Integral(0,-1); 
+     Float_t  int_ZZTo2L2Q                 = h_ZZTo2L2Q                        ->Integral(0,-1); 
+     Float_t  int_ZZTo2Q2Nu                = h_ZZTo2Q2Nu                       ->Integral(0,-1); 
+     Float_t  int_ZZTo4L                   = h_ZZTo4L                          ->Integral(0,-1); 
 			       
      Float_t  int_Sig_ZH_MS15ct1000        = h_Sig_ZH_MS15ct1000               ->Integral(0,-1);                   
      Float_t  int_Sig_ZH_MS15ct100         = h_Sig_ZH_MS15ct100                ->Integral(0,-1);                   
@@ -1794,7 +1757,7 @@ cout<<"where"<<endl;
 
        fprintf (outfulltable, "ST s                    & %3.1f \\\\\n", int_ST_s                   ) ; 
        fprintf (outfulltable, "STbar t                 & %3.1f \\\\\n", int_STbar_t                ) ; 
-       //fprintf (outfulltable, "ST t                    & %3.1f \\\\\n", int_ST_t                   ) ; 
+       fprintf (outfulltable, "ST t                    & %3.1f \\\\\n", int_ST_t                   ) ; 
        fprintf (outfulltable, "STbar tW                & %3.1f \\\\\n", int_STbar_tW               ) ; 
        fprintf (outfulltable, "ST tW                   & %3.1f \\\\\n", int_ST_tW                  ) ; 
        fprintf (outfulltable, " \\hline \n");
@@ -1816,15 +1779,15 @@ cout<<"where"<<endl;
        fprintf (outfulltable, "WZ                      & %3.1f \\\\\n", int_WZ                     ) ; 
        fprintf (outfulltable, "ZZ                      & %3.1f \\\\\n", int_ZZ                     ) ; 
        fprintf (outfulltable, " \\hline \n");
-       //fprintf (outfulltable, "WWTo2L2Nu               & %3.1f \\\\\n", int_WWTo2L2Nu              ) ; 
-       //fprintf (outfulltable, "WWToLNuQQ               & %3.1f \\\\\n", int_WWToLNuQQ              ) ; 
-       //fprintf (outfulltable, "WZTo1L3Nu               & %3.1f \\\\\n", int_WZTo1L3Nu              ) ; 
-       //fprintf (outfulltable, "WZTo3LNu                & %3.1f \\\\\n", int_WZTo3LNu               ) ; 
-       //fprintf (outfulltable, "WZToLNu2QorQQ2L         & %3.1f \\\\\n", int_WZToLNu2QorQQ2L        ) ; 
-       //fprintf (outfulltable, "ZZTo2L2Nu               & %3.1f \\\\\n", int_ZZTo2L2Nu              ) ; 
-       //fprintf (outfulltable, "ZZTo2L2Q                & %3.1f \\\\\n", int_ZZTo2L2Q               ) ; 
-       //fprintf (outfulltable, "ZZTo2Q2Nu               & %3.1f \\\\\n", int_ZZTo2Q2Nu              ) ; 
-       //fprintf (outfulltable, "ZZTo4L                  & %3.1f \\\\\n", int_ZZTo4L                 ) ; 
+       fprintf (outfulltable, "WWTo2L2Nu               & %3.1f \\\\\n", int_WWTo2L2Nu              ) ; 
+       fprintf (outfulltable, "WWToLNuQQ               & %3.1f \\\\\n", int_WWToLNuQQ              ) ; 
+       fprintf (outfulltable, "WZTo1L3Nu               & %3.1f \\\\\n", int_WZTo1L3Nu              ) ; 
+       fprintf (outfulltable, "WZTo3LNu                & %3.1f \\\\\n", int_WZTo3LNu               ) ; 
+       fprintf (outfulltable, "WZToLNu2QorQQ2L         & %3.1f \\\\\n", int_WZToLNu2QorQQ2L        ) ; 
+       fprintf (outfulltable, "ZZTo2L2Nu               & %3.1f \\\\\n", int_ZZTo2L2Nu              ) ; 
+       fprintf (outfulltable, "ZZTo2L2Q                & %3.1f \\\\\n", int_ZZTo2L2Q               ) ; 
+       fprintf (outfulltable, "ZZTo2Q2Nu               & %3.1f \\\\\n", int_ZZTo2Q2Nu              ) ; 
+       fprintf (outfulltable, "ZZTo4L                  & %3.1f \\\\\n", int_ZZTo4L                 ) ; 
        fprintf (outfulltable, " \\hline \n");
   
       
@@ -2213,7 +2176,7 @@ cout<<"where"<<endl;
       // cout <<v[zz]->GetName()<<":  "<<v[zz]->GetBinContent(3)<<std::endl;
       //}    
       //cout << "***************************** total: "<<tot<<endl;
-       //cout <<"h_Sig_MS55ct100:"<<h_Sig_MS55ct100->GetBinContent(3)<<std::endl;
+       cout <<"h_Sig_MS55ct100:"<<h_Sig_MS55ct100->GetBinContent(3)<<std::endl;
 
 //     if( h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1) > 0.1){ ;
 //        h_ggZH_HToSSTobbbb_MS40_ctauS0      ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1));
@@ -2298,19 +2261,12 @@ cout<<"where"<<endl;
      if(drawSignal){
        sigleg->SetBorderSize(0);
        sigleg->SetFillColor(kWhite);
-	string legendprint = "DY50";
+	string legendprint = "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=55 c#tau_{S}=100";
 	legendprint += uncbin;
 	strcpy(charlegendprint,legendprint.c_str());	
        //sigleg->AddEntry(h_Sig_MS55ct100   , "no", "l" ) ;
-       sigleg->AddEntry(h_DY   , charlegendprint, "l" ) ;
-       sigleg->AddEntry(h_DY_NoUnc   , "DY50 NoUnc  ", "l" ) ;
-	if(uncbin=="_MESUp") sigleg->AddEntry(h_DY_MESDown   , "DY50 MESDown", "l" ) ;
-	if(uncbin=="_EGSUp") sigleg->AddEntry(h_DY_EGSDown   , "DY50 EGSDown", "l" ) ;
-	if(uncbin=="_LeptonSFUp") sigleg->AddEntry(h_DY_LeptonSFDown   , "DY50 LeptonSFDown", "l" ) ;
-	if(uncbin=="_AMaxUp") sigleg->AddEntry(h_DY_AMaxDown   , "DY50 AMaxDown", "l" ) ;
-	if(uncbin=="_IPSigUp") sigleg->AddEntry(h_DY_IPSigDown   , "DY50 IPSigDown", "l" ) ;
-	if(uncbin=="_TAUp") sigleg->AddEntry(h_DY_TADown   , "DY50 TADown", "l" ) ;
-	if(uncbin=="_TagVarsUp") sigleg->AddEntry(h_DY_TagVarsDown   , "DY50 TagVarsDown", "l" ) ;
+       sigleg->AddEntry(h_Sig_MS55ct100   , charlegendprint, "l" ) ;
+       sigleg->AddEntry(h_Sig_MS55ct100_NoUnc   , "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=55 c#tau_{S}=100 NoUnc  ", "l" ) ;
      }
 
 	/*
@@ -2330,7 +2286,7 @@ cout<<"where"<<endl;
      if(dolog){
       //bgstack->SetMaximum(50000*ymax); 
       //bgstack->SetMinimum(1.0e-6);
-      bgstack->SetMaximum(1000000); 
+      bgstack->SetMaximum(100); 
       bgstack->SetMinimum(1.0e-1);
      } 
      else {
@@ -2364,59 +2320,13 @@ cout<<"where"<<endl;
 
      if(drawSignal){
 
-       h_DY->SetLineColor(kRed);
-       h_DY->SetLineWidth(4);
-       h_DY->SetLineStyle(2);
-       h_DY->Draw("hist") ;
-       h_DY->SetMaximum(10000000) ;
-       h_DY->SetMinimum(.1) ;
-       h_DY_NoUnc->SetLineColor(kBlack);
-       h_DY_NoUnc->SetLineWidth(4);
-       h_DY_NoUnc->Draw("hist sames") ;
-	if(uncbin == "_MESUp"){
-       h_DY_MESDown->SetLineColor(kBlue);
-       h_DY_MESDown->SetLineWidth(4);
-       h_DY_MESDown->SetLineStyle(2);
-       h_DY_MESDown->Draw("hist sames") ;
-	}
-	
-	if(uncbin == "_EGSUp"){
-       h_DY_EGSDown->SetLineColor(kBlue);
-       h_DY_EGSDown->SetLineWidth(4);
-       h_DY_EGSDown->SetLineStyle(2);
-       h_DY_EGSDown->Draw("hist sames") ;
-	}
-	
-	if(uncbin == "_LeptonSFUp"){
-       h_DY_LeptonSFDown->SetLineColor(kBlue);
-       h_DY_LeptonSFDown->SetLineWidth(4);
-       h_DY_LeptonSFDown->SetLineStyle(2);
-       h_DY_LeptonSFDown->Draw("hist sames") ;
-	}
-	if(uncbin == "_AMaxUp"){
-       h_DY_AMaxDown->SetLineColor(kBlue);
-       h_DY_AMaxDown->SetLineWidth(4);
-       h_DY_AMaxDown->SetLineStyle(2);
-       h_DY_AMaxDown->Draw("hist sames") ;
-	}
-	if(uncbin == "_IPSigUp"){
-       h_DY_IPSigDown->SetLineColor(kBlue);
-       h_DY_IPSigDown->SetLineWidth(4);
-       h_DY_IPSigDown->SetLineStyle(2);
-       h_DY_IPSigDown->Draw("hist sames") ;
-	}
-	if(uncbin == "_TAUp"){
-       h_DY_TADown->SetLineColor(kBlue);
-       h_DY_TADown->SetLineWidth(4);
-       h_DY_TADown->SetLineStyle(2);
-       h_DY_TADown->Draw("hist sames") ;
-	}
-	if(uncbin == "_TagVarsUp"){
-       h_DY_TagVarsDown->SetLineColor(kBlue);
-       h_DY_TagVarsDown->SetLineWidth(4);
-       h_DY_TagVarsDown->SetLineStyle(2);
-       h_DY_TagVarsDown->Draw("hist sames") ;
-	}
+       h_Sig_MS55ct100->SetLineColor(kGray+2);
+       h_Sig_MS55ct100->SetLineWidth(4);
+       h_Sig_MS55ct100->SetLineStyle(2);
+       h_Sig_MS55ct100->Draw("hist") ;
+       h_Sig_MS55ct100_NoUnc->SetLineColor(kBlack);
+       h_Sig_MS55ct100_NoUnc->SetLineWidth(4);
+       h_Sig_MS55ct100_NoUnc->Draw("hist sames") ;
        sigleg->Draw();
  }
 	/*	
@@ -2447,38 +2357,10 @@ cout<<"where"<<endl;
      
      if(drawData){
        ratiopad->cd();
-       h_ratio = (TH1F*)h_DY->Clone("ratio");
-       if(h_DY->Integral(-1,-1)>0){
-	 h_ratio->Divide(h_DY_NoUnc);
+       h_ratio = (TH1F*)h_Sig_MS55ct100->Clone("ratio");
+       if(h_Sig_MS55ct100->Integral(-1,-1)>0){
+	 h_ratio->Divide(h_Sig_MS55ct100_NoUnc);
        }
-	if(uncbin == "_MESUp"){
-        h_ratio2 = (TH1F*)h_DY_MESDown->Clone("ratio");
-	h_ratio2->Divide(h_DY_NoUnc);
-	}
-	if(uncbin == "_EGSUp"){
-        h_ratio2 = (TH1F*)h_DY_EGSDown->Clone("ratio");
-  	h_ratio2->Divide(h_DY_NoUnc);
-	}
-	if(uncbin == "_LeptonSFUp"){
-        h_ratio2 = (TH1F*)h_DY_LeptonSFDown->Clone("ratio");
-	h_ratio2->Divide(h_DY_NoUnc);
-	}
-	if(uncbin == "_AMaxUp"){
-        h_ratio2 = (TH1F*)h_DY_AMaxDown->Clone("ratio");
-	h_ratio2->Divide(h_DY_NoUnc);
-	}
-	if(uncbin == "_IPSigUp"){
-        h_ratio2 = (TH1F*)h_DY_IPSigDown->Clone("ratio");
-	h_ratio2->Divide(h_DY_NoUnc);
-	}
-	if(uncbin == "_TAUp"){
-        h_ratio2 = (TH1F*)h_DY_TADown->Clone("ratio");
-	h_ratio2->Divide(h_DY_NoUnc);
-	}
-	if(uncbin == "_TagVarsUp"){
-        h_ratio2 = (TH1F*)h_DY_TagVarsDown->Clone("ratio");
-	h_ratio2->Divide(h_DY_NoUnc);
-	}
        h_ratio->SetTitle(" ");
        // Y axis ratio plot settings
        h_ratio->GetYaxis()->SetTitleSize(30);
@@ -2497,14 +2379,10 @@ cout<<"where"<<endl;
        h_ratio->GetXaxis()->SetLabelFont(43); //43 Absolute font size in pixel (precision 3)
        h_ratio->GetXaxis()->SetLabelSize(30);//20
        h_ratio->SetMarkerStyle(20);
-       h_ratio->SetMarkerColor(kRed);
-       h_ratio->SetMarkerSize(1);
-       h_ratio->GetYaxis()->SetRangeUser(0.8,1.2);
-	if(uncbin == "_AMaxUp"|| uncbin == "_IPSigUp" || uncbin == "_TAUp" || uncbin == "_TagVarsUp"){h_ratio->GetYaxis()->SetRangeUser(0.0,2.0);}
+      // h_ratio->SetMarkerColor(kRed);
+       h_ratio->SetMarkerSize(1.5);
+       h_ratio->GetYaxis()->SetRangeUser(0.9,1.1);
        h_ratio->Draw("HIST p");  // draw first to get ranges set internally inside root
-       h_ratio2->SetMarkerStyle(20);
-       h_ratio2->SetMarkerColor(kBlue);
-       h_ratio2->SetMarkerSize(1);
               
        h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
        h_ratiostaterr->Divide(h_bkgtotal);
@@ -2518,18 +2396,17 @@ cout<<"where"<<endl;
 
        line->Draw();
        h_ratio->Draw("HIST p same"); // draw points above line
-       h_ratio2->Draw("HIST p same");  // draw first to get ranges set internally inside root
      }
      else{
       // ratiopad->Clear();
      }
 
      // save canvas
-     canvas->SaveAs(outname+description+"_DY.png");
-     canvas->SaveAs(outname+description+"_DY.pdf");
+     canvas->SaveAs(outname+description+"_signal.png");
+     canvas->SaveAs(outname+description+"_signal.pdf");
   
 // save histograms into single root file
-     TFile *outfile = TFile::Open(outname+"_DY.root","RECREATE");
+     TFile *outfile = TFile::Open(outname+".root","RECREATE");
      h_Data        ->Write();
      h_DY          ->Write();
      h_GJets       ->Write();
@@ -2598,8 +2475,8 @@ cout<<"where"<<endl;
       h_Sig_WH_MS15ct100  ->Write();
       h_Sig_WH_MS15ct1000 ->Write();
         */
-    //outfile->Close();
-    //std::cout<<" closed writing:\n  "<<outname<<std::endl;
+    outfile->Close();
+    std::cout<<" closed writing:\n  "<<outname<<std::endl;
 
      
    } 

@@ -8,148 +8,148 @@
 doSubmit=true
 lumi=16226.2 # 7.57582+8.43466+0.2156965 
 nevents=-1
-maxfilesperjob=200   # 500=6h
+maxfilesperjob=100   # 500=6h
 
 samples=(  \
-### Data
-## SingleMu
-# "Data_SingleMu_H_3"      \
-# "Data_SingleMu_H_2"      \
-# "Data_SingleMu_G"        \
-# "Data_SingleMu_F"        \
-# "Data_SingleMu_E"        \
-# "Data_SingleMu_D"        \
-# "Data_SingleMu_C"        \
-# "Data_SingleMu_B_2"      \
-## SingleEle
-# "Data_SingleEle_H_3"     \
-# "Data_SingleEle_H_2"     \
-# "Data_SingleEle_G"       \
-# "Data_SingleEle_F"       \
-# "Data_SingleEle_E"       \
-# "Data_SingleEle_D"       \
-# "Data_SingleEle_C"       \
-# "Data_SingleEle_B_2"     \
-# DoubleMu
- "Data_DoubleMu_H_3"      \
- "Data_DoubleMu_H_2"      \
- "Data_DoubleMu_G"        \
-# "Data_DoubleMu_F"        \
-# "Data_DoubleMu_E"        \
-# "Data_DoubleMu_D"        \
-# "Data_DoubleMu_C"        \
-# "Data_DoubleMu_B_2"      \
-# DoubleEG
- "Data_DoubleEG_H_3"      \
- "Data_DoubleEG_H_2"      \
- "Data_DoubleEG_G"        \
-# "Data_DoubleEG_F"        \
-# "Data_DoubleEG_E"        \
-# "Data_DoubleEG_D"        \
-# "Data_DoubleEG_C"        \
-# "Data_DoubleEG_B_2"      \
-# MuonEG
- "Data_MuonEG_H_3"        \
- "Data_MuonEG_H_2"        \
- "Data_MuonEG_G"          \
-# "Data_MuonEG_F"          \
-# "Data_MuonEG_E"          \
-# "Data_MuonEG_D"          \
-# "Data_MuonEG_C"          \
-# "Data_MuonEG_B_2"        \
-# SinglePhoton
- "Data_SinglePhoton_H_3"  \
- "Data_SinglePhoton_H_2"  \
- "Data_SinglePhoton_G"    \
-# "Data_SinglePhoton_F"    \
-# "Data_SinglePhoton_E"    \
-# "Data_SinglePhoton_D"    \
-# "Data_SinglePhoton_C"    \
-# "Data_SinglePhoton_B_2"  \
-## MC backgrounds
-# DY
-# "DYJetsToLL_M-5to50_HT-70to100"   \
- "DYJetsToLL_M-5to50_HT-100to200"  \
- "DYJetsToLL_M-5to50_HT-200to400"  \
- "DYJetsToLL_M-5to50_HT-400to600"  \
- "DYJetsToLL_M-5to50_HT-600toInf"  \
+#### Data
+### SingleMu
+## "Data_SingleMu_H_3"      \
+## "Data_SingleMu_H_2"      \
+## "Data_SingleMu_G"        \
+## "Data_SingleMu_F"        \
+## "Data_SingleMu_E"        \
+## "Data_SingleMu_D"        \
+## "Data_SingleMu_C"        \
+## "Data_SingleMu_B_2"      \
+### SingleEle
+## "Data_SingleEle_H_3"     \
+## "Data_SingleEle_H_2"     \
+## "Data_SingleEle_G"       \
+## "Data_SingleEle_F"       \
+## "Data_SingleEle_E"       \
+## "Data_SingleEle_D"       \
+## "Data_SingleEle_C"       \
+## "Data_SingleEle_B_2"     \
+## DoubleMu
+# "Data_DoubleMu_H_3"      \
+# "Data_DoubleMu_H_2"      \
+# "Data_DoubleMu_G"        \
+## "Data_DoubleMu_F"        \
+## "Data_DoubleMu_E"        \
+## "Data_DoubleMu_D"        \
+## "Data_DoubleMu_C"        \
+## "Data_DoubleMu_B_2"      \
+## DoubleEG
+# "Data_DoubleEG_H_3"      \
+# "Data_DoubleEG_H_2"      \
+# "Data_DoubleEG_G"        \
+## "Data_DoubleEG_F"        \
+## "Data_DoubleEG_E"        \
+## "Data_DoubleEG_D"        \
+## "Data_DoubleEG_C"        \
+## "Data_DoubleEG_B_2"      \
+## MuonEG
+# "Data_MuonEG_H_3"        \
+# "Data_MuonEG_H_2"        \
+# "Data_MuonEG_G"          \
+## "Data_MuonEG_F"          \
+## "Data_MuonEG_E"          \
+## "Data_MuonEG_D"          \
+## "Data_MuonEG_C"          \
+## "Data_MuonEG_B_2"        \
+## SinglePhoton
+# "Data_SinglePhoton_H_3"  \
+# "Data_SinglePhoton_H_2"  \
+# "Data_SinglePhoton_G"    \
+## "Data_SinglePhoton_F"    \
+## "Data_SinglePhoton_E"    \
+## "Data_SinglePhoton_D"    \
+## "Data_SinglePhoton_C"    \
+## "Data_SinglePhoton_B_2"  \
+### MC backgrounds
+## DY
+## "DYJetsToLL_M-5to50_HT-70to100"   \
+# "DYJetsToLL_M-5to50_HT-100to200"  \
+# "DYJetsToLL_M-5to50_HT-200to400"  \
+# "DYJetsToLL_M-5to50_HT-400to600"  \
+# "DYJetsToLL_M-5to50_HT-600toInf"  \
  "DYJetsToLL_M-10to50"             \
  "DYJetsToLL_M-50"                 \
-# WJets
- "WJetsToLNu"     \
-# TTbar
-"TTJets"         \
- "TTtoLL"         \
- "TTtoLfromTbar"  \
- "TTtoLfromT"     \
-# Single Top
- "ST_s-channel_4f_leptonDecays"             \
- "ST_t-channel_antitop_4f_inclusiveDecays"  \
- "ST_t-channel_top_4f_inclusiveDecays"      \
- "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
- "ST_tW_top_5f_NoFullyHadronicDecays"       \
-# GJets
- "GJets_HT-40To100"   \
- "GJets_HT-100To200"  \
- "GJets_HT-200To400"  \
- "GJets_HT-400To600"  \
- "GJets_HT-600ToInf"  \
-# Diboson
- "WW"               \
- "WZ"               \
- "ZZ"               \
- "WWTo2L2Nu"        \
- "WWToLNuQQ"        \
- "WZTo1L3Nu"        \
- "WZTo3LNu"         \
- "WZToLNu2QorQQ2L"  \
- "ZZTo2L2Nu"        \
- "ZZTo2L2Q"         \
- "ZZTo2Q2Nu"        \
- "ZZTo4L"           \
-# VGamma
- "ZGTo2LG"  \
- "WGToLNuG" \
-# ZH
- "ggZH_HToBB_ZToLL"  \
- "ZH_HToBB_ZToLL"    \
-#WH
-# "WplusH_HToBB_WToLNu"  \
-# "WminusH_HToBB_WToLNu" \
-# QCD
- "QCD_HT100to200"    \
- "QCD_HT200to300"    \
- "QCD_HT300to500"    \
- "QCD_HT500to700"    \
- "QCD_HT700to1000"   \
- "QCD_HT1000to1500"  \
- "QCD_HT1500to2000"  \
- "QCD_HT2000toInf"   \
-#### Signal Samples
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"      \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"     \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"    \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000"   \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"        \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"       \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"      \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000"     \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1"      \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10"     \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100"    \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000"   \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1"        \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10"       \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100"      \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000"     \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"      \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"     \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"    \
-## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"   \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"        \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
-## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
+## WJets
+# "WJetsToLNu"     \
+## TTbar
+#"TTJets"         \
+# "TTtoLL"         \
+# "TTtoLfromTbar"  \
+# "TTtoLfromT"     \
+## Single Top
+# "ST_s-channel_4f_leptonDecays"             \
+# "ST_t-channel_antitop_4f_inclusiveDecays"  \
+# "ST_t-channel_top_4f_inclusiveDecays"      \
+# "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
+# "ST_tW_top_5f_NoFullyHadronicDecays"       \
+## GJets
+# "GJets_HT-40To100"   \
+# "GJets_HT-100To200"  \
+# "GJets_HT-200To400"  \
+# "GJets_HT-400To600"  \
+# "GJets_HT-600ToInf"  \
+## Diboson
+# "WW"               \
+# "WZ"               \
+# "ZZ"               \
+# "WWTo2L2Nu"        \
+# "WWToLNuQQ"        \
+# "WZTo1L3Nu"        \
+# "WZTo3LNu"         \
+# "WZToLNu2QorQQ2L"  \
+# "ZZTo2L2Nu"        \
+# "ZZTo2L2Q"         \
+# "ZZTo2Q2Nu"        \
+# "ZZTo4L"           \
+## VGamma
+# "ZGTo2LG"  \
+# "WGToLNuG" \
+## ZH
+# "ggZH_HToBB_ZToLL"  \
+# "ZH_HToBB_ZToLL"    \
+##WH
+## "WplusH_HToBB_WToLNu"  \
+## "WminusH_HToBB_WToLNu" \
+## QCD
+# "QCD_HT100to200"    \
+# "QCD_HT200to300"    \
+# "QCD_HT300to500"    \
+# "QCD_HT500to700"    \
+# "QCD_HT700to1000"   \
+# "QCD_HT1000to1500"  \
+# "QCD_HT1500to2000"  \
+# "QCD_HT2000toInf"   \
+### Signal Samples
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"      \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000"   \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"        \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"       \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1"      \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000"   \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1"        \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10"       \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"      \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"     \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"    \
+# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"   \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"        \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
+# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
 ## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"       \
 ## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"      \
 ## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"     \
@@ -165,95 +165,95 @@ samples=(  \
 ## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"       \
 ## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"      \
 ## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"     \
-##
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
-###  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
-###  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"      \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"    \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"   \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"        \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"       \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"      \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"      \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"    \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"   \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"        \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"       \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"      \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"      \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"    \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"   \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"        \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"       \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"      \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"      \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"     \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"    \
-###  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"   \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"        \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"       \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"      \
-###  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"      \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"    \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"   \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"        \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"       \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"      \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"      \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"    \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"   \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"        \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"       \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"      \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"      \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"    \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"   \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"        \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"       \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"      \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"      \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"     \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"    \
-###  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"   \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"        \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"       \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"      \
-###  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"     \
+###
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+####  "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1"    \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10"   \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100"  \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000" \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1"    \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10"   \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100"  \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000" \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1"    \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10"   \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100"  \
+####  "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000" \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"      \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"    \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"   \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"        \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"       \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"      \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"      \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"    \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"   \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"        \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"       \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"      \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"      \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"    \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"   \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"        \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"       \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"      \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"      \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"     \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"    \
+####  "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"   \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"        \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"       \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"      \
+####  "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"      \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"    \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"   \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"        \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"       \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"      \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"      \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"    \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"   \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"        \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"       \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"      \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"      \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"    \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"   \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"        \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"       \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"      \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"      \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"     \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"    \
+####  "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"   \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"        \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"       \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"      \
+####  "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"     \
 
 )
 
@@ -333,7 +333,43 @@ makeasubmitdir () {
 
  #haddfile_MuLowPtWH_histograms="./haddit_MuLowPtWH_histograms.sh"
  
+ catfile_TwoEleZH_edmEventPick="./cat_TwoEleZH_edmEventPick.sh"                           
+ catfile_TwoMuZH_edmEventPick="./cat_TwoMuZH_edmEventPick.sh"                           
+ catfile_TwoEleDY_edmEventPick="./cat_TwoEleDY_edmEventPick.sh"                           
+ catfile_TwoMuDY_edmEventPick="./cat_TwoMuDY_edmEventPick.sh"                           
+ catfile_TwoEleZH_IPSigUp_edmEventPick="./cat_TwoEleZH_IPSigUp_edmEventPick.sh"                           
+ catfile_TwoMuZH_IPSigUp_edmEventPick="./cat_TwoMuZH_IPSigUp_edmEventPick.sh"                           
+ catfile_TwoEleDY_IPSigUp_edmEventPick="./cat_TwoEleDY_IPSigUp_edmEventPick.sh"                           
+ catfile_TwoMuDY_IPSigUp_edmEventPick="./cat_TwoMuDY_IPSigUp_edmEventPick.sh"                           
+ catfile_TwoEleZH_IPSigDown_edmEventPick="./cat_TwoEleZH_IPSigDown_edmEventPick.sh"                           
+ catfile_TwoMuZH_IPSigDown_edmEventPick="./cat_TwoMuZH_IPSigDown_edmEventPick.sh"                           
+ catfile_TwoEleDY_IPSigDown_edmEventPick="./cat_TwoEleDY_IPSigDown_edmEventPick.sh"                           
+ catfile_TwoMuDY_IPSigDown_edmEventPick="./cat_TwoMuDY_IPSigDown_edmEventPick.sh"                           
+ catfile_TwoEleZH_AMaxUp_edmEventPick="./cat_TwoEleZH_AMaxUp_edmEventPick.sh"                           
+ catfile_TwoMuZH_AMaxUp_edmEventPick="./cat_TwoMuZH_AMaxUp_edmEventPick.sh"                           
+ catfile_TwoEleDY_AMaxUp_edmEventPick="./cat_TwoEleDY_AMaxUp_edmEventPick.sh"                           
+ catfile_TwoMuDY_AMaxUp_edmEventPick="./cat_TwoMuDY_AMaxUp_edmEventPick.sh"                           
+ catfile_TwoEleZH_AMaxDown_edmEventPick="./cat_TwoEleZH_AMaxDown_edmEventPick.sh"                           
+ catfile_TwoMuZH_AMaxDown_edmEventPick="./cat_TwoMuZH_AMaxDown_edmEventPick.sh"                           
+ catfile_TwoEleDY_AMaxDown_edmEventPick="./cat_TwoEleDY_AMaxDown_edmEventPick.sh"                           
+ catfile_TwoMuDY_AMaxDown_edmEventPick="./cat_TwoMuDY_AMaxDown_edmEventPick.sh"                           
+ catfile_TwoEleZH_TAUp_edmEventPick="./cat_TwoEleZH_TAUp_edmEventPick.sh"                           
+ catfile_TwoMuZH_TAUp_edmEventPick="./cat_TwoMuZH_TAUp_edmEventPick.sh"                           
+ catfile_TwoEleDY_TAUp_edmEventPick="./cat_TwoEleDY_TAUp_edmEventPick.sh"                           
+ catfile_TwoMuDY_TAUp_edmEventPick="./cat_TwoMuDY_TAUp_edmEventPick.sh"                           
 
+ catfile_TwoEleZH_TADown_edmEventPick="./cat_TwoEleZH_TADown_edmEventPick.sh"                           
+ catfile_TwoMuZH_TADown_edmEventPick="./cat_TwoMuZH_TADown_edmEventPick.sh"                           
+ catfile_TwoEleDY_TADown_edmEventPick="./cat_TwoEleDY_TADown_edmEventPick.sh"                           
+ catfile_TwoMuDY_TADown_edmEventPick="./cat_TwoMuDY_TADown_edmEventPick.sh"                           
+ catfile_TwoEleZH_TagVarsUp_edmEventPick="./cat_TwoEleZH_TagVarsUp_edmEventPick.sh"                           
+ catfile_TwoMuZH_TagVarsUp_edmEventPick="./cat_TwoMuZH_TagVarsUp_edmEventPick.sh"                           
+ catfile_TwoEleDY_TagVarsUp_edmEventPick="./cat_TwoEleDY_TagVarsUp_edmEventPick.sh"                           
+ catfile_TwoMuDY_TagVarsUp_edmEventPick="./cat_TwoMuDY_TagVarsUp_edmEventPick.sh"                           
+ catfile_TwoEleZH_TagVarsDown_edmEventPick="./cat_TwoEleZH_TagVarsDown_edmEventPick.sh"                           
+ catfile_TwoMuZH_TagVarsDown_edmEventPick="./cat_TwoMuZH_TagVarsDown_edmEventPick.sh"                           
+ catfile_TwoEleDY_TagVarsDown_edmEventPick="./cat_TwoEleDY_TagVarsDown_edmEventPick.sh"                           
+ catfile_TwoMuDY_TagVarsDown_edmEventPick="./cat_TwoMuDY_TagVarsDown_edmEventPick.sh"                           
 
  hadddir="${rootdir}/${aversion}"
  mkdir -p ${hadddir}
@@ -367,7 +403,43 @@ makeasubmitdir () {
  #printf "#!/bin/bash\n\n" > ${haddfile_OPTtree}          
  #printf "#!/bin/bash\n\n" > ${haddfile_NM1trees}          
  #printf "#!/bin/bash\n\n" > ${haddfile_BkgEst}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_IPSigUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_IPSigUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_IPSigUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_IPSigUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_IPSigDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_IPSigDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_IPSigDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_IPSigDown_edmEventPick}
 
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_AMaxUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_AMaxUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_AMaxUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_AMaxUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_AMaxDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_AMaxDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_AMaxDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_AMaxDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_TAUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_TAUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_TAUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_TAUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_TADown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_TADown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_TADown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_TADown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_TagVarsUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_TagVarsUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_TagVarsUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_TagVarsUp_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleZH_TagVarsDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuZH_TagVarsDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoEleDY_TagVarsDown_edmEventPick}
+ printf "#!/bin/bash\n\n" > ${catfile_TwoMuDY_TagVarsDown_edmEventPick}
  # make checker
  checkfile="./checker.sh"
  printf "#!/bin/bash\n\n" > ${checkfile}
@@ -404,7 +476,43 @@ makeasubmitdir () {
  #printf "hadd ${hadddir}/$1_MuWHSig_histograms.root"       >>       ${haddfile_MuWHSig_histograms}
  #printf "hadd ${hadddir}/$1_EleLowPtWH_histograms.root"    >>       ${haddfile_EleLowPtWH_histograms}
  #printf "hadd ${hadddir}/$1_MuLowPtWH_histograms.root"	   >>       ${haddfile_MuLowPtWH_histograms}
+ printf "cat "  >> ${catfile_TwoEleZH_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_IPSigUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_IPSigUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_IPSigUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_IPSigUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_IPSigDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_IPSigDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_IPSigDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_IPSigDown_edmEventPick}           
 
+ printf "cat "  >> ${catfile_TwoEleZH_AMaxUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_AMaxUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_AMaxUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_AMaxUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_AMaxDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_AMaxDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_AMaxDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_AMaxDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_TAUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_TAUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_TAUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_TAUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_TADown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_TADown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_TADown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_TADown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_TagVarsUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_TagVarsUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_TagVarsUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_TagVarsUp_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleZH_TagVarsDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuZH_TagVarsDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoEleDY_TagVarsDown_edmEventPick}           
+ printf "cat "  >> ${catfile_TwoMuDY_TagVarsDown_edmEventPick}           
  # breaking up input file list
  nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list" )
  filenrlow=0
@@ -481,6 +589,42 @@ makeasubmitdir () {
   printf "\n $(pwd)/$1_${jobfilenr}_OPTtree.root"                  >> ${haddfile_OPTtree}           
   printf "\n $(pwd)/$1_${jobfilenr}_NM1tree.root"                  >> ${haddfile_NM1trees}           
   printf "\n $(pwd)/$1_${jobfilenr}_BkgEst.root"                   >> ${haddfile_BkgEst}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_edmEventPick.txt "    >> ${catfile_TwoEleZH_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_edmEventPick.txt "    >> ${catfile_TwoMuZH_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_edmEventPick.txt "    >> ${catfile_TwoEleDY_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_edmEventPick.txt "    >> ${catfile_TwoMuDY_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_IPSigUp_edmEventPick.txt "    >> ${catfile_TwoEleZH_IPSigUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_IPSigUp_edmEventPick.txt "    >> ${catfile_TwoMuZH_IPSigUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_IPSigUp_edmEventPick.txt "    >> ${catfile_TwoEleDY_IPSigUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_IPSigUp_edmEventPick.txt "    >> ${catfile_TwoMuDY_IPSigUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_IPSigDown_edmEventPick.txt "    >> ${catfile_TwoEleZH_IPSigDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_IPSigDown_edmEventPick.txt "    >> ${catfile_TwoMuZH_IPSigDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_IPSigDown_edmEventPick.txt "    >> ${catfile_TwoEleDY_IPSigDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_IPSigDown_edmEventPick.txt "    >> ${catfile_TwoMuDY_IPSigDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_AMaxUp_edmEventPick.txt "    >> ${catfile_TwoEleZH_AMaxUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_AMaxUp_edmEventPick.txt "    >> ${catfile_TwoMuZH_AMaxUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_AMaxUp_edmEventPick.txt "    >> ${catfile_TwoEleDY_AMaxUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_AMaxUp_edmEventPick.txt "    >> ${catfile_TwoMuDY_AMaxUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_AMaxDown_edmEventPick.txt "    >> ${catfile_TwoEleZH_AMaxDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_AMaxDown_edmEventPick.txt "    >> ${catfile_TwoMuZH_AMaxDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_AMaxDown_edmEventPick.txt "    >> ${catfile_TwoEleDY_AMaxDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_AMaxDown_edmEventPick.txt "    >> ${catfile_TwoMuDY_AMaxDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_TAUp_edmEventPick.txt "    >> ${catfile_TwoEleZH_TAUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_TAUp_edmEventPick.txt "    >> ${catfile_TwoMuZH_TAUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_TAUp_edmEventPick.txt "    >> ${catfile_TwoEleDY_TAUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_TAUp_edmEventPick.txt "    >> ${catfile_TwoMuDY_TAUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_TADown_edmEventPick.txt "    >> ${catfile_TwoEleZH_TADown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_TADown_edmEventPick.txt "    >> ${catfile_TwoMuZH_TADown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_TADown_edmEventPick.txt "    >> ${catfile_TwoEleDY_TADown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_TADown_edmEventPick.txt "    >> ${catfile_TwoMuDY_TADown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_TagVarsUp_edmEventPick.txt "    >> ${catfile_TwoEleZH_TagVarsUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_TagVarsUp_edmEventPick.txt "    >> ${catfile_TwoMuZH_TagVarsUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_TagVarsUp_edmEventPick.txt "    >> ${catfile_TwoEleDY_TagVarsUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_TagVarsUp_edmEventPick.txt "    >> ${catfile_TwoMuDY_TagVarsUp_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleZH_TagVarsDown_edmEventPick.txt "    >> ${catfile_TwoEleZH_TagVarsDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuZH_TagVarsDown_edmEventPick.txt "    >> ${catfile_TwoMuZH_TagVarsDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoEleDY_TagVarsDown_edmEventPick.txt "    >> ${catfile_TwoEleDY_TagVarsDown_edmEventPick}
+  printf "$(pwd)/$1_${jobfilenr}_cat_TwoMuDY_TagVarsDown_edmEventPick.txt "    >> ${catfile_TwoMuDY_TagVarsDown_edmEventPick}
 
   # add file to checker, all histos are made at the same time, so only check one
   printf "\n if [ ! -f $(pwd)/$1_${jobfilenr}_OPTtree.root ]; then printf \" $(pwd)/$1_${jobfilenr}_OPTtree.root \\n\"; fi " >> ${checkfile}
@@ -516,7 +660,43 @@ makeasubmitdir () {
  printf "\n\n" >> ${haddfile_OPTtree}           
  printf "\n\n" >> ${haddfile_NM1trees}           
  printf "\n\n" >> ${haddfile_BkgEst}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_edmEventPick.txt" >> ${catfile_TwoEleZH_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_edmEventPick.txt" >> ${catfile_TwoMuZH_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_edmEventPick.txt" >> ${catfile_TwoEleDY_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_edmEventPick.txt" >> ${catfile_TwoMuDY_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_IPSigUp_edmEventPick.txt" >> ${catfile_TwoEleZH_IPSigUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_IPSigUp_edmEventPick.txt" >> ${catfile_TwoMuZH_IPSigUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_IPSigUp_edmEventPick.txt" >> ${catfile_TwoEleDY_IPSigUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_IPSigUp_edmEventPick.txt" >> ${catfile_TwoMuDY_IPSigUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_IPSigDown_edmEventPick.txt" >> ${catfile_TwoEleZH_IPSigDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_IPSigDown_edmEventPick.txt" >> ${catfile_TwoMuZH_IPSigDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_IPSigDown_edmEventPick.txt" >> ${catfile_TwoEleDY_IPSigDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_IPSigDown_edmEventPick.txt" >> ${catfile_TwoMuDY_IPSigDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_AMaxUp_edmEventPick.txt" >> ${catfile_TwoEleZH_AMaxUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_AMaxUp_edmEventPick.txt" >> ${catfile_TwoMuZH_AMaxUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_AMaxUp_edmEventPick.txt" >> ${catfile_TwoEleDY_AMaxUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_AMaxUp_edmEventPick.txt" >> ${catfile_TwoMuDY_AMaxUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_AMaxDown_edmEventPick.txt" >> ${catfile_TwoEleZH_AMaxDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_AMaxDown_edmEventPick.txt" >> ${catfile_TwoMuZH_AMaxDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_AMaxDown_edmEventPick.txt" >> ${catfile_TwoEleDY_AMaxDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_AMaxDown_edmEventPick.txt" >> ${catfile_TwoMuDY_AMaxDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_TAUp_edmEventPick.txt" >> ${catfile_TwoEleZH_TAUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_TAUp_edmEventPick.txt" >> ${catfile_TwoMuZH_TAUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_TAUp_edmEventPick.txt" >> ${catfile_TwoEleDY_TAUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_TAUp_edmEventPick.txt" >> ${catfile_TwoMuDY_TAUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_TADown_edmEventPick.txt" >> ${catfile_TwoEleZH_TADown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_TADown_edmEventPick.txt" >> ${catfile_TwoMuZH_TADown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_TADown_edmEventPick.txt" >> ${catfile_TwoEleDY_TADown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_TADown_edmEventPick.txt" >> ${catfile_TwoMuDY_TADown_edmEventPick}
 
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_TagVarsUp_edmEventPick.txt" >> ${catfile_TwoEleZH_TagVarsUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_TagVarsUp_edmEventPick.txt" >> ${catfile_TwoMuZH_TagVarsUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_TagVarsUp_edmEventPick.txt" >> ${catfile_TwoEleDY_TagVarsUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_TagVarsUp_edmEventPick.txt" >> ${catfile_TwoMuDY_TagVarsUp_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleZH/$1_cat_TwoEleZH_TagVarsDown_edmEventPick.txt" >> ${catfile_TwoEleZH_TagVarsDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuZH/$1_cat_TwoMuZH_TagVarsDown_edmEventPick.txt" >> ${catfile_TwoMuZH_TagVarsDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoEleDY/$1_cat_TwoEleDY_TagVarsDown_edmEventPick.txt" >> ${catfile_TwoEleDY_TagVarsDown_edmEventPick}
+ printf ">> ${hadddir}/$1/TwoMuDY/$1_cat_TwoMuDY_TagVarsDown_edmEventPick.txt" >> ${catfile_TwoMuDY_TagVarsDown_edmEventPick}
  #printf "\n\n" >> ${haddfile_EleWH_histograms}
  #printf "\n\n" >> ${haddfile_MuWH_histograms}
  #printf "\n\n" >> ${haddfile_EleWHSig_histograms}

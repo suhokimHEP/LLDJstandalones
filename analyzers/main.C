@@ -235,25 +235,31 @@ int main(int argc, char **argv){
  std::cout << "  lumi: " << lumi << std::endl;
 
  std::vector<TString> unccategories;
- unccategories.push_back("");
+ //unccategories.push_back("");
 
  if( isMC ){
-   unccategories.push_back("_EGSUp");
-   unccategories.push_back("_EGSDown");
-   unccategories.push_back("_MESUp");
-   unccategories.push_back("_MESDown");
-////   //unccategories.push_back("_JESUp");
-////   //unccategories.push_back("_JESDown");
+//   unccategories.push_back("_EGSUp");
+//   unccategories.push_back("_EGSDown");
+//   unccategories.push_back("_MESUp");
+//   unccategories.push_back("_MESDown");
+////////   //unccategories.push_back("_JESUp");
+////////   //unccategories.push_back("_JESDown");
    unccategories.push_back("_AMaxUp");
    unccategories.push_back("_AMaxDown");
-////   unccategories.push_back("_IPSigUp");
-////   unccategories.push_back("_IPSigDown");
-////   unccategories.push_back("_TAUp");
-////   unccategories.push_back("_TADown");
+   unccategories.push_back("_IPSigUp");
+   unccategories.push_back("_IPSigDown");
+   unccategories.push_back("_TAUp");
+   unccategories.push_back("_TADown");
    unccategories.push_back("_TagVarsUp");
    unccategories.push_back("_TagVarsDown");
-   unccategories.push_back("_LeptonSFUp");
-   unccategories.push_back("_LeptonSFDown");
+//   unccategories.push_back("_LeptonSFUp");
+//   unccategories.push_back("_LeptonSFDown");
+//   unccategories.push_back("_AMaxUp_and_IPSigUp");
+//   unccategories.push_back("_AMaxUp_and_TAUp");
+//   unccategories.push_back("_IPSigUp_and_TAUp");
+//   unccategories.push_back("_AMaxDown_and_IPSigDown");
+//   unccategories.push_back("_AMaxDown_and_TADown");
+//   unccategories.push_back("_IPSigDown_and_TADown");
   }
 
  // make the analyzer, init some stuff
