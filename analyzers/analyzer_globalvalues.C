@@ -37,13 +37,6 @@ void analyzer_globalvalues::clearglobalcounters()
  n_passEleMuOSOF    = 0;
  n_passEleMuOSOFL   = 0;
  n_passOnePho       = 0;
- n_passEleWH        = 0; 
- n_passMuWH         = 0; 
- n_passEleWHSig     = 0; 
- n_passMuWHSig      = 0; 
- n_passEleLowPtWH   = 0; 
- n_passMuLowPtWH    = 0; 
-
  n_totalPF          = 0;
  n_totalPFchs       = 0;
  n_totalCalo        = 0;
@@ -100,5 +93,13 @@ void analyzer_globalvalues::cleareventcounters(){
  calomatchedPFchs_list .clear();
  PFchsmatchedCalo_list .clear();
 
+ taggedjet_h150_llp20_ct100_list     .clear(); 
+ taggedjet_h150_llp50_ct100_list     .clear(); 
+ taggedjet_h175_llp20_ct100_list     .clear(); 
+ taggedjet_h175_llp50_ct100_list     .clear(); 
+ taggedjet_h200_llp20_ct100_list     .clear(); 
+ taggedjet_h200_llp50_ct100_list     .clear(); 
+ taggedjet_h250_llp50_ct100_list     .clear(); 
+ taggedjet_h500_llp200_ct100_list     .clear(); 
 }
 

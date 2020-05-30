@@ -41,6 +41,15 @@ public :
  std::vector<int>     jet_passTaggerSBIPa    ();
  std::vector<int>     jet_passTaggerSBIPb    ();
  std::vector<int>     jet_passTaggerSBIPc    ();
+ 
+ std::vector<int>     jet_passTagger_h150_llp20_ct100();
+ std::vector<int>     jet_passTagger_h150_llp50_ct100();
+ std::vector<int>     jet_passTagger_h175_llp20_ct100();
+ std::vector<int>     jet_passTagger_h175_llp50_ct100();
+ std::vector<int>     jet_passTagger_h200_llp20_ct100();
+ std::vector<int>     jet_passTagger_h200_llp50_ct100();
+ std::vector<int>     jet_passTagger_h250_llp50_ct100();
+ std::vector<int>     jet_passTagger_h500_llp200_ct100();
 
  bool AL_SB(int i);
  bool IP_SB(int i);
@@ -74,8 +83,6 @@ public :
  Float_t       getMuonPt(int i, TString sysbinname);
 
  Float_t       getMET();
- virtual void  getWPT(); //Transverse momentum of W boson
- virtual void  getMT();  //TransverseMass
 
  virtual void  shiftCollections(TString uncbin);
  virtual void  calculateHT();

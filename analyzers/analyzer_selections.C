@@ -18,13 +18,11 @@ void analyzer_selections::clearSelections()
  selvecBaseDY      .clear() ;   
  selvecBaseOffZ    .clear() ;   
  selvecBaseNoPair  .clear() ;
- selvecBaseWH      .clear() ;
- selvecBaseWHSig   .clear() ;
- selvecBaseLowPtWH .clear() ;
+
  selvecOneEleSig   .clear() ;   
  selvecTwoEleSig   .clear() ;   
  selvecOneMuSig    .clear() ;   
- selvecTwoMuSig    .clear() ;  
+ selvecTwoMuSig    .clear() ;   
  selvecOneEleDY    .clear() ;   
  selvecTwoEleDY    .clear() ;   
  selvecOneMuDY     .clear() ;   
@@ -42,12 +40,6 @@ void analyzer_selections::clearSelections()
  selvecEleMuOSOF   .clear() ;   
  selvecEleMuOSOFL  .clear() ;   
  selvecOnePho      .clear() ;
- selvecEleWH	   .clear() ;
- selvecMuWH 	   .clear() ;
- selvecEleWHSig    .clear() ;
- selvecMuWHSig     .clear() ;
- selvecEleLowPtWH  .clear() ;
- selvecMuLowPtWH   .clear() ;
 
  bitsPassOneEleSig   = 0;
  bitsPassTwoEleSig   = 0;
@@ -70,13 +62,6 @@ void analyzer_selections::clearSelections()
  bitsPassEleMuOSOF   = 0;
  bitsPassEleMuOSOFL  = 0;
  bitsPassOnePho      = 0;
- bitsPassEleWH       = 0; 
- bitsPassMuWH        = 0; 
- bitsPassEleWHSig    = 0; 
- bitsPassMuWHSig     = 0; 
- bitsPassEleLowPtWH  = 0; 
- bitsPassMuLowPtWH   = 0; 
-
 
  keyPassOneEleSig   = 0;
  keyPassTwoEleSig   = 0;
@@ -99,13 +84,8 @@ void analyzer_selections::clearSelections()
  keyPassEleMuOSOF   = 0;
  keyPassEleMuOSOFL  = 0;
  keyPassOnePho      = 0;
- keyPassEleWH       = 0; 
- keyPassMuWH        = 0; 
- keyPassEleWHSig    = 0; 
- keyPassMuWHSig     = 0; 
- keyPassEleLowPtWH  = 0; 
- keyPassMuLowPtWH   = 0; 
- 
+
+
 }
 
 void analyzer_selections::setSelections()
@@ -119,14 +99,12 @@ void analyzer_selections::setSelections()
 
  selvecBaseZH   .push_back( passGoodVtx );
  selvecBaseZH   .push_back( passZWindow );
- //selvecBaseZH   .push_back( true  );
  selvecBaseZH   .push_back( passPTOSSF  );
  selvecBaseZH   .push_back( passOneJet  );
- 
+
  selvecBaseDY      .push_back( passGoodVtx );
  selvecBaseDY      .push_back( passZWindow );
- //selvecBaseDY      .push_back( true );
- selvecBaseDY      .push_back( passLowPTOSSF );
+ selvecBaseDY      .push_back( passLowPTOSSF);
  selvecBaseDY      .push_back( passOneJet  );
 
  //Usually not used. Hacking right now to get inclusive Z plots
@@ -140,31 +118,12 @@ void analyzer_selections::setSelections()
  selvecBaseNoPair  .push_back( !passOSSF    );
  selvecBaseNoPair  .push_back( passOneJet   );
 
- //WH signal
- selvecBaseWHSig   .push_back( passGoodVtx ); 
- selvecBaseWHSig   .push_back( passTruth   ); 
- selvecBaseWHSig   .push_back( passWPT     ); 
- selvecBaseWHSig   .push_back( passOneTag  ); 
-
- //High pT WH
- selvecBaseWH   .push_back( passGoodVtx ); 
- selvecBaseWH   .push_back( passTruth   ); 
- selvecBaseWH   .push_back( passWPT     ); 
- selvecBaseWH   .push_back( passOneJet  ); 
- 
- //Low pT WH 
- selvecBaseLowPtWH  .push_back( passGoodVtx );
- selvecBaseLowPtWH  .push_back( passTruth   );
- selvecBaseLowPtWH  .push_back( !passWPT    );
- selvecBaseLowPtWH  .push_back( passOneJet  );
-
  // full selections
- // ZH signal
+ // signal
  selvecOneEleSig   .push_back( passSingleEle  ) ;   
  selvecTwoEleSig   .push_back( passDoubleEle  ) ;   
  selvecOneMuSig    .push_back( passSingleMu   ) ;   
  selvecTwoMuSig    .push_back( passDoubleMu   ) ;   
-
  for(unsigned int b=0; b<selvecBaseSig.size(); ++b)
  {
   selvecOneEleSig   .push_back( selvecBaseSig.at(b) ) ;   
@@ -172,18 +131,7 @@ void analyzer_selections::setSelections()
   selvecOneMuSig    .push_back( selvecBaseSig.at(b) ) ;   
   selvecTwoMuSig    .push_back( selvecBaseSig.at(b) ) ;   
  }
-
-//WH signal
-  selvecEleWHSig  .push_back( passOnlyOneEle ) ;
-  selvecMuWHSig   .push_back( passOnlyOneMu  ) ;
-
- for(unsigned int b=0; b<selvecBaseWHSig.size(); ++b)
- {
-  selvecEleWHSig    .push_back( selvecBaseWHSig.at(b) ) ;
-  selvecMuWHSig     .push_back( selvecBaseWHSig.at(b) ) ;
- } 
-
-// DY
+ // DY
  selvecOneEleDY    .push_back( passSingleEle  ) ;   
  selvecTwoEleDY    .push_back( passDoubleEle  ) ;   
  selvecOneMuDY     .push_back( passSingleMu   ) ;   
@@ -219,25 +167,6 @@ void analyzer_selections::setSelections()
   selvecOneMuOffZ    .push_back( selvecBaseOffZ.at(b) ) ;   
   selvecTwoMuOffZ    .push_back( selvecBaseOffZ.at(b) ) ;   
  }
- 
- //High pT WH 
- selvecEleWH  .push_back( passOnlyOneEle ) ;
- selvecMuWH   .push_back( passOnlyOneMu  ) ;
- for(unsigned int b=0; b<selvecBaseWH.size(); ++b)
- {
-  selvecEleWH  .push_back( selvecBaseWH.at(b) ) ;
-  selvecMuWH   .push_back( selvecBaseWH.at(b) ) ;
- }
-
- //Low pT WH
- selvecEleLowPtWH .push_back( passOnlyOneEle ) ;
- selvecMuLowPtWH  .push_back( passOnlyOneMu  ) ;
- for(unsigned int b=0; b<selvecBaseLowPtWH.size(); ++b)
- {
- selvecEleLowPtWH .push_back( selvecBaseLowPtWH.at(b) ) ;
- selvecMuLowPtWH  .push_back( selvecBaseLowPtWH.at(b) ) ;
- }
-
  // NoPair
  selvecOneEleNoPair.push_back( passSingleEle  ) ; 
  selvecOneMuNoPair .push_back( passSingleMu   ) ;   
@@ -308,23 +237,6 @@ Bool_t analyzer_selections::askPassSingleEle()
  return doespass;
 }
 
-Bool_t analyzer_selections::askPassOnlyOneEle()
-{
- Bool_t doespass = kFALSE;
- if(electron_list.size()==1){ 
-   //if(isMC) doespass = kTRUE;
-   //else doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
-   doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );  //will want to reconsider this boolean?
- } 
- return doespass;
-}
-
-Bool_t analyzer_selections::askPassTruth()
-{
- Bool_t doespass = kTRUE;
- return doespass;
-}
-
 Bool_t analyzer_selections::askPassDoubleEle()
 {
  Bool_t doespass = kFALSE;
@@ -346,17 +258,6 @@ Bool_t analyzer_selections::askPassSingleMu()
   doespass = (Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
  } 
  return doespass;
-}
-
-Bool_t analyzer_selections::askPassOnlyOneMu()
-{
- Bool_t doespass = kFALSE;
- if(muon_list.size()==1){
-  //if(isMC) doespass = kTRUE;
-  //else doespass =(Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
-  doespass = (Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );  //will want to more closely look at this boolean
-  }
-  return doespass;
 }
 
 Bool_t analyzer_selections::askPassDoubleMu()

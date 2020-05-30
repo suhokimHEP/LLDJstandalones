@@ -96,16 +96,7 @@ public :
  Bool_t        fillMETHTHistograms(Float_t weight, int selbin);
  Bool_t        writeMETHTHistograms(int selbin);
  Bool_t        deleteMETHTHistograms(int selbin);
-// Transverse Mass histograms
- Bool_t        initTransverseMassHistograms( TString uncbin );	
- Bool_t        fillTransverseMassHistograms(Float_t weight, int selbin);
- Bool_t        writeTransverseMassHistograms(int selbin);
- Bool_t        deleteTransverseMassHistograms(int selbin);
-//Wboson Transverse Momentum histograms 
- Bool_t        initWbosonPtHistograms( TString uncbin );	
- Bool_t        fillWbosonPtHistograms(Float_t weight, int selbin);
- Bool_t        writeWbosonPtHistograms(int selbin);
- Bool_t        deleteWbosonPtHistograms(int selbin);
+ 
 
  // Trigger Turn On Curves
  Bool_t        initTTOCHistograms( TString uncbin );
@@ -295,11 +286,12 @@ public :
  TH1F*  h_AOD_muPFdBetaIsolation      [SELBINNAMESIZE];
  
  // Generic Lepton
- TH1F*  h_AOD_dilepton_Mass           [SELBINNAMESIZE];
- TH1F*  h_AOD_dilepton_Pt             [SELBINNAMESIZE];
+ TH1F*  h_AOD_dilepton_Mass               [SELBINNAMESIZE];
+ TH1F*  h_AOD_dilepton_Pt                 [SELBINNAMESIZE];
  TH1F*  h_AOD_dileptonNewB_Pt             [SELBINNAMESIZE];
- TH1F*  h_AOD_OSOFdilepton_Mass       [SELBINNAMESIZE];
- TH1F*  h_AOD_OSOFdilepton_Pt         [SELBINNAMESIZE];
+ TH1F*  h_AOD_OSOFdilepton_Mass           [SELBINNAMESIZE];
+ TH1F*  h_AOD_OSOFdilepton_Pt             [SELBINNAMESIZE];
+ TH1F*  h_AOD_OSOFdileptonNewB_Pt         [SELBINNAMESIZE];
 
  // Photon
  TH1F*  h_AOD_nPho                     [SELBINNAMESIZE];
@@ -318,14 +310,12 @@ public :
  TH1F*  h_AODnVtx                  [SELBINNAMESIZE];
  TH1F*  h_AODnTruePU               [SELBINNAMESIZE];
 
- //WH mode
- TH1F*  h_TransverseMass       [SELBINNAMESIZE]; 
- TH1F*  h_Wboson_pt	       [SELBINNAMESIZE]; 
  
  // nJets
  TH1F*  h_nSelectedAODCaloJet_L1PFTag    [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJet            [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTag         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_orig    [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB1      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB2      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB3      [SELBINNAMESIZE];
@@ -407,6 +397,16 @@ public :
  TH2F*  h_AODCaloJet_Study_pt_v_MedianLog10IPSig        [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH2F*  h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle   [SELBINNAMESIZE][JETMULTNAMESIZE];
  
+ TH1F*  h_nSelectedAODCaloJetTag_h150_llp20_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h150_llp50_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h175_llp20_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h175_llp50_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h200_llp20_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h200_llp50_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h250_llp50_ct100         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_h500_llp200_ct100        [SELBINNAMESIZE];
+
+
  
  // AODCaloJetL1PFHistograms
  TH1F*  h_AODCaloJet_L1PFPt                             [SELBINNAMESIZE][JETMULTNAMESIZE];

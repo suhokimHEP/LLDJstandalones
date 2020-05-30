@@ -39,8 +39,7 @@ void plotter_stackedRegion(TString region, Bool_t dolog, Bool_t HIP, Bool_t useE
 {
 
 // // Draw signal as lines
-Bool_t drawSignal = kFALSE; //kTRUE; //kFALSE
-//Bool_t drawWHSignal = kTRUE;
+Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 // Bool_t drawRatio = kTRUE;
 
  // Setup running configuration: IO, naming, SFs, ..
@@ -50,17 +49,19 @@ Bool_t drawSignal = kFALSE; //kTRUE; //kFALSE
  bool useAlt = false; 
  bool doUncPlots = false;
 
- TString outpath = TString("../plots/");
+ //TString basedir  = TString(getenv("basedir"));
  TString aversion = TString(getenv("aversion"));
  TString nversion = TString(getenv("nversion"));
  TString depot = TString(getenv("depot2"));
  TString inpath  = TString("../roots/");
+ TString outpath = TString(getenv("plotdir"));//"../plots/");
+ //TString inpath  = TString("/uscms/home/skim2/nobackup/LLDJ_slc6_530_CMSSW_8_0_26_patch1/src/Toberidden/roots/");
  if(useEOS){
   inpath = "root://cmsxrootd.fnal.gov/"+depot+"/"+nversion+"/analyzed/"; 
 }
 
  inpath = inpath+aversion+"/";
- outpath = outpath+aversion+"/"+region+"/";
+ outpath = outpath+"/"+aversion+"/"+region+"/";
 
  TString extraname = "";
  if(HIP){
@@ -68,7 +69,7 @@ Bool_t drawSignal = kFALSE; //kTRUE; //kFALSE
   outpath = outpath+"BCDEF/";
  }
  if(!HIP){
-  outpath = outpath+"GH/";
+  //outpath = outpath+"GH/";
   extraname+="_GH";
  }
 
@@ -109,26 +110,49 @@ Bool_t drawSignal = kFALSE; //kTRUE; //kFALSE
 
  int loopEnd;
  if (doUncPlots) loopEnd=uncbins.size(); else loopEnd=1;
-//if(drawSignal){extraname+="_wsig";}
-//if(drawWHSignal){extraname+="_wWHsig";}
-// variables to plot
+ //if(drawSignal){extraname+="_wsig";}
+ // variables to plot
  std::vector<TString> variables;
  variables.clear();
+ 
+// if( !region.Contains("EleMu")){
+//  variables.push_back("AOD_dilepton_Mass");
+//  variables.push_back("AOD_dilepton_Pt");
+//  variables.push_back("AOD_dileptonNewB_Pt");
+// }
+// if( !region.Contains("Two")){
+// variables.push_back("AOD_OSOFdilepton_Mass");
+// variables.push_back("AOD_OSOFdilepton_Pt");
+// }
+// variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
+// variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
+// variables.push_back("AllJets_AODCaloJetAlphaMax");
+// variables.push_back("AllJets_AODCaloJetPt");
+// variables.push_back("nSelectedAODCaloJet");
+// variables.push_back("AOD_OSOFdilepton_Mass");
+// variables.push_back("AOD_OSOFdilepton_Pt");
 
-//variables.push_back("nSelectedAODCaloJetTag");
-//variables.push_back("AOD_dilepton_Pt");
-variables.push_back("AllJets_AODCaloJetMedianLog10IPSig");
-variables.push_back("AllJets_AODCaloJetMedianLog10TrackAngle");
-variables.push_back("AllJets_AODCaloJetAlphaMax");
+// variables.push_back("nSelectedAODCaloJetTag_0b");
+// variables.push_back("nSelectedAODCaloJetTagSB1_0b");
+// variables.push_back("nSelectedAODCaloJetTagSB2_0b");
+// variables.push_back("nSelectedAODCaloJetTagSB3_0b");
+// variables.push_back("nSelectedAODCaloJetTag_1b");
+// variables.push_back("nSelectedAODCaloJetTagSB1_1b");
+// variables.push_back("nSelectedAODCaloJetTagSB2_1b");
+// variables.push_back("nSelectedAODCaloJetTagSB3_1b");
+// variables.push_back("nSelectedAODCaloJetTag");
+// variables.push_back("nSelectedAODCaloJetTagSB1_2b");
+// variables.push_back("nSelectedAODCaloJetTagSB2_2b");
+// variables.push_back("nSelectedAODCaloJetTagSB3_2b"); 
 
  //variables.push_back("nSelectedAODCaloJet_L1PFTag");
  //variables.push_back("AllJets_AODCaloJet_L1PFMedianLog10IPSig");
  //variables.push_back("AllJets_AODCaloJet_L1PFMedianLog10TrackAngle");
  //variables.push_back("AllJets_AODCaloJet_L1PFAlphaMax");
 
-// variables.push_back("nVtx");                   
-// variables.push_back("nGoodVtx");               
-// variables.push_back("nTrksPV");                
+ //variables.push_back("nVtx");                   
+ //variables.push_back("nGoodVtx");               
+ //variables.push_back("nTrksPV");                
  //variables.push_back("rho");                    
  //variables.push_back("pfMET");                  
  //variables.push_back("pfMETPhi");               
@@ -150,7 +174,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 ///// variables.push_back("AOD_muEta");                  
 ///// variables.push_back("AOD_muPhi");                  
 ///// variables.push_back("AOD_nEle");                  
-
+ 
  //variables.push_back("htall"); 
  //variables.push_back("htaodcalojets");
  //variables.push_back("AOD_nSelectedPho");
@@ -178,6 +202,37 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  //variables.push_back("RawNMinus");                   
  //variables.push_back("RawOnecut");                   
  //variables.push_back("RawCutflow");                   
+ variables.push_back("nSelectedAODCaloJetTag");
+// variables.push_back("nSelectedAODCaloJetTag_h150_llp20_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h150_llp50_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h175_llp20_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h175_llp50_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h200_llp20_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h200_llp50_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h250_llp50_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_h500_llp200_ct100");
+// variables.push_back("nSelectedAODCaloJetTag_orig");
+// variables.push_back("nSelectedAODCaloJetTagSB1");
+// variables.push_back("nSelectedAODCaloJetTagSB2");
+// variables.push_back("nSelectedAODCaloJetTagSB3");
+// variables.push_back("nSelectedAODCaloJetTagSB4");
+// variables.push_back("nSelectedAODCaloJetTagSB5");
+// variables.push_back("nSelectedAODCaloJetTagSB6");
+// variables.push_back("nSelectedAODCaloJetTagSB7");
+ //variables.push_back("nSelectedAODCaloJetTagSBL1");
+ //variables.push_back("nSelectedAODCaloJetTagSBL2");
+ //variables.push_back("nSelectedAODCaloJetTagSBL3");
+ //variables.push_back("nSelectedAODCaloJetTagSBL4");
+ //variables.push_back("nSelectedAODCaloJetTagSBL5");
+ //variables.push_back("nSelectedAODCaloJetTagSBL6");
+ //variables.push_back("nSelectedAODCaloJetTagSBL7");
+ //variables.push_back("nSelectedAODCaloJetTagSB2a");
+ //variables.push_back("nSelectedAODCaloJetTagSB2b");
+ //variables.push_back("nSelectedAODCaloJetTagSB2c");
+ //variables.push_back("nSelectedAODCaloJetTagIP");
+ //variables.push_back("nSelectedAODCaloJetTagSBIPa");
+ //variables.push_back("nSelectedAODCaloJetTagSBIPb");
+ //variables.push_back("nSelectedAODCaloJetTagSBIPc");
 
  // canvas and text attributes
  int canx = 1100;
@@ -297,6 +352,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  //TFile* file_Data_DoubleEG_C         ; 
  //TFile* file_Data_DoubleEG_B_2       ; 
  TFile* file_DY50                                ;
+ TFile* file_DY50_mad                            ;
  TFile* file_DY5to50_HT100To200                  ; 
  TFile* file_DY5to50_HT200To400                  ; 
  TFile* file_DY5to50_HT400To600                  ; 
@@ -341,6 +397,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TFile* file_QCD_HT1000to1500                  ;
  TFile* file_QCD_HT1500to2000                  ;
  TFile* file_QCD_HT2000toInf                   ;
+
  TFile* file_Sig_ZH_MS15ct1000     ;
  TFile* file_Sig_ZH_MS15ct100      ;
  TFile* file_Sig_ZH_MS15ct10       ;
@@ -365,38 +422,268 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TFile* file_Sig_ggZH_MS55ct100    ;
  TFile* file_Sig_ggZH_MS55ct10     ;
  TFile* file_Sig_ggZH_MS55ct1      ;
- /*
- TFile* file_WminusH_HToBB_WToLNu	       ;
- TFile* file_WplusH_HToBB_WToLNu	       ; 
 
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
- TFile* file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
+ TFile* file_Sig_ZH_MS15ct200      ;
+ TFile* file_Sig_ZH_MS15ct20       ;
+ TFile* file_Sig_ZH_MS15ct2        ;
+ TFile* file_Sig_ZH_MS40ct200      ;
+ TFile* file_Sig_ZH_MS40ct20       ;
+ TFile* file_Sig_ZH_MS40ct2        ;
+ TFile* file_Sig_ZH_MS55ct200      ;
+ TFile* file_Sig_ZH_MS55ct20       ;
+ TFile* file_Sig_ZH_MS55ct2        ;
+ TFile* file_Sig_ggZH_MS15ct200    ;
+ TFile* file_Sig_ggZH_MS15ct20     ;
+ TFile* file_Sig_ggZH_MS15ct2      ;
+ TFile* file_Sig_ggZH_MS40ct200    ;
+ TFile* file_Sig_ggZH_MS40ct20     ;
+ TFile* file_Sig_ggZH_MS40ct2      ;
+ TFile* file_Sig_ggZH_MS55ct200    ;
+ TFile* file_Sig_ggZH_MS55ct20     ;
+ TFile* file_Sig_ggZH_MS55ct2      ;
+ 
+ TFile* file_Sig_ZH_MS15ct300      ;
+ TFile* file_Sig_ZH_MS15ct30       ;
+ TFile* file_Sig_ZH_MS15ct3        ;
+ TFile* file_Sig_ZH_MS40ct300      ;
+ TFile* file_Sig_ZH_MS40ct30       ;
+ TFile* file_Sig_ZH_MS40ct3        ;
+ TFile* file_Sig_ZH_MS55ct300      ;
+ TFile* file_Sig_ZH_MS55ct30       ;
+ TFile* file_Sig_ZH_MS55ct3        ;
+ TFile* file_Sig_ggZH_MS15ct300    ;
+ TFile* file_Sig_ggZH_MS15ct30     ;
+ TFile* file_Sig_ggZH_MS15ct3      ;
+ TFile* file_Sig_ggZH_MS40ct300    ;
+ TFile* file_Sig_ggZH_MS40ct30     ;
+ TFile* file_Sig_ggZH_MS40ct3      ;
+ TFile* file_Sig_ggZH_MS55ct300    ;
+ TFile* file_Sig_ggZH_MS55ct30     ;
+ TFile* file_Sig_ggZH_MS55ct3      ;
+ 
+ TFile* file_Sig_ZH_MS15ct500      ;
+ TFile* file_Sig_ZH_MS15ct50       ;
+ TFile* file_Sig_ZH_MS15ct5        ;
+ TFile* file_Sig_ZH_MS40ct500      ;
+ TFile* file_Sig_ZH_MS40ct50       ;
+ TFile* file_Sig_ZH_MS40ct5        ;
+ TFile* file_Sig_ZH_MS55ct500      ;
+ TFile* file_Sig_ZH_MS55ct50       ;
+ TFile* file_Sig_ZH_MS55ct5        ;
+ TFile* file_Sig_ggZH_MS15ct500    ;
+ TFile* file_Sig_ggZH_MS15ct50     ;
+ TFile* file_Sig_ggZH_MS15ct5      ;
+ TFile* file_Sig_ggZH_MS40ct500    ;
+ TFile* file_Sig_ggZH_MS40ct50     ;
+ TFile* file_Sig_ggZH_MS40ct5      ;
+ TFile* file_Sig_ggZH_MS55ct500    ;
+ TFile* file_Sig_ggZH_MS55ct50     ;
+ TFile* file_Sig_ggZH_MS55ct5      ;
+ 
+ TFile* file_Sig_4d_ZH_MS15ct1000     ;
+ TFile* file_Sig_4d_ZH_MS15ct100      ;
+ TFile* file_Sig_4d_ZH_MS15ct10       ;
+ TFile* file_Sig_4d_ZH_MS15ct1        ;
+ TFile* file_Sig_4d_ZH_MS40ct1000     ;
+ TFile* file_Sig_4d_ZH_MS40ct100      ;
+ TFile* file_Sig_4d_ZH_MS40ct10       ;
+ TFile* file_Sig_4d_ZH_MS40ct1        ;
+ TFile* file_Sig_4d_ZH_MS55ct1000     ;
+ TFile* file_Sig_4d_ZH_MS55ct100      ;
+ TFile* file_Sig_4d_ZH_MS55ct10       ;
+ TFile* file_Sig_4d_ZH_MS55ct1        ;
+ TFile* file_Sig_4d_ggZH_MS15ct1000   ;
+ TFile* file_Sig_4d_ggZH_MS15ct100    ;
+ TFile* file_Sig_4d_ggZH_MS15ct10     ;
+ TFile* file_Sig_4d_ggZH_MS15ct1      ;
+ TFile* file_Sig_4d_ggZH_MS40ct1000   ;
+ TFile* file_Sig_4d_ggZH_MS40ct100    ;
+ TFile* file_Sig_4d_ggZH_MS40ct10     ;
+ TFile* file_Sig_4d_ggZH_MS40ct1      ;
+ TFile* file_Sig_4d_ggZH_MS55ct1000   ;
+ TFile* file_Sig_4d_ggZH_MS55ct100    ;
+ TFile* file_Sig_4d_ggZH_MS55ct10     ;
+ TFile* file_Sig_4d_ggZH_MS55ct1      ;
 
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
- TFile* file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
-*/
+ TFile* file_Sig_4d_ZH_MS15ct200      ;
+ TFile* file_Sig_4d_ZH_MS15ct20       ;
+ TFile* file_Sig_4d_ZH_MS15ct2        ;
+ TFile* file_Sig_4d_ZH_MS40ct200      ;
+ TFile* file_Sig_4d_ZH_MS40ct20       ;
+ TFile* file_Sig_4d_ZH_MS40ct2        ;
+ TFile* file_Sig_4d_ZH_MS55ct200      ;
+ TFile* file_Sig_4d_ZH_MS55ct20       ;
+ TFile* file_Sig_4d_ZH_MS55ct2        ;
+ TFile* file_Sig_4d_ggZH_MS15ct200    ;
+ TFile* file_Sig_4d_ggZH_MS15ct20     ;
+ TFile* file_Sig_4d_ggZH_MS15ct2      ;
+ TFile* file_Sig_4d_ggZH_MS40ct200    ;
+ TFile* file_Sig_4d_ggZH_MS40ct20     ;
+ TFile* file_Sig_4d_ggZH_MS40ct2      ;
+ TFile* file_Sig_4d_ggZH_MS55ct200    ;
+ TFile* file_Sig_4d_ggZH_MS55ct20     ;
+ TFile* file_Sig_4d_ggZH_MS55ct2      ;
+ 
+ TFile* file_Sig_4d_ZH_MS15ct300      ;
+ TFile* file_Sig_4d_ZH_MS15ct30       ;
+ TFile* file_Sig_4d_ZH_MS15ct3        ;
+ TFile* file_Sig_4d_ZH_MS40ct300      ;
+ TFile* file_Sig_4d_ZH_MS40ct30       ;
+ TFile* file_Sig_4d_ZH_MS40ct3        ;
+ TFile* file_Sig_4d_ZH_MS55ct300      ;
+ TFile* file_Sig_4d_ZH_MS55ct30       ;
+ TFile* file_Sig_4d_ZH_MS55ct3        ;
+ TFile* file_Sig_4d_ggZH_MS15ct300    ;
+ TFile* file_Sig_4d_ggZH_MS15ct30     ;
+ TFile* file_Sig_4d_ggZH_MS15ct3      ;
+ TFile* file_Sig_4d_ggZH_MS40ct300    ;
+ TFile* file_Sig_4d_ggZH_MS40ct30     ;
+ TFile* file_Sig_4d_ggZH_MS40ct3      ;
+ TFile* file_Sig_4d_ggZH_MS55ct300    ;
+ TFile* file_Sig_4d_ggZH_MS55ct30     ;
+ TFile* file_Sig_4d_ggZH_MS55ct3      ;
+ 
+ TFile* file_Sig_4d_ZH_MS15ct500      ;
+ TFile* file_Sig_4d_ZH_MS15ct50       ;
+ TFile* file_Sig_4d_ZH_MS15ct5        ;
+ TFile* file_Sig_4d_ZH_MS40ct500      ;
+ TFile* file_Sig_4d_ZH_MS40ct50       ;
+ TFile* file_Sig_4d_ZH_MS40ct5        ;
+ TFile* file_Sig_4d_ZH_MS55ct500      ;
+ TFile* file_Sig_4d_ZH_MS55ct50       ;
+ TFile* file_Sig_4d_ZH_MS55ct5        ;
+ TFile* file_Sig_4d_ggZH_MS15ct500    ;
+ TFile* file_Sig_4d_ggZH_MS15ct50     ;
+ TFile* file_Sig_4d_ggZH_MS15ct5      ;
+ TFile* file_Sig_4d_ggZH_MS40ct500    ;
+ TFile* file_Sig_4d_ggZH_MS40ct50     ;
+ TFile* file_Sig_4d_ggZH_MS40ct5      ;
+ TFile* file_Sig_4d_ggZH_MS55ct500    ;
+ TFile* file_Sig_4d_ggZH_MS55ct50     ;
+ TFile* file_Sig_4d_ggZH_MS55ct5      ;
+ 
+
+
+ TFile* file_Sig_4d_ZH_MS7ct1000     ;
+ TFile* file_Sig_4d_ZH_MS7ct100      ;
+ TFile* file_Sig_4d_ZH_MS7ct10       ;
+ TFile* file_Sig_4d_ZH_MS7ct1        ;
+ TFile* file_Sig_4d_ggZH_MS7ct1000   ;
+ TFile* file_Sig_4d_ggZH_MS7ct100    ;
+ TFile* file_Sig_4d_ggZH_MS7ct10     ;
+ TFile* file_Sig_4d_ggZH_MS7ct1      ;
+ 
+ TFile* file_Sig_4Tau_ZH_MS7ct1000     ;
+ TFile* file_Sig_4Tau_ZH_MS7ct100      ;
+ TFile* file_Sig_4Tau_ZH_MS7ct10       ;
+ TFile* file_Sig_4Tau_ZH_MS7ct1        ;
+ TFile* file_Sig_4Tau_ZH_MS15ct1000     ;
+ TFile* file_Sig_4Tau_ZH_MS15ct100      ;
+ TFile* file_Sig_4Tau_ZH_MS15ct10       ;
+ TFile* file_Sig_4Tau_ZH_MS15ct1        ;
+ TFile* file_Sig_4Tau_ZH_MS40ct1000     ;
+ TFile* file_Sig_4Tau_ZH_MS40ct100      ;
+ TFile* file_Sig_4Tau_ZH_MS40ct10       ;
+ TFile* file_Sig_4Tau_ZH_MS40ct1        ;
+ TFile* file_Sig_4Tau_ZH_MS55ct1000     ;
+ TFile* file_Sig_4Tau_ZH_MS55ct100      ;
+ TFile* file_Sig_4Tau_ZH_MS55ct10       ;
+ TFile* file_Sig_4Tau_ZH_MS55ct1        ;
+ TFile* file_Sig_4Tau_ggZH_MS7ct1000   ;
+ TFile* file_Sig_4Tau_ggZH_MS7ct100    ;
+ TFile* file_Sig_4Tau_ggZH_MS7ct10     ;
+ TFile* file_Sig_4Tau_ggZH_MS7ct1      ;
+ TFile* file_Sig_4Tau_ggZH_MS15ct1000   ;
+ TFile* file_Sig_4Tau_ggZH_MS15ct100    ;
+ TFile* file_Sig_4Tau_ggZH_MS15ct10     ;
+ TFile* file_Sig_4Tau_ggZH_MS15ct1      ;
+ TFile* file_Sig_4Tau_ggZH_MS40ct1000   ;
+ TFile* file_Sig_4Tau_ggZH_MS40ct100    ;
+ TFile* file_Sig_4Tau_ggZH_MS40ct10     ;
+ TFile* file_Sig_4Tau_ggZH_MS40ct1      ;
+ TFile* file_Sig_4Tau_ggZH_MS55ct1000   ;
+ TFile* file_Sig_4Tau_ggZH_MS55ct100    ;
+ TFile* file_Sig_4Tau_ggZH_MS55ct10     ;
+ TFile* file_Sig_4Tau_ggZH_MS55ct1      ;
+ 
+ TFile* file_Sig_h125_llp20_ct1_100k_wISR      ;
+ TFile* file_Sig_h125_llp20_ct10_100k_wISR      ;
+ TFile* file_Sig_h125_llp20_ct100_100k_wISR      ;
+ TFile* file_Sig_h125_llp20_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h150_llp20_ct1_100k_wISR      ;
+ TFile* file_Sig_h150_llp20_ct10_100k_wISR      ;
+ TFile* file_Sig_h150_llp20_ct100_100k_wISR      ;
+ TFile* file_Sig_h150_llp20_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h150_llp50_ct1_100k_wISR      ;
+ TFile* file_Sig_h150_llp50_ct10_100k_wISR      ;
+ TFile* file_Sig_h150_llp50_ct100_100k_wISR      ;
+ TFile* file_Sig_h150_llp50_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h175_llp20_ct1_100k_wISR      ;
+ TFile* file_Sig_h175_llp20_ct10_100k_wISR      ;
+ TFile* file_Sig_h175_llp20_ct100_100k_wISR      ;
+ TFile* file_Sig_h175_llp20_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h175_llp50_ct1_100k_wISR      ;
+ TFile* file_Sig_h175_llp50_ct10_100k_wISR      ;
+ TFile* file_Sig_h175_llp50_ct100_100k_wISR      ;
+ TFile* file_Sig_h175_llp50_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h200_llp20_ct1_100k_wISR      ;
+ TFile* file_Sig_h200_llp20_ct10_100k_wISR      ;
+ TFile* file_Sig_h200_llp20_ct100_100k_wISR      ;
+ TFile* file_Sig_h200_llp20_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h200_llp50_ct1_100k_wISR      ;
+ TFile* file_Sig_h200_llp50_ct10_100k_wISR      ;
+ TFile* file_Sig_h200_llp50_ct100_100k_wISR      ;
+ TFile* file_Sig_h200_llp50_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h200_llp100_ct1_100k_wISR      ;
+ TFile* file_Sig_h200_llp100_ct10_100k_wISR      ;
+ TFile* file_Sig_h200_llp100_ct100_100k_wISR      ;
+ TFile* file_Sig_h200_llp100_ct1000_100k_wISR      ;
+
+ TFile* file_Sig_h150_llp20_ct1_100k      ;
+ TFile* file_Sig_h150_llp20_ct10_100k      ;
+ TFile* file_Sig_h150_llp20_ct100_100k      ;
+ TFile* file_Sig_h150_llp20_ct1000_100k      ;
+ TFile* file_Sig_h150_llp50_ct1_100k      ;
+ TFile* file_Sig_h150_llp50_ct10_100k      ;
+ TFile* file_Sig_h150_llp50_ct100_100k      ;
+ TFile* file_Sig_h150_llp50_ct1000_100k      ;
+
+ TFile* file_Sig_h175_llp20_ct1_100k      ;
+ TFile* file_Sig_h175_llp20_ct10_100k      ;
+ TFile* file_Sig_h175_llp20_ct100_100k      ;
+ TFile* file_Sig_h175_llp20_ct1000_100k      ;
+ TFile* file_Sig_h175_llp50_ct1_100k      ;
+ TFile* file_Sig_h175_llp50_ct10_100k      ;
+ TFile* file_Sig_h175_llp50_ct100_100k      ;
+ TFile* file_Sig_h175_llp50_ct1000_100k      ;
+
+ TFile* file_Sig_h200_llp20_ct1_100k      ;
+ TFile* file_Sig_h200_llp20_ct10_100k      ;
+ TFile* file_Sig_h200_llp20_ct100_100k      ;
+ TFile* file_Sig_h200_llp20_ct1000_100k      ;
+ TFile* file_Sig_h200_llp50_ct1_100k      ;
+ TFile* file_Sig_h200_llp50_ct10_100k      ;
+ TFile* file_Sig_h200_llp50_ct100_100k      ;
+ TFile* file_Sig_h200_llp50_ct1000_100k      ;
+
+ TFile* file_Sig_h250_llp50_ct1_100k      ;
+ TFile* file_Sig_h250_llp50_ct10_100k      ;
+ TFile* file_Sig_h250_llp50_ct100_100k      ;
+ TFile* file_Sig_h250_llp50_ct1000_100k      ;
+ TFile* file_Sig_h500_llp200_ct1_100k      ;
+ TFile* file_Sig_h500_llp200_ct10_100k      ;
+ TFile* file_Sig_h500_llp200_ct100_100k      ;
+ TFile* file_Sig_h500_llp200_ct1000_100k      ;
  // initialize histos
  TH1F* h_DY50                                ;
+ TH1F* h_DY50_mad                            ;
  TH1F* h_DY5to50_HT100To200                  ; 
  TH1F* h_DY5to50_HT200To400                  ; 
  TH1F* h_DY5to50_HT400To600                  ; 
@@ -413,8 +700,8 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_ST_t                                ;
  TH1F* h_STbar_tW                            ;
  TH1F* h_ST_tW                               ;
- TH1F* h_TTtoLL                              ;
- TH1F* h_TTJets                              ;
+ TH1F* h_TTtoLL_mad                          ;
+ TH1F* h_TTJets_mad                          ;
  TH1F* h_TTtoLfromTbar                       ;
  TH1F* h_TTtoLfromT                          ;
  TH1F* h_WG                                  ;
@@ -440,7 +727,9 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_QCD_HT700to1000                     ;
  TH1F* h_QCD_HT1000to1500                    ;
  TH1F* h_QCD_HT1500to2000                    ;
- TH1F* h_QCD_HT2000toInf                     ; 
+ TH1F* h_QCD_HT2000toInf                     ;
+
+
  TH1F* h_Sig_ZH_MS15ct1000     ;
  TH1F* h_Sig_ZH_MS15ct100      ;
  TH1F* h_Sig_ZH_MS15ct10       ;
@@ -465,39 +754,261 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_Sig_ggZH_MS55ct100    ;
  TH1F* h_Sig_ggZH_MS55ct10     ;
  TH1F* h_Sig_ggZH_MS55ct1      ;
+ TH1F* h_Sig_ZH_MS15ct200      ;
+ TH1F* h_Sig_ZH_MS15ct20       ;
+ TH1F* h_Sig_ZH_MS15ct2        ;
+ TH1F* h_Sig_ZH_MS40ct200      ;
+ TH1F* h_Sig_ZH_MS40ct20       ;
+ TH1F* h_Sig_ZH_MS40ct2        ;
+ TH1F* h_Sig_ZH_MS55ct200      ;
+ TH1F* h_Sig_ZH_MS55ct20       ;
+ TH1F* h_Sig_ZH_MS55ct2        ;
+ TH1F* h_Sig_ggZH_MS15ct200    ;
+ TH1F* h_Sig_ggZH_MS15ct20     ;
+ TH1F* h_Sig_ggZH_MS15ct2      ;
+ TH1F* h_Sig_ggZH_MS40ct200    ;
+ TH1F* h_Sig_ggZH_MS40ct20     ;
+ TH1F* h_Sig_ggZH_MS40ct2      ;
+ TH1F* h_Sig_ggZH_MS55ct200    ;
+ TH1F* h_Sig_ggZH_MS55ct20     ;
+ TH1F* h_Sig_ggZH_MS55ct2      ;
+ TH1F* h_Sig_ZH_MS15ct300      ;
+ TH1F* h_Sig_ZH_MS15ct30       ;
+ TH1F* h_Sig_ZH_MS15ct3        ;
+ TH1F* h_Sig_ZH_MS40ct300      ;
+ TH1F* h_Sig_ZH_MS40ct30       ;
+ TH1F* h_Sig_ZH_MS40ct3        ;
+ TH1F* h_Sig_ZH_MS55ct300      ;
+ TH1F* h_Sig_ZH_MS55ct30       ;
+ TH1F* h_Sig_ZH_MS55ct3        ;
+ TH1F* h_Sig_ggZH_MS15ct300    ;
+ TH1F* h_Sig_ggZH_MS15ct30     ;
+ TH1F* h_Sig_ggZH_MS15ct3      ;
+ TH1F* h_Sig_ggZH_MS40ct300    ;
+ TH1F* h_Sig_ggZH_MS40ct30     ;
+ TH1F* h_Sig_ggZH_MS40ct3      ;
+ TH1F* h_Sig_ggZH_MS55ct300    ;
+ TH1F* h_Sig_ggZH_MS55ct30     ;
+ TH1F* h_Sig_ggZH_MS55ct3      ;
+ TH1F* h_Sig_ZH_MS15ct500      ;
+ TH1F* h_Sig_ZH_MS15ct50       ;
+ TH1F* h_Sig_ZH_MS15ct5        ;
+ TH1F* h_Sig_ZH_MS40ct500      ;
+ TH1F* h_Sig_ZH_MS40ct50       ;
+ TH1F* h_Sig_ZH_MS40ct5        ;
+ TH1F* h_Sig_ZH_MS55ct500      ;
+ TH1F* h_Sig_ZH_MS55ct50       ;
+ TH1F* h_Sig_ZH_MS55ct5        ;
+ TH1F* h_Sig_ggZH_MS15ct500    ;
+ TH1F* h_Sig_ggZH_MS15ct50     ;
+ TH1F* h_Sig_ggZH_MS15ct5      ;
+ TH1F* h_Sig_ggZH_MS40ct500    ;
+ TH1F* h_Sig_ggZH_MS40ct50     ;
+ TH1F* h_Sig_ggZH_MS40ct5      ;
+ TH1F* h_Sig_ggZH_MS55ct500    ;
+ TH1F* h_Sig_ggZH_MS55ct50     ;
+ TH1F* h_Sig_ggZH_MS55ct5      ;
+
+ TH1F* h_Sig_4d_ZH_MS15ct1000     ;
+ TH1F* h_Sig_4d_ZH_MS15ct100      ;
+ TH1F* h_Sig_4d_ZH_MS15ct10       ;
+ TH1F* h_Sig_4d_ZH_MS15ct1        ;
+ TH1F* h_Sig_4d_ZH_MS40ct1000     ;
+ TH1F* h_Sig_4d_ZH_MS40ct100      ;
+ TH1F* h_Sig_4d_ZH_MS40ct10       ;
+ TH1F* h_Sig_4d_ZH_MS40ct1        ;
+ TH1F* h_Sig_4d_ZH_MS55ct1000     ;
+ TH1F* h_Sig_4d_ZH_MS55ct100      ;
+ TH1F* h_Sig_4d_ZH_MS55ct10       ;
+ TH1F* h_Sig_4d_ZH_MS55ct1        ;
+ TH1F* h_Sig_4d_ggZH_MS15ct1000   ;
+ TH1F* h_Sig_4d_ggZH_MS15ct100    ;
+ TH1F* h_Sig_4d_ggZH_MS15ct10     ;
+ TH1F* h_Sig_4d_ggZH_MS15ct1      ;
+ TH1F* h_Sig_4d_ggZH_MS40ct1000   ;
+ TH1F* h_Sig_4d_ggZH_MS40ct100    ;
+ TH1F* h_Sig_4d_ggZH_MS40ct10     ;
+ TH1F* h_Sig_4d_ggZH_MS40ct1      ;
+ TH1F* h_Sig_4d_ggZH_MS55ct1000   ;
+ TH1F* h_Sig_4d_ggZH_MS55ct100    ;
+ TH1F* h_Sig_4d_ggZH_MS55ct10     ;
+ TH1F* h_Sig_4d_ggZH_MS55ct1      ;
+ TH1F* h_Sig_4d_ZH_MS15ct200      ;
+ TH1F* h_Sig_4d_ZH_MS15ct20       ;
+ TH1F* h_Sig_4d_ZH_MS15ct2        ;
+ TH1F* h_Sig_4d_ZH_MS40ct200      ;
+ TH1F* h_Sig_4d_ZH_MS40ct20       ;
+ TH1F* h_Sig_4d_ZH_MS40ct2        ;
+ TH1F* h_Sig_4d_ZH_MS55ct200      ;
+ TH1F* h_Sig_4d_ZH_MS55ct20       ;
+ TH1F* h_Sig_4d_ZH_MS55ct2        ;
+ TH1F* h_Sig_4d_ggZH_MS15ct200    ;
+ TH1F* h_Sig_4d_ggZH_MS15ct20     ;
+ TH1F* h_Sig_4d_ggZH_MS15ct2      ;
+ TH1F* h_Sig_4d_ggZH_MS40ct200    ;
+ TH1F* h_Sig_4d_ggZH_MS40ct20     ;
+ TH1F* h_Sig_4d_ggZH_MS40ct2      ;
+ TH1F* h_Sig_4d_ggZH_MS55ct200    ;
+ TH1F* h_Sig_4d_ggZH_MS55ct20     ;
+ TH1F* h_Sig_4d_ggZH_MS55ct2      ;
+ TH1F* h_Sig_4d_ZH_MS15ct300      ;
+ TH1F* h_Sig_4d_ZH_MS15ct30       ;
+ TH1F* h_Sig_4d_ZH_MS15ct3        ;
+ TH1F* h_Sig_4d_ZH_MS40ct300      ;
+ TH1F* h_Sig_4d_ZH_MS40ct30       ;
+ TH1F* h_Sig_4d_ZH_MS40ct3        ;
+ TH1F* h_Sig_4d_ZH_MS55ct300      ;
+ TH1F* h_Sig_4d_ZH_MS55ct30       ;
+ TH1F* h_Sig_4d_ZH_MS55ct3        ;
+ TH1F* h_Sig_4d_ggZH_MS15ct300    ;
+ TH1F* h_Sig_4d_ggZH_MS15ct30     ;
+ TH1F* h_Sig_4d_ggZH_MS15ct3      ;
+ TH1F* h_Sig_4d_ggZH_MS40ct300    ;
+ TH1F* h_Sig_4d_ggZH_MS40ct30     ;
+ TH1F* h_Sig_4d_ggZH_MS40ct3      ;
+ TH1F* h_Sig_4d_ggZH_MS55ct300    ;
+ TH1F* h_Sig_4d_ggZH_MS55ct30     ;
+ TH1F* h_Sig_4d_ggZH_MS55ct3      ;
+ TH1F* h_Sig_4d_ZH_MS15ct500      ;
+ TH1F* h_Sig_4d_ZH_MS15ct50       ;
+ TH1F* h_Sig_4d_ZH_MS15ct5        ;
+ TH1F* h_Sig_4d_ZH_MS40ct500      ;
+ TH1F* h_Sig_4d_ZH_MS40ct50       ;
+ TH1F* h_Sig_4d_ZH_MS40ct5        ;
+ TH1F* h_Sig_4d_ZH_MS55ct500      ;
+ TH1F* h_Sig_4d_ZH_MS55ct50       ;
+ TH1F* h_Sig_4d_ZH_MS55ct5        ;
+ TH1F* h_Sig_4d_ggZH_MS15ct500    ;
+ TH1F* h_Sig_4d_ggZH_MS15ct50     ;
+ TH1F* h_Sig_4d_ggZH_MS15ct5      ;
+ TH1F* h_Sig_4d_ggZH_MS40ct500    ;
+ TH1F* h_Sig_4d_ggZH_MS40ct50     ;
+ TH1F* h_Sig_4d_ggZH_MS40ct5      ;
+ TH1F* h_Sig_4d_ggZH_MS55ct500    ;
+ TH1F* h_Sig_4d_ggZH_MS55ct50     ;
+ TH1F* h_Sig_4d_ggZH_MS55ct5      ;
 
 
- /*
- TH1F* h_WminusH_HToBB_WToLNu 		     ;
- TH1F* h_WplusH_HToBB_WToLNu		     ;
+
+ TH1F* h_Sig_4d_ZH_MS7ct1000     ;
+ TH1F* h_Sig_4d_ZH_MS7ct100      ;
+ TH1F* h_Sig_4d_ZH_MS7ct10       ;
+ TH1F* h_Sig_4d_ZH_MS7ct1        ;
+ TH1F* h_Sig_4d_ggZH_MS7ct1000   ;
+ TH1F* h_Sig_4d_ggZH_MS7ct100    ;
+ TH1F* h_Sig_4d_ggZH_MS7ct10     ;
+ TH1F* h_Sig_4d_ggZH_MS7ct1      ;
+
+ TH1F* h_Sig_4Tau_ZH_MS7ct1000     ;
+ TH1F* h_Sig_4Tau_ZH_MS7ct100      ;
+ TH1F* h_Sig_4Tau_ZH_MS7ct10       ;
+ TH1F* h_Sig_4Tau_ZH_MS7ct1        ;
+ TH1F* h_Sig_4Tau_ZH_MS15ct1000     ;
+ TH1F* h_Sig_4Tau_ZH_MS15ct100      ;
+ TH1F* h_Sig_4Tau_ZH_MS15ct10       ;
+ TH1F* h_Sig_4Tau_ZH_MS15ct1        ;
+ TH1F* h_Sig_4Tau_ZH_MS40ct1000     ;
+ TH1F* h_Sig_4Tau_ZH_MS40ct100      ;
+ TH1F* h_Sig_4Tau_ZH_MS40ct10       ;
+ TH1F* h_Sig_4Tau_ZH_MS40ct1        ;
+ TH1F* h_Sig_4Tau_ZH_MS55ct1000     ;
+ TH1F* h_Sig_4Tau_ZH_MS55ct100      ;
+ TH1F* h_Sig_4Tau_ZH_MS55ct10       ;
+ TH1F* h_Sig_4Tau_ZH_MS55ct1        ;
+ TH1F* h_Sig_4Tau_ggZH_MS7ct1000   ;
+ TH1F* h_Sig_4Tau_ggZH_MS7ct100    ;
+ TH1F* h_Sig_4Tau_ggZH_MS7ct10     ;
+ TH1F* h_Sig_4Tau_ggZH_MS7ct1      ;
+ TH1F* h_Sig_4Tau_ggZH_MS15ct1000   ;
+ TH1F* h_Sig_4Tau_ggZH_MS15ct100    ;
+ TH1F* h_Sig_4Tau_ggZH_MS15ct10     ;
+ TH1F* h_Sig_4Tau_ggZH_MS15ct1      ;
+ TH1F* h_Sig_4Tau_ggZH_MS40ct1000   ;
+ TH1F* h_Sig_4Tau_ggZH_MS40ct100    ;
+ TH1F* h_Sig_4Tau_ggZH_MS40ct10     ;
+ TH1F* h_Sig_4Tau_ggZH_MS40ct1      ;
+ TH1F* h_Sig_4Tau_ggZH_MS55ct1000   ;
+ TH1F* h_Sig_4Tau_ggZH_MS55ct100    ;
+ TH1F* h_Sig_4Tau_ggZH_MS55ct10     ;
+ TH1F* h_Sig_4Tau_ggZH_MS55ct1      ;
+ 
+ TH1F* h_Sig_h125_llp20_ct1_100k_wISR   ; 
+ TH1F* h_Sig_h125_llp20_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h125_llp20_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h125_llp20_ct1000_100k_wISR   ; 
+
+ TH1F* h_Sig_h150_llp20_ct1_100k_wISR   ; 
+ TH1F* h_Sig_h150_llp20_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h150_llp20_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h150_llp20_ct1000_100k_wISR   ; 
+
+ TH1F* h_Sig_h150_llp50_ct1_100k_wISR   ; 
+ TH1F* h_Sig_h150_llp50_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h150_llp50_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h150_llp50_ct1000_100k_wISR   ; 
+
+ TH1F* h_Sig_h175_llp20_ct1_100k_wISR   ; 
+ TH1F* h_Sig_h175_llp20_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h175_llp20_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h175_llp20_ct1000_100k_wISR   ; 
+
+ TH1F* h_Sig_h175_llp50_ct1_100k_wISR   ; 
+ TH1F* h_Sig_h175_llp50_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h175_llp50_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h175_llp50_ct1000_100k_wISR   ; 
+
+ TH1F* h_Sig_h200_llp20_ct1_100k_wISR   ; 
+ TH1F* h_Sig_h200_llp20_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h200_llp20_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h200_llp20_ct1000_100k_wISR   ; 
+
+ TH1F* h_Sig_h200_llp50_ct1_100k_wISR     ; 
+ TH1F* h_Sig_h200_llp50_ct10_100k_wISR    ; 
+ TH1F* h_Sig_h200_llp50_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h200_llp50_ct1000_100k_wISR  ; 
+
+ TH1F* h_Sig_h200_llp100_ct1_100k_wISR    ; 
+ TH1F* h_Sig_h200_llp100_ct10_100k_wISR   ; 
+ TH1F* h_Sig_h200_llp100_ct100_100k_wISR   ; 
+ TH1F* h_Sig_h200_llp100_ct1000_100k_wISR ;
+
+ TH1F* h_Sig_h150_llp20_ct1_100k      ;
+ TH1F* h_Sig_h150_llp20_ct10_100k      ;
+ TH1F* h_Sig_h150_llp20_ct100_100k      ;
+ TH1F* h_Sig_h150_llp20_ct1000_100k      ;
+ TH1F* h_Sig_h150_llp50_ct1_100k      ;
+ TH1F* h_Sig_h150_llp50_ct10_100k      ;
+ TH1F* h_Sig_h150_llp50_ct100_100k      ;
+ TH1F* h_Sig_h150_llp50_ct1000_100k      ;
+
+ TH1F* h_Sig_h175_llp20_ct1_100k      ;
+ TH1F* h_Sig_h175_llp20_ct10_100k      ;
+ TH1F* h_Sig_h175_llp20_ct100_100k      ;
+ TH1F* h_Sig_h175_llp20_ct1000_100k      ;
+ TH1F* h_Sig_h175_llp50_ct1_100k      ;
+ TH1F* h_Sig_h175_llp50_ct10_100k      ;
+ TH1F* h_Sig_h175_llp50_ct100_100k      ;
+ TH1F* h_Sig_h175_llp50_ct1000_100k      ;
+
+ TH1F* h_Sig_h200_llp20_ct1_100k      ;
+ TH1F* h_Sig_h200_llp20_ct10_100k      ;
+ TH1F* h_Sig_h200_llp20_ct100_100k      ;
+ TH1F* h_Sig_h200_llp20_ct1000_100k      ;
+ TH1F* h_Sig_h200_llp50_ct1_100k      ;
+ TH1F* h_Sig_h200_llp50_ct10_100k      ;
+ TH1F* h_Sig_h200_llp50_ct100_100k      ;
+ TH1F* h_Sig_h200_llp50_ct1000_100k      ;
+
+ TH1F* h_Sig_h250_llp50_ct1_100k      ;
+ TH1F* h_Sig_h250_llp50_ct10_100k      ;
+ TH1F* h_Sig_h250_llp50_ct100_100k      ;
+ TH1F* h_Sig_h250_llp50_ct1000_100k      ;
+ TH1F* h_Sig_h500_llp200_ct1_100k      ;
+ TH1F* h_Sig_h500_llp200_ct10_100k      ;
+ TH1F* h_Sig_h500_llp200_ct100_100k      ;
+ TH1F* h_Sig_h500_llp200_ct1000_100k      ;
 
 
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
- TH1F* h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
-
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ;
- TH1F* h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ;
- */
  //TH1F* h_Data_SingleMu_H_3     ;
  //TH1F* h_Data_SingleMu_H_2     ;
  //TH1F* h_Data_SingleMu_G       ;
@@ -549,7 +1060,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_ratio ;
  TH1F* h_ratiostaterr ;
 
-
  // (combined) histos to be made
  TH1F* h_DY     ;
  TH1F* h_GJets  ;
@@ -557,7 +1067,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_VV     ;
  TH1F* h_VG     ;
  TH1F* h_ZH     ;
- TH1F* h_WH     ;
  TH1F* h_TT     ;
  TH1F* h_QCD    ;
  TH1F* h_bkgtotal ;
@@ -572,8 +1081,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_altVV ;
  TH1F* h_altTT ;
 
-
-
+ 
  TH1F* h_Sig_MS15ct1000 ;
  TH1F* h_Sig_MS15ct100  ;
  TH1F* h_Sig_MS15ct10   ;
@@ -586,20 +1094,103 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  TH1F* h_Sig_MS55ct100  ;
  TH1F* h_Sig_MS55ct10   ;
  TH1F* h_Sig_MS55ct1    ;
- /*
- TH1F* h_Sig_WH_MS15ct1000;  
- TH1F* h_Sig_WH_MS15ct100 ;  
- TH1F* h_Sig_WH_MS15ct10  ;  
- TH1F* h_Sig_WH_MS15ct1   ;  
- TH1F* h_Sig_WH_MS40ct1000;  
- TH1F* h_Sig_WH_MS40ct100 ;  
- TH1F* h_Sig_WH_MS40ct10  ;  
- TH1F* h_Sig_WH_MS40ct1   ;  
- TH1F* h_Sig_WH_MS55ct1000; 
- TH1F* h_Sig_WH_MS55ct100 ;
- TH1F* h_Sig_WH_MS55ct10  ; 
- TH1F* h_Sig_WH_MS55ct1   ;
- */
+ TH1F* h_Sig_MS15ct200  ;
+ TH1F* h_Sig_MS15ct20   ;
+ TH1F* h_Sig_MS15ct2    ;
+ TH1F* h_Sig_MS40ct200  ;
+ TH1F* h_Sig_MS40ct20   ;
+ TH1F* h_Sig_MS40ct2    ;
+ TH1F* h_Sig_MS55ct200  ;
+ TH1F* h_Sig_MS55ct20   ;
+ TH1F* h_Sig_MS55ct2    ;
+ TH1F* h_Sig_MS15ct300  ;
+ TH1F* h_Sig_MS15ct30   ;
+ TH1F* h_Sig_MS15ct3    ;
+ TH1F* h_Sig_MS40ct300  ;
+ TH1F* h_Sig_MS40ct30   ;
+ TH1F* h_Sig_MS40ct3    ;
+ TH1F* h_Sig_MS55ct300  ;
+ TH1F* h_Sig_MS55ct30   ;
+ TH1F* h_Sig_MS55ct3    ;
+ TH1F* h_Sig_MS15ct500  ;
+ TH1F* h_Sig_MS15ct50   ;
+ TH1F* h_Sig_MS15ct5    ;
+ TH1F* h_Sig_MS40ct500  ;
+ TH1F* h_Sig_MS40ct50   ;
+ TH1F* h_Sig_MS40ct5    ;
+ TH1F* h_Sig_MS55ct500  ;
+ TH1F* h_Sig_MS55ct50   ;
+ TH1F* h_Sig_MS55ct5    ;
+
+ TH1F* h_Sig_4d_MS15ct1000 ;
+ TH1F* h_Sig_4d_MS15ct100  ;
+ TH1F* h_Sig_4d_MS15ct10   ;
+ TH1F* h_Sig_4d_MS15ct1    ;
+ TH1F* h_Sig_4d_MS40ct1000 ;
+ TH1F* h_Sig_4d_MS40ct100  ;
+ TH1F* h_Sig_4d_MS40ct10   ;
+ TH1F* h_Sig_4d_MS40ct1    ;
+ TH1F* h_Sig_4d_MS55ct1000 ;
+ TH1F* h_Sig_4d_MS55ct100  ;
+ TH1F* h_Sig_4d_MS55ct10   ;
+ TH1F* h_Sig_4d_MS55ct1    ;
+ TH1F* h_Sig_4d_MS15ct200  ;
+ TH1F* h_Sig_4d_MS15ct20   ;
+ TH1F* h_Sig_4d_MS15ct2    ;
+ TH1F* h_Sig_4d_MS40ct200  ;
+ TH1F* h_Sig_4d_MS40ct20   ;
+ TH1F* h_Sig_4d_MS40ct2    ;
+ TH1F* h_Sig_4d_MS55ct200  ;
+ TH1F* h_Sig_4d_MS55ct20   ;
+ TH1F* h_Sig_4d_MS55ct2    ;
+ TH1F* h_Sig_4d_MS15ct300  ;
+ TH1F* h_Sig_4d_MS15ct30   ;
+ TH1F* h_Sig_4d_MS15ct3    ;
+ TH1F* h_Sig_4d_MS40ct300  ;
+ TH1F* h_Sig_4d_MS40ct30   ;
+ TH1F* h_Sig_4d_MS40ct3    ;
+ TH1F* h_Sig_4d_MS55ct300  ;
+ TH1F* h_Sig_4d_MS55ct30   ;
+ TH1F* h_Sig_4d_MS55ct3    ;
+ TH1F* h_Sig_4d_MS15ct500  ;
+ TH1F* h_Sig_4d_MS15ct50   ;
+ TH1F* h_Sig_4d_MS15ct5    ;
+ TH1F* h_Sig_4d_MS40ct500  ;
+ TH1F* h_Sig_4d_MS40ct50   ;
+ TH1F* h_Sig_4d_MS40ct5    ;
+ TH1F* h_Sig_4d_MS55ct500  ;
+ TH1F* h_Sig_4d_MS55ct50   ;
+ TH1F* h_Sig_4d_MS55ct5    ;
+
+
+
+
+
+
+
+
+
+TH1F* h_Sig_4d_MS7ct1000 ;
+ TH1F* h_Sig_4d_MS7ct100  ;
+ TH1F* h_Sig_4d_MS7ct10   ;
+ TH1F* h_Sig_4d_MS7ct1    ;
+ TH1F* h_Sig_4Tau_MS7ct1000 ;
+ TH1F* h_Sig_4Tau_MS7ct100  ;
+ TH1F* h_Sig_4Tau_MS7ct10   ;
+ TH1F* h_Sig_4Tau_MS7ct1    ;
+ TH1F* h_Sig_4Tau_MS15ct1000 ;
+ TH1F* h_Sig_4Tau_MS15ct100  ;
+ TH1F* h_Sig_4Tau_MS15ct10   ;
+ TH1F* h_Sig_4Tau_MS15ct1    ;
+ TH1F* h_Sig_4Tau_MS40ct1000 ;
+ TH1F* h_Sig_4Tau_MS40ct100  ;
+ TH1F* h_Sig_4Tau_MS40ct10   ;
+ TH1F* h_Sig_4Tau_MS40ct1    ;
+ TH1F* h_Sig_4Tau_MS55ct1000 ;
+ TH1F* h_Sig_4Tau_MS55ct100  ;
+ TH1F* h_Sig_4Tau_MS55ct10   ;
+ TH1F* h_Sig_4Tau_MS55ct1    ;
+
  TH1F* h_Data   ;
  // load histogram files
  file_DY5to50_HT100To200      = TFile::Open( inpath + "DYJetsToLL_M-5to50_HT-100to200_"+region+"_histograms.root"  ) ; 
@@ -608,6 +1199,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  file_DY5to50_HT600ToInf      = TFile::Open( inpath + "DYJetsToLL_M-5to50_HT-600toInf_"+region+"_histograms.root"  ) ; 
  file_DY10to50                = TFile::Open( inpath + "DYJetsToLL_M-10to50_"+region+"_histograms.root"             ) ; 
  file_DY50                    = TFile::Open( inpath + "DYJetsToLL_M-50_"+region+"_histograms.root"                 ) ;
+ file_DY50_mad                = TFile::Open( inpath + "mad_DYJetsToLL_M-50_"+region+"_histograms.root"                 ) ;
 
  file_GJets_HT40To100         = TFile::Open( inpath + "GJets_HT-40To100_"+region+"_histograms.root"    ) ;
  file_GJets_HT100To200        = TFile::Open( inpath + "GJets_HT-100To200_"+region+"_histograms.root"   ) ;
@@ -649,20 +1241,20 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  file_QCD_HT1000to1500        = TFile::Open( inpath + "QCD_HT1000to1500_"+region+"_histograms.root" ) ;
  file_QCD_HT1500to2000        = TFile::Open( inpath + "QCD_HT1500to2000_"+region+"_histograms.root" ) ;
  file_QCD_HT2000toInf         = TFile::Open( inpath + "QCD_HT2000toInf_"+region+"_histograms.root"  ) ;
-
- file_Sig_ZH_MS15ct1000  = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ;
- file_Sig_ZH_MS15ct100   = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS15ct10    = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS15ct1     = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS40ct1000  = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS40ct100   = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS40ct10    = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS40ct1     = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS55ct1000  = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root" );  
- file_Sig_ZH_MS55ct100   = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS55ct10    = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
- file_Sig_ZH_MS55ct1     = TFile::Open( inpath + "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
-
+ 
+ 
+ file_Sig_ZH_MS15ct1000    = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct100     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct10      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct1       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct1000    = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct100     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct10      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct1       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct1000    = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct100     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct10      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct1       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
  file_Sig_ggZH_MS15ct1000  = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ; 
  file_Sig_ggZH_MS15ct100   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
  file_Sig_ggZH_MS15ct10    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
@@ -675,36 +1267,261 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  file_Sig_ggZH_MS55ct100   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
  file_Sig_ggZH_MS55ct10    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
  file_Sig_ggZH_MS55ct1     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct200     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct20      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct2       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct200     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct20      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct2       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct200     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct20      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct2       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct200   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct20    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct2     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct200   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct20    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct2     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct200   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct20    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct2     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct300     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct30      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct3       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct300     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct30      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct3       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct300     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct30      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct3       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct300   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct30    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct3     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct300   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct30    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct3     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct300   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct30    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct3     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct500     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct50      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS15ct5       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct500     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct50      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS40ct5       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct500     = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct50      = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_ZH_MS55ct5       = TFile::Open( inpath +   "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct500   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct50    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS15ct5     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct500   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct50    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS40ct5     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct500   = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct50    = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_ggZH_MS55ct5     = TFile::Open( inpath + "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-5_"+region+"_histograms.root"   ) ; 
 
- /*file_WminusH_HToBB_WToLNu     = TFile::Open( inpath + "WminusH_HToBB_WToLNu_"+region+"_histograms.root"   ) ;
- file_WplusH_HToBB_WToLNu      = TFile::Open( inpath + "WplusH_HToBB_WToLNu_"+region+"_histograms.root"    ) ; 
+ file_Sig_4d_ZH_MS15ct1000    = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct100     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct10      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct1       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct1000    = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct100     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct10      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct1       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct1000    = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct100     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct10      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct1       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct1000  = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct100   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct10    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct1     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct1000  = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct100   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct10    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct1     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct1000  = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct100   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct10    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct1     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct200     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct20      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct2       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct200     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct20      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct2       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct200     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct20      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct2       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct200   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct20    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct2     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct200   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct20    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct2     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct200   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-200_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct20    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-20_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct2     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-2_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct300     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct30      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct3       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct300     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct30      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct3       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct300     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct30      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct3       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct300   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct30    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct3     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct300   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct30    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct3     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct300   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-300_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct30    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-30_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct3     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-3_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct500     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct50      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS15ct5       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct500     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct50      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS40ct5       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct500     = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct50      = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS55ct5       = TFile::Open( inpath +   "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct500   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct50    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS15ct5     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct500   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct50    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS40ct5     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-5_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct500   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-500_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct50    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-50_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS55ct5     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-5_"+region+"_histograms.root"   ) ; 
 
 
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"     ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"    ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"  ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"     ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"    ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"  ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"     ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"    ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ;
- file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = TFile::Open( inpath + "WplusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"  ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"     ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"    ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"  ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"     ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"    ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"  ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"     ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"    ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ;
- file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = TFile::Open( inpath + "WminusH_HToSSTobbbb_WToLNu_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"  ) ;
- */
+
+
+file_Sig_4d_ZH_MS7ct1000  = TFile::Open( inpath + "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS7ct100   = TFile::Open( inpath + "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS7ct10    = TFile::Open( inpath + "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ZH_MS7ct1     = TFile::Open( inpath + "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS7ct1000  = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS7ct100   = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS7ct10    = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4d_ggZH_MS7ct1     = TFile::Open( inpath + "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS7ct1000  = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS7ct100   = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS7ct10    = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS7ct1     = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS15ct1000  = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS15ct100   = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS15ct10    = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS15ct1     = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS40ct1000  = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS40ct100   = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS40ct10    = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS40ct1     = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS55ct1000  = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS55ct100   = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS55ct10    = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ZH_MS55ct1     = TFile::Open( inpath + "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_4Tau_ggZH_MS7ct1000  = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS7ct100   = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS7ct10    = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS7ct1     = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS15ct1000  = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS15ct100   = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS15ct10    = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS15ct1     = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS40ct1000  = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS40ct100   = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS40ct10    = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS40ct1     = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS55ct1000  = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS55ct100   = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS55ct10    = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10_"+region+"_histograms.root"   ) ; 
+ file_Sig_4Tau_ggZH_MS55ct1     = TFile::Open( inpath + "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1_"+region+"_histograms.root"   ) ; 
+ 
+
+ file_Sig_h125_llp20_ct1_100k_wISR        = TFile::Open( inpath + "h125_llp20_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h125_llp20_ct10_100k_wISR       = TFile::Open( inpath + "h125_llp20_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h125_llp20_ct100_100k_wISR      = TFile::Open( inpath + "h125_llp20_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h125_llp20_ct1000_100k_wISR     = TFile::Open( inpath + "h125_llp20_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h150_llp20_ct1_100k_wISR        = TFile::Open( inpath + "h150_llp20_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp20_ct10_100k_wISR       = TFile::Open( inpath + "h150_llp20_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp20_ct100_100k_wISR      = TFile::Open( inpath + "h150_llp20_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp20_ct1000_100k_wISR     = TFile::Open( inpath + "h150_llp20_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h150_llp50_ct1_100k_wISR        = TFile::Open( inpath + "h150_llp50_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct10_100k_wISR       = TFile::Open( inpath + "h150_llp50_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct100_100k_wISR      = TFile::Open( inpath + "h150_llp50_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct1000_100k_wISR     = TFile::Open( inpath + "h150_llp50_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+ 
+ file_Sig_h175_llp20_ct1_100k_wISR        = TFile::Open( inpath + "h175_llp20_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp20_ct10_100k_wISR       = TFile::Open( inpath + "h175_llp20_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp20_ct100_100k_wISR      = TFile::Open( inpath + "h175_llp20_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp20_ct1000_100k_wISR     = TFile::Open( inpath + "h175_llp20_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h175_llp50_ct1_100k_wISR        = TFile::Open( inpath + "h175_llp50_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct10_100k_wISR       = TFile::Open( inpath + "h175_llp50_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct100_100k_wISR      = TFile::Open( inpath + "h175_llp50_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct1000_100k_wISR     = TFile::Open( inpath + "h175_llp50_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h200_llp20_ct1_100k_wISR        = TFile::Open( inpath + "h200_llp20_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp20_ct10_100k_wISR       = TFile::Open( inpath + "h200_llp20_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp20_ct100_100k_wISR      = TFile::Open( inpath + "h200_llp20_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp20_ct1000_100k_wISR     = TFile::Open( inpath + "h200_llp20_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h200_llp50_ct1_100k_wISR        = TFile::Open( inpath + "h200_llp50_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct10_100k_wISR       = TFile::Open( inpath + "h200_llp50_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct100_100k_wISR      = TFile::Open( inpath + "h200_llp50_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct1000_100k_wISR     = TFile::Open( inpath + "h200_llp50_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h200_llp100_ct1_100k_wISR       = TFile::Open( inpath + "h200_llp100_ct1_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp100_ct10_100k_wISR      = TFile::Open( inpath + "h200_llp100_ct10_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp100_ct100_100k_wISR     = TFile::Open( inpath + "h200_llp100_ct100_100k_wISR_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp100_ct1000_100k_wISR    = TFile::Open( inpath + "h200_llp100_ct1000_100k_wISR_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h150_llp20_ct1_100k    = TFile::Open( inpath + "h150_llp20_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp20_ct10_100k   = TFile::Open( inpath + "h150_llp20_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp20_ct100_100k  = TFile::Open( inpath + "h150_llp20_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp20_ct1000_100k = TFile::Open( inpath + "h150_llp20_ct1000_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct1_100k    = TFile::Open( inpath + "h150_llp50_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct10_100k   = TFile::Open( inpath + "h150_llp50_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct100_100k  = TFile::Open( inpath + "h150_llp50_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h150_llp50_ct1000_100k = TFile::Open( inpath + "h150_llp50_ct1000_100k_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h175_llp20_ct1_100k    = TFile::Open( inpath + "h175_llp20_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp20_ct10_100k   = TFile::Open( inpath + "h175_llp20_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp20_ct100_100k  = TFile::Open( inpath + "h175_llp20_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp20_ct1000_100k = TFile::Open( inpath + "h175_llp20_ct1000_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct1_100k    = TFile::Open( inpath + "h175_llp50_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct10_100k   = TFile::Open( inpath + "h175_llp50_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct100_100k  = TFile::Open( inpath + "h175_llp50_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h175_llp50_ct1000_100k = TFile::Open( inpath + "h175_llp50_ct1000_100k_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h200_llp20_ct1_100k    = TFile::Open( inpath + "h200_llp20_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp20_ct10_100k   = TFile::Open( inpath + "h200_llp20_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp20_ct100_100k  = TFile::Open( inpath + "h200_llp20_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp20_ct1000_100k = TFile::Open( inpath + "h200_llp20_ct1000_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct1_100k    = TFile::Open( inpath + "h200_llp50_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct10_100k   = TFile::Open( inpath + "h200_llp50_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct100_100k  = TFile::Open( inpath + "h200_llp50_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h200_llp50_ct1000_100k = TFile::Open( inpath + "h200_llp50_ct1000_100k_"+region+"_histograms.root"   ) ; 
+
+ file_Sig_h250_llp50_ct1_100k    = TFile::Open( inpath + "h250_llp50_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h250_llp50_ct10_100k   = TFile::Open( inpath + "h250_llp50_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h250_llp50_ct100_100k  = TFile::Open( inpath + "h250_llp50_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h250_llp50_ct1000_100k = TFile::Open( inpath + "h250_llp50_ct1000_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h500_llp200_ct1_100k    = TFile::Open( inpath + "h500_llp200_ct1_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h500_llp200_ct10_100k   = TFile::Open( inpath + "h500_llp200_ct10_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h500_llp200_ct100_100k  = TFile::Open( inpath + "h500_llp200_ct100_100k_"+region+"_histograms.root"   ) ; 
+ file_Sig_h500_llp200_ct1000_100k = TFile::Open( inpath + "h500_llp200_ct1000_100k_"+region+"_histograms.root"   ) ; 
 
 // file_Data_SingleMu_H_3             =  TFile::Open( inpath + "Data_SingleMu_H_3_"+region+"_histograms.root"     ) ; 
 // file_Data_SingleMu_H_2             =  TFile::Open( inpath + "Data_SingleMu_H_2_"+region+"_histograms.root"     ) ; 
@@ -758,15 +1575,27 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
  // Start looping over variables, systematic uncertainty bins, make plots / tables / root files
   for(unsigned int j=0; j<variables.size(); ++j){
    TString variable = variables[j];
+   drawData=true;
+   //dolog=false;
 
    for(unsigned int tt=0; tt<loopEnd; ++tt){
     TString uncbin = uncbins[tt];
     //Override drawData for nTag signal region
-    if(region.Contains("ZH") && 
+    if( region.Contains("Sig")  && 
        (variable=="nSelectedAODCaloJetTag" || 
+        variable=="nSelectedAODCaloJetTag_orig" || 
 	variable.Contains("Log10IPSig") || 
 	variable.Contains("Log10TrackAngle") || 
 	variable.Contains("AlphaMax")) ) {
+      drawData=false;
+    }
+    if( ( region.Contains("ZH")|| region.Contains("DY")) && 
+       (variable=="nSelectedAODCaloJetTag_orig" || 
+        variable=="nSelectedAODCaloJetTag" 
+	//variable.Contains("Log10IPSig") || 
+	//variable.Contains("Log10TrackAngle") || 
+	//variable.Contains("AlphaMax")) 
+	)) {
       drawData=false;
     }
     if(variable.Contains("Raw")){
@@ -774,13 +1603,14 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
     }
     if( variable.Contains("NMinus")   ||
 	variable.Contains("Onecut")   ||               
+	variable.Contains("nSelectedAODCaloJetTag")   ||               
 	variable.Contains("Cutflow") ) {
      dolog=true;
     }
 
     Bool_t domaketable = kFALSE;
     if(j==0){
-     domaketable = kFALSE;
+     domaketable = kTRUE;
     }
      TString varname = region+"_"+variable;
 
@@ -792,13 +1622,13 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      TString tinylogname = outpath+"tables/tiny_"+varname+extraname+uncbin; 
      //cout << "logname: " << logname << endl;
      // get histograms from files
-     //h_DY5to50_HT70To100               = (TH1F*)file_DY5to50_HT70To100                ->Get("h_"+varname)->Clone( "h_DY5to50_HT70To100"           +uncbin     ) ; 
      h_DY5to50_HT100To200              = (TH1F*)file_DY5to50_HT100To200               ->Get("h_"+varname+uncbin)->Clone( "DY5to50_HT100To200"              +uncbin ) ; 
      h_DY5to50_HT200To400              = (TH1F*)file_DY5to50_HT200To400               ->Get("h_"+varname+uncbin)->Clone( "DY5to50_HT200To400"              +uncbin ) ; 
      h_DY5to50_HT400To600              = (TH1F*)file_DY5to50_HT400To600               ->Get("h_"+varname+uncbin)->Clone( "DY5to50_HT400To600"              +uncbin ) ; 
      h_DY5to50_HT600ToInf              = (TH1F*)file_DY5to50_HT600ToInf               ->Get("h_"+varname+uncbin)->Clone( "DY5to50_HT600ToInf"              +uncbin ) ; 
      h_DY10to50                        = (TH1F*)file_DY10to50                         ->Get("h_"+varname+uncbin)->Clone( "DY10to50"                        +uncbin ) ;
      h_DY50                            = (TH1F*)file_DY50                             ->Get("h_"+varname+uncbin)->Clone( "DY50"                            +uncbin ) ;
+     h_DY50_mad                        = (TH1F*)file_DY50_mad                         ->Get("h_"+varname+uncbin)->Clone( "DY50_mad"                        +uncbin ) ;
 
      h_ggZH_HToBB_ZToLL                = (TH1F*)file_ggZH_HToBB_ZToLL                 ->Get("h_"+varname+uncbin)->Clone( "ggZH_HToBB_ZToLL"                +uncbin ) ;
      h_ZH_HToBB_ZToLL                  = (TH1F*)file_ZH_HToBB_ZToLL                   ->Get("h_"+varname+uncbin)->Clone( "ZH_HToBB_ZToLL"                  +uncbin ) ;
@@ -815,8 +1645,8 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_STbar_tW                        = (TH1F*)file_STbar_tW                         ->Get("h_"+varname+uncbin)->Clone( "STbar_tW"                        +uncbin ) ;
      h_ST_tW                           = (TH1F*)file_ST_tW                            ->Get("h_"+varname+uncbin)->Clone( "ST_tW"                           +uncbin ) ;
 
-     h_TTJets                          = (TH1F*)file_TTJets                           ->Get("h_"+varname+uncbin)->Clone( "TTJets"                          +uncbin ) ;
-     h_TTtoLL                          = (TH1F*)file_TTtoLL                           ->Get("h_"+varname+uncbin)->Clone( "TTtoLL"                          +uncbin ) ;
+     h_TTJets_mad                      = (TH1F*)file_TTJets                           ->Get("h_"+varname+uncbin)->Clone( "TTJets_mad"                      +uncbin ) ;
+     h_TTtoLL_mad                      = (TH1F*)file_TTtoLL                           ->Get("h_"+varname+uncbin)->Clone( "TTtoLL_mad"                      +uncbin ) ;
      h_TTtoLfromTbar                   = (TH1F*)file_TTtoLfromTbar                    ->Get("h_"+varname+uncbin)->Clone( "TTtoLfromTbar"                   +uncbin ) ;
      h_TTtoLfromT                      = (TH1F*)file_TTtoLfromT                       ->Get("h_"+varname+uncbin)->Clone( "TTtoLfromT"                      +uncbin ) ;
      h_WJetsToLNu                      = (TH1F*)file_WJetsToLNu                       ->Get("h_"+varname+uncbin)->Clone( "WJetsToLNu"                      +uncbin ) ;
@@ -843,6 +1673,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_QCD_HT1500to2000                = (TH1F*)file_QCD_HT1500to2000                 ->Get("h_"+varname+uncbin)->Clone( "QCD_HT1500to2000"              +uncbin   ) ;
      h_QCD_HT2000toInf                 = (TH1F*)file_QCD_HT2000toInf                  ->Get("h_"+varname+uncbin)->Clone( "QCD_HT2000toInf"               +uncbin   ) ;
 
+     
      h_Sig_ZH_MS15ct1000   = (TH1F*)file_Sig_ZH_MS15ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct1000"+uncbin ) ;
      h_Sig_ZH_MS15ct100    = (TH1F*)file_Sig_ZH_MS15ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct100" +uncbin ) ;
      h_Sig_ZH_MS15ct10     = (TH1F*)file_Sig_ZH_MS15ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct10"  +uncbin ) ;
@@ -855,7 +1686,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_Sig_ZH_MS55ct100    = (TH1F*)file_Sig_ZH_MS55ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct100" +uncbin ) ;
      h_Sig_ZH_MS55ct10     = (TH1F*)file_Sig_ZH_MS55ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct10"  +uncbin ) ;
      h_Sig_ZH_MS55ct1      = (TH1F*)file_Sig_ZH_MS55ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct1"   +uncbin ) ;
-														      
      h_Sig_ggZH_MS15ct1000 = (TH1F*)file_Sig_ggZH_MS15ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct1000"+uncbin ) ;
      h_Sig_ggZH_MS15ct100  = (TH1F*)file_Sig_ggZH_MS15ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct100" +uncbin ) ;
      h_Sig_ggZH_MS15ct10   = (TH1F*)file_Sig_ggZH_MS15ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct10"  +uncbin ) ;
@@ -868,36 +1698,259 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_Sig_ggZH_MS55ct100  = (TH1F*)file_Sig_ggZH_MS55ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct100" +uncbin ) ;
      h_Sig_ggZH_MS55ct10   = (TH1F*)file_Sig_ggZH_MS55ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct10"  +uncbin ) ;
      h_Sig_ggZH_MS55ct1    = (TH1F*)file_Sig_ggZH_MS55ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct1"   +uncbin ) ;
+     h_Sig_ZH_MS15ct200    = (TH1F*)file_Sig_ZH_MS15ct200    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct200" +uncbin ) ;
+     h_Sig_ZH_MS15ct20     = (TH1F*)file_Sig_ZH_MS15ct20     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct20"  +uncbin ) ;
+     h_Sig_ZH_MS15ct2      = (TH1F*)file_Sig_ZH_MS15ct2      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct2"   +uncbin ) ;
+     h_Sig_ZH_MS40ct200    = (TH1F*)file_Sig_ZH_MS40ct200    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct200" +uncbin ) ;
+     h_Sig_ZH_MS40ct20     = (TH1F*)file_Sig_ZH_MS40ct20     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct20"  +uncbin ) ;
+     h_Sig_ZH_MS40ct2      = (TH1F*)file_Sig_ZH_MS40ct2      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct2"   +uncbin ) ;
+     h_Sig_ZH_MS55ct200    = (TH1F*)file_Sig_ZH_MS55ct200    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct200" +uncbin ) ;
+     h_Sig_ZH_MS55ct20     = (TH1F*)file_Sig_ZH_MS55ct20     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct20"  +uncbin ) ;
+     h_Sig_ZH_MS55ct2      = (TH1F*)file_Sig_ZH_MS55ct2      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct2"   +uncbin ) ;
+     h_Sig_ggZH_MS15ct200  = (TH1F*)file_Sig_ggZH_MS15ct200  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct200" +uncbin ) ;
+     h_Sig_ggZH_MS15ct20   = (TH1F*)file_Sig_ggZH_MS15ct20   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct20"  +uncbin ) ;
+     h_Sig_ggZH_MS15ct2    = (TH1F*)file_Sig_ggZH_MS15ct2    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct2"   +uncbin ) ;
+     h_Sig_ggZH_MS40ct200  = (TH1F*)file_Sig_ggZH_MS40ct200  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct200" +uncbin ) ;
+     h_Sig_ggZH_MS40ct20   = (TH1F*)file_Sig_ggZH_MS40ct20   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct20"  +uncbin ) ;
+     h_Sig_ggZH_MS40ct2    = (TH1F*)file_Sig_ggZH_MS40ct2    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct2"   +uncbin ) ;
+     h_Sig_ggZH_MS55ct200  = (TH1F*)file_Sig_ggZH_MS55ct200  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct200" +uncbin ) ;
+     h_Sig_ggZH_MS55ct20   = (TH1F*)file_Sig_ggZH_MS55ct20   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct20"  +uncbin ) ;
+     h_Sig_ggZH_MS55ct2    = (TH1F*)file_Sig_ggZH_MS55ct2    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct2"   +uncbin ) ;
+     h_Sig_ZH_MS15ct300    = (TH1F*)file_Sig_ZH_MS15ct300    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct300" +uncbin ) ;
+     h_Sig_ZH_MS15ct30     = (TH1F*)file_Sig_ZH_MS15ct30     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct30"  +uncbin ) ;
+     h_Sig_ZH_MS15ct3      = (TH1F*)file_Sig_ZH_MS15ct3      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct3"   +uncbin ) ;
+     h_Sig_ZH_MS40ct300    = (TH1F*)file_Sig_ZH_MS40ct300    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct300" +uncbin ) ;
+     h_Sig_ZH_MS40ct30     = (TH1F*)file_Sig_ZH_MS40ct30     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct30"  +uncbin ) ;
+     h_Sig_ZH_MS40ct3      = (TH1F*)file_Sig_ZH_MS40ct3      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct3"   +uncbin ) ;
+     h_Sig_ZH_MS55ct300    = (TH1F*)file_Sig_ZH_MS55ct300    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct300" +uncbin ) ;
+     h_Sig_ZH_MS55ct30     = (TH1F*)file_Sig_ZH_MS55ct30     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct30"  +uncbin ) ;
+     h_Sig_ZH_MS55ct3      = (TH1F*)file_Sig_ZH_MS55ct3      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct3"   +uncbin ) ;
+     h_Sig_ggZH_MS15ct300  = (TH1F*)file_Sig_ggZH_MS15ct300  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct300" +uncbin ) ;
+     h_Sig_ggZH_MS15ct30   = (TH1F*)file_Sig_ggZH_MS15ct30   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct30"  +uncbin ) ;
+     h_Sig_ggZH_MS15ct3    = (TH1F*)file_Sig_ggZH_MS15ct3    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct3"   +uncbin ) ;
+     h_Sig_ggZH_MS40ct300  = (TH1F*)file_Sig_ggZH_MS40ct300  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct300" +uncbin ) ;
+     h_Sig_ggZH_MS40ct30   = (TH1F*)file_Sig_ggZH_MS40ct30   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct30"  +uncbin ) ;
+     h_Sig_ggZH_MS40ct3    = (TH1F*)file_Sig_ggZH_MS40ct3    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct3"   +uncbin ) ;
+     h_Sig_ggZH_MS55ct300  = (TH1F*)file_Sig_ggZH_MS55ct300  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct300" +uncbin ) ;
+     h_Sig_ggZH_MS55ct30   = (TH1F*)file_Sig_ggZH_MS55ct30   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct30"  +uncbin ) ;
+     h_Sig_ggZH_MS55ct3    = (TH1F*)file_Sig_ggZH_MS55ct3    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct3"   +uncbin ) ;
+     h_Sig_ZH_MS15ct500    = (TH1F*)file_Sig_ZH_MS15ct500    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct500" +uncbin ) ;
+     h_Sig_ZH_MS15ct50     = (TH1F*)file_Sig_ZH_MS15ct50     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct50"  +uncbin ) ;
+     h_Sig_ZH_MS15ct5      = (TH1F*)file_Sig_ZH_MS15ct5      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS15ct5"   +uncbin ) ;
+     h_Sig_ZH_MS40ct500    = (TH1F*)file_Sig_ZH_MS40ct500    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct500" +uncbin ) ;
+     h_Sig_ZH_MS40ct50     = (TH1F*)file_Sig_ZH_MS40ct50     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct50"  +uncbin ) ;
+     h_Sig_ZH_MS40ct5      = (TH1F*)file_Sig_ZH_MS40ct5      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS40ct5"   +uncbin ) ;
+     h_Sig_ZH_MS55ct500    = (TH1F*)file_Sig_ZH_MS55ct500    ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct500" +uncbin ) ;
+     h_Sig_ZH_MS55ct50     = (TH1F*)file_Sig_ZH_MS55ct50     ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct50"  +uncbin ) ;
+     h_Sig_ZH_MS55ct5      = (TH1F*)file_Sig_ZH_MS55ct5      ->Get("h_"+varname+uncbin )->Clone( "Sig_ZH_MS55ct5"   +uncbin ) ;
+     h_Sig_ggZH_MS15ct500  = (TH1F*)file_Sig_ggZH_MS15ct500  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct500" +uncbin ) ;
+     h_Sig_ggZH_MS15ct50   = (TH1F*)file_Sig_ggZH_MS15ct50   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct50"  +uncbin ) ;
+     h_Sig_ggZH_MS15ct5    = (TH1F*)file_Sig_ggZH_MS15ct5    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS15ct5"   +uncbin ) ;
+     h_Sig_ggZH_MS40ct500  = (TH1F*)file_Sig_ggZH_MS40ct500  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct500" +uncbin ) ;
+     h_Sig_ggZH_MS40ct50   = (TH1F*)file_Sig_ggZH_MS40ct50   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct50"  +uncbin ) ;
+     h_Sig_ggZH_MS40ct5    = (TH1F*)file_Sig_ggZH_MS40ct5    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS40ct5"   +uncbin ) ;
+     h_Sig_ggZH_MS55ct500  = (TH1F*)file_Sig_ggZH_MS55ct500  ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct500" +uncbin ) ;
+     h_Sig_ggZH_MS55ct50   = (TH1F*)file_Sig_ggZH_MS55ct50   ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct50"  +uncbin ) ;
+     h_Sig_ggZH_MS55ct5    = (TH1F*)file_Sig_ggZH_MS55ct5    ->Get("h_"+varname+uncbin )->Clone( "Sig_ggZH_MS55ct5"   +uncbin ) ;
 
-	/*
-     h_WminusH_HToBB_WToLNu	       = (TH1F*)file_WminusH_HToBB_WToLNu	      ->Get("h_"+varname+uncbin)->Clone( "WminusH_HToBB_WToLNu"            +uncbin );
-     h_WplusH_HToBB_WToLNu	       = (TH1F*)file_WplusH_HToBB_WToLNu	      ->Get("h_"+varname+uncbin)->Clone( "WplusH_HToBB_WToLNu"            +uncbin );
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1" ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10"+uncbin   ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000"+uncbin ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100"+uncbin  ) ;
-     h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = (TH1F*)file_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000"+uncbin  ) ;
-   
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1"  ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10"+uncbin   ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100"+uncbin  ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000"+uncbin ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1"+uncbin    ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10"+uncbin   ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100"+uncbin  ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000"+uncbin ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1"+uncbin    ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10"+uncbin   ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100"+uncbin  ) ;
-     h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = (TH1F*)file_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000"+uncbin ) ;
- */
+     h_Sig_4d_ZH_MS15ct1000   = (TH1F*)file_Sig_4d_ZH_MS15ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct1000"+uncbin ) ;
+     h_Sig_4d_ZH_MS15ct100    = (TH1F*)file_Sig_4d_ZH_MS15ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct100" +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct10     = (TH1F*)file_Sig_4d_ZH_MS15ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct10"  +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct1      = (TH1F*)file_Sig_4d_ZH_MS15ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct1"   +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct1000   = (TH1F*)file_Sig_4d_ZH_MS40ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct1000"+uncbin ) ;
+     h_Sig_4d_ZH_MS40ct100    = (TH1F*)file_Sig_4d_ZH_MS40ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct100" +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct10     = (TH1F*)file_Sig_4d_ZH_MS40ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct10"  +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct1      = (TH1F*)file_Sig_4d_ZH_MS40ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct1"   +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct1000   = (TH1F*)file_Sig_4d_ZH_MS55ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct1000"+uncbin ) ;
+     h_Sig_4d_ZH_MS55ct100    = (TH1F*)file_Sig_4d_ZH_MS55ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct100" +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct10     = (TH1F*)file_Sig_4d_ZH_MS55ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct10"  +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct1      = (TH1F*)file_Sig_4d_ZH_MS55ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct1"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct1000 = (TH1F*)file_Sig_4d_ggZH_MS15ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct1000"+uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct100  = (TH1F*)file_Sig_4d_ggZH_MS15ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct100" +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct10   = (TH1F*)file_Sig_4d_ggZH_MS15ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct10"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct1    = (TH1F*)file_Sig_4d_ggZH_MS15ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct1"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct1000 = (TH1F*)file_Sig_4d_ggZH_MS40ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct1000"+uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct100  = (TH1F*)file_Sig_4d_ggZH_MS40ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct100" +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct10   = (TH1F*)file_Sig_4d_ggZH_MS40ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct10"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct1    = (TH1F*)file_Sig_4d_ggZH_MS40ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct1"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct1000 = (TH1F*)file_Sig_4d_ggZH_MS55ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct1000"+uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct100  = (TH1F*)file_Sig_4d_ggZH_MS55ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct100" +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct10   = (TH1F*)file_Sig_4d_ggZH_MS55ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct10"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct1    = (TH1F*)file_Sig_4d_ggZH_MS55ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct1"   +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct200    = (TH1F*)file_Sig_4d_ZH_MS15ct200    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct200" +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct20     = (TH1F*)file_Sig_4d_ZH_MS15ct20     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct20"  +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct2      = (TH1F*)file_Sig_4d_ZH_MS15ct2      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct2"   +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct200    = (TH1F*)file_Sig_4d_ZH_MS40ct200    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct200" +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct20     = (TH1F*)file_Sig_4d_ZH_MS40ct20     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct20"  +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct2      = (TH1F*)file_Sig_4d_ZH_MS40ct2      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct2"   +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct200    = (TH1F*)file_Sig_4d_ZH_MS55ct200    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct200" +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct20     = (TH1F*)file_Sig_4d_ZH_MS55ct20     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct20"  +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct2      = (TH1F*)file_Sig_4d_ZH_MS55ct2      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct2"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct200  = (TH1F*)file_Sig_4d_ggZH_MS15ct200  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct200" +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct20   = (TH1F*)file_Sig_4d_ggZH_MS15ct20   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct20"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct2    = (TH1F*)file_Sig_4d_ggZH_MS15ct2    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct2"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct200  = (TH1F*)file_Sig_4d_ggZH_MS40ct200  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct200" +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct20   = (TH1F*)file_Sig_4d_ggZH_MS40ct20   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct20"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct2    = (TH1F*)file_Sig_4d_ggZH_MS40ct2    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct2"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct200  = (TH1F*)file_Sig_4d_ggZH_MS55ct200  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct200" +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct20   = (TH1F*)file_Sig_4d_ggZH_MS55ct20   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct20"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct2    = (TH1F*)file_Sig_4d_ggZH_MS55ct2    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct2"   +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct300    = (TH1F*)file_Sig_4d_ZH_MS15ct300    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct300" +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct30     = (TH1F*)file_Sig_4d_ZH_MS15ct30     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct30"  +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct3      = (TH1F*)file_Sig_4d_ZH_MS15ct3      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct3"   +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct300    = (TH1F*)file_Sig_4d_ZH_MS40ct300    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct300" +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct30     = (TH1F*)file_Sig_4d_ZH_MS40ct30     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct30"  +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct3      = (TH1F*)file_Sig_4d_ZH_MS40ct3      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct3"   +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct300    = (TH1F*)file_Sig_4d_ZH_MS55ct300    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct300" +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct30     = (TH1F*)file_Sig_4d_ZH_MS55ct30     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct30"  +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct3      = (TH1F*)file_Sig_4d_ZH_MS55ct3      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct3"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct300  = (TH1F*)file_Sig_4d_ggZH_MS15ct300  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct300" +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct30   = (TH1F*)file_Sig_4d_ggZH_MS15ct30   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct30"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct3    = (TH1F*)file_Sig_4d_ggZH_MS15ct3    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct3"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct300  = (TH1F*)file_Sig_4d_ggZH_MS40ct300  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct300" +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct30   = (TH1F*)file_Sig_4d_ggZH_MS40ct30   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct30"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct3    = (TH1F*)file_Sig_4d_ggZH_MS40ct3    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct3"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct300  = (TH1F*)file_Sig_4d_ggZH_MS55ct300  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct300" +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct30   = (TH1F*)file_Sig_4d_ggZH_MS55ct30   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct30"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct3    = (TH1F*)file_Sig_4d_ggZH_MS55ct3    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct3"   +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct500    = (TH1F*)file_Sig_4d_ZH_MS15ct500    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct500" +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct50     = (TH1F*)file_Sig_4d_ZH_MS15ct50     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct50"  +uncbin ) ;
+     h_Sig_4d_ZH_MS15ct5      = (TH1F*)file_Sig_4d_ZH_MS15ct5      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS15ct5"   +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct500    = (TH1F*)file_Sig_4d_ZH_MS40ct500    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct500" +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct50     = (TH1F*)file_Sig_4d_ZH_MS40ct50     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct50"  +uncbin ) ;
+     h_Sig_4d_ZH_MS40ct5      = (TH1F*)file_Sig_4d_ZH_MS40ct5      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS40ct5"   +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct500    = (TH1F*)file_Sig_4d_ZH_MS55ct500    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct500" +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct50     = (TH1F*)file_Sig_4d_ZH_MS55ct50     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct50"  +uncbin ) ;
+     h_Sig_4d_ZH_MS55ct5      = (TH1F*)file_Sig_4d_ZH_MS55ct5      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS55ct5"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct500  = (TH1F*)file_Sig_4d_ggZH_MS15ct500  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct500" +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct50   = (TH1F*)file_Sig_4d_ggZH_MS15ct50   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct50"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS15ct5    = (TH1F*)file_Sig_4d_ggZH_MS15ct5    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS15ct5"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct500  = (TH1F*)file_Sig_4d_ggZH_MS40ct500  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct500" +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct50   = (TH1F*)file_Sig_4d_ggZH_MS40ct50   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct50"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS40ct5    = (TH1F*)file_Sig_4d_ggZH_MS40ct5    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS40ct5"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct500  = (TH1F*)file_Sig_4d_ggZH_MS55ct500  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct500" +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct50   = (TH1F*)file_Sig_4d_ggZH_MS55ct50   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct50"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS55ct5    = (TH1F*)file_Sig_4d_ggZH_MS55ct5    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS55ct5"   +uncbin ) ;
+
+
+
+
+     h_Sig_4d_ZH_MS7ct1000   = (TH1F*)file_Sig_4d_ZH_MS7ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS7ct1000"+uncbin ) ;
+     h_Sig_4d_ZH_MS7ct100    = (TH1F*)file_Sig_4d_ZH_MS7ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS7ct100" +uncbin ) ;
+     h_Sig_4d_ZH_MS7ct10     = (TH1F*)file_Sig_4d_ZH_MS7ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS7ct10"  +uncbin ) ;
+     h_Sig_4d_ZH_MS7ct1      = (TH1F*)file_Sig_4d_ZH_MS7ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ZH_MS7ct1"   +uncbin ) ;
+     h_Sig_4d_ggZH_MS7ct1000 = (TH1F*)file_Sig_4d_ggZH_MS7ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS7ct1000"+uncbin ) ;
+     h_Sig_4d_ggZH_MS7ct100  = (TH1F*)file_Sig_4d_ggZH_MS7ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS7ct100" +uncbin ) ;
+     h_Sig_4d_ggZH_MS7ct10   = (TH1F*)file_Sig_4d_ggZH_MS7ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS7ct10"  +uncbin ) ;
+     h_Sig_4d_ggZH_MS7ct1    = (TH1F*)file_Sig_4d_ggZH_MS7ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4d_ggZH_MS7ct1"   +uncbin ) ;
+     h_Sig_4Tau_ZH_MS7ct1000   = (TH1F*)file_Sig_4Tau_ZH_MS7ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS7ct1000"+uncbin ) ;
+     h_Sig_4Tau_ZH_MS7ct100    = (TH1F*)file_Sig_4Tau_ZH_MS7ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS7ct100" +uncbin ) ;
+     h_Sig_4Tau_ZH_MS7ct10     = (TH1F*)file_Sig_4Tau_ZH_MS7ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS7ct10"  +uncbin ) ;
+     h_Sig_4Tau_ZH_MS7ct1      = (TH1F*)file_Sig_4Tau_ZH_MS7ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS7ct1"   +uncbin ) ;
+     h_Sig_4Tau_ZH_MS15ct1000   = (TH1F*)file_Sig_4Tau_ZH_MS15ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS15ct1000"+uncbin ) ;
+     h_Sig_4Tau_ZH_MS15ct100    = (TH1F*)file_Sig_4Tau_ZH_MS15ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS15ct100" +uncbin ) ;
+     h_Sig_4Tau_ZH_MS15ct10     = (TH1F*)file_Sig_4Tau_ZH_MS15ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS15ct10"  +uncbin ) ;
+     h_Sig_4Tau_ZH_MS15ct1      = (TH1F*)file_Sig_4Tau_ZH_MS15ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS15ct1"   +uncbin ) ;
+     h_Sig_4Tau_ZH_MS40ct1000   = (TH1F*)file_Sig_4Tau_ZH_MS40ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS40ct1000"+uncbin ) ;
+     h_Sig_4Tau_ZH_MS40ct100    = (TH1F*)file_Sig_4Tau_ZH_MS40ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS40ct100" +uncbin ) ;
+     h_Sig_4Tau_ZH_MS40ct10     = (TH1F*)file_Sig_4Tau_ZH_MS40ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS40ct10"  +uncbin ) ;
+     h_Sig_4Tau_ZH_MS40ct1      = (TH1F*)file_Sig_4Tau_ZH_MS40ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS40ct1"   +uncbin ) ;
+     h_Sig_4Tau_ZH_MS55ct1000   = (TH1F*)file_Sig_4Tau_ZH_MS55ct1000   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS55ct1000"+uncbin ) ;
+     h_Sig_4Tau_ZH_MS55ct100    = (TH1F*)file_Sig_4Tau_ZH_MS55ct100    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS55ct100" +uncbin ) ;
+     h_Sig_4Tau_ZH_MS55ct10     = (TH1F*)file_Sig_4Tau_ZH_MS55ct10     ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS55ct10"  +uncbin ) ;
+     h_Sig_4Tau_ZH_MS55ct1      = (TH1F*)file_Sig_4Tau_ZH_MS55ct1      ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ZH_MS55ct1"   +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS7ct1000 = (TH1F*)file_Sig_4Tau_ggZH_MS7ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS7ct1000"+uncbin ) ;
+     h_Sig_4Tau_ggZH_MS7ct100  = (TH1F*)file_Sig_4Tau_ggZH_MS7ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS7ct100" +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS7ct10   = (TH1F*)file_Sig_4Tau_ggZH_MS7ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS7ct10"  +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS7ct1    = (TH1F*)file_Sig_4Tau_ggZH_MS7ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS7ct1"   +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS15ct1000 = (TH1F*)file_Sig_4Tau_ggZH_MS15ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS15ct1000"+uncbin ) ;
+     h_Sig_4Tau_ggZH_MS15ct100  = (TH1F*)file_Sig_4Tau_ggZH_MS15ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS15ct100" +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS15ct10   = (TH1F*)file_Sig_4Tau_ggZH_MS15ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS15ct10"  +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS15ct1    = (TH1F*)file_Sig_4Tau_ggZH_MS15ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS15ct1"   +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS40ct1000 = (TH1F*)file_Sig_4Tau_ggZH_MS40ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS40ct1000"+uncbin ) ;
+     h_Sig_4Tau_ggZH_MS40ct100  = (TH1F*)file_Sig_4Tau_ggZH_MS40ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS40ct100" +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS40ct10   = (TH1F*)file_Sig_4Tau_ggZH_MS40ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS40ct10"  +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS40ct1    = (TH1F*)file_Sig_4Tau_ggZH_MS40ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS40ct1"   +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS55ct1000 = (TH1F*)file_Sig_4Tau_ggZH_MS55ct1000 ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS55ct1000"+uncbin ) ;
+     h_Sig_4Tau_ggZH_MS55ct100  = (TH1F*)file_Sig_4Tau_ggZH_MS55ct100  ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS55ct100" +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS55ct10   = (TH1F*)file_Sig_4Tau_ggZH_MS55ct10   ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS55ct10"  +uncbin ) ;
+     h_Sig_4Tau_ggZH_MS55ct1    = (TH1F*)file_Sig_4Tau_ggZH_MS55ct1    ->Get("h_"+varname+uncbin )->Clone( "Sig_4Tau_ggZH_MS55ct1"   +uncbin ) ;
+
+     h_Sig_h125_llp20_ct1_100k_wISR        = (TH1F*)file_Sig_h125_llp20_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h125_llp20_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h125_llp20_ct10_100k_wISR       = (TH1F*)file_Sig_h125_llp20_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h125_llp20_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h125_llp20_ct100_100k_wISR      = (TH1F*)file_Sig_h125_llp20_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h125_llp20_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h125_llp20_ct1000_100k_wISR     = (TH1F*)file_Sig_h125_llp20_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h125_llp20_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h150_llp20_ct1_100k_wISR        = (TH1F*)file_Sig_h150_llp20_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h150_llp20_ct10_100k_wISR       = (TH1F*)file_Sig_h150_llp20_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h150_llp20_ct100_100k_wISR      = (TH1F*)file_Sig_h150_llp20_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h150_llp20_ct1000_100k_wISR     = (TH1F*)file_Sig_h150_llp20_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h150_llp50_ct1_100k_wISR        = (TH1F*)file_Sig_h150_llp50_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h150_llp50_ct10_100k_wISR       = (TH1F*)file_Sig_h150_llp50_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h150_llp50_ct100_100k_wISR      = (TH1F*)file_Sig_h150_llp50_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h150_llp50_ct1000_100k_wISR     = (TH1F*)file_Sig_h150_llp50_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h175_llp20_ct1_100k_wISR        = (TH1F*)file_Sig_h175_llp20_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h175_llp20_ct10_100k_wISR       = (TH1F*)file_Sig_h175_llp20_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h175_llp20_ct100_100k_wISR      = (TH1F*)file_Sig_h175_llp20_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h175_llp20_ct1000_100k_wISR     = (TH1F*)file_Sig_h175_llp20_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h175_llp50_ct1_100k_wISR        = (TH1F*)file_Sig_h175_llp50_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h175_llp50_ct10_100k_wISR       = (TH1F*)file_Sig_h175_llp50_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h175_llp50_ct100_100k_wISR      = (TH1F*)file_Sig_h175_llp50_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h175_llp50_ct1000_100k_wISR     = (TH1F*)file_Sig_h175_llp50_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h200_llp20_ct1_100k_wISR        = (TH1F*)file_Sig_h200_llp20_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp20_ct10_100k_wISR       = (TH1F*)file_Sig_h200_llp20_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp20_ct100_100k_wISR      = (TH1F*)file_Sig_h200_llp20_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp20_ct1000_100k_wISR     = (TH1F*)file_Sig_h200_llp20_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h200_llp50_ct1_100k_wISR        = (TH1F*)file_Sig_h200_llp50_ct1_100k_wISR     ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp50_ct10_100k_wISR       = (TH1F*)file_Sig_h200_llp50_ct10_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp50_ct100_100k_wISR      = (TH1F*)file_Sig_h200_llp50_ct100_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp50_ct1000_100k_wISR     = (TH1F*)file_Sig_h200_llp50_ct1000_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h200_llp100_ct1_100k_wISR       = (TH1F*)file_Sig_h200_llp100_ct1_100k_wISR    ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp100_ct1_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp100_ct10_100k_wISR      = (TH1F*)file_Sig_h200_llp100_ct10_100k_wISR   ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp100_ct10_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp100_ct100_100k_wISR     = (TH1F*)file_Sig_h200_llp100_ct100_100k_wISR  ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp100_ct100_100k_wISR"   +uncbin ) ;
+     h_Sig_h200_llp100_ct1000_100k_wISR    = (TH1F*)file_Sig_h200_llp100_ct1000_100k_wISR ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp100_ct1000_100k_wISR"   +uncbin ) ;
+
+     h_Sig_h150_llp20_ct1_100k    = (TH1F*)file_Sig_h150_llp20_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct1_100k"   +uncbin ) ;
+     h_Sig_h150_llp20_ct10_100k   = (TH1F*)file_Sig_h150_llp20_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct10_100k"   +uncbin ) ;
+     h_Sig_h150_llp20_ct100_100k  = (TH1F*)file_Sig_h150_llp20_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct100_100k"   +uncbin ) ;
+     h_Sig_h150_llp20_ct1000_100k = (TH1F*)file_Sig_h150_llp20_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp20_ct1000_100k"   +uncbin ) ;
+     h_Sig_h150_llp50_ct1_100k    = (TH1F*)file_Sig_h150_llp50_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct1_100k"   +uncbin ) ;
+     h_Sig_h150_llp50_ct10_100k   = (TH1F*)file_Sig_h150_llp50_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct10_100k"   +uncbin ) ;
+     h_Sig_h150_llp50_ct100_100k  = (TH1F*)file_Sig_h150_llp50_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct100_100k"   +uncbin ) ;
+     h_Sig_h150_llp50_ct1000_100k = (TH1F*)file_Sig_h150_llp50_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h150_llp50_ct1000_100k"   +uncbin ) ;
+
+     h_Sig_h175_llp20_ct1_100k    = (TH1F*)file_Sig_h175_llp20_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct1_100k"   +uncbin ) ;
+     h_Sig_h175_llp20_ct10_100k   = (TH1F*)file_Sig_h175_llp20_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct10_100k"   +uncbin ) ;
+     h_Sig_h175_llp20_ct100_100k  = (TH1F*)file_Sig_h175_llp20_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct100_100k"   +uncbin ) ;
+     h_Sig_h175_llp20_ct1000_100k = (TH1F*)file_Sig_h175_llp20_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp20_ct1000_100k"   +uncbin ) ;
+     h_Sig_h175_llp50_ct1_100k    = (TH1F*)file_Sig_h175_llp50_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct1_100k"   +uncbin ) ;
+     h_Sig_h175_llp50_ct10_100k   = (TH1F*)file_Sig_h175_llp50_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct10_100k"   +uncbin ) ;
+     h_Sig_h175_llp50_ct100_100k  = (TH1F*)file_Sig_h175_llp50_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct100_100k"   +uncbin ) ;
+     h_Sig_h175_llp50_ct1000_100k = (TH1F*)file_Sig_h175_llp50_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h175_llp50_ct1000_100k"   +uncbin ) ;
+
+     h_Sig_h200_llp20_ct1_100k    = (TH1F*)file_Sig_h200_llp20_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct1_100k"   +uncbin ) ;
+     h_Sig_h200_llp20_ct10_100k   = (TH1F*)file_Sig_h200_llp20_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct10_100k"   +uncbin ) ;
+     h_Sig_h200_llp20_ct100_100k  = (TH1F*)file_Sig_h200_llp20_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct100_100k"   +uncbin ) ;
+     h_Sig_h200_llp20_ct1000_100k = (TH1F*)file_Sig_h200_llp20_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp20_ct1000_100k"   +uncbin ) ;
+     h_Sig_h200_llp50_ct1_100k    = (TH1F*)file_Sig_h200_llp50_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct1_100k"   +uncbin ) ;
+     h_Sig_h200_llp50_ct10_100k   = (TH1F*)file_Sig_h200_llp50_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct10_100k"   +uncbin ) ;
+     h_Sig_h200_llp50_ct100_100k  = (TH1F*)file_Sig_h200_llp50_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct100_100k"   +uncbin ) ;
+     h_Sig_h200_llp50_ct1000_100k = (TH1F*)file_Sig_h200_llp50_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h200_llp50_ct1000_100k"   +uncbin ) ;
+
+     h_Sig_h250_llp50_ct1_100k    = (TH1F*)file_Sig_h250_llp50_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h250_llp50_ct1_100k"   +uncbin ) ;
+     h_Sig_h250_llp50_ct10_100k   = (TH1F*)file_Sig_h250_llp50_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h250_llp50_ct10_100k"   +uncbin ) ;
+     h_Sig_h250_llp50_ct100_100k  = (TH1F*)file_Sig_h250_llp50_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h250_llp50_ct100_100k"   +uncbin ) ;
+     h_Sig_h250_llp50_ct1000_100k = (TH1F*)file_Sig_h250_llp50_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h250_llp50_ct1000_100k"   +uncbin ) ;
+     h_Sig_h500_llp200_ct1_100k    = (TH1F*)file_Sig_h500_llp200_ct1_100k    ->Get("h_"+varname+uncbin )->Clone( "Sig_h500_llp200_ct1_100k"   +uncbin ) ;
+     h_Sig_h500_llp200_ct10_100k   = (TH1F*)file_Sig_h500_llp200_ct10_100k   ->Get("h_"+varname+uncbin )->Clone( "Sig_h500_llp200_ct10_100k"   +uncbin ) ;
+     h_Sig_h500_llp200_ct100_100k  = (TH1F*)file_Sig_h500_llp200_ct100_100k  ->Get("h_"+varname+uncbin )->Clone( "Sig_h500_llp200_ct100_100k"   +uncbin ) ;
+     h_Sig_h500_llp200_ct1000_100k = (TH1F*)file_Sig_h500_llp200_ct1000_100k ->Get("h_"+varname+uncbin )->Clone( "Sig_h500_llp200_ct1000_100k"   +uncbin ) ;
      /*
      h_Data_SingleMu_H_3     = (TH1F*) file_Data_SingleMu_H_3     -> Get("h_"+varname)->Clone( "Data_SingleMu_H_3"      ) ; 
      h_Data_SingleMu_H_2     = (TH1F*) file_Data_SingleMu_H_2     -> Get("h_"+varname)->Clone( "Data_SingleMu_H_2"      ) ; 
@@ -948,6 +2001,8 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      //h_Data_MuonEG_D       = (TH1F*) file_Data_MuonEG_D       -> Get("h_"+varname)->Clone( "Data_MuonEG_D"        ) ; 
      //h_Data_MuonEG_C       = (TH1F*) file_Data_MuonEG_C       -> Get("h_"+varname)->Clone( "Data_MuonEG_C"        ) ; 
      //h_Data_MuonEG_B_2     = (TH1F*) file_Data_MuonEG_B_2     -> Get("h_"+varname)->Clone( "Data_MuonEG_B_2"      ) ; 
+
+
      // merge histograms
      h_DY = (TH1F*)h_DY50->Clone("DY");
       h_DY->Add(h_DY10to50           ); 
@@ -973,10 +2028,10 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_ZH = (TH1F*)h_ZH_HToBB_ZToLL->Clone("ZH");
       h_ZH->Add(h_ggZH_HToBB_ZToLL);
 
-
      h_altVV = (TH1F*)h_WW->Clone("altVV");
       h_altVV->Add(h_WZ             ) ;
       h_altVV->Add(h_ZZ             ) ;
+
 
      h_VV = (TH1F*)h_WWTo2L2Nu->Clone("VV");
       h_VV->Add(h_WWToLNuQQ       ) ;
@@ -988,12 +2043,13 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
       h_VV->Add(h_ZZTo2Q2Nu       ) ;
       h_VV->Add(h_ZZTo4L          ) ;
 
-     h_altTT = (TH1F*)h_TTJets->Clone("altTT");
+     //h_altTT = (TH1F*)h_TTJets_mad->Clone("altTT");
+     h_altTT = (TH1F*)h_TTtoLL_mad->Clone("altTT");
 
-     h_TT = (TH1F*)h_TTtoLfromTbar->Clone("TT");
-      h_TT->Add(h_TTtoLfromT    );
-      h_TT->Add(h_TTtoLL        );
-    
+     h_TT = (TH1F*)h_TTtoLL_mad->Clone("TT");
+      h_TT->Add(h_TTtoLfromTbar   );
+      h_TT->Add(h_TTtoLfromT      );
+      
      h_VG = (TH1F*)h_WG->Clone("VG");
       h_VG->Add(h_ZG);
 
@@ -1005,6 +2061,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
       h_QCD->Add(h_QCD_HT1000to1500 );
       h_QCD->Add(h_QCD_HT1500to2000 );
       h_QCD->Add(h_QCD_HT2000toInf  );
+
 
 
      h_Sig_MS15ct1000  = (TH1F*) h_Sig_ZH_MS15ct1000   ->Clone( "Sig_MS15ct1000" ) ;
@@ -1032,44 +2089,224 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_Sig_MS55ct100  ->Add( h_Sig_ggZH_MS55ct100  ) ;
      h_Sig_MS55ct10   ->Add( h_Sig_ggZH_MS55ct10   ) ;
      h_Sig_MS55ct1    ->Add( h_Sig_ggZH_MS55ct1    ) ;
-	/*
-     h_WH = (TH1F*)h_WminusH_HToBB_WToLNu->Clone("WH");
-      h_WH->Add(h_WplusH_HToBB_WToLNu);
 
- h_Sig_WH_MS15ct1000 = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Clone( "Sig_WH_MS15ct1000" ) ;
- h_Sig_WH_MS15ct100  = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Clone( "Sig_WH_MS15ct100 " ) ;
- h_Sig_WH_MS15ct10   = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Clone( "Sig_WH_MS15ct10  " ) ;
- h_Sig_WH_MS15ct1    = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Clone( "Sig_WH_MS15ct1   " ) ;
- h_Sig_WH_MS40ct1000 = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Clone( "Sig_WH_MS40ct1000" ) ;
- h_Sig_WH_MS40ct100  = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Clone( "Sig_WH_MS40ct100 " ) ;
- h_Sig_WH_MS40ct10   = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Clone( "Sig_WH_MS40ct10  " ) ;
- h_Sig_WH_MS40ct1    = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Clone( "Sig_WH_MS40ct1   " ) ;
- h_Sig_WH_MS55ct1000 = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Clone( "Sig_WH_MS55ct1000" ) ;
- h_Sig_WH_MS55ct100  = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Clone( "Sig_WH_MS55ct100 " ) ;
- h_Sig_WH_MS55ct10   = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Clone( "Sig_WH_MS55ct10  " ) ;
- h_Sig_WH_MS55ct1    = (TH1F*) h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Clone( "Sig_WH_MS55ct1   " ) ;
+     h_Sig_MS15ct200   = (TH1F*) h_Sig_ZH_MS15ct200    ->Clone( "Sig_MS15ct200 " ) ;
+     h_Sig_MS15ct20    = (TH1F*) h_Sig_ZH_MS15ct20     ->Clone( "Sig_MS15ct20  " ) ;
+     h_Sig_MS15ct2     = (TH1F*) h_Sig_ZH_MS15ct2      ->Clone( "Sig_MS15ct2   " ) ;
+     h_Sig_MS40ct200   = (TH1F*) h_Sig_ZH_MS40ct200    ->Clone( "Sig_MS40ct200 " ) ;
+     h_Sig_MS40ct20    = (TH1F*) h_Sig_ZH_MS40ct20     ->Clone( "Sig_MS40ct20  " ) ;
+     h_Sig_MS40ct2     = (TH1F*) h_Sig_ZH_MS40ct2      ->Clone( "Sig_MS40ct2   " ) ;
+     h_Sig_MS55ct200   = (TH1F*) h_Sig_ZH_MS55ct200    ->Clone( "Sig_MS55ct200 " ) ;
+     h_Sig_MS55ct20    = (TH1F*) h_Sig_ZH_MS55ct20     ->Clone( "Sig_MS55ct20  " ) ;
+     h_Sig_MS55ct2     = (TH1F*) h_Sig_ZH_MS55ct2      ->Clone( "Sig_MS55ct2   " ) ;
 
- h_Sig_WH_MS15ct1000 ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ) ;
- h_Sig_WH_MS15ct100  ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ) ;
- h_Sig_WH_MS15ct10   ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ) ;
- h_Sig_WH_MS15ct1    ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ) ;
- h_Sig_WH_MS40ct1000 ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ) ;
- h_Sig_WH_MS40ct100  ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ) ;
- h_Sig_WH_MS40ct10   ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ) ;
- h_Sig_WH_MS40ct1    ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ) ;
- h_Sig_WH_MS55ct1000 ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ) ;
- h_Sig_WH_MS55ct100  ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ) ;
- h_Sig_WH_MS55ct10   ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ) ;
- h_Sig_WH_MS55ct1    ->Add( h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ) ;
- */
+     h_Sig_MS15ct200  ->Add( h_Sig_ggZH_MS15ct200  ) ;
+     h_Sig_MS15ct20   ->Add( h_Sig_ggZH_MS15ct20   ) ;
+     h_Sig_MS15ct2    ->Add( h_Sig_ggZH_MS15ct2    ) ;
+     h_Sig_MS40ct200  ->Add( h_Sig_ggZH_MS40ct200  ) ;
+     h_Sig_MS40ct20   ->Add( h_Sig_ggZH_MS40ct20   ) ;
+     h_Sig_MS40ct2    ->Add( h_Sig_ggZH_MS40ct2    ) ;
+     h_Sig_MS55ct200  ->Add( h_Sig_ggZH_MS55ct200  ) ;
+     h_Sig_MS55ct20   ->Add( h_Sig_ggZH_MS55ct20   ) ;
+     h_Sig_MS55ct2    ->Add( h_Sig_ggZH_MS55ct2    ) ;
+
+     h_Sig_MS15ct300   = (TH1F*) h_Sig_ZH_MS15ct300    ->Clone( "Sig_MS15ct300 " ) ;
+     h_Sig_MS15ct30    = (TH1F*) h_Sig_ZH_MS15ct30     ->Clone( "Sig_MS15ct30  " ) ;
+     h_Sig_MS15ct3     = (TH1F*) h_Sig_ZH_MS15ct3      ->Clone( "Sig_MS15ct3   " ) ;
+     h_Sig_MS40ct300   = (TH1F*) h_Sig_ZH_MS40ct300    ->Clone( "Sig_MS40ct300 " ) ;
+     h_Sig_MS40ct30    = (TH1F*) h_Sig_ZH_MS40ct30     ->Clone( "Sig_MS40ct30  " ) ;
+     h_Sig_MS40ct3     = (TH1F*) h_Sig_ZH_MS40ct3      ->Clone( "Sig_MS40ct3   " ) ;
+     h_Sig_MS55ct300   = (TH1F*) h_Sig_ZH_MS55ct300    ->Clone( "Sig_MS55ct300 " ) ;
+     h_Sig_MS55ct30    = (TH1F*) h_Sig_ZH_MS55ct30     ->Clone( "Sig_MS55ct30  " ) ;
+     h_Sig_MS55ct3     = (TH1F*) h_Sig_ZH_MS55ct3      ->Clone( "Sig_MS55ct3   " ) ;
+
+     h_Sig_MS15ct300  ->Add( h_Sig_ggZH_MS15ct300  ) ;
+     h_Sig_MS15ct30   ->Add( h_Sig_ggZH_MS15ct30   ) ;
+     h_Sig_MS15ct3    ->Add( h_Sig_ggZH_MS15ct3    ) ;
+     h_Sig_MS40ct300  ->Add( h_Sig_ggZH_MS40ct300  ) ;
+     h_Sig_MS40ct30   ->Add( h_Sig_ggZH_MS40ct30   ) ;
+     h_Sig_MS40ct3    ->Add( h_Sig_ggZH_MS40ct3    ) ;
+     h_Sig_MS55ct300  ->Add( h_Sig_ggZH_MS55ct300  ) ;
+     h_Sig_MS55ct30   ->Add( h_Sig_ggZH_MS55ct30   ) ;
+     h_Sig_MS55ct3    ->Add( h_Sig_ggZH_MS55ct3    ) ;
+
+     h_Sig_MS15ct500   = (TH1F*) h_Sig_ZH_MS15ct500    ->Clone( "Sig_MS15ct500 " ) ;
+     h_Sig_MS15ct50    = (TH1F*) h_Sig_ZH_MS15ct50     ->Clone( "Sig_MS15ct50  " ) ;
+     h_Sig_MS15ct5     = (TH1F*) h_Sig_ZH_MS15ct5      ->Clone( "Sig_MS15ct5   " ) ;
+     h_Sig_MS40ct500   = (TH1F*) h_Sig_ZH_MS40ct500    ->Clone( "Sig_MS40ct500 " ) ;
+     h_Sig_MS40ct50    = (TH1F*) h_Sig_ZH_MS40ct50     ->Clone( "Sig_MS40ct50  " ) ;
+     h_Sig_MS40ct5     = (TH1F*) h_Sig_ZH_MS40ct5      ->Clone( "Sig_MS40ct5   " ) ;
+     h_Sig_MS55ct500   = (TH1F*) h_Sig_ZH_MS55ct500    ->Clone( "Sig_MS55ct500 " ) ;
+     h_Sig_MS55ct50    = (TH1F*) h_Sig_ZH_MS55ct50     ->Clone( "Sig_MS55ct50  " ) ;
+     h_Sig_MS55ct5     = (TH1F*) h_Sig_ZH_MS55ct5      ->Clone( "Sig_MS55ct5   " ) ;
+
+     h_Sig_MS15ct500  ->Add( h_Sig_ggZH_MS15ct500  ) ;
+     h_Sig_MS15ct50   ->Add( h_Sig_ggZH_MS15ct50   ) ;
+     h_Sig_MS15ct5    ->Add( h_Sig_ggZH_MS15ct5    ) ;
+     h_Sig_MS40ct500  ->Add( h_Sig_ggZH_MS40ct500  ) ;
+     h_Sig_MS40ct50   ->Add( h_Sig_ggZH_MS40ct50   ) ;
+     h_Sig_MS40ct5    ->Add( h_Sig_ggZH_MS40ct5    ) ;
+     h_Sig_MS55ct500  ->Add( h_Sig_ggZH_MS55ct500  ) ;
+     h_Sig_MS55ct50   ->Add( h_Sig_ggZH_MS55ct50   ) ;
+     h_Sig_MS55ct5    ->Add( h_Sig_ggZH_MS55ct5    ) ;
+
+
+     h_Sig_4d_MS15ct1000  = (TH1F*) h_Sig_4d_ZH_MS15ct1000   ->Clone( "Sig_4d_MS15ct1000" ) ;
+     h_Sig_4d_MS15ct100   = (TH1F*) h_Sig_4d_ZH_MS15ct100    ->Clone( "Sig_4d_MS15ct100 " ) ;
+     h_Sig_4d_MS15ct10    = (TH1F*) h_Sig_4d_ZH_MS15ct10     ->Clone( "Sig_4d_MS15ct10  " ) ;
+     h_Sig_4d_MS15ct1     = (TH1F*) h_Sig_4d_ZH_MS15ct1      ->Clone( "Sig_4d_MS15ct1   " ) ;
+     h_Sig_4d_MS40ct1000  = (TH1F*) h_Sig_4d_ZH_MS40ct1000   ->Clone( "Sig_4d_MS40ct1000" ) ;
+     h_Sig_4d_MS40ct100   = (TH1F*) h_Sig_4d_ZH_MS40ct100    ->Clone( "Sig_4d_MS40ct100 " ) ;
+     h_Sig_4d_MS40ct10    = (TH1F*) h_Sig_4d_ZH_MS40ct10     ->Clone( "Sig_4d_MS40ct10  " ) ;
+     h_Sig_4d_MS40ct1     = (TH1F*) h_Sig_4d_ZH_MS40ct1      ->Clone( "Sig_4d_MS40ct1   " ) ;
+     h_Sig_4d_MS55ct1000  = (TH1F*) h_Sig_4d_ZH_MS55ct1000   ->Clone( "Sig_4d_MS55ct1000" ) ;
+     h_Sig_4d_MS55ct100   = (TH1F*) h_Sig_4d_ZH_MS55ct100    ->Clone( "Sig_4d_MS55ct100 " ) ;
+     h_Sig_4d_MS55ct10    = (TH1F*) h_Sig_4d_ZH_MS55ct10     ->Clone( "Sig_4d_MS55ct10  " ) ;
+     h_Sig_4d_MS55ct1     = (TH1F*) h_Sig_4d_ZH_MS55ct1      ->Clone( "Sig_4d_MS55ct1   " ) ;
+
+     h_Sig_4d_MS15ct1000 ->Add( h_Sig_4d_ggZH_MS15ct1000 ) ;
+     h_Sig_4d_MS15ct100  ->Add( h_Sig_4d_ggZH_MS15ct100  ) ;
+     h_Sig_4d_MS15ct10   ->Add( h_Sig_4d_ggZH_MS15ct10   ) ;
+     h_Sig_4d_MS15ct1    ->Add( h_Sig_4d_ggZH_MS15ct1    ) ;
+     h_Sig_4d_MS40ct1000 ->Add( h_Sig_4d_ggZH_MS40ct1000 ) ;
+     h_Sig_4d_MS40ct100  ->Add( h_Sig_4d_ggZH_MS40ct100  ) ;
+     h_Sig_4d_MS40ct10   ->Add( h_Sig_4d_ggZH_MS40ct10   ) ;
+     h_Sig_4d_MS40ct1    ->Add( h_Sig_4d_ggZH_MS40ct1    ) ;
+     h_Sig_4d_MS55ct1000 ->Add( h_Sig_4d_ggZH_MS55ct1000 ) ;
+     h_Sig_4d_MS55ct100  ->Add( h_Sig_4d_ggZH_MS55ct100  ) ;
+     h_Sig_4d_MS55ct10   ->Add( h_Sig_4d_ggZH_MS55ct10   ) ;
+     h_Sig_4d_MS55ct1    ->Add( h_Sig_4d_ggZH_MS55ct1    ) ;
+
+     h_Sig_4d_MS15ct200   = (TH1F*) h_Sig_4d_ZH_MS15ct200    ->Clone( "Sig_4d_MS15ct200 " ) ;
+     h_Sig_4d_MS15ct20    = (TH1F*) h_Sig_4d_ZH_MS15ct20     ->Clone( "Sig_4d_MS15ct20  " ) ;
+     h_Sig_4d_MS15ct2     = (TH1F*) h_Sig_4d_ZH_MS15ct2      ->Clone( "Sig_4d_MS15ct2   " ) ;
+     h_Sig_4d_MS40ct200   = (TH1F*) h_Sig_4d_ZH_MS40ct200    ->Clone( "Sig_4d_MS40ct200 " ) ;
+     h_Sig_4d_MS40ct20    = (TH1F*) h_Sig_4d_ZH_MS40ct20     ->Clone( "Sig_4d_MS40ct20  " ) ;
+     h_Sig_4d_MS40ct2     = (TH1F*) h_Sig_4d_ZH_MS40ct2      ->Clone( "Sig_4d_MS40ct2   " ) ;
+     h_Sig_4d_MS55ct200   = (TH1F*) h_Sig_4d_ZH_MS55ct200    ->Clone( "Sig_4d_MS55ct200 " ) ;
+     h_Sig_4d_MS55ct20    = (TH1F*) h_Sig_4d_ZH_MS55ct20     ->Clone( "Sig_4d_MS55ct20  " ) ;
+     h_Sig_4d_MS55ct2     = (TH1F*) h_Sig_4d_ZH_MS55ct2      ->Clone( "Sig_4d_MS55ct2   " ) ;
+
+     h_Sig_4d_MS15ct200  ->Add( h_Sig_4d_ggZH_MS15ct200  ) ;
+     h_Sig_4d_MS15ct20   ->Add( h_Sig_4d_ggZH_MS15ct20   ) ;
+     h_Sig_4d_MS15ct2    ->Add( h_Sig_4d_ggZH_MS15ct2    ) ;
+     h_Sig_4d_MS40ct200  ->Add( h_Sig_4d_ggZH_MS40ct200  ) ;
+     h_Sig_4d_MS40ct20   ->Add( h_Sig_4d_ggZH_MS40ct20   ) ;
+     h_Sig_4d_MS40ct2    ->Add( h_Sig_4d_ggZH_MS40ct2    ) ;
+     h_Sig_4d_MS55ct200  ->Add( h_Sig_4d_ggZH_MS55ct200  ) ;
+     h_Sig_4d_MS55ct20   ->Add( h_Sig_4d_ggZH_MS55ct20   ) ;
+     h_Sig_4d_MS55ct2    ->Add( h_Sig_4d_ggZH_MS55ct2    ) ;
+
+     h_Sig_4d_MS15ct300   = (TH1F*) h_Sig_4d_ZH_MS15ct300    ->Clone( "Sig_4d_MS15ct300 " ) ;
+     h_Sig_4d_MS15ct30    = (TH1F*) h_Sig_4d_ZH_MS15ct30     ->Clone( "Sig_4d_MS15ct30  " ) ;
+     h_Sig_4d_MS15ct3     = (TH1F*) h_Sig_4d_ZH_MS15ct3      ->Clone( "Sig_4d_MS15ct3   " ) ;
+     h_Sig_4d_MS40ct300   = (TH1F*) h_Sig_4d_ZH_MS40ct300    ->Clone( "Sig_4d_MS40ct300 " ) ;
+     h_Sig_4d_MS40ct30    = (TH1F*) h_Sig_4d_ZH_MS40ct30     ->Clone( "Sig_4d_MS40ct30  " ) ;
+     h_Sig_4d_MS40ct3     = (TH1F*) h_Sig_4d_ZH_MS40ct3      ->Clone( "Sig_4d_MS40ct3   " ) ;
+     h_Sig_4d_MS55ct300   = (TH1F*) h_Sig_4d_ZH_MS55ct300    ->Clone( "Sig_4d_MS55ct300 " ) ;
+     h_Sig_4d_MS55ct30    = (TH1F*) h_Sig_4d_ZH_MS55ct30     ->Clone( "Sig_4d_MS55ct30  " ) ;
+     h_Sig_4d_MS55ct3     = (TH1F*) h_Sig_4d_ZH_MS55ct3      ->Clone( "Sig_4d_MS55ct3   " ) ;
+
+     h_Sig_4d_MS15ct300  ->Add( h_Sig_4d_ggZH_MS15ct300  ) ;
+     h_Sig_4d_MS15ct30   ->Add( h_Sig_4d_ggZH_MS15ct30   ) ;
+     h_Sig_4d_MS15ct3    ->Add( h_Sig_4d_ggZH_MS15ct3    ) ;
+     h_Sig_4d_MS40ct300  ->Add( h_Sig_4d_ggZH_MS40ct300  ) ;
+     h_Sig_4d_MS40ct30   ->Add( h_Sig_4d_ggZH_MS40ct30   ) ;
+     h_Sig_4d_MS40ct3    ->Add( h_Sig_4d_ggZH_MS40ct3    ) ;
+     h_Sig_4d_MS55ct300  ->Add( h_Sig_4d_ggZH_MS55ct300  ) ;
+     h_Sig_4d_MS55ct30   ->Add( h_Sig_4d_ggZH_MS55ct30   ) ;
+     h_Sig_4d_MS55ct3    ->Add( h_Sig_4d_ggZH_MS55ct3    ) ;
+
+     h_Sig_4d_MS15ct500   = (TH1F*) h_Sig_4d_ZH_MS15ct500    ->Clone( "Sig_4d_MS15ct500 " ) ;
+     h_Sig_4d_MS15ct50    = (TH1F*) h_Sig_4d_ZH_MS15ct50     ->Clone( "Sig_4d_MS15ct50  " ) ;
+     h_Sig_4d_MS15ct5     = (TH1F*) h_Sig_4d_ZH_MS15ct5      ->Clone( "Sig_4d_MS15ct5   " ) ;
+     h_Sig_4d_MS40ct500   = (TH1F*) h_Sig_4d_ZH_MS40ct500    ->Clone( "Sig_4d_MS40ct500 " ) ;
+     h_Sig_4d_MS40ct50    = (TH1F*) h_Sig_4d_ZH_MS40ct50     ->Clone( "Sig_4d_MS40ct50  " ) ;
+     h_Sig_4d_MS40ct5     = (TH1F*) h_Sig_4d_ZH_MS40ct5      ->Clone( "Sig_4d_MS40ct5   " ) ;
+     h_Sig_4d_MS55ct500   = (TH1F*) h_Sig_4d_ZH_MS55ct500    ->Clone( "Sig_4d_MS55ct500 " ) ;
+     h_Sig_4d_MS55ct50    = (TH1F*) h_Sig_4d_ZH_MS55ct50     ->Clone( "Sig_4d_MS55ct50  " ) ;
+     h_Sig_4d_MS55ct5     = (TH1F*) h_Sig_4d_ZH_MS55ct5      ->Clone( "Sig_4d_MS55ct5   " ) ;
+
+     h_Sig_4d_MS15ct500  ->Add( h_Sig_4d_ggZH_MS15ct500  ) ;
+     h_Sig_4d_MS15ct50   ->Add( h_Sig_4d_ggZH_MS15ct50   ) ;
+     h_Sig_4d_MS15ct5    ->Add( h_Sig_4d_ggZH_MS15ct5    ) ;
+     h_Sig_4d_MS40ct500  ->Add( h_Sig_4d_ggZH_MS40ct500  ) ;
+     h_Sig_4d_MS40ct50   ->Add( h_Sig_4d_ggZH_MS40ct50   ) ;
+     h_Sig_4d_MS40ct5    ->Add( h_Sig_4d_ggZH_MS40ct5    ) ;
+     h_Sig_4d_MS55ct500  ->Add( h_Sig_4d_ggZH_MS55ct500  ) ;
+     h_Sig_4d_MS55ct50   ->Add( h_Sig_4d_ggZH_MS55ct50   ) ;
+     h_Sig_4d_MS55ct5    ->Add( h_Sig_4d_ggZH_MS55ct5    ) ;
+
+
+
+     h_Sig_4d_MS7ct1000  = (TH1F*) h_Sig_4d_ZH_MS7ct1000   ->Clone( "Sig_4d_MS7ct1000" ) ;
+     h_Sig_4d_MS7ct100   = (TH1F*) h_Sig_4d_ZH_MS7ct100    ->Clone( "Sig_4d_MS7ct100 " ) ;
+     h_Sig_4d_MS7ct10    = (TH1F*) h_Sig_4d_ZH_MS7ct10     ->Clone( "Sig_4d_MS7ct10  " ) ;
+     h_Sig_4d_MS7ct1     = (TH1F*) h_Sig_4d_ZH_MS7ct1      ->Clone( "Sig_4d_MS7ct1   " ) ;
+     h_Sig_4d_MS7ct1000 ->Add( h_Sig_4d_ggZH_MS7ct1000 ) ;
+     h_Sig_4d_MS7ct100  ->Add( h_Sig_4d_ggZH_MS7ct100  ) ;
+     h_Sig_4d_MS7ct10   ->Add( h_Sig_4d_ggZH_MS7ct10   ) ;
+     h_Sig_4d_MS7ct1    ->Add( h_Sig_4d_ggZH_MS7ct1    ) ;
+
+
+     h_Sig_4Tau_MS7ct1000  = (TH1F*) h_Sig_4Tau_ZH_MS7ct1000   ->Clone( "Sig_4Tau_MS7ct1000" ) ;
+     h_Sig_4Tau_MS7ct100   = (TH1F*) h_Sig_4Tau_ZH_MS7ct100    ->Clone( "Sig_4Tau_MS7ct100 " ) ;
+     h_Sig_4Tau_MS7ct10    = (TH1F*) h_Sig_4Tau_ZH_MS7ct10     ->Clone( "Sig_4Tau_MS7ct10  " ) ;
+     h_Sig_4Tau_MS7ct1     = (TH1F*) h_Sig_4Tau_ZH_MS7ct1      ->Clone( "Sig_4Tau_MS7ct1   " ) ;
+     h_Sig_4Tau_MS15ct1000  = (TH1F*) h_Sig_4Tau_ZH_MS15ct1000   ->Clone( "Sig_4Tau_MS15ct1000" ) ;
+     h_Sig_4Tau_MS15ct100   = (TH1F*) h_Sig_4Tau_ZH_MS15ct100    ->Clone( "Sig_4Tau_MS15ct100 " ) ;
+     h_Sig_4Tau_MS15ct10    = (TH1F*) h_Sig_4Tau_ZH_MS15ct10     ->Clone( "Sig_4Tau_MS15ct10  " ) ;
+     h_Sig_4Tau_MS15ct1     = (TH1F*) h_Sig_4Tau_ZH_MS15ct1      ->Clone( "Sig_4Tau_MS15ct1   " ) ;
+     h_Sig_4Tau_MS40ct1000  = (TH1F*) h_Sig_4Tau_ZH_MS40ct1000   ->Clone( "Sig_4Tau_MS40ct1000" ) ;
+     h_Sig_4Tau_MS40ct100   = (TH1F*) h_Sig_4Tau_ZH_MS40ct100    ->Clone( "Sig_4Tau_MS40ct100 " ) ;
+     h_Sig_4Tau_MS40ct10    = (TH1F*) h_Sig_4Tau_ZH_MS40ct10     ->Clone( "Sig_4Tau_MS40ct10  " ) ;
+     h_Sig_4Tau_MS40ct1     = (TH1F*) h_Sig_4Tau_ZH_MS40ct1      ->Clone( "Sig_4Tau_MS40ct1   " ) ;
+     h_Sig_4Tau_MS55ct1000  = (TH1F*) h_Sig_4Tau_ZH_MS55ct1000   ->Clone( "Sig_4Tau_MS55ct1000" ) ;
+     h_Sig_4Tau_MS55ct100   = (TH1F*) h_Sig_4Tau_ZH_MS55ct100    ->Clone( "Sig_4Tau_MS55ct100 " ) ;
+     h_Sig_4Tau_MS55ct10    = (TH1F*) h_Sig_4Tau_ZH_MS55ct10     ->Clone( "Sig_4Tau_MS55ct10  " ) ;
+     h_Sig_4Tau_MS55ct1     = (TH1F*) h_Sig_4Tau_ZH_MS55ct1      ->Clone( "Sig_4Tau_MS55ct1   " ) ;
+     h_Sig_4Tau_MS7ct1000 ->Add( h_Sig_4Tau_ggZH_MS7ct1000 ) ;
+     h_Sig_4Tau_MS7ct100  ->Add( h_Sig_4Tau_ggZH_MS7ct100  ) ;
+     h_Sig_4Tau_MS7ct10   ->Add( h_Sig_4Tau_ggZH_MS7ct10   ) ;
+     h_Sig_4Tau_MS7ct1    ->Add( h_Sig_4Tau_ggZH_MS7ct1    ) ;
+     h_Sig_4Tau_MS15ct1000 ->Add( h_Sig_4Tau_ggZH_MS15ct1000 ) ;
+     h_Sig_4Tau_MS15ct100  ->Add( h_Sig_4Tau_ggZH_MS15ct100  ) ;
+     h_Sig_4Tau_MS15ct10   ->Add( h_Sig_4Tau_ggZH_MS15ct10   ) ;
+     h_Sig_4Tau_MS15ct1    ->Add( h_Sig_4Tau_ggZH_MS15ct1    ) ;
+     h_Sig_4Tau_MS40ct1000 ->Add( h_Sig_4Tau_ggZH_MS40ct1000 ) ;
+     h_Sig_4Tau_MS40ct100  ->Add( h_Sig_4Tau_ggZH_MS40ct100  ) ;
+     h_Sig_4Tau_MS40ct10   ->Add( h_Sig_4Tau_ggZH_MS40ct10   ) ;
+     h_Sig_4Tau_MS40ct1    ->Add( h_Sig_4Tau_ggZH_MS40ct1    ) ;
+     h_Sig_4Tau_MS55ct1000 ->Add( h_Sig_4Tau_ggZH_MS55ct1000 ) ;
+     h_Sig_4Tau_MS55ct100  ->Add( h_Sig_4Tau_ggZH_MS55ct100  ) ;
+     h_Sig_4Tau_MS55ct10   ->Add( h_Sig_4Tau_ggZH_MS55ct10   ) ;
+     h_Sig_4Tau_MS55ct1    ->Add( h_Sig_4Tau_ggZH_MS55ct1    ) ;
+
+     //h_Sig_MS15ct1000 ->Scale(117396.2/16226.2); 
+     //h_Sig_MS15ct100  ->Scale(117396.2/16226.2); 
+     //h_Sig_MS15ct10   ->Scale(117396.2/16226.2); 
+     //h_Sig_MS15ct1    ->Scale(117396.2/16226.2); 
+     //h_Sig_MS40ct1000 ->Scale(117396.2/16226.2); 
+     //h_Sig_MS40ct100  ->Scale(117396.2/16226.2); 
+     //h_Sig_MS40ct10   ->Scale(117396.2/16226.2); 
+     //h_Sig_MS40ct1    ->Scale(117396.2/16226.2); 
+     //h_Sig_MS55ct1000 ->Scale(117396.2/16226.2); 
+     //h_Sig_MS55ct100  ->Scale(117396.2/16226.2); 
+     //h_Sig_MS55ct10   ->Scale(117396.2/16226.2); 
+     //h_Sig_MS55ct1    ->Scale(117396.2/16226.2); 
+
 
      // rescale MC to match eras used
-     h_DY         ->Scale(MCSF); 
+     //h_DY         ->Scale(MCSF); 
+     //h_DY         ->Scale(MCSF*0.8632235); SimpleList
+     h_DY         ->Scale(MCSF*0.878917); //NormList 
      h_GJets      ->Scale(MCSF); 
      h_ST         ->Scale(MCSF); 
      h_ZH         ->Scale(MCSF); 
      h_VV         ->Scale(MCSF); 
-     h_TT         ->Scale(MCSF); 
+     //h_TT         ->Scale(MCSF); 
+     //h_TT         ->Scale(MCSF*0.901088426);     //SimpleList
+     h_TT         ->Scale(MCSF*0.875996130969567); //Norm List 
      h_VG         ->Scale(MCSF); 
      h_QCD        ->Scale(MCSF); 
      h_WJetsToLNu ->Scale(MCSF); 
@@ -1077,34 +2314,195 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_altVV      ->Scale(MCSF);
      h_altTT      ->Scale(MCSF);
 
-  
-     h_Sig_MS15ct1000 ->Scale(MCSF);
-     h_Sig_MS15ct100  ->Scale(MCSF);
-     h_Sig_MS15ct10   ->Scale(MCSF);
-     h_Sig_MS15ct1    ->Scale(MCSF);
-     h_Sig_MS40ct1000 ->Scale(MCSF);
-     h_Sig_MS40ct100  ->Scale(MCSF);
-     h_Sig_MS40ct10   ->Scale(MCSF);
-     h_Sig_MS40ct1    ->Scale(MCSF);
-     h_Sig_MS55ct1000 ->Scale(MCSF);
-     h_Sig_MS55ct100  ->Scale(MCSF);
-     h_Sig_MS55ct10   ->Scale(MCSF);
-     h_Sig_MS55ct1    ->Scale(MCSF);
-	/*
-     h_WH         ->Scale(MCSF);
+     h_Sig_MS15ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct100  ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct10   ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct1    ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct100  ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct10   ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct1    ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct100  ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct10   ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct1    ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct200  ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct20   ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct2    ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct200  ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct20   ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct2    ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct200  ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct20   ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct2    ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct300  ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct30   ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct3    ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct300  ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct30   ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct3    ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct300  ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct30   ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct3    ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct500  ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct50   ->Scale(MCSF*0.878917);
+     h_Sig_MS15ct5    ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct500  ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct50   ->Scale(MCSF*0.878917);
+     h_Sig_MS40ct5    ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct500  ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct50   ->Scale(MCSF*0.878917);
+     h_Sig_MS55ct5    ->Scale(MCSF*0.878917);
+     
+     h_Sig_4d_MS15ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct200  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct20   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct2    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct200  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct20   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct2    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct200  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct20   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct2    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct300  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct30   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct3    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct300  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct30   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct3    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct300  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct30   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct3    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct500  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct50   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS15ct5    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct500  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct50   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS40ct5    ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct500  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct50   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS55ct5    ->Scale(MCSF*0.878917);
 
-    h_Sig_WH_MS55ct1    ->Scale(MCSF);
-    h_Sig_WH_MS55ct10   ->Scale(MCSF);
-    h_Sig_WH_MS55ct100  ->Scale(MCSF);
-    h_Sig_WH_MS55ct1000 ->Scale(MCSF);
-    h_Sig_WH_MS40ct1    ->Scale(MCSF);
-    h_Sig_WH_MS40ct10   ->Scale(MCSF);
-    h_Sig_WH_MS40ct100  ->Scale(MCSF);
-    h_Sig_WH_MS40ct1000 ->Scale(MCSF);
-    h_Sig_WH_MS15ct1    ->Scale(MCSF);
-    h_Sig_WH_MS15ct10   ->Scale(MCSF);
-    h_Sig_WH_MS15ct100  ->Scale(MCSF);
-    h_Sig_WH_MS15ct1000 ->Scale(MCSF);*/
+h_Sig_4d_MS7ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS7ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS7ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4d_MS7ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS7ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS7ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS7ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS7ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS15ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS15ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS15ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS15ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS40ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS40ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS40ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS40ct1    ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS55ct1000 ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS55ct100  ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS55ct10   ->Scale(MCSF*0.878917);
+     h_Sig_4Tau_MS55ct1    ->Scale(MCSF*0.878917);
+
+     h_Sig_h125_llp20_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h125_llp20_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h125_llp20_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h125_llp20_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h150_llp20_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp20_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp20_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp20_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h150_llp50_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h175_llp20_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp20_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp20_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp20_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h175_llp50_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h200_llp20_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp20_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp20_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp20_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h200_llp50_ct1_100k_wISR     ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct10_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct100_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct1000_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h200_llp100_ct1_100k_wISR    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp100_ct10_100k_wISR   ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp100_ct100_100k_wISR  ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp100_ct1000_100k_wISR ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+
+     h_Sig_h150_llp20_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp20_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp20_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp20_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h150_llp50_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h175_llp20_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp20_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp20_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp20_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h175_llp50_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h200_llp20_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp20_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp20_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp20_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h200_llp50_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+     h_Sig_h250_llp50_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h250_llp50_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h250_llp50_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h250_llp50_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h500_llp200_ct1_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h500_llp200_ct10_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h500_llp200_ct100_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+     h_Sig_h500_llp200_ct1000_100k    ->Scale(MCSF*0.878917*117085.2/16226.2);
+
+//h_TTtoLL_mad->Scale(MCSF*0.875996130969567);
+//cout <<"h_TTtoLL_mad"<<endl;
+//cout << "Bin 1 "<< h_TTtoLL_mad->GetBinContent(1)<<"  MCSF "<<MCSF<<endl;
+//cout << "Bin 2 "<< h_TTtoLL_mad->GetBinContent(2)<<"  MCSF "<<MCSF<<endl;
+//cout << "Bin 3 "<< h_TTtoLL_mad->GetBinContent(3)<<"  MCSF "<<MCSF<<endl;
+//h_DY50->Scale(MCSF*0.878917);
+//cout <<"h_DY50"<<endl;
+//cout << "Bin 1 "<< h_DY50->GetBinContent(1)<<"  MCSF "<<MCSF<<endl;
+//cout << "Bin 2 "<< h_DY50->GetBinContent(2)<<"  MCSF "<<MCSF<<endl;
+//cout << "Bin 3 "<< h_DY50->GetBinContent(3)<<"  MCSF "<<MCSF<<endl;
+
      h_bkgtotal= (TH1F*)h_DY->Clone("bkgtotal");
       h_bkgtotal->Add(h_GJets ) ;
       h_bkgtotal->Add(h_ST    ) ;
@@ -1114,7 +2512,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
       h_bkgtotal->Add(h_VG    ) ;
       h_bkgtotal->Add(h_QCD   ) ;
       h_bkgtotal->Add(h_WJetsToLNu      ) ;
-      //h_bkgtotal->Add(h_WH    ) ;
 
      h_light= (TH1F*)h_DY->Clone("light");
       h_light->Add(h_ZG ) ;
@@ -1181,6 +2578,25 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 	h_Data->Add( h_Data_MuonEG_H_2 )     ; 
 	h_Data->Add( h_Data_MuonEG_H_3 )     ; 
      }
+///cout <<"BKG Integral: "<<h_bkgtotal->Integral(0,-1)<<endl;
+///cout <<"Data Integral: "<<h_Data->Integral(0,-1)<<endl;
+///cout <<"TTBar Int: "<<h_TT->Integral(0,-1)<<endl;
+///cout <<"DY Int: "<<h_DY->Integral(0,-1)<<endl;
+
+
+
+    float sumH = h_bkgtotal->Integral(0,-1) - h_TT->Integral(0,-1);
+    float theScale = (h_Data->Integral(0,-1)-sumH)/h_TT->Integral(0,-1); 
+
+
+
+
+    //h_DY->Scale(Scale); 
+    ///cout <<"SF: "<<theScale<<endl;
+    //float DYScale=h_Data->Integral()/h_bkgtotal2->Integral() ; cout <<"SF: "<<DYScale<<endl;
+
+//cout <<"After BKG Integral: "<<(h_bkgtotal2->Integral(0,-1)*theScale)<<endl;
+//cout <<"After Data Integral: "<<h_Data->Integral(0,-1)<<endl;
      
      //CSV-style printout for Ted
      if(varname.Contains("nSelectedAODCaloJetTag") && !extraname.Contains("log") && uncbin==""){
@@ -1195,7 +2611,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        print_hist(h_VV, "VV", f);
        print_hist(h_TT, "TT", f);
        print_hist(h_VG, "VG", f);
-       //print_hist(h_WH, "WH", f);
        print_hist(h_QCD, "QCD", f);
        print_hist(h_WJetsToLNu, "WJets", f);
        print_hist(h_bkgtotal, "Total", f);
@@ -1211,10 +2626,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        print_hist(h_ZZ, "ZZ", f);
        print_hist(h_WZ, "WZ", f);
        print_hist(h_WW, "WW", f);
-       
-
-	//sig                   
-        //print_hist(h_Sig_ZH_MS15ct1000, "h_Sig_ZH_MS15ct1000", f);
+       //sig                                                                                                                                      //print_hist(h_Sig_ZH_MS15ct1000, "h_Sig_ZH_MS15ct1000", f);
        print_hist(h_Sig_ZH_MS15ct100      ,"h_Sig_ZH_MS15ct100", f);
        print_hist(h_Sig_ZH_MS15ct10       ,"h_Sig_ZH_MS15ct10", f);
        //print_hist(h_Sig_ZH_MS15ct1        ,"h_Sig_ZH_MS15ct1", f);
@@ -1235,33 +2647,10 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        print_hist(h_Sig_ggZH_MS40ct10     ,"h_Sig_ggZH_MS40ct10", f);
        //print_hist(h_Sig_ggZH_MS40ct1      ,"h_Sig_ggZH_MS40ct1", f);
        //print_hist(h_Sig_ggZH_MS55ct1000   ,"h_Sig_ggZH_MS55ct1000", f);
- 
-       //print_hist(h_Sig_WplusH_MS55_ct1   , "h_Sig_WplusH_MS55ct1", f); 
-       //print_hist(h_Sig_WplusH_MS55_ct10  , "h_Sig_WplusH_MS55ct10", f); 
-       //print_hist(h_Sig_WplusH_MS55_ct100 , "h_Sig_WplusH_MS55ct100", f); 
-       //print_hist(h_Sig_WplusH_MS55_ct1000, "h_Sig_WplusH_MS55ct1000", f); 
-       //print_hist(h_Sig_WplusH_MS40_ct1   , "h_Sig_WplusH_MS40ct1", f);
-       //print_hist(h_Sig_WplusH_MS40_ct10  , "h_Sig_WplusH_MS40ct10", f);
-       //print_hist(h_Sig_WplusH_MS40_ct100 , "h_Sig_WplusH_MS40ct100", f);
-       //print_hist(h_Sig_WplusH_MS40_ct1000, "h_Sig_WplusH_MS40ct1000", f);
-       //print_hist(h_Sig_WplusH_MS15_ct1   , "h_Sig_WplusH_MS15ct1", f);
-       //print_hist(h_Sig_WplusH_MS15_ct10  , "h_Sig_WplusH_MS15ct10", f);
-       //print_hist(h_Sig_WplusH_MS15_ct100 , "h_Sig_WplusH_MS15ct100", f);
-       //print_hist(h_Sig_WplusH_MS15_ct1000, "h_Sig_WplusH_MS15ct1000", f);
-
-       //print_hist(h_Sig_WminusH_MS55_ct1   , "h_Sig_WminusH_MS55ct1", f); 
-       //print_hist(h_Sig_WminusH_MS55_ct10  , "h_Sig_WminusH_MS55ct10", f); 
-       //print_hist(h_Sig_WminusH_MS55_ct100 , "h_Sig_WminusH_MS55ct100", f); 
-       //print_hist(h_Sig_WminusH_MS55_ct1000, "h_Sig_WminusH_MS55ct1000", f); 
-       //print_hist(h_Sig_WminusH_MS40_ct1   , "h_Sig_WminusH_MS40ct1", f);
-       //print_hist(h_Sig_WminusH_MS40_ct10  , "h_Sig_WminusH_MS40ct10", f);
-       //print_hist(h_Sig_WminusH_MS40_ct100 , "h_Sig_WminusH_MS40ct100", f);
-       //print_hist(h_Sig_WminusH_MS40_ct1000, "h_Sig_WminusH_MS40ct1000", f);
-       //print_hist(h_Sig_WminusH_MS15_ct1   , "h_Sig_WminusH_MS15ct1", f);
-       //print_hist(h_Sig_WminusH_MS15_ct10  , "h_Sig_WminusH_MS15ct10", f);
-       //print_hist(h_Sig_WminusH_MS15_ct100 , "h_Sig_WminusH_MS15ct100", f);
-       //print_hist(h_Sig_WminusH_MS15_ct1000, "h_Sig_WminusH_MS15ct1000", f);
-	 fclose(f);
+       print_hist(h_Sig_ggZH_MS55ct100    ,"h_Sig_ggZH_MS55ct100", f);
+       print_hist(h_Sig_ggZH_MS55ct10     ,"h_Sig_ggZH_MS55ct10", f);
+       //print_hist(h_Sig_ggZH_MS55ct1      ,"h_Sig_ggZH_MS55ct1", f);
+       fclose(f);
      }
 
 
@@ -1275,9 +2664,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 
      Float_t  int_ggZH_HToBB_ZToLL         = h_ggZH_HToBB_ZToLL                ->Integral(0,-1); 
      Float_t  int_ZH_HToBB_ZToLL           = h_ZH_HToBB_ZToLL                  ->Integral(0,-1); 
-     
-     //Float_t  int_WminusH_HToBB_WToLNu     = h_WminusH_HToBB_WToLNu	       ->Integral(0,-1);
-     //Float_t  int_WplusH_HToBB_WToLNu      = h_WplusH_HToBB_WToLNu             ->Integral(0,-1);
 
      Float_t  int_GJets_HT40To100          = h_GJets_HT40To100                 ->Integral(0,-1); 
      Float_t  int_GJets_HT100To200         = h_GJets_HT100To200                ->Integral(0,-1); 
@@ -1291,8 +2677,8 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      Float_t  int_STbar_tW                 = h_STbar_tW                        ->Integral(0,-1); 
      Float_t  int_ST_tW                    = h_ST_tW                           ->Integral(0,-1); 
 
-     Float_t  int_TTJets                   = h_TTJets                          ->Integral(0,-1); 
-     Float_t  int_TTtoLL                   = h_TTtoLL                          ->Integral(0,-1); 
+     Float_t  int_TTJets                   = h_TTJets_mad                      ->Integral(0,-1); 
+     Float_t  int_TTtoLL                   = h_TTtoLL_mad                      ->Integral(0,-1); 
      Float_t  int_TTtoLfromTbar            = h_TTtoLfromTbar                   ->Integral(0,-1); 
      Float_t  int_TTtoLfromT               = h_TTtoLfromT                      ->Integral(0,-1); 
      Float_t  int_WJetsToLNu               = h_WJetsToLNu                      ->Integral(0,-1); 
@@ -1337,34 +2723,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      Float_t  int_Sig_ggZH_MS55ct10        = h_Sig_ggZH_MS55ct10               ->Integral(0,-1);                   
      Float_t  int_Sig_ggZH_MS55ct1         = h_Sig_ggZH_MS55ct1                ->Integral(0,-1);                   
 
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Integral(0,-1);
-     //Float_t  int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = h_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Integral(0,-1);
-
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1    ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10   ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100  ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000 ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1    ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10   ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100  ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000 ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1    ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10   ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100  ->Integral(0,-1);
-     //Float_t  int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 = h_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000 ->Integral(0,-1);
-
-     
-// integrals of summed histograms
+     // integrals of summed histograms
      Float_t int_DY        = h_DY       ->Integral(0,-1); 
      Float_t int_altDY     = h_altDY    ->Integral(0,-1); 
      Float_t int_GJets     = h_GJets    ->Integral(0,-1); 
@@ -1391,22 +2750,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      Float_t int_Sig_MS55ct100  = h_Sig_MS55ct100  ->Integral(0,-1);
      Float_t int_Sig_MS55ct10   = h_Sig_MS55ct10   ->Integral(0,-1);
      Float_t int_Sig_MS55ct1    = h_Sig_MS55ct1    ->Integral(0,-1);
-
-     /*Float_t int_WH        = h_WH       ->Integral();
-     Float_t int_Sig_WH_MS15ct1000 = h_Sig_WH_MS15ct1000 ->Integral();
-     Float_t int_Sig_WH_MS15ct100  = h_Sig_WH_MS15ct100  ->Integral();
-     Float_t int_Sig_WH_MS15ct10   = h_Sig_WH_MS15ct10   ->Integral();
-     Float_t int_Sig_WH_MS15ct1    = h_Sig_WH_MS15ct1    ->Integral();
-     Float_t int_Sig_WH_MS40ct1000 = h_Sig_WH_MS40ct1000 ->Integral();
-     Float_t int_Sig_WH_MS40ct100  = h_Sig_WH_MS40ct100  ->Integral();
-     Float_t int_Sig_WH_MS40ct10   = h_Sig_WH_MS40ct10   ->Integral();
-     Float_t int_Sig_WH_MS40ct1    = h_Sig_WH_MS40ct1    ->Integral();
-     Float_t int_Sig_WH_MS55ct1000 = h_Sig_WH_MS55ct1000 ->Integral();
-     Float_t int_Sig_WH_MS55ct100  = h_Sig_WH_MS55ct100  ->Integral();
-     Float_t int_Sig_WH_MS55ct10   = h_Sig_WH_MS55ct10   ->Integral();
-     Float_t int_Sig_WH_MS55ct1    = h_Sig_WH_MS55ct1    ->Integral();
-*/
-
      /*
      Float_t  int_Data_SingleMu_H_3        = h_Data_SingleMu_H_3               ->Integral(0,-1);                   
      Float_t  int_Data_SingleMu_H_2        = h_Data_SingleMu_H_2               ->Integral(0,-1);                   
@@ -1501,51 +2844,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 	      int_Data_DoubleMu_H_3 ;
 
 
-//unit normalized histograms
-/*
-     h_DY         ->Scale(1/(int_bkgtotal));
-     h_GJets      ->Scale(1/(int_bkgtotal));
-     h_ST         ->Scale(1/(int_bkgtotal));
-     h_ZH         ->Scale(1/(int_bkgtotal));
-     h_VV         ->Scale(1/(int_bkgtotal));
-     h_TT         ->Scale(1/(int_bkgtotal));
-     h_VG         ->Scale(1/(int_bkgtotal));
-     h_WH         ->Scale(1/(int_bkgtotal));
-     h_QCD        ->Scale(1/(int_bkgtotal));
-     h_WJetsToLNu ->Scale(1/(int_bkgtotal));
-     h_altDY      ->Scale(1/(int_bkgtotal));
-     h_altVV      ->Scale(1/(int_bkgtotal));
-     h_altTT      ->Scale(1/(int_bkgtotal));
-*//*
-     h_Sig_MS15ct1000 ->Scale(1/(int_Sig_MS15ct1000));
-     h_Sig_MS15ct100  ->Scale(1/(int_Sig_MS15ct100));
-     h_Sig_MS15ct10   ->Scale(1/(int_Sig_MS15ct10));
-     h_Sig_MS15ct1    ->Scale(1/(int_Sig_MS15ct1));
-     h_Sig_MS40ct1000 ->Scale(1/(int_Sig_MS40ct1000));
-     h_Sig_MS40ct100  ->Scale(1/(int_Sig_MS40ct100));
-     h_Sig_MS40ct10   ->Scale(1/(int_Sig_MS40ct10));
-     h_Sig_MS40ct1    ->Scale(1/(int_Sig_MS40ct1));
-     h_Sig_MS55ct1000 ->Scale(1/(int_Sig_MS15ct1000));
-     h_Sig_MS55ct100  ->Scale(1/(int_Sig_MS15ct100));
-     h_Sig_MS55ct10   ->Scale(1/(int_Sig_MS15ct10));
-     h_Sig_MS55ct1    ->Scale(1/(int_Sig_MS15ct1));
-*//*
-    h_Sig_WH_MS55ct1    ->Scale(1/(int_Sig_WH_MS55ct1));
-    h_Sig_WH_MS55ct10   ->Scale(1/(int_Sig_WH_MS55ct10));
-    h_Sig_WH_MS55ct100  ->Scale(1/(int_Sig_WH_MS55ct100));
-    h_Sig_WH_MS55ct1000 ->Scale(1/(int_Sig_WH_MS55ct100));
-    h_Sig_WH_MS40ct1    ->Scale(1/(int_Sig_WH_MS40ct1));
-    h_Sig_WH_MS40ct10   ->Scale(1/(int_Sig_WH_MS40ct10));
-    h_Sig_WH_MS40ct100  ->Scale(1/(int_Sig_WH_MS40ct100));
-    h_Sig_WH_MS40ct1000 ->Scale(1/(int_Sig_WH_MS40ct1000));
-    h_Sig_WH_MS15ct1    ->Scale(1/(int_Sig_WH_MS15ct1));
-    h_Sig_WH_MS15ct10   ->Scale(1/(int_Sig_WH_MS15ct10));
-    h_Sig_WH_MS15ct100  ->Scale(1/(int_Sig_WH_MS15ct100));
-    h_Sig_WH_MS15ct1000 ->Scale(1/(int_Sig_WH_MS15ct1000));
-   */
-
-	// output tables
-
+     // output tables
      if(domaketable){
       FILE * outfulltable;
       outfulltable = fopen (fulllogname+".tex","w");
@@ -1565,12 +2864,9 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (outfulltable, "DY10to50                & %3.1f \\\\\n", int_DY10to50               ) ; 
        fprintf (outfulltable, "DY50                    & %3.1f \\\\\n", int_DY50                   ) ; 
 
-
        fprintf (outfulltable, " \\hline \n");
        fprintf (outfulltable, "ggZH HToBB ZToLL        & %3.1f \\\\\n", int_ggZH_HToBB_ZToLL       ) ; 
        fprintf (outfulltable, "ZH HToBB ZToLL          & %3.1f \\\\\n", int_ZH_HToBB_ZToLL         ) ; 
-
-
        fprintf (outfulltable, " \\hline \n");
 
        fprintf (outfulltable, "GJets HT40To100         & %3.1f \\\\\n", int_GJets_HT40To100        ) ; 
@@ -1594,12 +2890,9 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (outfulltable, " \\hline \n");
        fprintf (outfulltable, "WJetsToLNu              & %3.1f \\\\\n", int_WJetsToLNu             ) ; 
        fprintf (outfulltable, " \\hline \n");
-   
        fprintf (outfulltable, "WG                      & %3.1f \\\\\n", int_WG                     ) ; 
        fprintf (outfulltable, "ZG                      & %3.1f \\\\\n", int_ZG                     ) ; 
-    
-      fprintf (outfulltable, " \\hline \n");
-  
+       fprintf (outfulltable, " \\hline \n");
        fprintf (outfulltable, "WW                      & %3.1f \\\\\n", int_WW                     ) ; 
        fprintf (outfulltable, "WZ                      & %3.1f \\\\\n", int_WZ                     ) ; 
        fprintf (outfulltable, "ZZ                      & %3.1f \\\\\n", int_ZZ                     ) ; 
@@ -1614,8 +2907,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (outfulltable, "ZZTo2Q2Nu               & %3.1f \\\\\n", int_ZZTo2Q2Nu              ) ; 
        fprintf (outfulltable, "ZZTo4L                  & %3.1f \\\\\n", int_ZZTo4L                 ) ; 
        fprintf (outfulltable, " \\hline \n");
-  
-      
+
        fprintf (outfulltable, "Sig ZH MS15ct1000       & %3.1f \\\\\n", int_Sig_ZH_MS15ct1000      ) ; 
        fprintf (outfulltable, "Sig ZH MS15ct100        & %3.1f \\\\\n", int_Sig_ZH_MS15ct100       ) ; 
        fprintf (outfulltable, "Sig ZH MS15ct10         & %3.1f \\\\\n", int_Sig_ZH_MS15ct10        ) ; 
@@ -1643,36 +2935,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (outfulltable, "Sig ggZH MS55ct10       & %3.1f \\\\\n", int_Sig_ggZH_MS55ct10      ) ; 
        fprintf (outfulltable, "Sig ggZH MS55ct1        & %3.1f \\\\\n", int_Sig_ggZH_MS55ct1       ) ; 
        fprintf (outfulltable, " \\hline \n");
-
-      /* fprintf (outfulltable, "WminusH HToBB WToLNu    & %3.1f \\\\\n", int_WminusH_HToBB_WToLNu   ) ;
-       fprintf (outfulltable, "WplusH HToBB WToLNu     & %3.1f \\\\\n", int_WplusH_HToBB_WToLNu    ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1     ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10    ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100   ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000  ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1     ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10    ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100   ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000  ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1     ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10    ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100   ) ;
-       fprintf (outfulltable, "Sig WminusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WminusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000  ) ;
-
-
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1     ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS10    ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS100   ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS55_ctauS1000  ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1     ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS10    ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS100   ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS40_ctauS1000  ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1     ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS10    ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS100   ) ;
-       fprintf (outfulltable, "Sig WplusH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WplusH_HToSSTobbbb_WToLNu_MH125_MS15_ctauS1000  ) ;
-	*/
        /*
        fprintf (outfulltable, "Data SingleMu H 3       & %3.1f \\\\\n", int_Data_SingleMu_H_3      ) ; 
        fprintf (outfulltable, "Data SingleMu H 2       & %3.1f \\\\\n", int_Data_SingleMu_H_2      ) ; 
@@ -1717,11 +2979,11 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 //     fprintf (outfulltable, "Data DoubleEG C         & %3.1f \\\\\n", int_Data_DoubleEG_C        ) ; 
 //     fprintf (outfulltable, "Data DoubleEG B 2       & %3.1f \\\\\n", int_Data_DoubleEG_B_2      ) ; 
        fprintf (outfulltable, " \\hline \n");
-      // fprintf (outfulltable, "ggZH\\_HToSSTobbbb\\_MS40\\_ctauS10000  & %3.1f  \\\\\n", int_ggZH_HToSSTobbbb_MS40_ctauS10000 ) ;
+
+       //fprintf (outfulltable, "ggZH\\_HToSSTobbbb\\_MS40\\_ctauS10000  & %3.1f  \\\\\n", int_ggZH_HToSSTobbbb_MS40_ctauS10000 ) ;
        fprintf (outfulltable, "\\end{tabular}\n\n");
        fprintf (outfulltable, "\\end{document}\n\n");
       fclose (outfulltable);
-
 
       FILE * summarytable;
       summarytable = fopen (smalllogname+".tex","w");
@@ -1738,7 +3000,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (summarytable, "GJets           & %3.1f \\\\\n", int_GJets          ) ; 
        fprintf (summarytable, "ST              & %3.1f \\\\\n", int_ST             ) ; 
        fprintf (summarytable, "ZH              & %3.1f \\\\\n", int_ZH             ) ; 
-       //fprintf (summarytable, "WH              & %3.1f \\\\\n", int_WH             ) ;
        fprintf (summarytable, "VV              & %3.1f \\\\\n", int_VV             ) ; 
        fprintf (summarytable, "altVV           & %3.1f \\\\\n", int_altVV          ) ; 
        fprintf (summarytable, "TT              & %3.1f \\\\\n", int_TT             ) ; 
@@ -1746,8 +3007,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (summarytable, "VG              & %3.1f \\\\\n", int_VG             ) ; 
        fprintf (summarytable, "QCD             & %3.1f \\\\\n", int_QCD            ) ; 
        fprintf (summarytable, " \\hline \n");
-
-     
        fprintf (summarytable, "Sig MS15ct1000  & %3.1f \\\\\n", int_Sig_MS15ct1000 ) ; 
        fprintf (summarytable, "Sig MS15ct100   & %3.1f \\\\\n", int_Sig_MS15ct100  ) ; 
        fprintf (summarytable, "Sig MS15ct10    & %3.1f \\\\\n", int_Sig_MS15ct10   ) ; 
@@ -1760,26 +3019,11 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (summarytable, "Sig MS55ct100   & %3.1f \\\\\n", int_Sig_MS55ct100  ) ; 
        fprintf (summarytable, "Sig MS55ct10    & %3.1f \\\\\n", int_Sig_MS55ct10   ) ; 
        fprintf (summarytable, "Sig MS55ct1     & %3.1f \\\\\n", int_Sig_MS55ct1    ) ; 
-     /*  
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WH_MS55ct1     ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WH_MS55ct10    ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WH_MS55ct100   ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-55\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WH_MS55ct1000  ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WH_MS40ct1     ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WH_MS40ct10    ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WH_MS40ct100   ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-40\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WH_MS40ct1000  ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1     & %3.1f  \\\\\n", int_Sig_WH_MS15ct1     ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS10    & %3.1f  \\\\\n", int_Sig_WH_MS15ct10    ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS100   & %3.1f  \\\\\n", int_Sig_WH_MS15ct100   ) ;
-       fprintf (summarytable, "Sig WH\\_HToSSTobbbb_WToLNu_MH-125\\_MS-15\\_ctauS1000  & %3.1f  \\\\\n", int_Sig_WH_MS15ct1000  ) ;
-	*/
-
        fprintf (summarytable, "Total Backgrounds    & %3.1f \\\\\n", int_bkgtotal ) ; 
        fprintf (summarytable, " \\hline \n");
-       //fprintf (summarytable, "Data                 & %3.1f  \\\\\n", int_Data   ) ;
+       fprintf (summarytable, "Data                 & %3.1f  \\\\\n", int_Data   ) ;
        fprintf (summarytable, " \\hline \n");
-       //fprintf (summarytable, "Backgrounds / Data   & %3.4f  \\\\\n", int_bkgOnData   ) ;
+       fprintf (summarytable, "Backgrounds / Data   & %3.4f  \\\\\n", int_bkgOnData   ) ;
        fprintf (summarytable, "\\end{tabular}\n\n");
        fprintf (summarytable, "\\end{document}\n\n");
       fclose (summarytable);
@@ -1798,7 +3042,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (tinytable, "$\\gamma$+jets     & %3.1f \\\\\n", int_GJets          ) ; 
        fprintf (tinytable, "single top      & %3.1f \\\\\n", int_ST             ) ; 
        fprintf (tinytable, "ZH(bb)          & %3.1f \\\\\n", int_ZH             ) ; 
-       //fprintf (tinytable, "WH(bb)          & %3.1f \\\\\n", int_WH             ) ;
        fprintf (tinytable, "WW,WZ,ZZ & %3.1f \\\\\n", int_VV             ) ; 
        fprintf (tinytable, "$t\\bar{t}$      & %3.1f \\\\\n", int_TT             ) ; 
        fprintf (tinytable, "V$\\gamma$              & %3.1f \\\\\n", int_VG             ) ; 
@@ -1813,6 +3056,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        fprintf (tinytable, "\\end{document}\n\n");
       fclose (tinytable);
      }
+
      // set attributes
      h_DY         -> SetLineColor(kBlack); 
      h_altDY      -> SetLineColor(kBlack); 
@@ -1826,8 +3070,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_VG         -> SetLineColor(kBlack); 
      h_QCD        -> SetLineColor(kBlack); 
      h_ZH         -> SetLineColor(kBlack);
-     //h_WH         -> SetLineColor(kBlack);
-
 
      h_Data  -> SetLineColor(kBlack);
      h_Data  -> SetMarkerStyle(8);
@@ -1846,7 +3088,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_VG        ->SetFillStyle(1001);
      h_QCD       ->SetFillStyle(1001);
      h_ZH        ->SetFillStyle(1001);
-     //h_WH        ->SetFillStyle(1001);
 
      h_DY        ->SetFillColor(kAzure-4);
      h_altDY     ->SetFillColor(kAzure-4);
@@ -1860,7 +3101,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_VG        ->SetFillColor(kPink+1);
      h_QCD       ->SetFillColor(kGray+1);
      h_ZH        ->SetFillColor(kCyan);
-     //h_WH        ->SetFillColor(kSpring-6);
 
      h_DY        ->SetLineColor(kBlack); 
      h_altDY     ->SetLineColor(kBlack); 
@@ -1874,8 +3114,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_VG        ->SetLineColor(kBlack); 
      h_QCD       ->SetLineColor(kBlack); 
      h_ZH        ->SetLineColor(kBlack); 
-     //h_WH        ->SetLineColor(kBlack); 
-
 
      h_DY        ->SetLineWidth(0);
      h_altDY     ->SetLineWidth(0);
@@ -1889,7 +3127,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_VG        ->SetLineWidth(0);
      h_QCD       ->SetLineWidth(0);
      h_ZH        ->SetLineWidth(0);
-     //h_WH        ->SetLineWidth(0);
 
      h_bkgtotal->SetFillColorAlpha(kYellow+1, 0.7);
      h_bkgtotal->SetFillStyle(1001);
@@ -1901,11 +3138,10 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        v.push_back(h_ST);
        v.push_back(h_altTT);
        v.push_back(h_WJetsToLNu);
-       v.push_back(h_altVV);
+       v.push_back(h_VV);
        v.push_back(h_VG); 
        v.push_back(h_QCD); 
        v.push_back(h_ZH);
-       //v.push_back(h_WH);
      }
      else {
        v.push_back(h_DY);
@@ -1917,9 +3153,8 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        v.push_back(h_VG); 
        v.push_back(h_QCD); 
        v.push_back(h_ZH);
-       //v.push_back(h_WH);
      }
-     
+
      // make stack
      THStack *bgstack = new THStack("bgstack","");
      if(dolog){
@@ -1942,7 +3177,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 	 bgstack->Add(h_VG         );
 	 bgstack->Add(h_QCD        );
 	 bgstack->Add(h_ZH         );
-         //bgstack->Add(h_WH         );
        }
        else {
 	 bgstack->Add(h_DY         ); 
@@ -1950,43 +3184,153 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 	 bgstack->Add(h_ST         ); 
 	 bgstack->Add(h_TT         ); 
 	 bgstack->Add(h_WJetsToLNu ); 
-	 bgstack->Add(h_VV         ); 
+	 bgstack->Add(h_VV      ); 
 	 bgstack->Add(h_VG         );
 	 bgstack->Add(h_QCD        );
 	 bgstack->Add(h_ZH         );
-	 //bgstack->Add(h_WH         );
        }
-
      }
       double tot = 0.0; 
-      for(int zz=0; zz<v.size(); zz++)
-      {    
-       tot +=v[zz]->Integral();
-       cout <<v[zz]->GetName()<<":  "<<v[zz]->Integral()<<std::endl;
-      }    
-      cout << "***************************** total: "<<tot<<endl;
+ //     for(int zz=0; zz<v.size(); zz++)
+ //     {    
+ //      tot +=v[zz]->Integral();
+ //      cout <<v[zz]->GetName()<<":  "<<v[zz]->Integral()<<std::endl;
+ //     }    
+ //     cout << "***************************** total: "<<tot<<endl;
 
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS0      ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1));
-    // }                                     
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS0p05  ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS0p05   ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS0p05  ->Integral(0,-1));  
-    // }                                     
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS1     ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS1      ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS1     ->Integral(0,-1)); 
-    // }                                     
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS10    ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS10     ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS10    ->Integral(0,-1)); 
-    // }                                     
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS100   ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS100    ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS100   ->Integral(0,-1));   
-    // }                                     
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS1000   ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Integral(0,-1));  
-    // }                                     
-    // if( h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) > 0.1){ ;
-    //    h_ggZH_HToSSTobbbb_MS40_ctauS10000  ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) ); 
-    // }
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS0      ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS0     ->Integral(0,-1));
+//     }                                     
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS0p05  ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS0p05   ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS0p05  ->Integral(0,-1));  
+//     }                                     
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS1     ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS1      ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS1     ->Integral(0,-1)); 
+//     }                                     
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS10    ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS10     ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS10    ->Integral(0,-1)); 
+//     }                                     
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS100   ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS100    ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS100   ->Integral(0,-1));   
+//     }                                     
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS1000   ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS1000  ->Integral(0,-1));  
+//     }                                     
+//     if( h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) > 0.1){ ;
+//        h_ggZH_HToSSTobbbb_MS40_ctauS10000  ->Scale( int_bkgtotal / h_ggZH_HToSSTobbbb_MS40_ctauS10000 ->Integral(0,-1) ); 
+//     }
+//      if(variable=="nSelectedAODCaloJetTag"){
+//        fstream myfile;
+//        myfile.open("AN2016/slides.tex", std::fstream::app);
+//        myfile<<"\\begin{wframe}{2016 "+region+" }"                                          <<endl;
+//        myfile<<" \\begin{minipage}{0.4\\textwidth}"                                        <<endl;
+//        myfile<<" \\hspace{-2em}"                                                           <<endl;
+//        myfile<<"\\includegraphics[width=1.1\\textwidth]{AN2018/"+region+"_"+variable+"_log.pdf}" <<endl;
+//        myfile<<" \\end{minipage}%"                                                          <<endl;
+//        
+//        myfile<<" \\begin{minipage}{0.6\\textwidth}"                                        <<endl;
+//        myfile<<" \\resizebox{1.13\\textwidth}{!}{"                                         <<endl;
+//        myfile<<" \\hspace{-1.1em}"                                                         <<endl; 
+//        myfile<<"    \\begin{tabular}{|l|l|l|l|}"                                           <<endl;
+//        myfile<<"\\hline" <<endl;
+//        myfile<<"Sample Group Name & 0 tagBin & 1 tagBin & 2+ tagBin\\\\"<<endl;
+//        myfile<<"\\hline" <<endl;
+//        myfile<<"DY &"<<h_DY->GetBinContent(1)<<"&"<<h_DY->GetBinContent(2)<<"&"
+//                 <<(h_DY->GetBinContent(3)+h_DY->GetBinContent(4)+h_DY->GetBinContent(5)+h_DY->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"ST &"<<h_ST->GetBinContent(1)<<"&"<<h_ST->GetBinContent(2)<<"&"
+//                 <<(h_ST->GetBinContent(3)+h_ST->GetBinContent(4)+h_ST->GetBinContent(5)+h_ST->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"TTbar(non-incl.) &"<<h_TT->GetBinContent(1)<<"&"<<h_TT->GetBinContent(2)<<"&"
+//                 <<(h_TT->GetBinContent(3)+h_TT->GetBinContent(4)+h_TT->GetBinContent(5)+h_TT->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"TTbar(incl.) &"<<h_altTT->GetBinContent(1)<<"&"<<h_altTT->GetBinContent(2)<<"&"
+//                 <<(h_altTT->GetBinContent(3)+h_altTT->GetBinContent(4)+h_altTT->GetBinContent(5)+h_altTT->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"Diboson &"<<h_VV->GetBinContent(1)<<"&"<<h_VV->GetBinContent(2)<<"&"
+//                 <<(h_VV->GetBinContent(3)+h_VV->GetBinContent(4)+h_VV->GetBinContent(5)+h_VV->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"V$\\gamma$ &"<<h_VG->GetBinContent(1)<<"&"<<h_VG->GetBinContent(2)<<"&"
+//                 <<(h_VG->GetBinContent(3)+h_VG->GetBinContent(4)+h_VG->GetBinContent(5)+h_VG->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"WJets &"<<h_WJetsToLNu->GetBinContent(1)<<"&"<<h_WJetsToLNu->GetBinContent(2)<<"&"
+//                 <<(h_WJetsToLNu->GetBinContent(3)+h_WJetsToLNu->GetBinContent(4)+h_WJetsToLNu->GetBinContent(5)+h_WJetsToLNu->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"QCD &"<<h_QCD->GetBinContent(1)<<"&"<<h_QCD->GetBinContent(2)<<"&"
+//                 <<(h_QCD->GetBinContent(3)+h_QCD->GetBinContent(4)+h_QCD->GetBinContent(5)+h_QCD->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"ZH(bb) &"<<h_ZH->GetBinContent(1)<<"&"<<h_ZH->GetBinContent(2)<<"&"
+//                 <<(h_ZH->GetBinContent(3)+h_ZH->GetBinContent(4)+h_ZH->GetBinContent(5)+h_ZH->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"\\hline"<<endl;
+//        myfile<<"Indv. Sample Name & 0 tagBin & 1 tagBin & 2+ tagBin\\\\"<<endl;
+//        myfile<<"\\hline"<<endl;
+//
+//
+//        myfile<<"DY50\\_amc &"<<h_DY50->GetBinContent(1)<<"&"<<h_DY50->GetBinContent(2)<<"&"
+//                 <<(h_DY50->GetBinContent(3)+h_DY50->GetBinContent(4)+h_DY50->GetBinContent(5)+h_DY50->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"DY50\\_mad &"<<h_DY50_mad->GetBinContent(1)<<"&"<<h_DY50_mad->GetBinContent(2)<<"&"
+//                 <<(h_DY50_mad->GetBinContent(3)+h_DY50_mad->GetBinContent(4)+h_DY50_mad->GetBinContent(5)+h_DY50_mad->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"TTJets\\_mad &"<<h_TTJets_mad->GetBinContent(1)<<"&"<<h_TTJets_mad->GetBinContent(2)<<"&"
+//                 <<(h_TTJets_mad->GetBinContent(3)+h_TTJets_mad->GetBinContent(4)+h_TTJets_mad->GetBinContent(5)+h_TTJets_mad->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"TTtoLL\\_mad &"<<h_TTtoLL_mad->GetBinContent(1)<<"&"<<h_TTtoLL_mad->GetBinContent(2)<<"&"
+//                 <<(h_TTtoLL_mad->GetBinContent(3)+h_TTtoLL_mad->GetBinContent(4)+h_TTtoLL_mad->GetBinContent(5)+h_TTtoLL_mad->GetBinContent(6))<<"\\\\"<<endl;
+//        myfile<<"    \\end{tabular}"                                                        <<endl;
+//        myfile<<"}"                                                                         <<endl;
+//        myfile<<" \\end{minipage}"                                                          <<endl;
+//
+//        myfile<<"\\end{wframe}"                                                              <<endl;
+//        myfile<<endl;
+//        myfile<<endl;
+//        myfile.close();
+//      }
+////
+//     if(variable=="AllJets_AODCaloJetMedianLog10TrackAngle" || variable=="AllJets_AODCaloJetMedianLog10IPSig" || variable=="AllJets_AODCaloJetAlphaMax"){
+//       TCanvas *C = new TCanvas("C","",850,500);
+//       C->cd(); 
+//      
+//       h_TTJets_mad  -> SetLineColor(kRed);
+//       h_TTJets_mad  -> SetLineWidth(2);
+//       h_TTtoLL_mad  -> SetLineColor(kGreen);
+//       h_TTtoLL_mad  -> SetLineWidth(2);
+//
+//       Double_t ymaxx;       
+//       ymaxx = h_TTJets_mad->GetMaximum();
+//       h_TTJets_mad->SetMaximum(ymaxx*2);
+//       h_TTJets_mad->Draw("hist");
+//       h_TTtoLL_mad->Draw("hist sames");
+//      
+//       TLegend *legx;
+//       legx = new TLegend(0.35,0.7,0.88,0.88);
+//       legx->SetBorderSize(0);
+//       legx->SetNColumns(2);
+//       legx->SetFillColor(kWhite);
+//       legx->AddEntry(h_TTJets_mad     , "TTJets madgraph", "f"); 
+//       legx->AddEntry(h_TTtoLL_mad     , "TTtoLL madgraph", "f"); 
+//       legx->Draw("sames");
+//      
+//       C->SaveAs("AN2016/"+region+"_"+variable+"_TTJets.pdf");
+//       C->Clear();
+//
+//       h_DY50  -> SetLineColor(kBlack);
+//       h_DY50  -> SetLineWidth(2);
+//       h_DY50_mad  -> SetLineColor(kRed);
+//       h_DY50_mad  -> SetLineWidth(2);
+//       
+//       ymaxx = h_DY50->GetMaximum();
+//       h_DY50->SetMaximum(ymaxx*2);
+//      
+//       h_DY50->Draw("hist");
+//       h_DY50->Draw("hist sames");
+//       h_DY50_mad->Draw("hist sames");
+//       h_DY50_mad->Draw("hist sames");
+//      
+//       TLegend *legy;
+//       legy = new TLegend(0.35,0.7,0.88,0.88);
+//       legy->SetBorderSize(0);
+//       legy->SetNColumns(2);
+//       legy->SetFillColor(kWhite);
+//       legy->AddEntry(h_DY50         , "DY50 amc", "f"); 
+//       legy->AddEntry(h_DY50_mad     , "DY50 madgraph", "f"); 
+//       legy->Draw("sames");
+//      
+//       C->SaveAs("AN2016/"+region+"_"+variable+"_DY.pdf");
+//       
+//
+//     }
+     canvas->cd();
+
      // make legend
      TLegend *leg;
      leg = new TLegend(0.2,0.73,0.88,0.89);
@@ -2000,11 +3344,10 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        leg->AddEntry(h_ST           , "Single Top", "f"); 
        leg->AddEntry(h_altTT        , "(Alt.) t#bar{t}+Jets", "f"); 
        leg->AddEntry(h_WJetsToLNu   , "W+Jets", "f"); 
-      leg->AddEntry(h_altVV        , "(Alt.) Diboson", "f"); 
-      leg->AddEntry(h_VG           , "V#gamma", "f");
+       leg->AddEntry(h_altVV        , "(Alt.) Diboson", "f"); 
+       leg->AddEntry(h_VG           , "V#gamma", "f");
        leg->AddEntry(h_QCD          , "QCD", "f");
        leg->AddEntry(h_ZH           , "ZH#rightarrowLLbb", "f");
-       //leg->AddEntry(h_WH           , "WH#rightarrowLNubb", "f");
        leg->AddEntry(h_bkgtotal     , "MC bkg. stat. err.", "f");
      }
      else {
@@ -2018,7 +3361,6 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        leg->AddEntry(h_VG           , "V#gamma", "f");
        leg->AddEntry(h_QCD          , "QCD", "f");
        leg->AddEntry(h_ZH           , "ZH#rightarrowLLbb", "f");
-       //leg->AddEntry(h_WH           , "WH#rightarrowLNubb", "f");      
        leg->AddEntry(h_bkgtotal     , "MC bkg. stat. err.", "f");
      }
 
@@ -2030,20 +3372,10 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        sigleg->AddEntry(h_Sig_MS15ct100   , "Z(H#rightarrow SS#rightarrow bbbb) M_{S}=15 c#tau_{S}=100  ", "l" ) ;
      }
 
-	/*
-    TLegend *WHsigleg = new TLegend(0.54,0.6,0.88,0.7);
-    if(drawWHSignal){
-	WHsigleg->SetBorderSize(0);
-	WHsigleg->SetFillColor(kWhite);
-//	WHsigleg->SetHeader("W(H#rightarrow SS#rightarrow bbbb)","C");
-	WHsigleg->AddEntry(h_Sig_WH_MS40ct100 , "W(H#rightarrow SS#rightarrow bbbb) M_{S}=40 c#tau_{S}=100 ", "l" );
-
-}
-*/
- //    std::cout << drawSignal <<std::endl;
      // set max and draw
-     double_t ymax;
+     Double_t ymax;
      ymax = std::max(h_Data->GetMaximum(), h_bkgtotal->GetMaximum() );
+     
      if(dolog){
       bgstack->SetMaximum(50000*ymax); 
       bgstack->SetMinimum(1.0e-6);
@@ -2060,25 +3392,29 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      bgstack->GetYaxis()->SetTitleSize(40);
      bgstack->GetYaxis()->SetTitleFont(43);
      bgstack->GetYaxis()->SetTitleOffset(1.75);
-     bgstack->GetXaxis()->SetTitle(region+"_"+varname + "    "+description);
+     if     (region.Contains("TwoEleOffZ")) bgstack->GetXaxis()->SetTitle("TwoEle Inclusive Zpt:   "+(TString)h_Data->GetTitle()+description);
+     else if(region.Contains("TwoMuOffZ"))  bgstack->GetXaxis()->SetTitle("TwoMu  Inclusive Zpt:   "+(TString)h_Data->GetTitle()+description);
+     else                                   bgstack->GetXaxis()->SetTitle(region+":   "+(TString)h_Data->GetTitle()+description);
+     bgstack->GetXaxis()->CenterTitle(kFALSE);;
      if(!drawData){
        bgstack->GetXaxis()->SetTitleSize(40);
        bgstack->GetXaxis()->SetTitleFont(43);
-       bgstack->GetXaxis()->SetTitle(varname + "    "+description);
-       //bgstack->GetXaxis()->SetTitle((TString)h_Data->GetTitle()+description);
+       //bgstack->GetXaxis()->SetTitle(varname + "    "+description);
+     if     (region.Contains("TwoEleOffZ")) bgstack->GetXaxis()->SetTitle("TwoEle Inclusive Zpt:   "+(TString)h_Data->GetTitle()+description);
+     else if(region.Contains("TwoMuOffZ"))  bgstack->GetXaxis()->SetTitle("TwoMu  Inclusive Zpt:   "+(TString)h_Data->GetTitle()+description);
+     else                                   bgstack->GetXaxis()->SetTitle(region+":   "+(TString)h_Data->GetTitle()+description);
+     bgstack->GetXaxis()->CenterTitle(kFALSE);;
        bgstack->GetXaxis()->SetTitleOffset(1);
        bgstack->GetXaxis()->SetLabelFont(43); //43 Absolute font size in pixel (precision 3)
        bgstack->GetXaxis()->SetLabelSize(40);//20
        bgstack->GetYaxis()->SetTitleOffset(1);
      }
-     
      //h_bkgtotal->Draw("e2 sames");
      if(drawData){
        h_Data->Draw("sames E"); 
      }
 
      if(drawSignal){
-
        h_Sig_MS40ct10->SetLineColor(kBlack);
        h_Sig_MS15ct100->SetLineColor(kBlack);
        h_Sig_MS40ct10->SetLineWidth(4);
@@ -2088,16 +3424,9 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        h_Sig_MS40ct10->Draw("hist sames") ;
        h_Sig_MS15ct100->Draw("hist sames") ;
        sigleg->Draw();
- }
-	/*	
-      if(drawWHSignal){	
-	h_Sig_WH_MS40ct100->SetLineColor(kBlack);
-	h_Sig_WH_MS40ct100->SetLineWidth(2);
-	h_Sig_WH_MS40ct100   ->Draw("hist sames") ;
-	WHsigleg->Draw();
-     }*/
+     }
      leg->Draw();
- 
+
      char lumistring [50];
      int dummy; 
 
@@ -2122,6 +3451,9 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
 	 h_ratio->Divide(h_bkgtotal);
        }
        h_ratio->SetTitle(" ");
+       if     (region.Contains("TwoEleOffZ")) h_ratio->GetXaxis()->SetTitle("TwoEle Inclusive Zpt:   "+(TString)h_Data->GetTitle()+description);
+       else if(region.Contains("TwoMuOffZ"))  h_ratio->GetXaxis()->SetTitle("TwoMu  Inclusive Zpt:   "+(TString)h_Data->GetTitle()+description);
+       else                                   h_ratio->GetXaxis()->SetTitle(region+":   "+(TString)h_Data->GetTitle()+description);
        // Y axis ratio plot settings
        h_ratio->GetYaxis()->SetTitleSize(40);
        h_ratio->GetYaxis()->SetTitleFont(43);
@@ -2133,8 +3465,8 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        // X axis ratio plot settings
        h_ratio->GetXaxis()->SetTitleSize(40);
        h_ratio->GetXaxis()->SetTitleFont(43);
-       h_ratio->GetXaxis()->SetTitle((TString)h_Data->GetTitle()+description);
-       h_ratio->GetXaxis()->SetTitle(region+"_"+(TString)h_Data->GetTitle()+description);
+       //h_ratio->GetXaxis()->SetTitle((TString)h_Data->GetTitle()+description);
+       //h_ratio->GetXaxis()->SetTitle(region+"_"+(TString)h_Data->GetTitle()+description);
        h_ratio->GetXaxis()->SetTitleOffset(4.0);
        h_ratio->GetXaxis()->SetLabelFont(43); //43 Absolute font size in pixel (precision 3)
        h_ratio->GetXaxis()->SetLabelSize(30);//20
@@ -2144,50 +3476,49 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
        h_ratio->GetYaxis()->SetRangeUser(0.4,1.6);
        h_ratio->Draw("ep");  // draw first to get ranges set internally inside root
               
-       h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
-       h_ratiostaterr->Divide(h_bkgtotal);
+       //h_ratiostaterr = (TH1F*)h_bkgtotal->Clone("ratiostaterr");
+       //h_ratiostaterr->Divide(h_bkgtotal);
        
        ratiopad->Update();       // need to update pad to get X min/max
        TLine *line = new TLine(ratiopad->GetUxmin(),1,ratiopad->GetUxmax(),1);
        line->SetLineColor(kBlue);
        line->SetLineWidth(3);
        line->SetLineStyle(9);
-       h_ratiostaterr->Draw("e2 same");
+       //h_ratiostaterr->Draw("e2 same");
 
        line->Draw();
        h_ratio->Draw("ep same"); // draw points above line
      }
      else{
-      // ratiopad->Clear();
+       ratiopad->Clear();
      }
 
      // save canvas
      canvas->SaveAs(outname+description+".png");
      canvas->SaveAs(outname+description+".pdf");
+     //if(variable=="nSelectedAODCaloJetTag") canvas->SaveAs("AN2016/"+region+"_"+variable+"_log.pdf");
+     //if(variable=="AllJets_AODCaloJetMedianLog10TrackAngle" || variable=="AllJets_AODCaloJetMedianLog10IPSig" || variable=="AllJets_AODCaloJetAlphaMax") canvas->SaveAs("AN2016/"+region+"_"+variable+".pdf");
   
-// save histograms into single root file
+     // save histograms into single root file
      TFile *outfile = TFile::Open(outname+".root","RECREATE");
      h_Data        ->Write();
      h_DY          ->Write();
-     h_GJets       ->Write();
-    h_ST          ->Write();
-    h_TT          ->Write();
-    h_WJetsToLNu  ->Write();
-    h_VV          ->Write();
-    h_VG          ->Write();
-    h_QCD         ->Write();
-    h_ZH          ->Write();
-     //h_WH          ->Write();
+//     h_GJets       ->Write();
+     h_ST          ->Write();
+     h_TT          ->Write();
+     h_WJetsToLNu  ->Write();
+     h_VV          ->Write();
+     h_VG          ->Write();
+     h_QCD         ->Write();
+     h_ZH          ->Write();
      h_bkgtotal    ->Write();
-   
      h_light       ->Write();
      h_light_alt   ->Write();
      h_heavy       ->Write();
      h_heavy_alt   ->Write();
      h_other       ->Write();
      h_other_alt   ->Write();
-   
-  if( drawData ){
+     if( drawData ){
       h_ratio       ->Write();
       //h_ratiostaterr->Write();
      }
@@ -2196,7 +3527,7 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_altDY          ->Write(); 
      h_altVV          ->Write(); 
      h_altTT          ->Write(); 
-
+     
      h_Sig_MS15ct1000 ->Write(); 
      h_Sig_MS15ct100  ->Write(); 
      h_Sig_MS15ct10   ->Write(); 
@@ -2209,22 +3540,177 @@ variables.push_back("AllJets_AODCaloJetAlphaMax");
      h_Sig_MS55ct100  ->Write(); 
      h_Sig_MS55ct10   ->Write(); 
      h_Sig_MS55ct1    ->Write(); 
-	/*     
-    h_Sig_WH_MS55ct1    ->Write();
-    h_Sig_WH_MS55ct10   ->Write();
-    h_Sig_WH_MS55ct100  ->Write();
-    h_Sig_WH_MS55ct1000 ->Write();
-    h_Sig_WH_MS40ct1    ->Write();
-    h_Sig_WH_MS40ct10   ->Write();
-    h_Sig_WH_MS40ct100  ->Write();
-    h_Sig_WH_MS40ct1000 ->Write();
-    h_Sig_WH_MS15ct1    ->Write();
-    h_Sig_WH_MS15ct10   ->Write();
-    h_Sig_WH_MS15ct100  ->Write();
-    h_Sig_WH_MS15ct1000 ->Write();
- */
-    outfile->Close();
-    std::cout<<" closed writing:\n  "<<outname<<std::endl;
+     h_Sig_MS15ct200  ->Write(); 
+     h_Sig_MS15ct20   ->Write(); 
+     h_Sig_MS15ct2    ->Write(); 
+     h_Sig_MS40ct200  ->Write(); 
+     h_Sig_MS40ct20   ->Write(); 
+     h_Sig_MS40ct2    ->Write(); 
+     h_Sig_MS55ct200  ->Write(); 
+     h_Sig_MS55ct20   ->Write(); 
+     h_Sig_MS55ct2    ->Write(); 
+     h_Sig_MS15ct300  ->Write(); 
+     h_Sig_MS15ct30   ->Write(); 
+     h_Sig_MS15ct3    ->Write(); 
+     h_Sig_MS40ct300  ->Write(); 
+     h_Sig_MS40ct30   ->Write(); 
+     h_Sig_MS40ct3    ->Write(); 
+     h_Sig_MS55ct300  ->Write(); 
+     h_Sig_MS55ct30   ->Write(); 
+     h_Sig_MS55ct3    ->Write(); 
+     h_Sig_MS15ct500  ->Write(); 
+     h_Sig_MS15ct50   ->Write(); 
+     h_Sig_MS15ct5    ->Write(); 
+     h_Sig_MS40ct500  ->Write(); 
+     h_Sig_MS40ct50   ->Write(); 
+     h_Sig_MS40ct5    ->Write(); 
+     h_Sig_MS55ct500  ->Write(); 
+     h_Sig_MS55ct50   ->Write(); 
+     h_Sig_MS55ct5    ->Write(); 
+     
+     h_Sig_4d_MS15ct1000 ->Write(); 
+     h_Sig_4d_MS15ct100  ->Write(); 
+     h_Sig_4d_MS15ct10   ->Write(); 
+     h_Sig_4d_MS15ct1    ->Write(); 
+     h_Sig_4d_MS40ct1000 ->Write(); 
+     h_Sig_4d_MS40ct100  ->Write(); 
+     h_Sig_4d_MS40ct10   ->Write(); 
+     h_Sig_4d_MS40ct1    ->Write(); 
+     h_Sig_4d_MS55ct1000 ->Write(); 
+     h_Sig_4d_MS55ct100  ->Write(); 
+     h_Sig_4d_MS55ct10   ->Write(); 
+     h_Sig_4d_MS55ct1    ->Write(); 
+     h_Sig_4d_MS15ct200  ->Write(); 
+     h_Sig_4d_MS15ct20   ->Write(); 
+     h_Sig_4d_MS15ct2    ->Write(); 
+     h_Sig_4d_MS40ct200  ->Write(); 
+     h_Sig_4d_MS40ct20   ->Write(); 
+     h_Sig_4d_MS40ct2    ->Write(); 
+     h_Sig_4d_MS55ct200  ->Write(); 
+     h_Sig_4d_MS55ct20   ->Write(); 
+     h_Sig_4d_MS55ct2    ->Write(); 
+     h_Sig_4d_MS15ct300  ->Write(); 
+     h_Sig_4d_MS15ct30   ->Write(); 
+     h_Sig_4d_MS15ct3    ->Write(); 
+     h_Sig_4d_MS40ct300  ->Write(); 
+     h_Sig_4d_MS40ct30   ->Write(); 
+     h_Sig_4d_MS40ct3    ->Write(); 
+     h_Sig_4d_MS55ct300  ->Write(); 
+     h_Sig_4d_MS55ct30   ->Write(); 
+     h_Sig_4d_MS55ct3    ->Write(); 
+     h_Sig_4d_MS15ct500  ->Write(); 
+     h_Sig_4d_MS15ct50   ->Write(); 
+     h_Sig_4d_MS15ct5    ->Write(); 
+     h_Sig_4d_MS40ct500  ->Write(); 
+     h_Sig_4d_MS40ct50   ->Write(); 
+     h_Sig_4d_MS40ct5    ->Write(); 
+     h_Sig_4d_MS55ct500  ->Write(); 
+     h_Sig_4d_MS55ct50   ->Write(); 
+     h_Sig_4d_MS55ct5    ->Write(); 
+
+     
+
+
+     h_Sig_4d_MS7ct1000 ->Write(); 
+     h_Sig_4d_MS7ct100  ->Write(); 
+     h_Sig_4d_MS7ct10   ->Write(); 
+     h_Sig_4d_MS7ct1    ->Write(); 
+     h_Sig_4Tau_MS7ct1000 ->Write(); 
+     h_Sig_4Tau_MS7ct100  ->Write(); 
+     h_Sig_4Tau_MS7ct10   ->Write(); 
+     h_Sig_4Tau_MS7ct1    ->Write(); 
+     h_Sig_4Tau_MS15ct1000 ->Write(); 
+     h_Sig_4Tau_MS15ct100  ->Write(); 
+     h_Sig_4Tau_MS15ct10   ->Write(); 
+     h_Sig_4Tau_MS15ct1    ->Write(); 
+     h_Sig_4Tau_MS40ct1000 ->Write(); 
+     h_Sig_4Tau_MS40ct100  ->Write(); 
+     h_Sig_4Tau_MS40ct10   ->Write(); 
+     h_Sig_4Tau_MS40ct1    ->Write(); 
+     h_Sig_4Tau_MS55ct1000 ->Write(); 
+     h_Sig_4Tau_MS55ct100  ->Write(); 
+     h_Sig_4Tau_MS55ct10   ->Write(); 
+     h_Sig_4Tau_MS55ct1    ->Write(); 
+     
+     h_Sig_h150_llp20_ct1_100k    ->Write(); 
+     h_Sig_h150_llp20_ct10_100k    ->Write(); 
+     h_Sig_h150_llp20_ct100_100k    ->Write(); 
+     h_Sig_h150_llp20_ct1000_100k    ->Write(); 
+     h_Sig_h150_llp50_ct1_100k    ->Write(); 
+     h_Sig_h150_llp50_ct10_100k    ->Write(); 
+     h_Sig_h150_llp50_ct100_100k    ->Write(); 
+     h_Sig_h150_llp50_ct1000_100k    ->Write(); 
+     
+     h_Sig_h175_llp20_ct1_100k    ->Write(); 
+     h_Sig_h175_llp20_ct10_100k    ->Write(); 
+     h_Sig_h175_llp20_ct100_100k    ->Write(); 
+     h_Sig_h175_llp20_ct1000_100k    ->Write(); 
+     h_Sig_h175_llp50_ct1_100k    ->Write(); 
+     h_Sig_h175_llp50_ct10_100k    ->Write(); 
+     h_Sig_h175_llp50_ct100_100k    ->Write(); 
+     h_Sig_h175_llp50_ct1000_100k    ->Write(); 
+     
+     h_Sig_h200_llp20_ct1_100k    ->Write(); 
+     h_Sig_h200_llp20_ct10_100k    ->Write(); 
+     h_Sig_h200_llp20_ct100_100k    ->Write(); 
+     h_Sig_h200_llp20_ct1000_100k    ->Write(); 
+     h_Sig_h200_llp50_ct1_100k    ->Write(); 
+     h_Sig_h200_llp50_ct10_100k    ->Write(); 
+     h_Sig_h200_llp50_ct100_100k    ->Write(); 
+     h_Sig_h200_llp50_ct1000_100k    ->Write(); 
+     
+     h_Sig_h250_llp50_ct1_100k    ->Write(); 
+     h_Sig_h250_llp50_ct10_100k    ->Write(); 
+     h_Sig_h250_llp50_ct100_100k    ->Write(); 
+     h_Sig_h250_llp50_ct1000_100k    ->Write(); 
+     h_Sig_h500_llp200_ct1_100k    ->Write(); 
+     h_Sig_h500_llp200_ct10_100k    ->Write(); 
+     h_Sig_h500_llp200_ct100_100k    ->Write(); 
+     h_Sig_h500_llp200_ct1000_100k    ->Write(); 
+     
+     h_Sig_h125_llp20_ct1_100k_wISR      ->Write();    
+     h_Sig_h125_llp20_ct10_100k_wISR     ->Write();    
+     h_Sig_h125_llp20_ct100_100k_wISR    ->Write();    
+     h_Sig_h125_llp20_ct1000_100k_wISR   ->Write();    
+  
+     h_Sig_h150_llp20_ct1_100k_wISR      ->Write();    
+     h_Sig_h150_llp20_ct10_100k_wISR     ->Write();    
+     h_Sig_h150_llp20_ct100_100k_wISR    ->Write();    
+     h_Sig_h150_llp20_ct1000_100k_wISR   ->Write();    
+  
+     h_Sig_h150_llp50_ct1_100k_wISR      ->Write();   
+     h_Sig_h150_llp50_ct10_100k_wISR     ->Write();   
+     h_Sig_h150_llp50_ct100_100k_wISR    ->Write();   
+     h_Sig_h150_llp50_ct1000_100k_wISR   ->Write();   
+ 
+     h_Sig_h175_llp20_ct1_100k_wISR      ->Write();   
+     h_Sig_h175_llp20_ct10_100k_wISR     ->Write();   
+     h_Sig_h175_llp20_ct100_100k_wISR    ->Write();   
+     h_Sig_h175_llp20_ct1000_100k_wISR   ->Write();   
+ 
+     h_Sig_h175_llp50_ct1_100k_wISR      ->Write();   
+     h_Sig_h175_llp50_ct10_100k_wISR     ->Write();   
+     h_Sig_h175_llp50_ct100_100k_wISR    ->Write();   
+     h_Sig_h175_llp50_ct1000_100k_wISR   ->Write();   
+
+     h_Sig_h200_llp20_ct1_100k_wISR      ->Write();   
+     h_Sig_h200_llp20_ct10_100k_wISR     ->Write();   
+     h_Sig_h200_llp20_ct100_100k_wISR    ->Write();   
+     h_Sig_h200_llp20_ct1000_100k_wISR   ->Write();   
+
+     h_Sig_h200_llp50_ct1_100k_wISR     ->Write();   
+     h_Sig_h200_llp50_ct10_100k_wISR    ->Write();   
+     h_Sig_h200_llp50_ct100_100k_wISR   ->Write();   
+     h_Sig_h200_llp50_ct1000_100k_wISR  ->Write();   
+
+     h_Sig_h200_llp100_ct1_100k_wISR    ->Write();   
+     h_Sig_h200_llp100_ct10_100k_wISR   ->Write();   
+     h_Sig_h200_llp100_ct100_100k_wISR  ->Write();   
+     h_Sig_h200_llp100_ct1000_100k_wISR ->Write();   
+
+     
+     outfile->Close();
+     std::cout<<" closed writing:\n  "<<outname<<std::endl;
      
    } 
   }
