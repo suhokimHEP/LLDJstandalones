@@ -1,13 +1,13 @@
 #!/bin/bash
 
 regions=( \ 
- "EleMuOSOF"     \
- "EleMuOSOFL"    \
- "OnePho"        \
- "TwoEleDY"      \
+# "EleMuOSOF"     \
+# "EleMuOSOFL"    \
+# "OnePho"        \
+# "TwoEleDY"      \
 # "TwoEleSig"     \
- "TwoEleZH"      \
- "TwoMuDY"       \
+# "TwoEleZH"      \
+# "TwoMuDY"       \
 # "TwoMuSig"      \
  "TwoMuZH"       \
 # "EleWHSig"  \
@@ -19,7 +19,7 @@ regions=( \
 ) 
 
 dologs=( \
-# "kFALSE" \
+ "kFALSE" \
  "kTRUE" \
 )
 

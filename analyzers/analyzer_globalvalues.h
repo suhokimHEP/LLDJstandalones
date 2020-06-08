@@ -49,6 +49,15 @@ public :
    std::vector<int> taggedjetSBIPb_list;
    std::vector<int> taggedjetSBIPc_list;
 
+   std::vector<int> taggedjet_h150_llp20_ct100_list;
+   std::vector<int> taggedjet_h150_llp50_ct100_list;
+   std::vector<int> taggedjet_h175_llp20_ct100_list;
+   std::vector<int> taggedjet_h175_llp50_ct100_list;
+   std::vector<int> taggedjet_h200_llp20_ct100_list;
+   std::vector<int> taggedjet_h200_llp50_ct100_list;
+   std::vector<int> taggedjet_h250_llp50_ct100_list;
+   std::vector<int> taggedjet_h500_llp200_ct100_list;
+
    std::vector<int> calomatchedPF_list;
    std::vector<int> PFmatchedCalo_list;
    std::vector<int> calomatchedPFchs_list;

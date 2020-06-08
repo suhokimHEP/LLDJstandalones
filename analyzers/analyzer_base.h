@@ -58,7 +58,6 @@ public :
    std::vector<float>   *llpDaughterPhi;
    std::vector<float>   *llpDaughterMass;
    std::vector<float>   *toppts;
-   //std::vector<float>   *ctauEventWeight;
    Float_t   ctauEventWeight;
    //single ele
    ULong64_t       AOD_HLT_Ele23Loose;
@@ -252,7 +251,6 @@ public :
    Float_t         AOD_pfChMET_phi;
    Float_t         AOD_pfMET_phi;
    Float_t         AODGenEventWeight;
-   
 
    // List of branches
    TBranch        *b_run;   //!
