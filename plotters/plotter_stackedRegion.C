@@ -35,7 +35,7 @@ void print_hist(TH1F* h, TString name, FILE* file){
 
 }
 
-void plotter_stackedRegion(TString region, Bool_t dolog, Bool_t HIP, Bool_t doctau, Bool_t useEOS, TString description)
+void plotter_stackedRegion(TString region, Bool_t dolog, Bool_t HIP, Bool_t useEOS, TString description)
 {
 
 // // Draw signal as lines
@@ -47,7 +47,7 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
 
  bool drawData = true;
  bool useAlt = false; 
- bool doUncPlots = true;
+ bool doUncPlots = false;
 
  //TString basedir  = TString(getenv("basedir"));
  TString aversion = TString(getenv("aversion"));
@@ -95,18 +95,18 @@ Bool_t drawSignal = kTRUE; //kTRUE; //kFALSE
  std::vector<TString> uncbins;
  uncbins.clear();
  uncbins.push_back(""             ); 
- uncbins.push_back("_EGSUp"       ); 
- uncbins.push_back("_EGSDown"     );    
- uncbins.push_back("_MESUp"       );    
- uncbins.push_back("_MESDown"     );    
- uncbins.push_back("_AMaxUp"      );    
- uncbins.push_back("_AMaxDown"    );    
- uncbins.push_back("_IPSigUp"     );    
- uncbins.push_back("_IPSigDown"   );    
- uncbins.push_back("_TAUp"        );    
- uncbins.push_back("_TADown"      );    
- uncbins.push_back("_TagVarsUp"   ); 
- uncbins.push_back("_TagVarsDown" );  
+ //uncbins.push_back("_EGSUp"       ); 
+ //uncbins.push_back("_EGSDown"     );    
+ //uncbins.push_back("_MESUp"       );    
+ //uncbins.push_back("_MESDown"     );    
+ //uncbins.push_back("_AMaxUp"      );    
+ //uncbins.push_back("_AMaxDown"    );    
+ //uncbins.push_back("_IPSigUp"     );    
+ //uncbins.push_back("_IPSigDown"   );    
+ //uncbins.push_back("_TAUp"        );    
+ //uncbins.push_back("_TADown"      );    
+ //uncbins.push_back("_TagVarsUp"   ); 
+ //uncbins.push_back("_TagVarsDown" );  
 
  int loopEnd;
  if (doUncPlots) loopEnd=uncbins.size(); else loopEnd=1;

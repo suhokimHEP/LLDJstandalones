@@ -99,6 +99,12 @@ public :
    float objcleandRcut ;
    float sum_AODGenEventWeight;
 
+   float base_weight;
+   float ele_weight;
+   float mu_weight;
+   float PU_weight;
+
+
    // ID bits for collections
    TString phoid;
    TString eleid;
