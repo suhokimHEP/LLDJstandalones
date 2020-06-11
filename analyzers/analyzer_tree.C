@@ -17,12 +17,18 @@ void analyzer_tree::setOPTtree(){
   OPT_Event.push_back(event);
   OPT_EventWeight.push_back(event_weight);
   OPT_nJets.push_back(aodcalojet_list.size());
+  OPT_ZPt.push_back(dilep_pt);
+  OPT_ZSf.push_back(0.8546545);
+  OPT_base_weight.push_back(base_weight);
+  OPT_ele_weight .push_back(ele_weight);
+  OPT_mu_weight  .push_back(mu_weight);
+  OPT_PU_weight  .push_back(PU_weight);
   if(aodcalojet_list.size()>0){
     for(int i = 0; i<aodcalojet_list.size(); i++){
       int aodcalojetindex = aodcalojet_list[i]; 
-      OPT_AODCaloJetMedianLog10IPSig      .push_back(AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex));
-      OPT_AODCaloJetMedianLog10TrackAngle .push_back(AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex));
-      OPT_AODCaloJetAlphaMax              .push_back(AODCaloJetAlphaMax              ->at(aodcalojetindex));
+      OPT_AODCaloJetMedianLog10IPSig      .push_back(Shifted_CaloJetMedianLog10IPSig      .at(aodcalojetindex));
+      OPT_AODCaloJetMedianLog10TrackAngle .push_back(Shifted_CaloJetMedianLog10TrackAngle .at(aodcalojetindex));
+      OPT_AODCaloJetAlphaMax              .push_back(Shifted_CaloJetAlphaMax              .at(aodcalojetindex));
       OPT_AODCaloJetEta                   .push_back(AODCaloJetEta                   ->at(aodcalojetindex));
       OPT_AODCaloJetPt                    .push_back(AODCaloJetPt                    ->at(aodcalojetindex));
       }
@@ -44,6 +50,12 @@ void analyzer_tree::clearOPTtree(){
   OPT_Event                           .clear();
   OPT_EventWeight                     .clear();
   OPT_nJets                           .clear();
+  OPT_ZPt                             .clear();
+  OPT_ZSf                             .clear();
+  OPT_base_weight                     .clear();
+  OPT_ele_weight                      .clear();
+  OPT_mu_weight                       .clear();
+  OPT_PU_weight                       .clear();
   OPT_AODCaloJetMedianLog10IPSig      .clear();
   OPT_AODCaloJetMedianLog10TrackAngle .clear();
   OPT_AODCaloJetAlphaMax              .clear();

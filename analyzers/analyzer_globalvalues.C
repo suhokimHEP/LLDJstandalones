@@ -100,5 +100,13 @@ void analyzer_globalvalues::cleareventcounters(){
  calomatchedPFchs_list .clear();
  PFchsmatchedCalo_list .clear();
 
+ taggedjet_h150_llp20_ct100_list     .clear(); 
+ taggedjet_h150_llp50_ct100_list     .clear(); 
+ taggedjet_h175_llp20_ct100_list     .clear(); 
+ taggedjet_h175_llp50_ct100_list     .clear(); 
+ taggedjet_h200_llp20_ct100_list     .clear(); 
+ taggedjet_h200_llp50_ct100_list     .clear(); 
+ taggedjet_h250_llp50_ct100_list     .clear(); 
+ taggedjet_h500_llp200_ct100_list     .clear(); 
 }
 

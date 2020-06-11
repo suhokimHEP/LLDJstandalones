@@ -41,9 +41,10 @@ void analyzer_config::setConfiguration()
  }                    // loggit
 
  // tagging variables   // loggit
- tag_maxAmax  = 0.75;   // loggit
- tag_minIPsig = 1.15;   // loggit
- tag_minTA    = -1.75;  // loggit
+ // %TF unc WP    80        70     60     100    80    ZD_WP1                 
+ tag_maxAmax  =  0.9 ; //  0.5 ;  0.5 ;  0.6 ;  0.9 ;  0.4;   // loggit
+ tag_minIPsig =  1.15; //  0.5 ;  0.5 ;  1.15;  1.15;  1.25;  // loggit
+ tag_minTA    = -1.5 ; // -1.5 ; -1.5 ; -1.5 ; -1.5 ; -1.75;  // loggit
 
  // Table from "mrtusOrig" $aversion                         //loggit
  //          | EleMuOSOF | OnePho | TwoMuDY   | TwoEleDY     //loggit
@@ -56,9 +57,10 @@ void analyzer_config::setConfiguration()
  //TA Out    | -1.759    | -1.773 | -1.773    | -1.773    |  //loggit
 
  // shifted tagging variables             // loggit
- tag_shiftmaxAmax   =0.758;  // = 0.75;  // loggit
- tag_shiftminIPsig  =1.137;  // = 1.15;  // loggit
- tag_shiftminTA     =-1.773; // = -1.75; // loggit
+ // %TF unc WP        80          70       60       100      80      ZD_WP1                
+ tag_shiftmaxAmax   = 0.909 ; //  0.505 ;  0.505 ;  0.606 ;  0.909 ; 0.404;    // loggit
+ tag_shiftminIPsig  = 1.238 ; //  0.538 ;  0.538 ;  1.238 ;  1.238 ; 1.346;    // loggit
+ tag_shiftminTA     =-1.516 ; // -1.516 ; -1.516 ; -1.516 ; -1.516 ;-1.769;    // loggit
 
  // set which collections                          // loggit 
  phoid = "Medium"; // "Tight"; "Loose"; //Medium"; // loggit 

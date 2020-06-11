@@ -120,6 +120,14 @@ TFile *outfile_bkgest = 0;
   taggedjetSBIPb_list   = jet_passTaggerSBIPb   ();
   taggedjetSBIPc_list   = jet_passTaggerSBIPc   ();  
 
+  taggedjet_h150_llp20_ct100_list    = jet_passTagger_h150_llp20_ct100   ();
+  taggedjet_h150_llp50_ct100_list    = jet_passTagger_h150_llp50_ct100   ();
+  taggedjet_h175_llp20_ct100_list    = jet_passTagger_h175_llp20_ct100   ();
+  taggedjet_h175_llp50_ct100_list    = jet_passTagger_h175_llp50_ct100   ();
+  taggedjet_h200_llp20_ct100_list    = jet_passTagger_h200_llp20_ct100   ();
+  taggedjet_h200_llp50_ct100_list    = jet_passTagger_h200_llp50_ct100   ();
+  taggedjet_h250_llp50_ct100_list    = jet_passTagger_h250_llp50_ct100   ();
+  taggedjet_h500_llp200_ct100_list   = jet_passTagger_h500_llp200_ct100  ();
 
   //save jets list for L1PF test clear list if does not pass
   aodcalojet_L1PF_list  = jet_passID       ( aodcalojetidbit, "calo",  jet_minPt, jet_maxEta, "" ); 
@@ -163,17 +171,24 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC 
-  if(isMC) event_weight *= makeElectronWeight( electron_list );
-  if(isMC) event_weight *= makeTTWeight( avgTTSF );
+  //if(isMC) event_weight *= makeTTWeight( avgTTSF );
   //if(isMC) event_weight *= makeEleTriggerEffi( electron_list );
   //if(isMC) event_weight *= makeMuonWeight( muon_list );
   //if(isMC) event_weight *= makeMuonIso( muon_list );
   //if(isMC) event_weight *= .99;
   //if(isMC) event_weight *= makeMuonTriggerEffi( muon_list );
-  if(isMC && outfilename.Contains("ctauS-3") ) event_weight *= ctauEventWeight;
+  base_weight = event_weight; ///0.8546545;
+  ele_weight = 1.0;
+  if(isMC) ele_weight  = makeElectronWeight( electron_list );
+  mu_weight = 1.0;
+  if(isMC) mu_weight   = makeMuonWeight( muon_list );
 
-
- if(isMC) event_weight *= makeTTWeight( avgTTSF );
+  if(isMC) event_weight *= makeElectronWeight( electron_list );
+  //std::cout<<"EW:         "<<event_weight<<std::endl;
+  if(isMC) event_weight *= ctauEventWeight;
+  //std::cout<<"ctauWeight: "<<ctauEventWeight<<std::endl;
+  //std::cout<<"EW:         "<<event_weight<<std::endl;
+  //std::cout<<std::endl;
 
   getMET();
   getWPT();
@@ -187,11 +202,14 @@ TFile *outfile_bkgest = 0;
 
   passOSSF = (dilep_mass>20.);
   passOSOF = (OSOF_mass>20.);
-  passPTOSOF = (OSOF_pt>100.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
-  passPTOSSF  = (dilep_pt>100.);
-  passLowPTOSSF  = (dilep_pt<100. && dilep_pt>10.);
+  passPTOSOF = (OSOF_pt>=100.);
+
+  passPTOSSF       = (dilep_pt>=100.);
+  passLowPTOSSF_2  = (dilep_pt>=10.);
+  passLowPTOSSF    = (dilep_pt<100. && dilep_pt>=10.);
+
   passGoodVtx = AODnGoodVtx>0; 
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
@@ -351,6 +369,9 @@ TFile *outfile_bkgest = 0;
   dofillselbin[18] = ( ( bitsPassEleMuOSOF    >> 0) &1) ; 
   dofillselbin[19] = ( ( bitsPassOnePho       >> 0) &1) ; 
   dofillselbin[20] = ( ( bitsPassEleMuOSOFL   >> 0) &1) ; 
+   if ( (( bitsPassTwoMuOffZ      >> 0) &1) ){PU_weight = PUweight_DoubleMu; } 
+  if ( (( bitsPassTwoEleOffZ     >> 0) &1) ){PU_weight = PUweight_DoubleEG; }
+
   dofillselbin[21] = ( ( bitsPassEleWH 	      >> 0) &1) ;  
   dofillselbin[22] = ( ( bitsPassMuWH         >> 0) &1) ;  
   dofillselbin[23] = ( ( bitsPassEleWHSig     >> 0) &1) ; 
@@ -365,7 +386,7 @@ TFile *outfile_bkgest = 0;
    }
   }
   // tagging variable optimization tree
-  if( ( (( bitsPassTwoMuZH      >> 0) &1) || (( bitsPassTwoEleZH      >> 0) &1))  && uncbin.EqualTo("") ){// TwoMuZH or TwoEleZH 
+  if( ( (( bitsPassTwoMuOffZ      >> 0) &1) || (( bitsPassTwoEleOffZ      >> 0) &1))  && uncbin.EqualTo("") ){// TwoMuOffZ or TwoEleOffZ 
    optfile->cd();
    setOPTtree(); 
    OPTtree->Fill();
@@ -433,7 +454,7 @@ TFile *outfile_bkgest = 0;
 
    /// quick hack to only write phase spaces we care about
 
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
    //for (int i=0; i<27 ; i++) { std::cout << dofillselbin[i] << std::endl; }
     if( dofillselbin[i] ){
@@ -551,7 +572,7 @@ TFile *outfile_bkgest = 0;
  // write the histograms
  // i==21, i==22, i==23, i==24 conditons are added for WH and WHSig mode (ele, mu)  
  for(unsigned int i=0; i<selbinnames.size(); ++i){
-  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26){
+  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
 
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity

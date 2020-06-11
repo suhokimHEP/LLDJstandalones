@@ -123,9 +123,10 @@ std::vector<int> analyzer_createobjects::jet_passTagger( ) {
 
   for(int i=0; i<aodcalojet_list.size(); ++i){
    int aodcalojetindex = aodcalojet_list[i];
-   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >  tag_minIPsig  &&
-       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >  tag_minTA     &&
-       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <  tag_maxAmax  )
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  tag_minIPsig  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  tag_minTA     &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  tag_maxAmax   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >= 0.0)
     {
      taglist.push_back(aodcalojetindex);
     }
@@ -195,6 +196,132 @@ bool analyzer_createobjects::TA_SBL(int i){
   if(Shifted_CaloJetMedianLog10TrackAngle.at(i) > -2.4 && Shifted_CaloJetMedianLog10TrackAngle.at(i) < tag_minTA) return true;
   else return false;
 }
+
+//---ZDark Ntags
+std::vector<int> analyzer_createobjects::jet_passTagger_h150_llp20_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.25  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.75 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.4   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+std::vector<int> analyzer_createobjects::jet_passTagger_h150_llp50_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.25  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.75 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.4   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+std::vector<int> analyzer_createobjects::jet_passTagger_h175_llp20_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.25  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.75 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.3   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+std::vector<int> analyzer_createobjects::jet_passTagger_h175_llp50_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.25  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.75 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.4   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+std::vector<int> analyzer_createobjects::jet_passTagger_h200_llp20_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.25  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.75 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.4   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+std::vector<int> analyzer_createobjects::jet_passTagger_h200_llp50_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.25  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.75 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.3   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+std::vector<int> analyzer_createobjects::jet_passTagger_h250_llp50_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.0  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.5 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.9   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+std::vector<int> analyzer_createobjects::jet_passTagger_h500_llp200_ct100( ) {
+  std::vector<int> taglist;
+  for(int i=0; i<aodcalojet_list.size(); ++i){
+   int aodcalojetindex = aodcalojet_list[i];
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  1.15  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  -1.5 &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  0.9   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0)
+    {
+     taglist.push_back(aodcalojetindex);
+    }
+  }
+  return taglist;
+}
+
+
+
+
+//---End ZDark NTags
+
 
 std::vector<int> analyzer_createobjects::jet_passTaggerSB1( ) {
   std::vector<int> taglist;
@@ -585,9 +712,18 @@ std::vector<int> analyzer_createobjects::jet_passID( int bitnr, TString jettype,
 
    // WHAT ABOUT JET ID?
    bool pass_kin = jetpt > jetPtCut && ( fabs(jeteta) < jetEtaCut ) ;
-              
-   if( pass_kin && pass_overlap )
+   bool HEMFailure = false; //part of the HEM failure of 2018 
+   bool failPhi = false;
+   bool failEta = false;
+   bool shouldFail = false;
+   if( ( jetphi > -1.57 && jetphi < -0.87 ) && ( jeteta < -1.3 && jeteta > -3.0 ) ) HEMFailure=true;   
+   //if( jetphi > -1.57 && jetphi < -0.87  ) failPhi=true;   
+   //if( jeteta < -1.3  && jeteta > -3.0   ) failEta=true;   
+   //if( failPhi && failEta ) shouldFail = true;
+   //std::cout << "HEM Failure: "<<HEMFailure << "  Phi: "<<jetphi<<" Eta: "<<jeteta<<"   Should Fail? "<<shouldFail<<std::endl;           
+   if( pass_kin && pass_overlap /*&& !HEMFailure*/ )
    {
+    //std::cout <<"made it into list"<<std::endl;
     jetlist.push_back(i);
    } // if pass_bit && pass_kin
   }// for(int i = 0; i < nJet; i++)
