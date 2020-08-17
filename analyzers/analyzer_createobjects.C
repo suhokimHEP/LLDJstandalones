@@ -807,8 +807,16 @@ Float_t analyzer_createobjects::getMuonPt(int i, TString sysbinname){
     //Muon passes pt cut 
     Float_t muonPt = AOD_muPt->at(i);
     Float_t muonEnergy = muonPt*TMath::CosH( AOD_muEta->at(i) );
-    if(sysbinname=="_MESUp"  ){ muonEnergy*=(1.0 + 0.020); }
-    if(sysbinname=="_MESDown"){ muonEnergy*=(1.0 - 0.020); }
+    if(sysbinname=="_MESUp" )
+	{
+	if(fabs(AOD_muEta->at(i)<2.1)) {muonEnergy*=(1.0 + 0.003); }
+	else	{ muonEnergy*=(1.0 + 0.010); }
+	}
+    if(sysbinname=="_MESDown")
+	{
+	if(fabs(AOD_muEta->at(i)<2.1))	{ muonEnergy*=(1.0 - 0.003); }
+	else	{ muonEnergy*=(1.0 - 0.010); }
+	}
     
     muonPt = muonEnergy/TMath::CosH( AOD_muEta->at(i) );
     return muonPt;
