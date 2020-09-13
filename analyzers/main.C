@@ -281,8 +281,6 @@ int main(int argc, char **argv){
   analyzer.initPhoHistograms( unccategory );
   analyzer.initMETHTHistograms( unccategory );
   analyzer.initWeightHistograms( unccategory );
-  analyzer.initTransverseMassHistograms( unccategory ); 
-  analyzer.initWbosonPtHistograms( unccategory ); 
   //analyzer.initExtraHistograms( unccategory );
   analyzer.initAODCaloJetBasicHistograms( unccategory );
   analyzer.initAODCaloJetStudyHistograms( unccategory );

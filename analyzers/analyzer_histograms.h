@@ -101,16 +101,6 @@ public :
  Bool_t        fillWeightHistograms(Float_t weight, int selbin);
  Bool_t        writeWeightHistograms(int selbin);
  Bool_t        deleteWeightHistograms(int selbin);
-// Transverse Mass histograms
- Bool_t        initTransverseMassHistograms( TString uncbin );	
- Bool_t        fillTransverseMassHistograms(Float_t weight, int selbin);
- Bool_t        writeTransverseMassHistograms(int selbin);
- Bool_t        deleteTransverseMassHistograms(int selbin);
-// Wboson Transverse Momentum histograms 
- Bool_t        initWbosonPtHistograms( TString uncbin );	
- Bool_t        fillWbosonPtHistograms(Float_t weight, int selbin);
- Bool_t        writeWbosonPtHistograms(int selbin);
- Bool_t        deleteWbosonPtHistograms(int selbin);
 
  // Trigger Turn On Curves
  Bool_t        initTTOCHistograms( TString uncbin );
