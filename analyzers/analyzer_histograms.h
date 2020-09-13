@@ -96,12 +96,17 @@ public :
  Bool_t        fillMETHTHistograms(Float_t weight, int selbin);
  Bool_t        writeMETHTHistograms(int selbin);
  Bool_t        deleteMETHTHistograms(int selbin);
+ // Weight Variables
+ Bool_t        initWeightHistograms( TString uncbin );
+ Bool_t        fillWeightHistograms(Float_t weight, int selbin);
+ Bool_t        writeWeightHistograms(int selbin);
+ Bool_t        deleteWeightHistograms(int selbin);
 // Transverse Mass histograms
  Bool_t        initTransverseMassHistograms( TString uncbin );	
  Bool_t        fillTransverseMassHistograms(Float_t weight, int selbin);
  Bool_t        writeTransverseMassHistograms(int selbin);
  Bool_t        deleteTransverseMassHistograms(int selbin);
-//Wboson Transverse Momentum histograms 
+// Wboson Transverse Momentum histograms 
  Bool_t        initWbosonPtHistograms( TString uncbin );	
  Bool_t        fillWbosonPtHistograms(Float_t weight, int selbin);
  Bool_t        writeWbosonPtHistograms(int selbin);
@@ -319,6 +324,22 @@ public :
  TH1F*  h_AODnVtx                  [SELBINNAMESIZE];
  TH1F*  h_AODnTruePU               [SELBINNAMESIZE];
 
+ // Weight
+ TH2F*  h_eleID              [SELBINNAMESIZE];
+ TH2F*  h_muonID             [SELBINNAMESIZE];
+ TH2F*  h_muonISO            [SELBINNAMESIZE];
+ TH1F*  h_LeptonSF            [SELBINNAMESIZE];
+
+ TH1F*  h_eleID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonISO_Unc               [SELBINNAMESIZE];
+ TH1F*  h_LeptonSF_Unc               [SELBINNAMESIZE];
+
+ TH1F*  h_LumiWeight              [SELBINNAMESIZE];
+ TH1F*  h_PUWeight                  [SELBINNAMESIZE];
+ TH1F*  h_GenEventWeight               [SELBINNAMESIZE];
+ TH1F*  h_OtherWeight               [SELBINNAMESIZE];
+ TH1F*  h_FullWeight               [SELBINNAMESIZE];
  
  // nJets
  TH1F*  h_nSelectedAODCaloJet_L1PFTag    [SELBINNAMESIZE];

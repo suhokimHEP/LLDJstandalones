@@ -807,8 +807,16 @@ Float_t analyzer_createobjects::getMuonPt(int i, TString sysbinname){
     //Muon passes pt cut 
     Float_t muonPt = AOD_muPt->at(i);
     Float_t muonEnergy = muonPt*TMath::CosH( AOD_muEta->at(i) );
-    if(sysbinname=="_MESUp"  ){ muonEnergy*=(1.0 + 0.020); }
-    if(sysbinname=="_MESDown"){ muonEnergy*=(1.0 - 0.020); }
+    if(sysbinname=="_MESUp" )
+	{
+	if(fabs(AOD_muEta->at(i)<2.1)) {muonEnergy*=(1.0 + 0.003); }
+	else	{ muonEnergy*=(1.0 + 0.010); }
+	}
+    if(sysbinname=="_MESDown")
+	{
+	if(fabs(AOD_muEta->at(i)<2.1))	{ muonEnergy*=(1.0 - 0.003); }
+	else	{ muonEnergy*=(1.0 - 0.010); }
+	}
     
     muonPt = muonEnergy/TMath::CosH( AOD_muEta->at(i) );
     return muonPt;
@@ -1106,6 +1114,9 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   Shifted_elePt                       .clear();  
   Shifted_phoPt                       .clear();  
   Shifted_muPt                        .clear();  
+  Shifted_eleEn                       .clear();  
+  Shifted_phoEn                       .clear();  
+  Shifted_muEn                        .clear();  
   Shifted_CaloJetPt                   .clear();  
   Shifted_CaloJetAlphaMax             .clear();  
   Shifted_CaloJetMedianLog10IPSig     .clear();  
@@ -1114,12 +1125,15 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   //Objects: do shift inside get function
   for(unsigned int i=0; i<AOD_elePt->size(); ++i){
     Shifted_elePt.push_back( getElectronPt(i,uncbin) );
+    Shifted_eleEn.push_back( getElectronPt(i,uncbin)*TMath::CosH(AOD_eleEta->at(i)));
   }
   for(unsigned int i=0; i<AOD_phoPt->size(); ++i){
     Shifted_phoPt.push_back( getPhotonPt(i,uncbin) );
+    Shifted_phoEn.push_back( getPhotonPt(i,uncbin)*TMath::CosH(AOD_phoEta->at(i)) );
   }
   for(unsigned int i=0; i<AOD_muPt->size(); ++i){
     Shifted_muPt.push_back( getMuonPt(i,uncbin) );
+    Shifted_muEn.push_back( getMuonPt(i,uncbin)*TMath::CosH(AOD_muEta->at(i)) );
   }
   for(unsigned int i=0; i<AODCaloJetPt->size(); ++i){
     Shifted_CaloJetPt.push_back( AODCaloJetPt->at(i));//no correction yet

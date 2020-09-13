@@ -27,6 +27,7 @@ Bool_t analyzer_histograms::fillSelectedHistograms(Float_t weight, int selbin)
  fillLepHistograms               ( weight, selbin );
  fillPhoHistograms               ( weight, selbin );
  fillMETHTHistograms             ( weight, selbin );
+ fillWeightHistograms            ( weight, selbin );
  fillTransverseMassHistograms    ( weight, selbin );    
  fillWbosonPtHistograms		 ( weight, selbin );  
  fillAODCaloJetMultHistograms    ( weight, selbin );
@@ -44,6 +45,7 @@ Bool_t analyzer_histograms::writeSelectedHistograms(int selbin)
  writeLepHistograms               ( selbin );
  writePhoHistograms               ( selbin );
  writeMETHTHistograms             ( selbin );
+ writeWeightHistograms             ( selbin );
  writeTransverseMassHistograms    ( selbin ); 
  writeWbosonPtHistograms          ( selbin );  
  writeAODCaloJetMultHistograms    ( selbin );
@@ -536,6 +538,122 @@ Bool_t analyzer_histograms::deleteMETHTHistograms(int selbin)
   if(h_AODnGoodVtx[selbin]!=NULL)     h_AODnGoodVtx             [selbin]->Delete(); 
   if(h_AODnVtx[selbin]!=NULL)         h_AODnVtx                 [selbin]->Delete(); 
   if(h_AODnTruePU[selbin]!=NULL)      h_AODnTruePU              [selbin]->Delete(); 
+  return kTRUE;
+}
+
+//----------------------------initWeightHistograms
+Bool_t analyzer_histograms::initWeightHistograms( TString uncbin ){
+  
+  for(unsigned int i=0; i<selbinnames.size(); ++i){
+    hist_file_out[i]->cd();
+    //deleteWeightHistograms(i);
+    TString hname_eleID                       = "h_"+selbinnames[i]+"_eleID"  +uncbin ; 
+    TString hname_muonID                      = "h_"+selbinnames[i]+"_muonID"  +uncbin ; 
+    TString hname_muonISO                     = "h_"+selbinnames[i]+"_muonISO"  +uncbin ; 
+    TString hname_LeptonSF                    = "h_"+selbinnames[i]+"_LeptonSF"  +uncbin ; 
+
+    TString hname_eleID_Unc              = "h_"+selbinnames[i]+"_eleID_Unc"  +uncbin ; 
+    TString hname_muonID_Unc              = "h_"+selbinnames[i]+"_muonID_Unc"  +uncbin ; 
+    TString hname_muonISO_Unc              = "h_"+selbinnames[i]+"_muonISO_Unc"  +uncbin ; 
+    TString hname_LeptonSF_Unc              = "h_"+selbinnames[i]+"_LeptonSF_Unc"  +uncbin ; 
+
+    //TString hname_LumiWeight                  = "h_"+selbinnames[i]+"_LumiWeight"  +uncbin ; 
+    //TString hname_PUWeight                    = "h_"+selbinnames[i]+"_PUWeight"  +uncbin ; 
+    //TString hname_GenEventWeight              = "h_"+selbinnames[i]+"_GenEventWeight"  +uncbin ; 
+    //TString hname_OtherWeight              = "h_"+selbinnames[i]+"_OtherWeight"  +uncbin ; 
+    TString hname_FullWeight              = "h_"+selbinnames[i]+"_FullWeight"  +uncbin ; 
+
+    
+    h_eleID          [i] = initSingleHistogramTH2F( hname_eleID   , "eleID  " , 10, 0.96, 1.01, 10, 0.96, 1.01); 
+    h_muonID          [i] = initSingleHistogramTH2F( hname_muonID   , "muonID  " , 20, 0.985, 1.005, 20, 0.985, 1.005); 
+    h_muonISO          [i] = initSingleHistogramTH2F( hname_muonISO   , "muonISO  " , 20, 0.985, 1.005, 20, 0.985, 1.005); 
+    h_LeptonSF          [i] = initSingleHistogramTH1F( hname_LeptonSF   , "LeptonSF  " , 100, 0.7, 1.1); 
+
+    h_eleID_Unc          [i] = initSingleHistogramTH1F( hname_eleID_Unc   , "eleID_Unc  " , 100, 0, .1);
+    h_muonID_Unc          [i] = initSingleHistogramTH1F( hname_muonID_Unc   , "muonID_Unc  " , 100, 0, .1); 
+    h_muonISO_Unc          [i] = initSingleHistogramTH1F( hname_muonISO_Unc   , "muonISO_Unc  " , 100, 0, .1); 
+    h_LeptonSF_Unc          [i] = initSingleHistogramTH1F( hname_LeptonSF_Unc   , "LeptonSF_Unc  " , 100, 0, .1); 
+
+    //h_LumiWeight          [i] = initSingleHistogramTH1F( hname_LumiWeight   , "LumiWeight  " , 200, 0, 10); 
+    //h_PUWeight          [i] = initSingleHistogramTH1F( hname_PUWeight   , "PUWeight  " , 200, 0, 10); 
+    //h_GenEventWeight          [i] = initSingleHistogramTH1F( hname_GenEventWeight   , "GenEventWeight  " , 200, 0, 10); 
+    //h_OtherWeight          [i] = initSingleHistogramTH1F( hname_OtherWeight   , "OtherWeight  " , 200, 0, 10); 
+    h_FullWeight          [i] = initSingleHistogramTH1F( hname_FullWeight   , "FullWeight  " , 100, -5, 5); 
+  }
+  
+  return kTRUE;
+}
+
+//----------------------------fillWeightHistograms
+Bool_t analyzer_histograms::fillWeightHistograms(Float_t weight, int selbin)
+{
+  hist_file_out[selbin]->cd();
+ if(isMC){
+ if (dofillselbin[5]||dofillselbin[9]||dofillselbin[13]){
+ h_eleID             [selbin]->Fill(eleID_ind[0], eleID_ind[1]); 
+ h_eleID_Unc         [selbin]->Fill(eleID_Unc);  
+} 
+ if (dofillselbin[7]||dofillselbin[11]||dofillselbin[15]){
+ h_muonID             [selbin]->Fill(muonID_ind[0], muonID_ind[1]);  
+ h_muonISO             [selbin]->Fill(muonISO_ind[0], muonISO_ind[1]);  
+ h_muonID_Unc         [selbin]->Fill(muonID_Unc);  
+ h_muonISO_Unc         [selbin]->Fill(muonISO_Unc);  
+}
+ h_LeptonSF         [selbin]->Fill(w_LeptonSF);  
+ h_LeptonSF_Unc         [selbin]->Fill(LeptonSF_Unc);  
+ 
+ //h_LumiWeight         [selbin]->Fill(w_Lumi);  
+ //h_PUWeight         [selbin]->Fill(w_PU);  
+ //h_GenEventWeight         [selbin]->Fill(w_GenEvent);  
+ //h_OtherWeight         [selbin]->Fill(w_other);  
+ }
+ h_FullWeight         [selbin]->Fill(weight);  
+ 
+ return kTRUE;
+}
+
+//----------------------------writeWeightHistograms
+Bool_t analyzer_histograms::writeWeightHistograms(int selbin)
+{
+  hist_file_out[selbin]->cd();
+  h_eleID                  [selbin]->Write(); 
+  h_muonID                 [selbin]->Write(); 
+  h_muonISO                [selbin]->Write(); 
+  h_LeptonSF               [selbin]->Write(); 
+
+  h_eleID_Unc         [selbin]->Write(); 
+  h_muonID_Unc         [selbin]->Write(); 
+  h_muonISO_Unc         [selbin]->Write(); 
+  h_LeptonSF_Unc         [selbin]->Write(); 
+
+  //h_LumiWeight             [selbin]->Write(); 
+  //h_PUWeight               [selbin]->Write(); 
+  //h_GenEventWeight         [selbin]->Write(); 
+  //h_OtherWeight         [selbin]->Write(); 
+  h_FullWeight         [selbin]->Write(); 
+  return kTRUE;
+}
+
+//----------------------------deleteWeightHistograms
+Bool_t analyzer_histograms::deleteWeightHistograms(int selbin)
+{
+  //printf("deleteWeightHistograms\n");
+  hist_file_out[selbin]->cd();
+  if(h_eleID         [selbin]!=NULL)   h_eleID                    [selbin]->Delete(); 
+  if(h_muonID        [selbin]!=NULL)   h_muonID                   [selbin]->Delete(); 
+  if(h_muonISO       [selbin]!=NULL)   h_muonISO                  [selbin]->Delete(); 
+  if(h_LeptonSF      [selbin]!=NULL)   h_LeptonSF                 [selbin]->Delete(); 
+
+  if(h_eleID_Unc[selbin]!=NULL)   h_eleID_Unc           [selbin]->Delete(); 
+  if(h_muonID_Unc[selbin]!=NULL)   h_muonID_Unc           [selbin]->Delete(); 
+  if(h_muonISO_Unc[selbin]!=NULL)   h_muonISO_Unc           [selbin]->Delete(); 
+  if(h_LeptonSF_Unc[selbin]!=NULL)   h_LeptonSF_Unc           [selbin]->Delete(); 
+
+  //if(h_LumiWeight    [selbin]!=NULL)   h_LumiWeight               [selbin]->Delete(); 
+  //if(h_PUWeight      [selbin]!=NULL)   h_PUWeight                 [selbin]->Delete(); 
+  //if(h_GenEventWeight[selbin]!=NULL)   h_GenEventWeight           [selbin]->Delete(); 
+  //if(h_OtherWeight[selbin]!=NULL)   h_OtherWeight           [selbin]->Delete(); 
+  if(h_FullWeight[selbin]!=NULL)   h_FullWeight           [selbin]->Delete(); 
   return kTRUE;
 }
 
