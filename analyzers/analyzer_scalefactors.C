@@ -1,5 +1,6 @@
 #include "analyzer_scalefactors.h"
 #include <iostream>
+#include <numeric>
 
 //----------------------------analyzer_scalefactors
 analyzer_scalefactors::analyzer_scalefactors() 

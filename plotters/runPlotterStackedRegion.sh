@@ -9,7 +9,7 @@ regions=( \
 # "TwoEleZH"      \
 # "TwoMuDY"       \
 # "TwoMuSig"      \
- "TwoMuZH"       \
+# "TwoMuZH"       \
 # "EleWHSig"  \
 # "MuWHSig"   \
 # "EleWH"     \
@@ -28,8 +28,8 @@ doHIPs=( \
  #"kTRUE" \
 )
 
-useEOS="kFALSE"
-#useEOS="kTRUE"
+#useEOS="kFALSE"
+useEOS="kTRUE"
 description=""
 
 for region in ${regions[@]}

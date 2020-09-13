@@ -1027,7 +1027,6 @@ void analyzer_createobjects::makeDilep(TLorentzVector *fv_1, TLorentzVector *fv_
 void analyzer_createobjects::shiftCollections( TString uncbin )
 {
 
-<<<<<<< HEAD
   Shifted_elePt                       .clear();  
   Shifted_phoPt                       .clear();  
   Shifted_muPt                        .clear();  
@@ -1038,17 +1037,6 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   Shifted_CaloJetAlphaMax             .clear();  
   Shifted_CaloJetMedianLog10IPSig     .clear();  
   Shifted_CaloJetMedianLog10TrackAngle.clear();  
-  
-=======
-  Shifted_elePt                       .clear();
-  Shifted_phoPt                       .clear();
-  Shifted_muPt                        .clear();
-  Shifted_CaloJetPt                   .clear();
-  Shifted_CaloJetAlphaMax             .clear();
-  Shifted_CaloJetMedianLog10IPSig     .clear();
-  Shifted_CaloJetMedianLog10TrackAngle.clear();
-
->>>>>>> upstream/master
   //Objects: do shift inside get function
   for(unsigned int i=0; i<AOD_elePt->size(); ++i){
     Shifted_elePt.push_back( getElectronPt(i,uncbin) );

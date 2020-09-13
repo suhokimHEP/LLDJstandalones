@@ -172,9 +172,9 @@ TFile *outfile_bkgest = 0;
   if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   base_weight = event_weight; ///0.8546545;
   ele_weight = 1.0;
-  if(isMC) ele_weight  = makeElectronWeight( electron_list );
+  if(isMC) ele_weight  =  makeElectronWeight( electron_list, eleID_Unc, eleID_ind);
   mu_weight = 1.0;
-  if(isMC) mu_weight   = makeMuonWeight( muon_list );
+  if(isMC) mu_weight   = makeMuonWeight( muon_list, muonID_Unc, muonID_ind );
   if(isMC) event_weight *= ctauEventWeight;
   // electrons and muons also have an associated scale factor for MC  
   if(isMC){ 

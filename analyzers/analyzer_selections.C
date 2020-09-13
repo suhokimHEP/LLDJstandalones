@@ -18,10 +18,11 @@ void analyzer_selections::clearSelections()
  selvecBaseDY      .clear() ;   
  selvecBaseOffZ    .clear() ;   
  selvecBaseNoPair  .clear() ;
+
  selvecOneEleSig   .clear() ;   
  selvecTwoEleSig   .clear() ;   
  selvecOneMuSig    .clear() ;   
- selvecTwoMuSig    .clear() ;  
+ selvecTwoMuSig    .clear() ;   
  selvecOneEleDY    .clear() ;   
  selvecTwoEleDY    .clear() ;   
  selvecOneMuDY     .clear() ;   
@@ -62,7 +63,6 @@ void analyzer_selections::clearSelections()
  bitsPassEleMuOSOFL  = 0;
  bitsPassOnePho      = 0;
 
-
  keyPassOneEleSig   = 0;
  keyPassTwoEleSig   = 0;
  keyPassOneMuSig    = 0;
@@ -84,7 +84,8 @@ void analyzer_selections::clearSelections()
  keyPassEleMuOSOF   = 0;
  keyPassEleMuOSOFL  = 0;
  keyPassOnePho      = 0;
- 
+
+
 }
 
 void analyzer_selections::setSelections()
@@ -98,14 +99,12 @@ void analyzer_selections::setSelections()
 
  selvecBaseZH   .push_back( passGoodVtx );
  selvecBaseZH   .push_back( passZWindow );
- //selvecBaseZH   .push_back( true  );
  selvecBaseZH   .push_back( passPTOSSF  );
  selvecBaseZH   .push_back( passOneJet  );
- 
+
  selvecBaseDY      .push_back( passGoodVtx );
  selvecBaseDY      .push_back( passZWindow );
- //selvecBaseDY      .push_back( true );
- selvecBaseDY      .push_back( passLowPTOSSF );
+ selvecBaseDY      .push_back( passLowPTOSSF);
  selvecBaseDY      .push_back( passOneJet  );
 
  //Usually not used. Hacking right now to get inclusive Z plots
@@ -120,12 +119,11 @@ void analyzer_selections::setSelections()
  selvecBaseNoPair  .push_back( passOneJet   );
 
  // full selections
- // ZH signal
+ // signal
  selvecOneEleSig   .push_back( passSingleEle  ) ;   
  selvecTwoEleSig   .push_back( passDoubleEle  ) ;   
  selvecOneMuSig    .push_back( passSingleMu   ) ;   
  selvecTwoMuSig    .push_back( passDoubleMu   ) ;   
-
  for(unsigned int b=0; b<selvecBaseSig.size(); ++b)
  {
   selvecOneEleSig   .push_back( selvecBaseSig.at(b) ) ;   
@@ -133,8 +131,7 @@ void analyzer_selections::setSelections()
   selvecOneMuSig    .push_back( selvecBaseSig.at(b) ) ;   
   selvecTwoMuSig    .push_back( selvecBaseSig.at(b) ) ;   
  }
-
-// DY
+ // DY
  selvecOneEleDY    .push_back( passSingleEle  ) ;   
  selvecTwoEleDY    .push_back( passDoubleEle  ) ;   
  selvecOneMuDY     .push_back( passSingleMu   ) ;   
@@ -170,8 +167,6 @@ void analyzer_selections::setSelections()
   selvecOneMuOffZ    .push_back( selvecBaseOffZ.at(b) ) ;   
   selvecTwoMuOffZ    .push_back( selvecBaseOffZ.at(b) ) ;   
  }
- 
-
  // NoPair
  selvecOneEleNoPair.push_back( passSingleEle  ) ; 
  selvecOneMuNoPair .push_back( passSingleMu   ) ;   
@@ -264,7 +259,6 @@ Bool_t analyzer_selections::askPassSingleMu()
  } 
  return doespass;
 }
-
 
 Bool_t analyzer_selections::askPassDoubleMu()
 {
