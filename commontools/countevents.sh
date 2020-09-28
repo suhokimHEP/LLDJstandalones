@@ -7,7 +7,7 @@ xcDY10to50="18610.0"
 #Other ref: https://cms-pdmv.cern.ch/mcm/requests?prepid=*GS*&dataset_name=DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8&page=0&shown=524415
 #Other ref: https://cms-gen-dev.cern.ch/xsdb/?columns=67108863&currentPage=0&pageSize=10&searchQuery=DAS%3DDYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
 
-xcDY50="6100.8" #5765.4 * 1.05
+xcDY50="5765.4" #5765.4 * 1.05
 #xcDY50="5765.4"
 #Ref: https://cms-gen-dev.cern.ch/xsdb/?columns=67108863&currentPage=0&pageSize=10&searchQuery=DAS%3DDYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8
 #Ref: https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV FEWZ 3.1.b2 1921.8*3
