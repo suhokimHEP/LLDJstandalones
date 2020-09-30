@@ -81,8 +81,10 @@ public :
    //mu mu
    ULong64_t       AOD_HLT_Mu17Mu8;
    ULong64_t       AOD_HLT_Mu17TkMu8;
+   ULong64_t       AOD_HLT_TkMu17TkMu8;
    ULong64_t       AOD_HLT_Mu17Mu8_noDZ;
    ULong64_t       AOD_HLT_Mu17TkMu8_noDZ;
+   ULong64_t       AOD_HLT_TkMu17TkMu8_noDZ;
    ULong64_t       AOD_HLT_Mu17Mu8_isPS;
    ULong64_t       AOD_HLT_Mu17TkMu8_isPS;
    ULong64_t       AOD_HLT_Mu17Mu8_noDZ_isPS;
@@ -298,8 +300,10 @@ public :
    //mu mu
    TBranch        *b_AOD_HLT_Mu17Mu8;   //!
    TBranch        *b_AOD_HLT_Mu17TkMu8;   //!
+   TBranch        *b_AOD_HLT_TkMu17TkMu8;   //!
    TBranch        *b_AOD_HLT_Mu17Mu8_noDZ;   //!
    TBranch        *b_AOD_HLT_Mu17TkMu8_noDZ;   //!
+   TBranch        *b_AOD_HLT_TkMu17TkMu8_noDZ;   //!
    TBranch        *b_AOD_HLT_Mu17Mu8_isPS;   //!
    TBranch        *b_AOD_HLT_Mu17TkMu8_isPS;   //!
    TBranch        *b_AOD_HLT_Mu17Mu8_noDZ_isPS;   //!

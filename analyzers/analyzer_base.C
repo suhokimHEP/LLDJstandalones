@@ -231,8 +231,10 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    //mu mu
    fChain->SetBranchAddress("AOD_HLT_Mu17Mu8", &AOD_HLT_Mu17Mu8, &b_AOD_HLT_Mu17Mu8);
    fChain->SetBranchAddress("AOD_HLT_Mu17TkMu8", &AOD_HLT_Mu17TkMu8, &b_AOD_HLT_Mu17TkMu8);
+   fChain->SetBranchAddress("AOD_HLT_TkMu17TkMu8", &AOD_HLT_TkMu17TkMu8, &b_AOD_HLT_TkMu17TkMu8);
    fChain->SetBranchAddress("AOD_HLT_Mu17Mu8_noDZ", &AOD_HLT_Mu17Mu8_noDZ, &b_AOD_HLT_Mu17Mu8_noDZ);
    fChain->SetBranchAddress("AOD_HLT_Mu17TkMu8_noDZ", &AOD_HLT_Mu17TkMu8_noDZ, &b_AOD_HLT_Mu17TkMu8_noDZ);
+   fChain->SetBranchAddress("AOD_HLT_TkMu17TkMu8_noDZ", &AOD_HLT_TkMu17TkMu8_noDZ, &b_AOD_HLT_TkMu17TkMu8_noDZ);
    fChain->SetBranchAddress("AOD_HLT_Mu17Mu8_isPS", &AOD_HLT_Mu17Mu8_isPS, &b_AOD_HLT_Mu17Mu8_isPS);
    fChain->SetBranchAddress("AOD_HLT_Mu17TkMu8_isPS", &AOD_HLT_Mu17TkMu8_isPS, &b_AOD_HLT_Mu17TkMu8_isPS);
    fChain->SetBranchAddress("AOD_HLT_Mu17Mu8_noDZ_isPS", &AOD_HLT_Mu17Mu8_noDZ_isPS, &b_AOD_HLT_Mu17Mu8_noDZ_isPS);
