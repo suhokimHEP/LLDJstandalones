@@ -19,16 +19,17 @@ cp ../../puWeights_DoubleEG_69200.root          .
 cp ../../puWeights_DoubleMu_69200.root          .
 cp ../../puWeights_MuonEG_69200.root            .
 cp ../../puWeights_SinglePhoton_69200.root      .
-cp ../../egammaEffi_MoriondBH_eleTight.root     .
-cp ../../egammaEffi_MoriondBH_eleMedium.root    .
 cp ../../egammaEffi_MoriondBH_eleLoose.root     .
-cp ../../EleLeg1.root                           .
-cp ../../EleLeg2.root                           .
-cp ../../Muon17.root                            .
-cp ../../Muon8.root                             .
-cp ../../Run_SF_ID.root                         .
-cp ../../Run_SF_ISO.root                        .
+cp ../../egammaEffi_MoriondBH_eleMedium.root     .
+cp ../../egammaEffi_MoriondBH_eleTight.root     .
+cp ../../RunABCD_SF_ID.root     .
+cp ../../RunABCD_SF_ISO.root     .
+cp ../../Run_SF_ID.root     .
+cp ../../Run_SF_ISO.root     .
+cp ../../Muon17.root     .
+cp ../../Muon8.root     .
 cp ../../feff_ZH.root                           .
+cp ../../egammaEffi.txt_EGM2D_updatedAll.root                           .
 
 
 scramv1 build -j 10

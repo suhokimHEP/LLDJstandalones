@@ -6,65 +6,66 @@
 # source xx/LLDJ/setup.sh for ${aversion}
 
 doSubmit=true
-lumi=16226.2 #117085.2 #16226.2 # 7.57582+8.43466+0.2156965 
+lumi=20000. #59403.33 #20000. # 7.57582+8.43466+0.2156965 
+#lumi=16150. #59403.33 #20000. # 7.57582+8.43466+0.2156965 
 nevents=-1
-maxfilesperjob=200   # 500=6h
+maxfilesperjob=200  # 500=6h
 
 samples=(  \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-2"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-20"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-200"    \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-2"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-20"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-200"    \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-2"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-20"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-200"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-2"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-20"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-200"  \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-2"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-20"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-200"  \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-2"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-20"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-200"  \ 
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"    \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"    \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"  \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"  \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"  \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-5"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-50"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-500"    \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-5"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-50"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-500"    \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-5"      \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-50"     \
- "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-500"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-5"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-50"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-500"  \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-5"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-50"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-500"  \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-5"    \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-50"   \
- "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-500"  \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-2"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-20"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-200"    \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-2"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-20"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-200"    \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-2"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-20"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-200"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-2"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-20"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-200"  \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-2"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-20"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-200"  \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-2"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-20"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-200"  \ 
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"    \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"    \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-3"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-30"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-300"  \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-3"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-30"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-300"  \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-3"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-30"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-300"  \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-5"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-50"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-500"    \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-5"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-50"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-500"    \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-5"      \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-50"     \
+## "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-500"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-5"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-50"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-500"  \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-5"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-50"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-500"  \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-5"    \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-50"   \
+## "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-500"  \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"      \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"     \
  "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"    \
@@ -89,275 +90,275 @@ samples=(  \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"   \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"  \
  "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000" \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-2"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-20"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-200"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-2"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-20"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-200"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-2"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-20"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-200"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-2"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-20"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-200"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-2"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-20"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-200"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-2"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-20"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-200"  \ 
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-3"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-30"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-300"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-3"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-30"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-300"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-3"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-30"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-300"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-3"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-30"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-300"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-3"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-30"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-300"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-3"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-30"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-300"  \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-5"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-50"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-500"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-5"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-50"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-500"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-5"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-50"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-500"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-5"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-50"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-500"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-5"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-50"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-500"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-5"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-50"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-500"  \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"   \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"   \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"     \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"    \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000" \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000" \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"   \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"  \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000" \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"      \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"     \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"    \
- "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"   \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"        \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"       \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"      \
- "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"     \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"        \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"       \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"      \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"     \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"        \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"       \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"      \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"     \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"        \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"       \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"      \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"     \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"        \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"       \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"      \
- "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"     \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"      \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"     \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"    \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"   \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"      \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"     \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"    \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"   \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"      \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"     \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"    \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"   \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"      \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"     \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"    \
- "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"   \
-##### Data
-#### SingleMu
-#### "Data_SingleMu_H_3"      \
-#### "Data_SingleMu_H_2"      \
-#### "Data_SingleMu_G"        \
-##### "Data_SingleMu_F"        \
-##### "Data_SingleMu_E"        \
-##### "Data_SingleMu_D"        \
-##### "Data_SingleMu_C"        \
-##### "Data_SingleMu_B_2"      \
-##### SingleEle
-#### "Data_SingleEle_H_3"     \
-#### "Data_SingleEle_H_2"     \
-#### "Data_SingleEle_G"       \
-##### "Data_SingleEle_F"       \
-##### "Data_SingleEle_E"       \
-##### "Data_SingleEle_D"       \
-##### "Data_SingleEle_C"       \
-##### "Data_SingleEle_B_2"     \
-## DoubleMu
-# "Data_DoubleMu_H_3"      \
-# "Data_DoubleMu_H_2"      \
-# "Data_DoubleMu_G"        \
-## "Data_DoubleMu_F"        \
-## "Data_DoubleMu_E"        \
-## "Data_DoubleMu_D"        \
-## "Data_DoubleMu_C"        \
-## "Data_DoubleMu_B_2"      \
-## DoubleEG
-# "Data_DoubleEG_H_3"      \
-# "Data_DoubleEG_H_2"      \
-# "Data_DoubleEG_G"        \
-## "Data_DoubleEG_F"        \
-## "Data_DoubleEG_E"        \
-## "Data_DoubleEG_D"        \
-## "Data_DoubleEG_C"        \
-## "Data_DoubleEG_B_2"      \
-## MuonEG
-# "Data_MuonEG_H_3"        \
-# "Data_MuonEG_H_2"        \
-# "Data_MuonEG_G"          \
-## "Data_MuonEG_F"          \
-## "Data_MuonEG_E"          \
-## "Data_MuonEG_D"          \
-## "Data_MuonEG_C"          \
-## "Data_MuonEG_B_2"        \
-## SinglePhoton
-# "Data_SinglePhoton_H_3"  \
-# "Data_SinglePhoton_H_2"  \
-# "Data_SinglePhoton_G"    \
-### "Data_SinglePhoton_F"    \
-### "Data_SinglePhoton_E"    \
-### "Data_SinglePhoton_D"    \
-### "Data_SinglePhoton_C"    \
-### "Data_SinglePhoton_B_2"  \
-#### MC backgrounds
-### DY
-### "DYJetsToLL_M-5to50_HT-70to100"   \
-# "DYJetsToLL_M-5to50_HT-100to200"  \
-# "DYJetsToLL_M-5to50_HT-200to400"  \
-# "DYJetsToLL_M-5to50_HT-400to600"  \
-# "DYJetsToLL_M-5to50_HT-600toInf"  \
-# "DYJetsToLL_M-10to50"             \
-# "DYJetsToLL_M-50"                 \
-#"mad_DYJetsToLL_M-50"                 \
-#### WJets
-# "WJetsToLNu"     \
-#### TTbar
-# "TTJets"         \
-# "TTtoLL"         \
-# "TTtoLfromTbar"  \
-# "TTtoLfromT"     \
-## Single Top
-# "ST_s-channel_4f_leptonDecays"             \
-# "ST_t-channel_antitop_4f_inclusiveDecays"  \
-# "ST_t-channel_top_4f_inclusiveDecays"      \
-# "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
-# "ST_tW_top_5f_NoFullyHadronicDecays"       \
-## GJets
-# "GJets_HT-40To100"   \
-# "GJets_HT-100To200"  \
-# "GJets_HT-200To400"  \
-# "GJets_HT-400To600"  \
-# "GJets_HT-600ToInf"  \
-### Diboson
-# "WW"               \
-# "WZ"               \
-# "ZZ"               \
-# "WWTo2L2Nu"        \
-# "WWToLNuQQ"        \
-# "WZTo1L3Nu"        \
-# "WZTo3LNu"         \
-# "WZToLNu2QorQQ2L"  \
-# "ZZTo2L2Nu"        \
-# "ZZTo2L2Q"         \
-# "ZZTo2Q2Nu"        \
-# "ZZTo4L"           \
-### VGamma
-# "ZGTo2LG"  \
-# "WGToLNuG" \
-### ZH
-# "ggZH_HToBB_ZToLL"  \
-# "ZH_HToBB_ZToLL"    \
-### QCD
-# "QCD_HT100to200"    \
-# "QCD_HT200to300"    \
-# "QCD_HT300to500"    \
-# "QCD_HT500to700"    \
-# "QCD_HT700to1000"   \
-# "QCD_HT1000to1500"  \
-# "QCD_HT1500to2000"  \
-# "QCD_HT2000toInf"   \
-### Signal Samples
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"      \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"     \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"    \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000"   \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1"        \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-10"       \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-100"      \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-15_ctauS-1000"     \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1"      \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10"     \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100"    \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000"   \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1"        \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-10"       \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-100"      \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-40_ctauS-1000"     \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"      \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"     \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"    \
-# "ggZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"   \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1"        \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-10"       \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-100"      \
-# "ZH_HToSSTobbbb_ZToLL_MH-125_MS-55_ctauS-1000"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-2"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-20"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-200"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-2"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-20"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-200"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-2"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-20"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-200"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-2"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-20"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-200"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-2"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-20"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-200"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-2"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-20"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-200"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-2"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-20"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-200"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-2"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-20"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-200"  \ 
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-3"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-30"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-300"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-3"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-30"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-300"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-3"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-30"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-300"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-3"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-30"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-300"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-3"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-30"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-300"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-3"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-30"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-300"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-3"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-30"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-300"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-3"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-30"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-300"  \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-5"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-50"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-500"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-5"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-50"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-500"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-5"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-50"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-500"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-5"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-50"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-500"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-5"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-50"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-500"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-5"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-50"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-500"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-5"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-50"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-500"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-5"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-50"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-500"  \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000"   \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000"   \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000"   \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"      \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"     \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"    \
+## "ZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-10"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-100"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-7_ctauS-1000" \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-10"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-100"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-15_ctauS-1000" \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-10"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-100"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-40_ctauS-1000" \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1"    \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-10"   \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-100"  \
+## "ggZH_HToSSTodddd_ZToLL_MH-125_MS-55_ctauS-1000" \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-2"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-20"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-200"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-2"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-20"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-200"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-2"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-20"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-200"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-2"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-20"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-200"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-2"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-20"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-200"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-2"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-20"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-200"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-2"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-20"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-200"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-2"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-20"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-200"  \ 
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-3"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-30"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-300"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-3"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-30"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-300"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-3"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-30"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-300"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-3"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-30"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-300"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-3"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-30"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-300"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-3"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-30"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-300"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-3"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-30"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-300"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-3"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-30"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-300"  \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-5"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-50"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-500"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-5"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-50"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-500"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-5"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-50"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-500"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-5"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-50"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-500"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-5"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-50"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-500"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-5"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-50"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-500"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-5"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-50"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-500"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-5"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-50"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-500"  \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000"   \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000"   \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000"   \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"      \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"     \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"    \
+## "ZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-10"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-100"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-7_ctauS-1000" \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-10"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-100"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-15_ctauS-1000" \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-10"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-100"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-40_ctauS-1000" \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1"    \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-10"   \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-100"  \
+## "ggZH_HToSSTo4Tau_ZToLL_MH-125_MS-55_ctauS-1000" \
+# "Data_DoubleMu_G"         \
+# "Data_DoubleMu_H"         \
+##"Data_DoubleMuon_A"         \
+##"Data_DoubleMuon_B"         \
+##"Data_DoubleMuon_C"         \
+##"Data_DoubleMuon_D"         \
+# "Data_DoubleEG_G"	\
+# "Data_DoubleEG_H"	\
+##"Data_EGamma_A"         \
+##"Data_EGamma_B"         \
+##"Data_EGamma_C"         \
+##"Data_EGamma_D"         \
+# "Data_MuonEG_G"         \
+# "Data_MuonEG_H"         \
+##"Data_MuonEG_A"         \
+##"Data_MuonEG_B"         \
+##"Data_MuonEG_C"         \
+##"Data_MuonEG_D"         \
+ "mad_DYJetsToLL_M-50"            \
+ "DYJetsToLL_M-50"            \
+ "WJetsToLNu"     \
+ "TTJets"          \
+ "TTtoLL"          \
+ "TTtoLfromT"          \
+ "TTtoLfromTbar"          \
+ #"TTtoLL_mad"          \
+ #"mad_TTJets"          \
+ "ST_s-channel_4f_leptonDecays"             \
+ "ST_t-channel_antitop_4f_inclusiveDecays"  \
+ "ST_t-channel_top_4f_inclusiveDecays"      \
+ "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
+ "ST_tW_top_5f_NoFullyHadronicDecays"        \
+ "WW"                 \
+ "WZ"                 \
+ "ZZ"                 \
+ "WGToLNuG"              \
+ "ZGTo2LG"               \
+ "ggZH_HToBB_ZToLL"  \
+ "ZH_HToBB_ZToLL"    \
+ "QCD_HT100to200"        \
+ "QCD_HT200to300"        \
+ "QCD_HT300to500"        \
+ "QCD_HT500to700"        \
+ "QCD_HT700to1000"       \
+ "QCD_HT1000to1500"      \
+ "QCD_HT1500to2000"      \
+ "QCD_HT2000toInf"       \
 )
 
 printf "Version: ${aversion}\n"
 
 ## compie analyzer
-pushd ${CMSSW_BASE}/src/LLDJstandalones/analyzers
+pushd ${CMSSW_BASE}/src/${FWVersion}/analyzers
 make clean; make 
 popd
 
 ## make info file - put "loggit" on any line you want to keep 
-mkdir -p ${CMSSW_BASE}/src/LLDJstandalones/submitters/gitignore/${aversion}
-about="${CMSSW_BASE}/src/LLDJstandalones/submitters/gitignore/${aversion}/about.txt"
+mkdir -p ${CMSSW_BASE}/src/${FWVersion}/submitters/gitignore/${aversion}
+about="${CMSSW_BASE}/src/${FWVersion}/submitters/gitignore/${aversion}/about.txt"
 printf "## you know why you're running this job\n\n\n\n\n\n"   >  ${about}
-grep -h "loggit" ${CMSSW_BASE}/src/LLDJstandalones/analyzers/* >> ${about}
+grep -h "loggit" ${CMSSW_BASE}/src/${FWVersion}/analyzers/* >> ${about}
  
 makeasubmitdir () {
  printf "Making submits for $1\n"
@@ -372,10 +373,11 @@ makeasubmitdir () {
  
  # write base for submit file
  printf "universe = vanilla\n" > submitfile
- printf "Executable = ${CMSSW_BASE}/src/LLDJstandalones/submitters/runjob.sh\n" >> submitfile
+ printf "Executable = ${CMSSW_BASE}/src/${FWVersion}/submitters/runjob.sh\n" >> submitfile
  printf "Should_Transfer_Files = YES \n" >> submitfile
  printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
- printf "Transfer_Input_Files = ${CMSSW_BASE}/src/LLDJstandalones/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list,${CMSSW_BASE}/src/LLDJstandalones/lists/$1.info,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_SinglePhoton_69200.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_DoubleMu_69200.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/Run_SF_ID.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/Run_SF_ISO.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/EleLeg1.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/EleLeg2.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/Muon17.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/Muon8.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleTight.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleMedium.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/egammaEffi_MoriondBH_eleLoose.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/feff_ZH.root,${CMSSW_BASE}/src/LLDJstandalones/analyzers/puWeights_69200_24jan2017.root\n" >> submitfile
+ #printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/2018_puWeights_EGamma_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2018_puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_SinglePhoton_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2018_puWeights_DoubleMuon_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2018_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2018_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2018_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/RunABCD_SF_ID.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/RunABCD_SF_ISO.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Run_SF_ID.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Run_SF_ISO.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Muon17.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Muon8.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/egammaEffi.txt_EGM2D_updatedAll.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_69200_24jan2017.root\n" >> submitfile
+ printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_SinglePhoton_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_DoubleMu_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/egammaEffi_MoriondBH_eleTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/egammaEffi_MoriondBH_eleMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/egammaEffi_MoriondBH_eleLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/RunABCD_SF_ID.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/RunABCD_SF_ISO.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Run_SF_ID.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Run_SF_ISO.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Muon17.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/Muon8.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/egammaEffi.txt_EGM2D_updatedAll.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_69200_24jan2017.root\n" >> submitfile
 
  printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
  printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile
@@ -389,6 +391,7 @@ makeasubmitdir () {
  haddfile_OPTtree="./haddit_OPTtree.sh"
  haddfile_NM1trees="./haddit_NM1trees.sh"
  haddfile_BkgEst="./haddit_BkgEst.sh"
+ haddfile_AODGenEventWeight="./haddit_AODGenEventWeight.sh"
  #haddfile_OneEleSig_histograms="./haddit_OneEleSig_histograms.sh"                           
  haddfile_TwoEleSig_histograms="./haddit_TwoEleSig_histograms.sh"                           
  #haddfile_OneMuSig_histograms="./haddit_OneMuSig_histograms.sh"                           
@@ -410,18 +413,6 @@ makeasubmitdir () {
  haddfile_EleMuOSOF_histograms="./haddit_EleMuOSOF_histograms.sh"                           
  haddfile_EleMuOSOFL_histograms="./haddit_EleMuOSOFL_histograms.sh"                           
  haddfile_OnePho_histograms="./haddit_OnePho_histograms.sh"                           
- haddfile_EleWH_histograms="./haddit_EleWH_histograms.sh"
- 
- haddfile_MuWH_histograms="./haddit_MuWH_histograms.sh"
-
- haddfile_EleWHSig_histograms="./haddit_EleWHSig_histograms.sh"
-
- haddfile_MuWHSig_histograms="./haddit_MuWHSig_histograms.sh"
-
- haddfile_EleLowPtWH_histograms="./haddit_EleLowPtWH_histograms.sh"
-
- haddfile_MuLowPtWH_histograms="./haddit_MuLowPtWH_histograms.sh"
- 
 
 
  hadddir="${rootdir}/${aversion}"
@@ -447,15 +438,10 @@ makeasubmitdir () {
  printf "#!/bin/bash\n\n" > ${haddfile_EleMuOSOF_histograms}    
  printf "#!/bin/bash\n\n" > ${haddfile_EleMuOSOFL_histograms}    
  printf "#!/bin/bash\n\n" > ${haddfile_OnePho_histograms}       
- printf "#!/bin/bash\n\n" > ${haddfile_EleWH_histograms}
- printf "#!/bin/bash\n\n" > ${haddfile_MuWH_histograms}
- printf "#!/bin/bash\n\n" > ${haddfile_EleWHSig_histograms}
- printf "#!/bin/bash\n\n" > ${haddfile_MuWHSig_histograms}
- printf "#!/bin/bash\n\n" > ${haddfile_EleLowPtWH_histograms}
- printf "#!/bin/bash\n\n" > ${haddfile_MuLowPtWH_histograms}
  printf "#!/bin/bash\n\n" > ${haddfile_OPTtree}          
  printf "#!/bin/bash\n\n" > ${haddfile_NM1trees}          
  printf "#!/bin/bash\n\n" > ${haddfile_BkgEst}
+ printf "#!/bin/bash\n\n" > ${haddfile_AODGenEventWeight}
 
  # make checker
  checkfile="./checker.sh"
@@ -487,15 +473,10 @@ makeasubmitdir () {
  printf "hadd ${hadddir}/$1_OPTtree.root"                  >>       ${haddfile_OPTtree}           
  printf "hadd ${hadddir}/$1_NM1tree.root"                  >>       ${haddfile_NM1trees}           
  printf "hadd ${hadddir}/$1_BkgEst.root"                   >>       ${haddfile_BkgEst}           
- printf "hadd ${hadddir}/$1_EleWH_histograms.root"         >>       ${haddfile_EleWH_histograms}
- printf "hadd ${hadddir}/$1_MuWH_histograms.root"          >>       ${haddfile_MuWH_histograms}
- printf "hadd ${hadddir}/$1_EleWHSig_histograms.root"      >>       ${haddfile_EleWHSig_histograms}
- printf "hadd ${hadddir}/$1_MuWHSig_histograms.root"       >>       ${haddfile_MuWHSig_histograms}
- printf "hadd ${hadddir}/$1_EleLowPtWH_histograms.root"    >>       ${haddfile_EleLowPtWH_histograms}
- printf "hadd ${hadddir}/$1_MuLowPtWH_histograms.root"	   >>       ${haddfile_MuLowPtWH_histograms}
+ printf "hadd ${hadddir}/$1_AODGenEventWeight.root"        >>       ${haddfile_AODGenEventWeight}           
 
  # breaking up input file list
- nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/LLDJstandalones/lists/$1.list" )
+ nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/${FWVersion}/lists/$1.list" )
  filenrlow=0
  jobfilenr=0
 
@@ -533,12 +514,7 @@ makeasubmitdir () {
   printf "\\"  >> ${haddfile_OPTtree}           
   printf "\\"  >> ${haddfile_NM1trees}           
   printf "\\"  >> ${haddfile_BkgEst}           
-  printf "\\"  >> ${haddfile_EleWH_histograms}
-  printf "\\"  >> ${haddfile_MuWH_histograms}
-  printf "\\"  >> ${haddfile_EleWHSig_histograms}
-  printf "\\"  >> ${haddfile_MuWHSig_histograms}
-  printf "\\"  >> ${haddfile_EleLowPtWH_histograms}
-  printf "\\"  >> ${haddfile_MuLowPtWH_histograms}
+  printf "\\"  >> ${haddfile_AODGenEventWeight}           
 
   #printf "\n $(pwd)/$1_${jobfilenr}_OneEleSig_histograms.root"     >> ${haddfile_OneEleSig_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_TwoEleSig_histograms.root"     >> ${haddfile_TwoEleSig_histograms}    
@@ -561,13 +537,6 @@ makeasubmitdir () {
   printf "\n $(pwd)/$1_${jobfilenr}_EleMuOSOF_histograms.root"     >> ${haddfile_EleMuOSOF_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_EleMuOSOFL_histograms.root"    >> ${haddfile_EleMuOSOFL_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_OnePho_histograms.root"        >> ${haddfile_OnePho_histograms}       
- printf "\n $(pwd)/$1_${jobfilenr}_OPTtree.root"                  >> ${haddfile_OPTtree}           
-  printf "\n $(pwd)/$1_${jobfilenr}_EleWH_histograms.root"         >> ${haddfile_EleWH_histograms}
-  printf "\n $(pwd)/$1_${jobfilenr}_MuWH_histograms.root"          >> ${haddfile_MuWH_histograms}
-  printf "\n $(pwd)/$1_${jobfilenr}_EleWHSig_histograms.root"      >> ${haddfile_EleWHSig_histograms}
-  printf "\n $(pwd)/$1_${jobfilenr}_MuWHSig_histograms.root"   	   >> ${haddfile_MuWHSig_histograms}
-  printf "\n $(pwd)/$1_${jobfilenr}_EleLowPtWH_histograms.root"    >> ${haddfile_EleLowPtWH_histograms}
-  printf "\n $(pwd)/$1_${jobfilenr}_MuLowPtWH_histograms.root"     >> ${haddfile_MuLowPtWH_histograms}
   printf "\n $(pwd)/$1_${jobfilenr}_OPTtree.root"                  >> ${haddfile_OPTtree}           
   printf "\n $(pwd)/$1_${jobfilenr}_NM1tree.root"                  >> ${haddfile_NM1trees}           
   printf "\n $(pwd)/$1_${jobfilenr}_BkgEst.root"                   >> ${haddfile_BkgEst}
@@ -606,13 +575,7 @@ makeasubmitdir () {
  printf "\n\n" >> ${haddfile_OPTtree}           
  printf "\n\n" >> ${haddfile_NM1trees}           
  printf "\n\n" >> ${haddfile_BkgEst}
-
- printf "\n\n" >> ${haddfile_EleWH_histograms}
- printf "\n\n" >> ${haddfile_MuWH_histograms}
- printf "\n\n" >> ${haddfile_EleWHSig_histograms}
- printf "\n\n" >> ${haddfile_MuWHSig_histograms}
- printf "\n\n" >> ${haddfile_EleLowPtWH_histograms}
- printf "\n\n" >> ${haddfile_MuLowPtWH_histograms}
+ printf "\n\n" >> ${haddfile_AODGenEventWeight}
 
  if [ ${doSubmit} = true ]
  then
