@@ -57,10 +57,10 @@ void analyzer_config::setConfiguration()
  //TA Out    | -1.759    | -1.773 | -1.773    | -1.773    |  //loggit
 
  // shifted tagging variables             // loggit
- // %TF unc WP        80          70       60       100      80      ZD_WP1                
- tag_shiftmaxAmax   = 0.909 ; //  0.505 ;  0.505 ;  0.606 ;  0.909 ; 0.404;    // loggit
- tag_shiftminIPsig  = 1.238 ; //  0.538 ;  0.538 ;  1.238 ;  1.238 ; 1.346;    // loggit
- tag_shiftminTA     =-1.516 ; // -1.516 ; -1.516 ; -1.516 ; -1.516 ;-1.769;    // loggit
+ // %TF unc WP        Sep20     80          70       60       100      80      ZD_WP1    // loggit            
+ tag_shiftmaxAmax   = 0.9  ; // 0.909 ; //  0.505 ;  0.505 ;  0.606 ;  0.909 ; 0.404;    // loggit
+ tag_shiftminIPsig  = 1.151; // 1.238 ; //  0.538 ;  0.538 ;  1.238 ;  1.238 ; 1.346;    // loggit
+ tag_shiftminTA     =-1.521; //-1.516 ; // -1.516 ; -1.516 ; -1.516 ; -1.516 ;-1.769;    // loggit
 
  // set which collections                          // loggit 
  phoid = "Medium"; // "Tight"; "Loose"; //Medium"; // loggit 
