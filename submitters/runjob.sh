@@ -28,6 +28,8 @@ cp ../../Run_SF_ID.root     .
 cp ../../Run_SF_ISO.root     .
 cp ../../Muon17.root     .
 cp ../../Muon8.root     .
+cp ../../Leg1.root     .
+cp ../../Leg2.root     .
 cp ../../feff_ZH.root                           .
 cp ../../egammaEffi.txt_EGM2D_updatedAll.root                           .
 
