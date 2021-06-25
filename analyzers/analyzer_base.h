@@ -26,6 +26,7 @@ public :
    FILE * logfile;
    FILE * edmfile;
    Float_t event_weight;
+   Float_t w_eleReco, w_eleID, w_muonID, w_muonISO, w_eleTrig,w_LeptonSF, w_Lumi, w_PU, w_GenEvent, w_other, w_Hmumu, w_tot = 1.;
    Float_t PUweight_DoubleEG;
    Float_t PUweight_DoubleMu;
    Float_t PUweight_MuonEG;
@@ -41,23 +42,30 @@ public :
    Int_t           lumis;
    Bool_t          isData;
    Int_t           AODnTruePU;
+//   Int_t           AOD0thnPU;
    Int_t           AODnVtx;
    Int_t           AODnGoodVtx;
    Int_t           AODnTrksPV;
    Bool_t          AODisPVGood;
-   std::vector<int>     *llpId;
-   std::vector<int>     *llpStatus;
+//   std::vector<int>     *llpId;
+//   std::vector<int>     *llpStatus;
    std::vector<float>   *llpPt;
    std::vector<float>   *llpEta;
    std::vector<float>   *llpPhi;
    std::vector<float>   *llpMass;
-   std::vector<int>     *llpDaughterId;
-   std::vector<int>     *llpDaughterStatus;
+//   std::vector<int>     *llpDaughterId;
+//   std::vector<int>     *llpDaughterStatus;
    std::vector<float>   *llpDaughterPt;
    std::vector<float>   *llpDaughterEta;
    std::vector<float>   *llpDaughterPhi;
    std::vector<float>   *llpDaughterMass;
-   std::vector<float>   *toppts;
+//   std::vector<float>   *toppts;
+   std::vector<float>   *llpvX;
+   std::vector<float>   *llpvY;
+   std::vector<float>   *llpvZ;
+   std::vector<float>   *llpDaughtervX;
+   std::vector<float>   *llpDaughtervY;
+   std::vector<float>   *llpDaughtervZ;
    Float_t   ctauEventWeight;
    //single ele
    ULong64_t       AOD_HLT_Ele23Loose;
@@ -67,6 +75,8 @@ public :
    //ele ele
    ULong64_t       AOD_HLT_Ele17Ele12;
    ULong64_t       AOD_HLT_Ele23Ele12;
+   ULong64_t       AOD_HLT_Ele23Ele12_noDZ;
+   ULong64_t       AOD_HLT_DoubleEle33;
    ULong64_t       AOD_HLT_Ele17Ele12_isPS;
    ULong64_t       AOD_HLT_Ele23Ele12_isPS;
    //single mu
@@ -80,6 +90,8 @@ public :
    ULong64_t       AOD_HLT_IsoTkMu24_isPS;
    //mu mu
    ULong64_t       AOD_HLT_Mu17Mu8;
+   ULong64_t       AOD_HLT_Mu17Mu8_Mass8;
+   ULong64_t       AOD_HLT_Mu17Mu8_Mass3p8;
    ULong64_t       AOD_HLT_Mu17TkMu8;
    ULong64_t       AOD_HLT_TkMu17TkMu8;
    ULong64_t       AOD_HLT_Mu17Mu8_noDZ;
@@ -108,17 +120,20 @@ public :
    ULong64_t       AOD_HLT_Photon175_isPS;
    ULong64_t       AOD_HLT_Photon165_HE10_isPS;
    //
-   Int_t           AODnPATJet;
-   std::vector<int>     *AODPATJetPartonFlavour;
-   std::vector<float>   *AODPATJetPt;
-   std::vector<float>   *AODPATJetEta;
-   std::vector<float>   *AODPATJetPhi;
-   std::vector<float>   *AODPATJetCSV;
-   std::vector<float>   *AODPATJetMVA;
+//   Int_t           AODnPATJet;
+//   std::vector<int>     *AODPATJetPartonFlavour;
+//   std::vector<float>   *AODPATJetPt;
+//   std::vector<float>   *AODPATJetEta;
+//   std::vector<float>   *AODPATJetPhi;
+//   std::vector<float>   *AODPATJetCSV;
+//   std::vector<float>   *AODPATJetMVA;
    Int_t           AODnCaloJet;
+   std::vector<bool>   *AODCaloJetID;
    std::vector<float>   *AODCaloJetPt;
    std::vector<float>   *AODCaloJetEta;
    std::vector<float>   *AODCaloJetPhi;
+   std::vector<float>   *AODCaloJetEnergy;
+   std::vector<float>   *AODCaloJetMass;
    std::vector<float>   *AODCaloJetAlphaMax;
    std::vector<float>   *AODCaloJetAlphaMax2;
    std::vector<float>   *AODCaloJetAlphaMaxPrime;
@@ -160,44 +175,44 @@ public :
    std::vector<float>   *AODCaloJetAvfDistToPV;
    std::vector<float>   *AODCaloJetAvfVertexDeltaZtoPV;
    std::vector<float>   *AODCaloJetAvfVertexDeltaZtoPV2;
-   Int_t           AODnPFJet;
-   std::vector<int>     *AODPFJetID;
-   std::vector<float>   *AODPFJetPt;
-   std::vector<float>   *AODPFJetEta;
-   std::vector<float>   *AODPFJetPhi;
-   std::vector<float>   *AODPFJetAlphaMax;
-   std::vector<float>   *AODPFJetAlphaMax2;
-   std::vector<float>   *AODPFJetAlphaMaxPrime;
-   std::vector<float>   *AODPFJetAlphaMaxPrime2;
-   std::vector<float>   *AODPFJetBeta;
-   std::vector<float>   *AODPFJetBeta2;
-   std::vector<float>   *AODPFJetSumIP;
-   std::vector<float>   *AODPFJetSumIPSig;
-   std::vector<float>   *AODPFJetMedianIP;
-   std::vector<float>   *AODPFJetMedianLog10IPSig;
-   std::vector<float>   *AODPFJetTrackAngle;
-   std::vector<float>   *AODPFJetLogTrackAngle;
-   std::vector<float>   *AODPFJetMedianLog10TrackAngle;
-   std::vector<float>   *AODPFJetTotalTrackAngle;
-   Int_t           AODnPFchsJet;
-   std::vector<int>     *AODPFchsJetID;
-   std::vector<float>   *AODPFchsJetPt;
-   std::vector<float>   *AODPFchsJetEta;
-   std::vector<float>   *AODPFchsJetPhi;
-   std::vector<float>   *AODPFchsJetAlphaMax;
-   std::vector<float>   *AODPFchsJetAlphaMax2;
-   std::vector<float>   *AODPFchsJetAlphaMaxPrime;
-   std::vector<float>   *AODPFchsJetAlphaMaxPrime2;
-   std::vector<float>   *AODPFchsJetBeta;
-   std::vector<float>   *AODPFchsJetBeta2;
-   std::vector<float>   *AODPFchsJetSumIP;
-   std::vector<float>   *AODPFchsJetSumIPSig;
-   std::vector<float>   *AODPFchsJetMedianIP;
-   std::vector<float>   *AODPFchsJetMedianLog10IPSig;
-   std::vector<float>   *AODPFchsJetTrackAngle;
-   std::vector<float>   *AODPFchsJetLogTrackAngle;
-   std::vector<float>   *AODPFchsJetMedianLog10TrackAngle;
-   std::vector<float>   *AODPFchsJetTotalTrackAngle;
+//   Int_t           AODnPFJet;
+//   std::vector<int>     *AODPFJetID;
+//   std::vector<float>   *AODPFJetPt;
+//   std::vector<float>   *AODPFJetEta;
+//   std::vector<float>   *AODPFJetPhi;
+//   std::vector<float>   *AODPFJetAlphaMax;
+//   std::vector<float>   *AODPFJetAlphaMax2;
+//   std::vector<float>   *AODPFJetAlphaMaxPrime;
+//   std::vector<float>   *AODPFJetAlphaMaxPrime2;
+//   std::vector<float>   *AODPFJetBeta;
+//   std::vector<float>   *AODPFJetBeta2;
+//   std::vector<float>   *AODPFJetSumIP;
+//   std::vector<float>   *AODPFJetSumIPSig;
+//   std::vector<float>   *AODPFJetMedianIP;
+//   std::vector<float>   *AODPFJetMedianLog10IPSig;
+//   std::vector<float>   *AODPFJetTrackAngle;
+//   std::vector<float>   *AODPFJetLogTrackAngle;
+//   std::vector<float>   *AODPFJetMedianLog10TrackAngle;
+//   std::vector<float>   *AODPFJetTotalTrackAngle;
+//   Int_t           AODnPFchsJet;
+//   std::vector<int>     *AODPFchsJetID;
+//   std::vector<float>   *AODPFchsJetPt;
+//   std::vector<float>   *AODPFchsJetEta;
+//   std::vector<float>   *AODPFchsJetPhi;
+//   std::vector<float>   *AODPFchsJetAlphaMax;
+//   std::vector<float>   *AODPFchsJetAlphaMax2;
+//   std::vector<float>   *AODPFchsJetAlphaMaxPrime;
+//   std::vector<float>   *AODPFchsJetAlphaMaxPrime2;
+//   std::vector<float>   *AODPFchsJetBeta;
+//   std::vector<float>   *AODPFchsJetBeta2;
+//   std::vector<float>   *AODPFchsJetSumIP;
+//   std::vector<float>   *AODPFchsJetSumIPSig;
+//   std::vector<float>   *AODPFchsJetMedianIP;
+//   std::vector<float>   *AODPFchsJetMedianLog10IPSig;
+//   std::vector<float>   *AODPFchsJetTrackAngle;
+//   std::vector<float>   *AODPFchsJetLogTrackAngle;
+//   std::vector<float>   *AODPFchsJetMedianLog10TrackAngle;
+//   std::vector<float>   *AODPFchsJetTotalTrackAngle;
    Int_t           nAODMu;
    std::vector<float>   *AOD_muPt;
    std::vector<float>   *AOD_muEn;
@@ -224,17 +239,17 @@ public :
    std::vector<float>   *AOD_phoSCEn;
    std::vector<float>   *AOD_phoSCEta;
    std::vector<float>   *AOD_phoSCPhi;
-   std::vector<float>   *AOD_phoPassElectronVeto;
-   std::vector<float>   *AOD_phoHasPixelSeed;
-   std::vector<unsigned short> *AOD_phoIDbit;
-   std::vector<float>   *AOD_phoObjPFChIso;
-   std::vector<float>   *AOD_phoObjPFPhoIso;
-   std::vector<float>   *AOD_phoObjPFNeuIso;
-   std::vector<float>   *AOD_phoObjPFChWorstIso;
-   std::vector<float>   *AOD_phoMapPFChIso;
-   std::vector<float>   *AOD_phoMapPFPhoIso;
-   std::vector<float>   *AOD_phoMapPFNeuIso;
-   std::vector<float>   *AOD_phoMapPFChWorstIso;
+//   std::vector<float>   *AOD_phoPassElectronVeto;
+//   std::vector<float>   *AOD_phoHasPixelSeed;
+//   std::vector<unsigned short> *AOD_phoIDbit;
+//   std::vector<float>   *AOD_phoObjPFChIso;
+//   std::vector<float>   *AOD_phoObjPFPhoIso;
+//   std::vector<float>   *AOD_phoObjPFNeuIso;
+//   std::vector<float>   *AOD_phoObjPFChWorstIso;
+//   std::vector<float>   *AOD_phoMapPFChIso;
+//   std::vector<float>   *AOD_phoMapPFPhoIso;
+//   std::vector<float>   *AOD_phoMapPFNeuIso;
+//   std::vector<float>   *AOD_phoMapPFChWorstIso;
    Int_t           nAODEle;
    std::vector<float>   *AOD_elePt;
    std::vector<float>   *AOD_eleEn;
@@ -247,11 +262,11 @@ public :
    std::vector<float>        *AOD_eled0;
    std::vector<float>        *AOD_eledz;
    Float_t         AOD_CaloMET_pt;
-   Float_t         AOD_pfChMET_pt;
-   Float_t         AOD_pfMET_pt;
+//   Float_t         AOD_pfChMET_pt;
+//   Float_t         AOD_pfMET_pt;
    Float_t         AOD_CaloMET_phi;
-   Float_t         AOD_pfChMET_phi;
-   Float_t         AOD_pfMET_phi;
+//   Float_t         AOD_pfChMET_phi;
+//   Float_t         AOD_pfMET_phi;
    Float_t         AODGenEventWeight;
 
    // List of branches
@@ -260,23 +275,30 @@ public :
    TBranch        *b_lumis;   //!
    TBranch        *b_isData;   //!
    TBranch        *b_AODnTruePU;   //!
+   //TBranch        *b_AOD0thnPU;   //!
    TBranch        *b_AODnVtx;   //!
    TBranch        *b_AODnGoodVtx;   //!
    TBranch        *b_AODnTrksPV;   //!
    TBranch        *b_AODisPVGood;   //!
-   TBranch        *b_llpId;   //!
-   TBranch        *b_llpStatus;   //!
+//   TBranch        *b_llpId;   //!
+//   TBranch        *b_llpStatus;   //!
    TBranch        *b_llpPt;   //!
    TBranch        *b_llpEta;   //!
    TBranch        *b_llpPhi;   //!
    TBranch        *b_llpMass;   //!
-   TBranch        *b_llpDaughterId;   //!
-   TBranch        *b_llpDaughterStatus;   //!
+//   TBranch        *b_llpDaughterId;   //!
+//   TBranch        *b_llpDaughterStatus;   //!
    TBranch        *b_llpDaughterPt;   //!
    TBranch        *b_llpDaughterEta;   //!
    TBranch        *b_llpDaughterPhi;   //!
    TBranch        *b_llpDaughterMass;   //!
-   TBranch        *b_toppts;   //!
+//   TBranch        *b_toppts;   //!
+   TBranch        *b_llpvX;   //!
+   TBranch        *b_llpvY;   //!
+   TBranch        *b_llpvZ;   //!
+   TBranch        *b_llpDaughtervX;   //!
+   TBranch        *b_llpDaughtervY;   //!
+   TBranch        *b_llpDaughtervZ;   //!
    TBranch        *b_ctauEventWeight;   //!
    //single ele
    TBranch        *b_AOD_HLT_Ele23Loose;   //!
@@ -286,6 +308,8 @@ public :
    //ele ele
    TBranch        *b_AOD_HLT_Ele17Ele12;   //!
    TBranch        *b_AOD_HLT_Ele23Ele12;   //!
+   TBranch        *b_AOD_HLT_Ele23Ele12_noDZ;   //!
+   TBranch        *b_AOD_HLT_DoubleEle33;   //!
    TBranch        *b_AOD_HLT_Ele17Ele12_isPS;   //!
    TBranch        *b_AOD_HLT_Ele23Ele12_isPS;   //!
    //single mu
@@ -299,6 +323,8 @@ public :
    TBranch        *b_AOD_HLT_IsoTkMu24_isPS;   //!
    //mu mu
    TBranch        *b_AOD_HLT_Mu17Mu8;   //!
+   TBranch        *b_AOD_HLT_Mu17Mu8_Mass8;   //!
+   TBranch        *b_AOD_HLT_Mu17Mu8_Mass3p8;   //!
    TBranch        *b_AOD_HLT_Mu17TkMu8;   //!
    TBranch        *b_AOD_HLT_TkMu17TkMu8;   //!
    TBranch        *b_AOD_HLT_Mu17Mu8_noDZ;   //!
@@ -327,18 +353,21 @@ public :
    TBranch        *b_AOD_HLT_Photon175_isPS;   //!
    TBranch        *b_AOD_HLT_Photon165_HE10_isPS;   //!
    //
-   TBranch        *b_AODnPATJet;   //!
-   TBranch        *b_AODPATJetPartonFlavour;   //!
-   TBranch        *b_AODPATJetPt;   //!
-   TBranch        *b_AODPATJetEta;   //!
-   TBranch        *b_AODPATJetPhi;   //!
-   TBranch        *b_AODPATJetCSV;   //!
-   TBranch        *b_AODPATJetMVA;   //!
+//   TBranch        *b_AODnPATJet;   //!
+//   TBranch        *b_AODPATJetPartonFlavour;   //!
+//   TBranch        *b_AODPATJetPt;   //!
+//   TBranch        *b_AODPATJetEta;   //!
+//   TBranch        *b_AODPATJetPhi;   //!
+//   TBranch        *b_AODPATJetCSV;   //!
+//   TBranch        *b_AODPATJetMVA;   //!
    //
    TBranch        *b_AODnCaloJet;   //!
+   TBranch        *b_AODCaloJetID;   //!
    TBranch        *b_AODCaloJetPt;   //!
    TBranch        *b_AODCaloJetEta;   //!
    TBranch        *b_AODCaloJetPhi;   //!
+   TBranch        *b_AODCaloJetEnergy;   //!
+   TBranch        *b_AODCaloJetMass;   //!
    TBranch        *b_AODCaloJetAlphaMax;   //!
    TBranch        *b_AODCaloJetAlphaMax2;   //!
    TBranch        *b_AODCaloJetAlphaMaxPrime;   //!
@@ -380,44 +409,44 @@ public :
    TBranch        *b_AODCaloJetAvfDistToPV;   //!
    TBranch        *b_AODCaloJetAvfVertexDeltaZtoPV;   //!
    TBranch        *b_AODCaloJetAvfVertexDeltaZtoPV2;   //!
-   TBranch        *b_AODnPFJet;   //!
-   TBranch        *b_AODPFJetID;   //!
-   TBranch        *b_AODPFJetPt;   //!
-   TBranch        *b_AODPFJetEta;   //!
-   TBranch        *b_AODPFJetPhi;   //!
-   TBranch        *b_AODPFJetAlphaMax;   //!
-   TBranch        *b_AODPFJetAlphaMax2;   //!
-   TBranch        *b_AODPFJetAlphaMaxPrime;   //!
-   TBranch        *b_AODPFJetAlphaMaxPrime2;   //!
-   TBranch        *b_AODPFJetBeta;   //!
-   TBranch        *b_AODPFJetBeta2;   //!
-   TBranch        *b_AODPFJetSumIP;   //!
-   TBranch        *b_AODPFJetSumIPSig;   //!
-   TBranch        *b_AODPFJetMedianIP;   //!
-   TBranch        *b_AODPFJetMedianLog10IPSig;   //!
-   TBranch        *b_AODPFJetTrackAngle;   //!
-   TBranch        *b_AODPFJetLogTrackAngle;   //!
-   TBranch        *b_AODPFJetMedianLog10TrackAngle;   //!
-   TBranch        *b_AODPFJetTotalTrackAngle;   //!
-   TBranch        *b_AODnPFchsJet;   //!
-   TBranch        *b_AODPFchsJetID;   //!
-   TBranch        *b_AODPFchsJetPt;   //!
-   TBranch        *b_AODPFchsJetEta;   //!
-   TBranch        *b_AODPFchsJetPhi;   //!
-   TBranch        *b_AODPFchsJetAlphaMax;   //!
-   TBranch        *b_AODPFchsJetAlphaMax2;   //!
-   TBranch        *b_AODPFchsJetAlphaMaxPrime;   //!
-   TBranch        *b_AODPFchsJetAlphaMaxPrime2;   //!
-   TBranch        *b_AODPFchsJetBeta;   //!
-   TBranch        *b_AODPFchsJetBeta2;   //!
-   TBranch        *b_AODPFchsJetSumIP;   //!
-   TBranch        *b_AODPFchsJetSumIPSig;   //!
-   TBranch        *b_AODPFchsJetMedianIP;   //!
-   TBranch        *b_AODPFchsJetMedianLog10IPSig;   //!
-   TBranch        *b_AODPFchsJetTrackAngle;   //!
-   TBranch        *b_AODPFchsJetLogTrackAngle;   //!
-   TBranch        *b_AODPFchsJetMedianLog10TrackAngle;   //!
-   TBranch        *b_AODPFchsJetTotalTrackAngle;   //!
+//   TBranch        *b_AODnPFJet;   //!
+//   TBranch        *b_AODPFJetID;   //!
+//   TBranch        *b_AODPFJetPt;   //!
+//   TBranch        *b_AODPFJetEta;   //!
+//   TBranch        *b_AODPFJetPhi;   //!
+//   TBranch        *b_AODPFJetAlphaMax;   //!
+//   TBranch        *b_AODPFJetAlphaMax2;   //!
+//   TBranch        *b_AODPFJetAlphaMaxPrime;   //!
+//   TBranch        *b_AODPFJetAlphaMaxPrime2;   //!
+//   TBranch        *b_AODPFJetBeta;   //!
+//   TBranch        *b_AODPFJetBeta2;   //!
+//   TBranch        *b_AODPFJetSumIP;   //!
+//   TBranch        *b_AODPFJetSumIPSig;   //!
+//   TBranch        *b_AODPFJetMedianIP;   //!
+//   TBranch        *b_AODPFJetMedianLog10IPSig;   //!
+//   TBranch        *b_AODPFJetTrackAngle;   //!
+//   TBranch        *b_AODPFJetLogTrackAngle;   //!
+//   TBranch        *b_AODPFJetMedianLog10TrackAngle;   //!
+//   TBranch        *b_AODPFJetTotalTrackAngle;   //!
+//   TBranch        *b_AODnPFchsJet;   //!
+//   TBranch        *b_AODPFchsJetID;   //!
+//   TBranch        *b_AODPFchsJetPt;   //!
+//   TBranch        *b_AODPFchsJetEta;   //!
+//   TBranch        *b_AODPFchsJetPhi;   //!
+//   TBranch        *b_AODPFchsJetAlphaMax;   //!
+//   TBranch        *b_AODPFchsJetAlphaMax2;   //!
+//   TBranch        *b_AODPFchsJetAlphaMaxPrime;   //!
+//   TBranch        *b_AODPFchsJetAlphaMaxPrime2;   //!
+//   TBranch        *b_AODPFchsJetBeta;   //!
+//   TBranch        *b_AODPFchsJetBeta2;   //!
+//   TBranch        *b_AODPFchsJetSumIP;   //!
+//   TBranch        *b_AODPFchsJetSumIPSig;   //!
+//   TBranch        *b_AODPFchsJetMedianIP;   //!
+//   TBranch        *b_AODPFchsJetMedianLog10IPSig;   //!
+//   TBranch        *b_AODPFchsJetTrackAngle;   //!
+//   TBranch        *b_AODPFchsJetLogTrackAngle;   //!
+//   TBranch        *b_AODPFchsJetMedianLog10TrackAngle;   //!
+//   TBranch        *b_AODPFchsJetTotalTrackAngle;   //!
    TBranch        *b_nAODMu;   //!
    TBranch        *b_AOD_muPt;   //!
    TBranch        *b_AOD_muEn;   //!
@@ -444,17 +473,17 @@ public :
    TBranch        *b_AOD_phoSCEn;   //!
    TBranch        *b_AOD_phoSCEta;   //!
    TBranch        *b_AOD_phoSCPhi;   //!
-   TBranch        *b_AOD_phoPassElectronVeto;   //!
-   TBranch        *b_AOD_phoHasPixelSeed;   //!
-   TBranch        *b_AOD_phoIDbit;   //!
-   TBranch        *b_AOD_phoObjPFChIso;   //!
-   TBranch        *b_AOD_phoObjPFPhoIso;   //!
-   TBranch        *b_AOD_phoObjPFNeuIso;   //!
-   TBranch        *b_AOD_phoObjPFChWorstIso;   //!
-   TBranch        *b_AOD_phoMapPFChIso;   //!
-   TBranch        *b_AOD_phoMapPFPhoIso;   //!
-   TBranch        *b_AOD_phoMapPFNeuIso;   //!
-   TBranch        *b_AOD_phoMapPFChWorstIso;   //!
+//   TBranch        *b_AOD_phoPassElectronVeto;   //!
+//   TBranch        *b_AOD_phoHasPixelSeed;   //!
+//   TBranch        *b_AOD_phoIDbit;   //!
+//   TBranch        *b_AOD_phoObjPFChIso;   //!
+//   TBranch        *b_AOD_phoObjPFPhoIso;   //!
+//   TBranch        *b_AOD_phoObjPFNeuIso;   //!
+//   TBranch        *b_AOD_phoObjPFChWorstIso;   //!
+//   TBranch        *b_AOD_phoMapPFChIso;   //!
+//   TBranch        *b_AOD_phoMapPFPhoIso;   //!
+//   TBranch        *b_AOD_phoMapPFNeuIso;   //!
+//   TBranch        *b_AOD_phoMapPFChWorstIso;   //!
    TBranch        *b_nAODEle;   //!
    TBranch        *b_AOD_elePt;   //!
    TBranch        *b_AOD_eleEn;   //!
@@ -467,17 +496,17 @@ public :
    TBranch        *b_AOD_eled0;   //!
    TBranch        *b_AOD_eledz;   //!
    TBranch        *b_AOD_CaloMET_pt;   //!
-   TBranch        *b_AOD_pfChMET_pt;   //!
-   TBranch        *b_AOD_pfMET_pt;   //!
+//   TBranch        *b_AOD_pfChMET_pt;   //!
+//   TBranch        *b_AOD_pfMET_pt;   //!
    TBranch        *b_AOD_CaloMET_phi;   //!
-   TBranch        *b_AOD_pfChMET_phi;   //!
-   TBranch        *b_AOD_pfMET_phi;   //!
+//   TBranch        *b_AOD_pfChMET_phi;   //!
+//   TBranch        *b_AOD_pfMET_phi;   //!
    TBranch        *b_AODGenEventWeight;   //!
 
    //analyzer_base(TTree *tree=0);
    analyzer_base();
    virtual ~analyzer_base();
-   virtual void     Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString Tsample);
+   virtual void     Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString Tsample, TString uncbin);
    virtual Long64_t LoadTree(Long64_t entry);
    
 };

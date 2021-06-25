@@ -36,15 +36,15 @@ void analyzer_config::setConfiguration()
   mu_minPt1  = 25.;   // loggit
   mu_minPt2  = 12.;   // loggit
   mu_maxEta  = 2.4;   // loggit
-  jet_minPt  = 25.;   // loggit
+  jet_minPt  = 35.;   // loggit
   jet_maxEta = 2.4;   // loggit    
  }                    // loggit
 
  // tagging variables   // loggit
- // %TF unc WP    80        70     60     100    80    ZD_WP1                 
- tag_maxAmax  =  0.9 ; //  0.5 ;  0.5 ;  0.6 ;  0.9 ;  0.4;   // loggit
- tag_minIPsig =  1.15; //  0.5 ;  0.5 ;  1.15;  1.15;  1.25;  // loggit
- tag_minTA    = -1.5 ; // -1.5 ; -1.5 ; -1.5 ; -1.5 ; -1.75;  // loggit
+ //%TF unc WP   80        70     60     100    80     ZD_WP1 // loggit                
+ tag_maxAmax  = 0.8 ; //  0.5 ;  0.5 ;  0.6 ;  0.9 ;  0.4;   // loggit
+ tag_minIPsig = 1.25; //  0.5 ;  0.5 ;  1.15;  1.15;  1.25;  // loggit
+ tag_minTA    =-1.5 ; // -1.5 ; -1.5 ; -1.5 ; -1.5 ; -1.75;  // loggit
 
  // Table from "mrtusOrig" $aversion                         //loggit
  //          | EleMuOSOF | OnePho | TwoMuDY   | TwoEleDY     //loggit
@@ -56,14 +56,14 @@ void analyzer_config::setConfiguration()
  //TA In     | -1.750    | -1.750 | -1.750    | -1.750    |  //loggit   
  //TA Out    | -1.759    | -1.773 | -1.773    | -1.773    |  //loggit
 
- // shifted tagging variables             // loggit
- // %TF unc WP        Sep20     80          70       60       100      80      ZD_WP1    // loggit            
- tag_shiftmaxAmax   = 0.9  ; // 0.909 ; //  0.505 ;  0.505 ;  0.606 ;  0.909 ; 0.404;    // loggit
- tag_shiftminIPsig  = 1.151; // 1.238 ; //  0.538 ;  0.538 ;  1.238 ;  1.238 ; 1.346;    // loggit
- tag_shiftminTA     =-1.521; //-1.516 ; // -1.516 ; -1.516 ; -1.516 ; -1.516 ;-1.769;    // loggit
+ // shifted tagging variables              // loggit
+ // %TF unc WP         80         70       60       100      80      ZD_WP1                
+ tag_shiftmaxAmax   =  0.8; //  0.505 ;  0.505 ;  0.606 ;  0.909 ; 0.404;    // loggit
+ tag_shiftminIPsig  =  1.251; //  0.538 ;  0.538 ;  1.238 ;  1.238 ; 1.346;    // loggit
+ tag_shiftminTA     = -1.521; // -1.516 ; -1.516 ; -1.516 ; -1.516 ;-1.769;    // loggit
 
  // set which collections                          // loggit 
- phoid = "Medium"; // "Tight"; "Loose"; //Medium"; // loggit 
+// phoid = "Medium"; // "Tight"; "Loose"; //Medium"; // loggit 
  eleid = "Loose";  // "Tight"; "Loose"; //Medium"; // loggit 
  muoid = "Loose";  // "Tight"; "Loose"; //Medium"; // loggit 
  jetid = "Loose";  // "Tight"; "Loose";            // loggit 
@@ -71,9 +71,9 @@ void analyzer_config::setConfiguration()
  jetmatchdRcut = 0.4; // loggit
  objcleandRcut = 0.4; // loggit
 
- if (phoid == "Loose")  phoidbit=0;
- if (phoid == "Medium") phoidbit=1;
- if (phoid == "Tight")  phoidbit=2;
+// if (phoid = "Loose")  phoidbit=0;
+// if (phoid = "Medium") phoidbit=1;
+// if (phoid = "Tight")  phoidbit=2;
 
  if (eleid == "Loose")  eleidbit=0;
  if (eleid == "Medium") eleidbit=1;

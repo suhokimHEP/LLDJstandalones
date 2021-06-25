@@ -27,6 +27,7 @@ Bool_t analyzer_histograms::fillSelectedHistograms(Float_t weight, int selbin)
  fillLepHistograms               ( weight, selbin );
  fillPhoHistograms               ( weight, selbin );
  fillMETHTHistograms             ( weight, selbin );
+ //fillWeightHistograms            ( weight, selbin );
  fillAODCaloJetMultHistograms    ( weight, selbin );
  fillAODCaloJetTagMultHistograms ( weight, selbin );
  if(TTOC) fillTTOCHistograms     ( weight, selbin );
@@ -42,6 +43,7 @@ Bool_t analyzer_histograms::writeSelectedHistograms(int selbin)
  writeLepHistograms               ( selbin );
  writePhoHistograms               ( selbin );
  writeMETHTHistograms             ( selbin );
+ //writeWeightHistograms             ( selbin );
  writeAODCaloJetMultHistograms    ( selbin );
  writeAODCaloJetTagMultHistograms ( selbin );
  if(TTOC) writeTTOCHistograms     ( selbin );
@@ -53,19 +55,17 @@ Bool_t analyzer_histograms::fillSelectedJetHistograms(Float_t weight, int selbin
 {
  /// Decide here which jet histograms to get filled
   fillAODCaloJetBasicHistograms( weight, selbin, jetbin );
-  fillAODCaloJetStudyHistograms( weight, selbin, jetbin );
   fillAODCaloJet_L1PFHistograms( weight, selbin, jetbin );
-  fillAODCaloJetExtraHistograms( weight, selbin, jetbin );
+  //fillAODCaloJetExtraHistograms( weight, selbin, jetbin );
 }
 
 //----------------------------writeSelectedJetHistograms
 Bool_t analyzer_histograms::writeSelectedJetHistograms(int selbin, int jetbin)
 {
  /// Decide here which jet histograms to get written
-  writeAODCaloJetBasicHistograms( selbin, jetbin );
-  writeAODCaloJetStudyHistograms( selbin, jetbin );
-  writeAODCaloJet_L1PFHistograms( selbin, jetbin );
-  writeAODCaloJetExtraHistograms( selbin, jetbin );
+ writeAODCaloJetBasicHistograms( selbin, jetbin );
+ writeAODCaloJet_L1PFHistograms( selbin, jetbin );
+ //writeAODCaloJetExtraHistograms( selbin, jetbin );
 }
 
 //----------------------------fillSelectedTagHistograms
@@ -190,6 +190,10 @@ Bool_t analyzer_histograms::initEleHistograms( TString uncbin ){
    TString hname_AOD_eleEn                   = "h_"+selbinnames[i]+"_AOD_eleEn"       +uncbin; 
    TString hname_AOD_eleEta                  = "h_"+selbinnames[i]+"_AOD_eleEta"      +uncbin; 
    TString hname_AOD_elePhi                  = "h_"+selbinnames[i]+"_AOD_elePhi"      +uncbin; 
+   TString hname_AOD_subLead_elePt           = "h_"+selbinnames[i]+"_AOD_subLead_elePt"       +uncbin; 
+   TString hname_AOD_subLead_eleEn           = "h_"+selbinnames[i]+"_AOD_subLead_eleEn"       +uncbin; 
+   TString hname_AOD_subLead_eleEta          = "h_"+selbinnames[i]+"_AOD_subLead_eleEta"      +uncbin; 
+   TString hname_AOD_subLead_elePhi          = "h_"+selbinnames[i]+"_AOD_subLead_elePhi"      +uncbin; 
    TString hname_AOD_eleCharge               = "h_"+selbinnames[i]+"_AOD_eleCharge"   +uncbin; 
    
    h_AOD_nEle                     [i]= initSingleHistogramTH1F( hname_AOD_nEle                    , "AOD_nEle                   ", 6,  0, 6) ;  
@@ -198,6 +202,10 @@ Bool_t analyzer_histograms::initEleHistograms( TString uncbin ){
    h_AOD_eleEn                    [i]= initSingleHistogramTH1F( hname_AOD_eleEn                   , "AOD_eleEn                  ", 50, 0, 500) ;  
    h_AOD_eleEta                   [i]= initSingleHistogramTH1F( hname_AOD_eleEta                  , "AOD_eleEta                 ", 30, -5, 5); 
    h_AOD_elePhi                   [i]= initSingleHistogramTH1F( hname_AOD_elePhi                  , "AOD_elePhi                 ", 30, -5, 5); 
+   h_AOD_subLead_elePt            [i]= initSingleHistogramTH1F( hname_AOD_subLead_elePt           , "AOD_subLead_elePt          ", 50, 0, 500) ;  
+   h_AOD_subLead_eleEn            [i]= initSingleHistogramTH1F( hname_AOD_subLead_eleEn           , "AOD_subLead_eleEn          ", 50, 0, 500) ;  
+   h_AOD_subLead_eleEta           [i]= initSingleHistogramTH1F( hname_AOD_subLead_eleEta          , "AOD_subLead_eleEta         ", 30, -5, 5); 
+   h_AOD_subLead_elePhi           [i]= initSingleHistogramTH1F( hname_AOD_subLead_elePhi          , "AOD_subLead_elePhi         ", 30, -5, 5); 
    h_AOD_eleCharge                [i]= initSingleHistogramTH1F( hname_AOD_eleCharge               , "AOD_eleCharge              ", 3, -1, 1); 
  }
 
@@ -221,6 +229,14 @@ Bool_t analyzer_histograms::fillEleHistograms(Float_t weight, int selbin )
    h_AOD_elePhi              [selbin] ->Fill( AOD_elePhi              ->at(eleindex), weight );  
    h_AOD_eleCharge           [selbin] ->Fill( AOD_eleCharge           ->at(eleindex), weight );  
   }
+  // fill sub-leading electron in vector
+  if(electron_list.size() > 1){
+   int eleindex2 = electron_list[1];
+   h_AOD_subLead_elePt       [selbin] ->Fill( Shifted_elePt            .at(eleindex2), weight );  
+   h_AOD_subLead_eleEn       [selbin] ->Fill( AOD_eleEn               ->at(eleindex2), weight );  
+   h_AOD_subLead_eleEta      [selbin] ->Fill( AOD_eleEta              ->at(eleindex2), weight );  
+   h_AOD_subLead_elePhi      [selbin] ->Fill( AOD_elePhi              ->at(eleindex2), weight );  
+  }
  return kTRUE;
 }
 
@@ -235,6 +251,10 @@ Bool_t analyzer_histograms::writeEleHistograms(int selbin)
   h_AOD_eleEn           [selbin] ->Write();
   h_AOD_eleEta          [selbin] ->Write();
   h_AOD_elePhi          [selbin] ->Write();
+  h_AOD_subLead_elePt   [selbin] ->Write();
+  h_AOD_subLead_eleEn   [selbin] ->Write();
+  h_AOD_subLead_eleEta  [selbin] ->Write();
+  h_AOD_subLead_elePhi  [selbin] ->Write();
   h_AOD_eleCharge       [selbin] ->Write();
   return kTRUE;
 }
@@ -250,6 +270,10 @@ Bool_t analyzer_histograms::deleteEleHistograms(int selbin)
   if(h_AOD_eleEn[selbin]!=NULL)           h_AOD_eleEn           [selbin] ->Delete();
   if(h_AOD_eleEta[selbin]!=NULL)          h_AOD_eleEta          [selbin] ->Delete();
   if(h_AOD_elePhi[selbin]!=NULL)          h_AOD_elePhi          [selbin] ->Delete();
+  if(h_AOD_subLead_elePt[selbin]!=NULL)   h_AOD_subLead_elePt   [selbin] ->Delete();
+  if(h_AOD_subLead_eleEn[selbin]!=NULL)   h_AOD_subLead_eleEn   [selbin] ->Delete();
+  if(h_AOD_subLead_eleEta[selbin]!=NULL)  h_AOD_subLead_eleEta  [selbin] ->Delete();
+  if(h_AOD_subLead_elePhi[selbin]!=NULL)  h_AOD_subLead_elePhi  [selbin] ->Delete();
   if(h_AOD_eleCharge[selbin]!=NULL)       h_AOD_eleCharge       [selbin] ->Delete();
  return kTRUE;
 }
@@ -267,6 +291,10 @@ Bool_t analyzer_histograms::initMuHistograms( TString uncbin ){
   TString hname_AOD_muEn                    = "h_"+selbinnames[i]+"_AOD_muEn"               +uncbin; 
   TString hname_AOD_muEta                   = "h_"+selbinnames[i]+"_AOD_muEta"              +uncbin; 
   TString hname_AOD_muPhi                   = "h_"+selbinnames[i]+"_AOD_muPhi"              +uncbin; 
+  TString hname_AOD_subLead_muPt            = "h_"+selbinnames[i]+"_AOD_subLead_muPt"       +uncbin; 
+  TString hname_AOD_subLead_muEn            = "h_"+selbinnames[i]+"_AOD_subLead_muEn"       +uncbin; 
+  TString hname_AOD_subLead_muEta           = "h_"+selbinnames[i]+"_AOD_subLead_muEta"      +uncbin; 
+  TString hname_AOD_subLead_muPhi           = "h_"+selbinnames[i]+"_AOD_subLead_muPhi"      +uncbin; 
   TString hname_AOD_muCharge                = "h_"+selbinnames[i]+"_AOD_muCharge"           +uncbin; 
   TString hname_AOD_muPFdBetaIsolation      = "h_"+selbinnames[i]+"_AOD_muPFdBetaIsolation" +uncbin; 
 
@@ -276,6 +304,10 @@ Bool_t analyzer_histograms::initMuHistograms( TString uncbin ){
   h_AOD_muEn                     [i] = initSingleHistogramTH1F( hname_AOD_muEn                    , "AOD_muEn                   ", 50, 0, 500) ;  
   h_AOD_muEta                    [i] = initSingleHistogramTH1F( hname_AOD_muEta                   , "AOD_muEta                  ", 30, -5, 5); 
   h_AOD_muPhi                    [i] = initSingleHistogramTH1F( hname_AOD_muPhi                   , "AOD_muPhi                  ", 30, -5, 5); 
+  h_AOD_subLead_muPt             [i] = initSingleHistogramTH1F( hname_AOD_subLead_muPt            , "AOD_subLead_muPt           ", 50, 0, 500) ;  
+  h_AOD_subLead_muEn             [i] = initSingleHistogramTH1F( hname_AOD_subLead_muEn            , "AOD_subLead_muEn           ", 50, 0, 500) ;  
+  h_AOD_subLead_muEta            [i] = initSingleHistogramTH1F( hname_AOD_subLead_muEta           , "AOD_subLead_muEta          ", 30, -5, 5); 
+  h_AOD_subLead_muPhi            [i] = initSingleHistogramTH1F( hname_AOD_subLead_muPhi           , "AOD_subLead_muPhi          ", 30, -5, 5); 
   h_AOD_muCharge                 [i] = initSingleHistogramTH1F( hname_AOD_muCharge                , "AOD_muCharge               ", 3, -1, 1); 
   h_AOD_muPFdBetaIsolation       [i] = initSingleHistogramTH1F( hname_AOD_muPFdBetaIsolation      , "AOD_muPFdBetaIsolation     ", 30, -5, 5); 
  }
@@ -298,6 +330,13 @@ Bool_t analyzer_histograms::fillMuHistograms(Float_t weight, int selbin)
    h_AOD_muCharge           [selbin]->Fill( AOD_muCharge           ->at(muindex), weight );  
    h_AOD_muPFdBetaIsolation [selbin]->Fill( AOD_muPFdBetaIsolation ->at(muindex), weight );  
   }
+  if(muon_list.size() > 1){
+   int muindex2 = muon_list[1];
+   h_AOD_subLead_muPt               [selbin]->Fill( Shifted_muPt            .at(muindex2), weight );  
+   h_AOD_subLead_muEn               [selbin]->Fill( AOD_muEn               ->at(muindex2), weight );  
+   h_AOD_subLead_muEta              [selbin]->Fill( AOD_muEta              ->at(muindex2), weight );  
+   h_AOD_subLead_muPhi              [selbin]->Fill( AOD_muPhi              ->at(muindex2), weight );  
+  }
  return kTRUE;
 }
 
@@ -311,6 +350,10 @@ Bool_t analyzer_histograms::writeMuHistograms(int selbin)
  h_AOD_muEn                    [selbin]->Write();
  h_AOD_muEta                   [selbin]->Write();
  h_AOD_muPhi                   [selbin]->Write(); 
+ h_AOD_subLead_muPt            [selbin]->Write();
+ h_AOD_subLead_muEn            [selbin]->Write();
+ h_AOD_subLead_muEta           [selbin]->Write();
+ h_AOD_subLead_muPhi           [selbin]->Write(); 
  h_AOD_muCharge                [selbin]->Write(); 
  h_AOD_muPFdBetaIsolation      [selbin]->Write(); 
  return kTRUE;
@@ -327,6 +370,10 @@ Bool_t analyzer_histograms::deleteMuHistograms(int selbin)
   if(h_AOD_muEn[selbin]!=NULL)                h_AOD_muEn                    [selbin]->Delete();
   if(h_AOD_muEta[selbin]!=NULL)               h_AOD_muEta                   [selbin]->Delete();
   if(h_AOD_muPhi[selbin]!=NULL)               h_AOD_muPhi                   [selbin]->Delete(); 
+  if(h_AOD_subLead_muPt[selbin]!=NULL)        h_AOD_subLead_muPt            [selbin]->Delete();
+  if(h_AOD_subLead_muEn[selbin]!=NULL)        h_AOD_subLead_muEn            [selbin]->Delete();
+  if(h_AOD_subLead_muEta[selbin]!=NULL)       h_AOD_subLead_muEta           [selbin]->Delete();
+  if(h_AOD_subLead_muPhi[selbin]!=NULL)       h_AOD_subLead_muPhi           [selbin]->Delete(); 
   if(h_AOD_muCharge[selbin]!=NULL)            h_AOD_muCharge                [selbin]->Delete(); 
   if(h_AOD_muPFdBetaIsolation[selbin]!=NULL)  h_AOD_muPFdBetaIsolation      [selbin]->Delete(); 
   return kTRUE;
@@ -340,19 +387,38 @@ Bool_t analyzer_histograms::initLepHistograms( TString uncbin ){
   hist_file_out[i]->cd();
   //deleteLepHistograms(i);
   TString hname_AOD_dilepton_Mass = "h_"+selbinnames[i]+"_AOD_dilepton_Mass"+uncbin; 
+  TString hname_AOD_dijet_Mass = "h_"+selbinnames[i]+"_AOD_dijet_Mass"+uncbin; 
+  TString hname_AOD_onejet_Mass = "h_"+selbinnames[i]+"_AOD_onejet_Mass"+uncbin; 
+  TString hname_AOD_totjet_Mass = "h_"+selbinnames[i]+"_AOD_totjet_Mass"+uncbin; 
+  TString hname_AOD_ScalarCutflow = "h_"+selbinnames[i]+"_AOD_ScalarCutflow"+uncbin; 
+  TString hname_AOD_Scalarflight = "h_"+selbinnames[i]+"_AOD_Scalarflight"+uncbin; 
+  TString hname_AOD_Scalarct = "h_"+selbinnames[i]+"_AOD_Scalarct"+uncbin; 
+  TString hname_AOD_ScalardR = "h_"+selbinnames[i]+"_AOD_ScalardR"+uncbin; 
+  TString hname_AOD_daughterdR = "h_"+selbinnames[i]+"_AOD_daughterdR"+uncbin; 
+  TString hname_AOD_jetScalardR = "h_"+selbinnames[i]+"_AOD_jetScalardR"+uncbin; 
+  TString hname_AOD_jetdaughterdR = "h_"+selbinnames[i]+"_AOD_jetdaughterdR"+uncbin; 
   TString hname_AOD_dilepton_Pt   = "h_"+selbinnames[i]+"_AOD_dilepton_Pt"  +uncbin; 
   TString hname_AOD_dileptonNewB_Pt   = "h_"+selbinnames[i]+"_AOD_dileptonNewB_Pt"  +uncbin; 
   TString hname_AOD_OSOFdilepton_Mass = "h_"+selbinnames[i]+"_AOD_OSOFdilepton_Mass"+uncbin; 
   TString hname_AOD_OSOFdilepton_Pt   = "h_"+selbinnames[i]+"_AOD_OSOFdilepton_Pt"  +uncbin; 
   TString hname_AOD_OSOFdileptonNewB_Pt   = "h_"+selbinnames[i]+"_AOD_OSOFdileptonNewB_Pt"  +uncbin; 
 
-  h_AOD_dilepton_Mass    [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Mass    , "AOD_dilepton_Mass"    , 30,  60, 120) ;  
+  h_AOD_dilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_dilepton_Mass, "AOD_dilepton_Mass", 30,  60, 120) ;  
+  h_AOD_dijet_Mass[i] = initSingleHistogramTH1F( hname_AOD_dijet_Mass, "AOD_dijet_Mass", 100,  0, 500) ;  
+  h_AOD_onejet_Mass[i] = initSingleHistogramTH1F( hname_AOD_onejet_Mass, "AOD_onejet_Mass", 70,  0, 70) ;  
+  h_AOD_totjet_Mass[i] = initSingleHistogramTH1F( hname_AOD_totjet_Mass, "AOD_totjet_Mass", 100,  0, 500) ;  
+  h_AOD_Scalarflight[i] = initSingleHistogramTH1F( hname_AOD_Scalarflight, "AOD_Scalarflight",100,  0, 500) ;  
+  h_AOD_Scalarct[i] = initSingleHistogramTH1F( hname_AOD_Scalarct, "AOD_Scalarct", 100,  0, 500) ;  
+  h_AOD_ScalardR[i] = initSingleHistogramTH1F( hname_AOD_ScalardR, "AOD_ScalardR", 50,  0, 5) ;  
+  h_AOD_daughterdR[i] = initSingleHistogramTH1F( hname_AOD_daughterdR, "AOD_daughterdR", 50,  0, 5) ;  
+  h_AOD_jetScalardR[i] = initSingleHistogramTH1F( hname_AOD_jetScalardR, "AOD_jetScalardR", 500,  0, 5) ;  
+  h_AOD_jetdaughterdR[i] = initSingleHistogramTH1F( hname_AOD_jetdaughterdR, "AOD_jetdaughterdR", 500,  0, 5) ;  
+  h_AOD_ScalarCutflow[i] = initSingleHistogramTH1F( hname_AOD_ScalarCutflow, "AOD_ScalarCutflow", 3,  0, 3) ;  
   h_AOD_dileptonNewB_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dileptonNewB_Pt  , "AOD_dileptonNewB_Pt  ", 50,   0, 500) ;  
-  h_AOD_dilepton_Pt      [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Pt      , "AOD_dilepton_Pt  "    , 24, x_bins);  
-  
-  h_AOD_OSOFdilepton_Mass    [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Mass, "AOD_OSOFdilepton_Mass", 30,  60, 120) ;  
+  h_AOD_dilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Pt  , "AOD_dilepton_Pt  ", 24, x_bins); 
+  h_AOD_OSOFdilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Mass, "AOD_OSOFdilepton_Mass", 50,  0, 500) ;  
   h_AOD_OSOFdileptonNewB_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdileptonNewB_Pt  , "AOD_OSOFdileptonNewB_Pt  ", 50,   0, 500) ;  
-  h_AOD_OSOFdilepton_Pt      [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 24, x_bins); 
+  h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 24,x_bins);  
  }
  return kTRUE;
 }
@@ -363,7 +429,28 @@ Bool_t analyzer_histograms::fillLepHistograms(Float_t weight, int selbin )
   hist_file_out[selbin]->cd();
   h_AOD_dilepton_Mass  [selbin]->Fill( dilep_mass, weight );
   h_AOD_dilepton_Pt    [selbin]->Fill( dilep_pt, weight );
-  h_AOD_dileptonNewB_Pt    [selbin]->Fill( dilep_pt, weight );
+  h_AOD_dijet_Mass    [selbin]->Fill( dijet_mass, weight );
+  h_AOD_onejet_Mass    [selbin]->Fill( dijet_mass2, weight );
+  h_AOD_totjet_Mass    [selbin]->Fill( quadjet_mass, weight );
+  for (int i = 0; i<2; i ++){
+  //h_AOD_Scalarflight    [selbin]->Fill( flight_list[i], weight );
+  //h_AOD_Scalarct    [selbin]->Fill( ct_list[i], weight );
+	} 
+  //h_AOD_ScalardR    [selbin]->Fill( ScalardR, weight );
+  for (int j = 0; j<2; j ++){
+  //h_AOD_daughterdR    [selbin]->Fill( daughterdR[j], weight );
+  }
+  for (int m = 0; m<jetScalardR.size(); m ++){
+  h_AOD_jetScalardR    [selbin]->Fill( jetScalardR[m], weight );
+  }
+  for (int l = 0; l<jetScalardR.size(); l ++){
+  h_AOD_jetdaughterdR    [selbin]->Fill( jetdaughterdR[l], weight );
+  }
+
+  h_AOD_ScalarCutflow    [selbin]->Fill( 0., weight );
+  if(passOneScalar)  h_AOD_ScalarCutflow    [selbin]->Fill( 1., weight );
+  if(passTwoScalar)  h_AOD_ScalarCutflow    [selbin]->Fill( 2., weight );
+ h_AOD_dileptonNewB_Pt    [selbin]->Fill( dilep_pt, weight );
   h_AOD_OSOFdilepton_Mass  [selbin]->Fill( OSOF_mass, weight );
   h_AOD_OSOFdilepton_Pt    [selbin]->Fill( OSOF_pt, weight );
   h_AOD_OSOFdileptonNewB_Pt    [selbin]->Fill( OSOF_pt, weight );
@@ -375,6 +462,16 @@ Bool_t analyzer_histograms::writeLepHistograms(int selbin)
 {
   hist_file_out[selbin]->cd();
  h_AOD_dilepton_Mass           [selbin]->Write();
+ h_AOD_dijet_Mass           [selbin]->Write();
+ h_AOD_onejet_Mass           [selbin]->Write();
+ h_AOD_totjet_Mass           [selbin]->Write();
+ h_AOD_Scalarflight           [selbin]->Write();
+ h_AOD_Scalarct           [selbin]->Write();
+ h_AOD_ScalardR           [selbin]->Write();
+ h_AOD_daughterdR           [selbin]->Write();
+ h_AOD_jetScalardR           [selbin]->Write();
+ h_AOD_jetdaughterdR           [selbin]->Write();
+ h_AOD_ScalarCutflow           [selbin]->Write();
  h_AOD_dilepton_Pt             [selbin]->Write();
  h_AOD_dileptonNewB_Pt             [selbin]->Write();
  h_AOD_OSOFdilepton_Mass       [selbin]->Write();
@@ -388,11 +485,21 @@ Bool_t analyzer_histograms::deleteLepHistograms(int selbin)
 {
   //printf("deleteLepHistograms\n");
   hist_file_out[selbin]->cd();
-  if(h_AOD_dilepton_Mass        [selbin]!=NULL)   h_AOD_dilepton_Mass               [selbin]->Delete();
-  if(h_AOD_dilepton_Pt          [selbin]!=NULL)   h_AOD_dilepton_Pt                 [selbin]->Delete();
+  if(h_AOD_dilepton_Mass    [selbin]!=NULL)   h_AOD_dilepton_Mass           [selbin]->Delete();
+  if(h_AOD_dijet_Mass    [selbin]!=NULL)   h_AOD_dijet_Mass           [selbin]->Delete();
+  if(h_AOD_onejet_Mass    [selbin]!=NULL)   h_AOD_onejet_Mass           [selbin]->Delete();
+  if(h_AOD_totjet_Mass    [selbin]!=NULL)   h_AOD_totjet_Mass           [selbin]->Delete();
+  if(h_AOD_Scalarflight    [selbin]!=NULL)   h_AOD_Scalarflight           [selbin]->Delete();
+  if(h_AOD_Scalarct    [selbin]!=NULL)   h_AOD_Scalarct           [selbin]->Delete();
+  if(h_AOD_ScalardR    [selbin]!=NULL)   h_AOD_ScalardR           [selbin]->Delete();
+  if(h_AOD_daughterdR    [selbin]!=NULL)   h_AOD_daughterdR           [selbin]->Delete();
+  if(h_AOD_jetScalardR    [selbin]!=NULL)   h_AOD_jetScalardR           [selbin]->Delete();
+  if(h_AOD_jetdaughterdR    [selbin]!=NULL)   h_AOD_jetdaughterdR           [selbin]->Delete();
+  if(h_AOD_ScalarCutflow    [selbin]!=NULL)   h_AOD_ScalarCutflow           [selbin]->Delete();
+  if(h_AOD_dilepton_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
   if(h_AOD_dileptonNewB_Pt      [selbin]!=NULL)   h_AOD_dileptonNewB_Pt             [selbin]->Delete();
-  if(h_AOD_OSOFdilepton_Mass    [selbin]!=NULL)   h_AOD_OSOFdilepton_Mass           [selbin]->Delete();
-  if(h_AOD_OSOFdilepton_Pt      [selbin]!=NULL)   h_AOD_OSOFdilepton_Pt             [selbin]->Delete();  
+  if(h_AOD_OSOFdilepton_Mass[selbin]!=NULL)   h_AOD_OSOFdilepton_Mass       [selbin]->Delete();
+  if(h_AOD_OSOFdilepton_Pt  [selbin]!=NULL)   h_AOD_OSOFdilepton_Pt         [selbin]->Delete();  
   if(h_AOD_OSOFdileptonNewB_Pt  [selbin]!=NULL)   h_AOD_OSOFdileptonNewB_Pt         [selbin]->Delete();  
   return kTRUE;
 }
@@ -472,21 +579,23 @@ Bool_t analyzer_histograms::initMETHTHistograms( TString uncbin ){
   for(unsigned int i=0; i<selbinnames.size(); ++i){
     hist_file_out[i]->cd();
     //deleteMETHTHistograms(i);
-    TString hname_AOD_MET_phi                 = "h_"+selbinnames[i]+"_AOD_MET_phi"  +uncbin ; 
-    TString hname_AOD_MET_pt                  = "h_"+selbinnames[i]+"_AOD_MET_pt"   +uncbin ; 
+//    TString hname_AOD_MET_phi                 = "h_"+selbinnames[i]+"_AOD_MET_phi"  +uncbin ; 
+//    TString hname_AOD_MET_pt                  = "h_"+selbinnames[i]+"_AOD_MET_pt"   +uncbin ; 
     TString hname_htall                       = "h_"+selbinnames[i]+"_htall"        +uncbin ;
     TString hname_htaodcalojets               = "h_"+selbinnames[i]+"_htaodcalojets"+uncbin ;
     TString hname_AODnGoodVtx                 = "h_"+selbinnames[i]+"_AODnGoodVtx"+uncbin ;
     TString hname_AODnVtx                     = "h_"+selbinnames[i]+"_AODnVtx"+uncbin ;
     TString hname_AODnTruePU                  = "h_"+selbinnames[i]+"_AODnTruePU"+uncbin ;
+    //TString hname_AOD0thnPU                   = "h_"+selbinnames[i]+"_AOD0thnPU"+uncbin ;
     
-    h_AOD_MET_phi    [i] = initSingleHistogramTH1F( hname_AOD_MET_phi   , "AOD_MET_phi  " , 30, -5, 5); 
-    h_AOD_MET_pt     [i] = initSingleHistogramTH1F( hname_AOD_MET_pt    , "AOD_MET_pt   " , 50, 0, 100); 
+//    h_AOD_MET_phi    [i] = initSingleHistogramTH1F( hname_AOD_MET_phi   , "AOD_MET_phi  " , 30, -5, 5); 
+//    h_AOD_MET_pt     [i] = initSingleHistogramTH1F( hname_AOD_MET_pt    , "AOD_MET_pt   " , 50, 0, 500); 
     h_htall          [i] = initSingleHistogramTH1F( hname_htall         , "htall        " , 50,0,1000) ; 
     h_htaodcalojets  [i] = initSingleHistogramTH1F( hname_htaodcalojets , "htaodcalojets" , 50,0,1000) ; 
     h_AODnGoodVtx    [i] = initSingleHistogramTH1F( hname_AODnGoodVtx , "AODnGoodVtx" , 150,0,150) ; 
     h_AODnVtx        [i] = initSingleHistogramTH1F( hname_AODnVtx , "AODnVtx" , 150,0,150) ; 
     h_AODnTruePU     [i] = initSingleHistogramTH1F( hname_AODnTruePU , "AODnTruePU" , 150,0,150) ; 
+    //h_AOD0thnPU      [i] = initSingleHistogramTH1F( hname_AOD0thnPU , "AOD0thnPU" , 150,0,150) ; 
   }
   
   return kTRUE;
@@ -496,13 +605,14 @@ Bool_t analyzer_histograms::initMETHTHistograms( TString uncbin ){
 Bool_t analyzer_histograms::fillMETHTHistograms(Float_t weight, int selbin)
 {
   hist_file_out[selbin]->cd();
- h_AOD_MET_phi             [selbin]->Fill( themephi       , weight);  
- h_AOD_MET_pt              [selbin]->Fill( themet         , weight);  
+// h_AOD_MET_phi             [selbin]->Fill( themephi       , weight);  
+// h_AOD_MET_pt              [selbin]->Fill( themet         , weight);  
  h_htall                   [selbin]->Fill( htall          , weight); 
  h_htaodcalojets           [selbin]->Fill( htaodcalojets  , weight); 
  h_AODnGoodVtx             [selbin]->Fill( AODnGoodVtx  , weight); 
  h_AODnVtx                 [selbin]->Fill( AODnVtx  , weight); 
  h_AODnTruePU              [selbin]->Fill( AODnTruePU  , weight); 
+ //h_AOD0thnPU               [selbin]->Fill( AOD0thnPU  , weight); 
  return kTRUE;
 }
 
@@ -510,13 +620,14 @@ Bool_t analyzer_histograms::fillMETHTHistograms(Float_t weight, int selbin)
 Bool_t analyzer_histograms::writeMETHTHistograms(int selbin)
 {
   hist_file_out[selbin]->cd();
-  h_AOD_MET_phi             [selbin]->Write(); 
-  h_AOD_MET_pt              [selbin]->Write(); 
+//  h_AOD_MET_phi             [selbin]->Write(); 
+//  h_AOD_MET_pt              [selbin]->Write(); 
   h_htall                   [selbin]->Write(); 
   h_htaodcalojets           [selbin]->Write(); 
   h_AODnGoodVtx             [selbin]->Write(); 
   h_AODnVtx                 [selbin]->Write(); 
   h_AODnTruePU              [selbin]->Write(); 
+ // h_AOD0thnPU               [selbin]->Write(); 
   return kTRUE;
 }
 
@@ -525,16 +636,142 @@ Bool_t analyzer_histograms::deleteMETHTHistograms(int selbin)
 {
   //printf("deleteMETHTHistograms\n");
   hist_file_out[selbin]->cd();
-  if(h_AOD_MET_phi  [selbin]!=NULL)   h_AOD_MET_phi             [selbin]->Delete(); 
-  if(h_AOD_MET_pt   [selbin]!=NULL)   h_AOD_MET_pt              [selbin]->Delete(); 
+//  if(h_AOD_MET_phi  [selbin]!=NULL)   h_AOD_MET_phi             [selbin]->Delete(); 
+//  if(h_AOD_MET_pt   [selbin]!=NULL)   h_AOD_MET_pt              [selbin]->Delete(); 
   if(h_htall        [selbin]!=NULL)   h_htall                   [selbin]->Delete(); 
   if(h_htaodcalojets[selbin]!=NULL)   h_htaodcalojets           [selbin]->Delete(); 
   if(h_AODnGoodVtx[selbin]!=NULL)     h_AODnGoodVtx             [selbin]->Delete(); 
   if(h_AODnVtx[selbin]!=NULL)         h_AODnVtx                 [selbin]->Delete(); 
   if(h_AODnTruePU[selbin]!=NULL)      h_AODnTruePU              [selbin]->Delete(); 
+ // if(h_AOD0thnPU[selbin]!=NULL)       h_AOD0thnPU               [selbin]->Delete(); 
   return kTRUE;
 }
 
+//----------------------------initWeightHistograms
+Bool_t analyzer_histograms::initWeightHistograms( TString uncbin ){
+  
+  for(unsigned int i=0; i<selbinnames.size(); ++i){
+    hist_file_out[i]->cd();
+    //deleteWeightHistograms(i);
+    TString hname_eleReco                       = "h_"+selbinnames[i]+"_eleReco"  +uncbin ; 
+    TString hname_eleID                       = "h_"+selbinnames[i]+"_eleID"  +uncbin ; 
+    TString hname_muonID                      = "h_"+selbinnames[i]+"_muonID"  +uncbin ; 
+    TString hname_muonISO                     = "h_"+selbinnames[i]+"_muonISO"  +uncbin ; 
+    TString hname_LeptonSF                    = "h_"+selbinnames[i]+"_LeptonSF"  +uncbin ; 
+
+    TString hname_eleReco_Unc              = "h_"+selbinnames[i]+"_eleReco_Unc"  +uncbin ; 
+    TString hname_eleID_Unc              = "h_"+selbinnames[i]+"_eleID_Unc"  +uncbin ; 
+    TString hname_muonID_Unc              = "h_"+selbinnames[i]+"_muonID_Unc"  +uncbin ; 
+    TString hname_muonISO_Unc              = "h_"+selbinnames[i]+"_muonISO_Unc"  +uncbin ; 
+    TString hname_LeptonSF_Unc              = "h_"+selbinnames[i]+"_LeptonSF_Unc"  +uncbin ; 
+
+    //TString hname_LumiWeight                  = "h_"+selbinnames[i]+"_LumiWeight"  +uncbin ; 
+    //TString hname_PUWeight                    = "h_"+selbinnames[i]+"_PUWeight"  +uncbin ; 
+    //TString hname_GenEventWeight              = "h_"+selbinnames[i]+"_GenEventWeight"  +uncbin ; 
+    //TString hname_OtherWeight              = "h_"+selbinnames[i]+"_OtherWeight"  +uncbin ; 
+    TString hname_FullWeight              = "h_"+selbinnames[i]+"_FullWeight"  +uncbin ; 
+
+    
+    h_eleReco          [i] = initSingleHistogramTH2F( hname_eleReco   , "eleReco  " , 10, 0.96, 1.01, 10, 0.96, 1.01); 
+    h_eleID          [i] = initSingleHistogramTH2F( hname_eleID   , "eleID  " , 10, 0.96, 1.01, 10, 0.96, 1.01); 
+    h_muonID          [i] = initSingleHistogramTH2F( hname_muonID   , "muonID  " , 60, 0.945, 1.005, 60, 0.945, 1.005); 
+    h_muonISO          [i] = initSingleHistogramTH2F( hname_muonISO   , "muonISO  " , 60, 0.945, 1.005, 60, 0.945, 1.005); 
+    h_LeptonSF          [i] = initSingleHistogramTH1F( hname_LeptonSF   , "LeptonSF  " , 100, 0.7, 1.1); 
+
+    h_eleReco_Unc          [i] = initSingleHistogramTH1F( hname_eleReco_Unc   , "eleReco_Unc  " , 100, 0, .1);
+    h_eleID_Unc          [i] = initSingleHistogramTH1F( hname_eleID_Unc   , "eleID_Unc  " , 100, 0, .1);
+    h_muonID_Unc          [i] = initSingleHistogramTH1F( hname_muonID_Unc   , "muonID_Unc  " , 100, 0, .1); 
+    h_muonISO_Unc          [i] = initSingleHistogramTH1F( hname_muonISO_Unc   , "muonISO_Unc  " , 100, 0, .1); 
+    h_LeptonSF_Unc          [i] = initSingleHistogramTH1F( hname_LeptonSF_Unc   , "LeptonSF_Unc  " , 100, 0, .1); 
+
+    //h_LumiWeight          [i] = initSingleHistogramTH1F( hname_LumiWeight   , "LumiWeight  " , 200, 0, 10); 
+    //h_PUWeight          [i] = initSingleHistogramTH1F( hname_PUWeight   , "PUWeight  " , 200, 0, 10); 
+    //h_GenEventWeight          [i] = initSingleHistogramTH1F( hname_GenEventWeight   , "GenEventWeight  " , 200, 0, 10); 
+    //h_OtherWeight          [i] = initSingleHistogramTH1F( hname_OtherWeight   , "OtherWeight  " , 200, 0, 10); 
+    h_FullWeight          [i] = initSingleHistogramTH1F( hname_FullWeight   , "FullWeight  " , 100, -5, 5); 
+  }
+  
+  return kTRUE;
+}
+
+//----------------------------fillWeightHistograms
+Bool_t analyzer_histograms::fillWeightHistograms(Float_t weight, int selbin)
+{
+  hist_file_out[selbin]->cd();
+ if(isMC){
+ if (dofillselbin[5]||dofillselbin[9]||dofillselbin[13]){
+ h_eleReco             [selbin]->Fill(eleReco_ind[0], eleReco_ind[1]); 
+ h_eleReco_Unc         [selbin]->Fill(eleReco_Unc);  
+ h_eleID             [selbin]->Fill(eleID_ind[0], eleID_ind[1]); 
+ h_eleID_Unc         [selbin]->Fill(eleID_Unc);  
+} 
+ if (dofillselbin[7]||dofillselbin[11]||dofillselbin[15]){
+ h_muonID             [selbin]->Fill(muonID_ind[0], muonID_ind[1]);  
+ h_muonISO             [selbin]->Fill(muonISO_ind[0], muonISO_ind[1]);  
+ h_muonID_Unc         [selbin]->Fill(muonID_Unc);  
+ h_muonISO_Unc         [selbin]->Fill(muonISO_Unc);  
+}
+ h_LeptonSF         [selbin]->Fill(w_LeptonSF);  
+ h_LeptonSF_Unc         [selbin]->Fill(LeptonSF_Unc);  
+ 
+ //h_LumiWeight         [selbin]->Fill(w_Lumi);  
+ //h_PUWeight         [selbin]->Fill(w_PU);  
+ //h_GenEventWeight         [selbin]->Fill(w_GenEvent);  
+ //h_OtherWeight         [selbin]->Fill(w_other);  
+ }
+ h_FullWeight         [selbin]->Fill(weight);  
+ 
+ return kTRUE;
+}
+
+//----------------------------writeWeightHistograms
+Bool_t analyzer_histograms::writeWeightHistograms(int selbin)
+{
+  hist_file_out[selbin]->cd();
+  h_eleReco                  [selbin]->Write(); 
+  h_eleID                  [selbin]->Write(); 
+  h_muonID                 [selbin]->Write(); 
+  h_muonISO                [selbin]->Write(); 
+  h_LeptonSF               [selbin]->Write(); 
+
+  h_eleReco_Unc         [selbin]->Write(); 
+  h_eleID_Unc         [selbin]->Write(); 
+  h_muonID_Unc         [selbin]->Write(); 
+  h_muonISO_Unc         [selbin]->Write(); 
+  h_LeptonSF_Unc         [selbin]->Write(); 
+
+  //h_LumiWeight             [selbin]->Write(); 
+  //h_PUWeight               [selbin]->Write(); 
+  //h_GenEventWeight         [selbin]->Write(); 
+  //h_OtherWeight         [selbin]->Write(); 
+  h_FullWeight         [selbin]->Write(); 
+  return kTRUE;
+}
+
+//----------------------------deleteWeightHistograms
+Bool_t analyzer_histograms::deleteWeightHistograms(int selbin)
+{
+  //printf("deleteWeightHistograms\n");
+  hist_file_out[selbin]->cd();
+  if(h_eleReco         [selbin]!=NULL)   h_eleReco                    [selbin]->Delete(); 
+  if(h_eleID         [selbin]!=NULL)   h_eleID                    [selbin]->Delete(); 
+  if(h_muonID        [selbin]!=NULL)   h_muonID                   [selbin]->Delete(); 
+  if(h_muonISO       [selbin]!=NULL)   h_muonISO                  [selbin]->Delete(); 
+  if(h_LeptonSF      [selbin]!=NULL)   h_LeptonSF                 [selbin]->Delete(); 
+
+  if(h_eleReco_Unc[selbin]!=NULL)   h_eleReco_Unc           [selbin]->Delete(); 
+  if(h_eleID_Unc[selbin]!=NULL)   h_eleID_Unc           [selbin]->Delete(); 
+  if(h_muonID_Unc[selbin]!=NULL)   h_muonID_Unc           [selbin]->Delete(); 
+  if(h_muonISO_Unc[selbin]!=NULL)   h_muonISO_Unc           [selbin]->Delete(); 
+  if(h_LeptonSF_Unc[selbin]!=NULL)   h_LeptonSF_Unc           [selbin]->Delete(); 
+
+  //if(h_LumiWeight    [selbin]!=NULL)   h_LumiWeight               [selbin]->Delete(); 
+  //if(h_PUWeight      [selbin]!=NULL)   h_PUWeight                 [selbin]->Delete(); 
+  //if(h_GenEventWeight[selbin]!=NULL)   h_GenEventWeight           [selbin]->Delete(); 
+  //if(h_OtherWeight[selbin]!=NULL)   h_OtherWeight           [selbin]->Delete(); 
+  if(h_FullWeight[selbin]!=NULL)   h_FullWeight           [selbin]->Delete(); 
+  return kTRUE;
+}
 
 
 ///// Jet Histograms
@@ -547,11 +784,11 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
   hist_file_out[i]->cd(); 
   //deleteAODCaloJetBasicHistograms(i);
       TString hname_nCaloJet                 = "h_"+selbinnames[i]+"_nCaloJet" +uncbin;
-      TString hname_nPFJet                   = "h_"+selbinnames[i]+"_nPFJet"   +uncbin;
-      TString hname_nPFchsJet                = "h_"+selbinnames[i]+"_nPFchsJet"+uncbin;
+//      TString hname_nPFJet                   = "h_"+selbinnames[i]+"_nPFJet"   +uncbin;
+//      TString hname_nPFchsJet                = "h_"+selbinnames[i]+"_nPFchsJet"+uncbin;
       h_nCaloJet                 [i] = initSingleHistogramTH1F( hname_nCaloJet  , "nCaloJet",  10,0,10);
-      h_nPFJet                   [i] = initSingleHistogramTH1F( hname_nPFJet    , "nPFJet",    10,0,10);
-      h_nPFchsJet                [i] = initSingleHistogramTH1F( hname_nPFchsJet , "nPFchsJet", 10,0,10);
+//      h_nPFJet                   [i] = initSingleHistogramTH1F( hname_nPFJet    , "nPFJet",    10,0,10);
+//      h_nPFchsJet                [i] = initSingleHistogramTH1F( hname_nPFchsJet , "nPFchsJet", 10,0,10);
       unsigned int k; if(jetMultOn) k=0; else k=jetmultnames.size()-1;
       for(k; k<jetmultnames.size(); ++k){
         //deleteAODCaloJetBasicHistograms(i,k);
@@ -574,32 +811,35 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	TString hname_AODCaloJetMedianLog10TrackAngle         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMedianLog10TrackAngle"+uncbin; 
 	TString hname_AODCaloJetTotalTrackAngle               = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetTotalTrackAngle"      +uncbin; 
 	TString hname_AODCaloJetMinDR                         = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetMinDR"                +uncbin; 
-	TString hname_AODCaloJetCSV                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetCSV"                  +uncbin; 
-	TString hname_AODCaloJetPartonFlavour                 = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPartonFlavour"        +uncbin; 
+//	TString hname_AODCaloJetCSV                           = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetCSV"                  +uncbin; 
+//	TString hname_AODCaloJetPartonFlavour                 = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPartonFlavour"        +uncbin; 
         TString hname_AODCaloJetAbsEta                        = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetAbsEta"               +uncbin; 
 	TString hname_AODCaloJetPtVarAbsEtaVar                = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetPtVarAbsEtaVar"       +uncbin; 
-	h_AODCaloJetPt                             [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPt                             , "AODCaloJetPt                            ", 50,0,500  ); 
-	h_AODCaloJetEta                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetEta                            , "AODCaloJetEta                           ", 30,-5,5   ); 
-	h_AODCaloJetPhi                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPhi                            , "AODCaloJetPhi                           ", 30,-5,5   ); 
-	h_AODCaloJetAlphaMax                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax                       , "AODCaloJetAlphaMax                      ", 60, 0, 1.2  ); 
-	h_AODCaloJetAlphaMax2                      [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax2                      , "AODCaloJetAlphaMax2                     ", 50, 0, 1  ); 
-	h_AODCaloJetAlphaMaxPrime                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime                  , "AODCaloJetAlphaMaxPrime                 ", 50, 0, 1  ); 
-	h_AODCaloJetAlphaMaxPrime2                 [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime2                 , "AODCaloJetAlphaMaxPrime2                ", 50, 0, 1  ); 
-	h_AODCaloJetBeta                           [i][k] = initSingleHistogramTH1F( hname_AODCaloJetBeta                           , "AODCaloJetBeta                          ", 50, 0, 1  ); 
-	h_AODCaloJetBeta2                          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetBeta2                          , "AODCaloJetBeta2                         ", 50, 0, 1  ); 
-	h_AODCaloJetSumIP                          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetSumIP                          , "AODCaloJetSumIP                         ", 50, -3, 3 ); 
-	h_AODCaloJetSumIPSig                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetSumIPSig                       , "AODCaloJetSumIPSig                      ", 50, -3, 3 ); 
-	h_AODCaloJetMedianIP                       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianIP                       , "AODCaloJetMedianIP                      ", 50, -3, 3 ); 
-	h_AODCaloJetMedianLog10IPSig               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig               , "AODCaloJetMedianLog10IPSig              ", 50, -3, 4 ); 
-	h_AODCaloJetTrackAngle                     [i][k] = initSingleHistogramTH1F( hname_AODCaloJetTrackAngle                     , "AODCaloJetTrackAngle                    ", 50, -3, 3 ); 
-	h_AODCaloJetLogTrackAngle                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetLogTrackAngle                  , "AODCaloJetLogTrackAngle                 ", 50, -3, 3 ); 
-	h_AODCaloJetMedianLog10TrackAngle          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle          , "AODCaloJetMedianLog10TrackAngle         ", 50, -5, 2 ); 
-	h_AODCaloJetTotalTrackAngle                [i][k] = initSingleHistogramTH1F( hname_AODCaloJetTotalTrackAngle                , "AODCaloJetTotalTrackAngle               ", 50, -3, 3 ); 
-	h_AODCaloJetMinDR                          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMinDR                          , "AODCaloJetMinDR                         ", 30, 0, 5 ); 
-	h_AODCaloJetCSV                            [i][k] = initSingleHistogramTH1F( hname_AODCaloJetCSV                            , "AODCaloJetCSV                           ", 24, -.1, 1.1 ); 
-	h_AODCaloJetPartonFlavour                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPartonFlavour                  , "AODCaloJetPartonFlavour                 ", 35, -10, 25 ); 
-        h_AODCaloJetAbsEta                         [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAbsEta                         , "AODCaloJetAbsEta                        ", 4, 0, 3 );
-
+	TString hname_AODCaloJetEtaVsPhi                      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJetEtaVsPhi"             +uncbin; 
+	h_AODCaloJetPt                     [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPt                     , "AODCaloJetPt                            ", 50,0,500  ); 
+	h_AODCaloJetEta                    [i][k] = initSingleHistogramTH1F( hname_AODCaloJetEta                    , "AODCaloJetEta                           ", 30,-5,5   ); 
+	h_AODCaloJetPhi                    [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPhi                    , "AODCaloJetPhi                           ", 30,-5,5   ); 
+	h_AODCaloJetAlphaMax               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax               , "AODCaloJetAlphaMax                      ", 60, 0, 1.2  ); 
+	//h_AODCaloJetAlphaMax               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax               , "AODCaloJetAlphaMax                      ", 300, 0, 1.1  ); 
+	h_AODCaloJetAlphaMax2              [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMax2              , "AODCaloJetAlphaMax2                     ", 50, 0, 1  ); 
+	h_AODCaloJetAlphaMaxPrime          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime          , "AODCaloJetAlphaMaxPrime                 ", 50, 0, 1  ); 
+	h_AODCaloJetAlphaMaxPrime2         [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAlphaMaxPrime2         , "AODCaloJetAlphaMaxPrime2                ", 50, 0, 1  ); 
+	h_AODCaloJetBeta                   [i][k] = initSingleHistogramTH1F( hname_AODCaloJetBeta                   , "AODCaloJetBeta                          ", 50, 0, 1  ); 
+	h_AODCaloJetBeta2                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetBeta2                  , "AODCaloJetBeta2                         ", 50, 0, 1  ); 
+	h_AODCaloJetSumIP                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetSumIP                  , "AODCaloJetSumIP                         ", 50, -3, 3 ); 
+	h_AODCaloJetSumIPSig               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetSumIPSig               , "AODCaloJetSumIPSig                      ", 50, -3, 3 ); 
+	h_AODCaloJetMedianIP               [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianIP               , "AODCaloJetMedianIP                      ", 50, -3, 3 ); 
+	h_AODCaloJetMedianLog10IPSig       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig       , "AODCaloJetMedianLog10IPSig              ", 50, -3, 4 ); 
+	//h_AODCaloJetMedianLog10IPSig       [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10IPSig       , "AODCaloJetMedianLog10IPSig              ", 500, -3, 4 ); 
+	h_AODCaloJetTrackAngle             [i][k] = initSingleHistogramTH1F( hname_AODCaloJetTrackAngle             , "AODCaloJetTrackAngle                    ", 50, -3, 3 ); 
+	h_AODCaloJetLogTrackAngle          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetLogTrackAngle          , "AODCaloJetLogTrackAngle                 ", 50, -3, 3 ); 
+	h_AODCaloJetMedianLog10TrackAngle  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle  , "AODCaloJetMedianLog10TrackAngle         ", 50, -5, 2 ); 
+	//h_AODCaloJetMedianLog10TrackAngle  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMedianLog10TrackAngle  , "AODCaloJetMedianLog10TrackAngle         ", 500, -5, 2 ); 
+	h_AODCaloJetTotalTrackAngle        [i][k] = initSingleHistogramTH1F( hname_AODCaloJetTotalTrackAngle        , "AODCaloJetTotalTrackAngle               ", 50, -3, 3 ); 
+	h_AODCaloJetMinDR                  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetMinDR                  , "AODCaloJetMinDR                         ", 500, 0, 5 ); 
+//	h_AODCaloJetCSV                    [i][k] = initSingleHistogramTH1F( hname_AODCaloJetCSV                    , "AODCaloJetCSV                           ", 24, -.1, 1.1 ); 
+//	h_AODCaloJetPartonFlavour          [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPartonFlavour          , "AODCaloJetPartonFlavour                 ", 35, -10, 25 ); 
+        h_AODCaloJetAbsEta                 [i][k] = initSingleHistogramTH1F( hname_AODCaloJetAbsEta                 , "AODCaloJetAbsEta                        ", 5, 0, 4 );
 	const int Pt_n_xbins = 10;
 	float Pt_xbins[Pt_n_xbins+1] = {0, 10, 20, 30, 40, 50, 75, 100, 150, 250, 500};
 	h_AODCaloJetPtVar  [i][k] = initSingleHistogramTH1F( hname_AODCaloJetPtVar , "AODCaloJetPtVar",  Pt_n_xbins, Pt_xbins );
@@ -607,6 +847,7 @@ Bool_t analyzer_histograms::initAODCaloJetBasicHistograms( TString uncbin )
 	const int AbsEta_n_bins = 2;
 	float AbsEta_bins[AbsEta_n_bins+1] = {0, 1.5, 2.4};
 	h_AODCaloJetPtVarAbsEtaVar [i][k] = initSingleHistogramTH2F( hname_AODCaloJetPtVarAbsEtaVar, "AODCaloJetPtVarAbsEtaVar", Pt_n_xbins, Pt_xbins, AbsEta_n_bins, AbsEta_bins );
+	h_AODCaloJetEtaVsPhi [i][k]       = initSingleHistogramTH2F( hname_AODCaloJetEtaVsPhi, "AODCaloJetEtaVsPhi", 30, -2.8, 2.8, 30, -3.2,3.2 );
 
       }
   }
@@ -620,8 +861,12 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
   if(jetmultnames.at(jetbin) == "AllJets"){
     // only fill these once (no jet multiplicity)
     h_nCaloJet                 [selbin]->Fill ( aodcalojet_list.size() , weight );
-    h_nPFJet                   [selbin]->Fill ( 1 , weight ); // dummy values 
-    h_nPFchsJet                [selbin]->Fill ( 1 , weight ); // dummy values 
+//    h_nPFJet                   [selbin]->Fill ( 1 , weight ); // dummy values 
+//    h_nPFchsJet                [selbin]->Fill ( 1 , weight ); // dummy values 
+
+    for(unsigned int i =0; i<aodcalojet_minDR_list.size(); i++){
+      h_AODCaloJetMinDR                          [selbin][jetbin]->Fill( aodcalojet_minDR_list                     .at( i ), weight );  
+	}
     for(unsigned int i =0; i<aodcalojet_list.size(); i++){
       int aodcalojetindex = aodcalojet_list[i];
       h_AODCaloJetPt                             [selbin][jetbin]->Fill( AODCaloJetPt                             ->at( aodcalojetindex ), weight );  
@@ -640,11 +885,11 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetMedianLog10IPSig               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
       h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
       h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Fill( AODCaloJetTotalTrackAngle                ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetMinDR                          [selbin][jetbin]->Fill( aodcalojet_minDR_list                     .at( aodcalojetindex ), weight );  
-      h_AODCaloJetCSV                            [selbin][jetbin]->Fill( aodcalojet_matchedCSV_list                .at( aodcalojetindex ), weight );  
-      h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
+//      h_AODCaloJetCSV                            [selbin][jetbin]->Fill( aodcalojet_matchedCSV_list                .at( aodcalojetindex ), weight );  
+//      h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
       h_AODCaloJetAbsEta                         [selbin][jetbin]->Fill( fabs(AODCaloJetEta                       ->at( aodcalojetindex )), weight );
       h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Fill( AODCaloJetPt->at(aodcalojetindex), fabs(AODCaloJetEta->at(aodcalojetindex)), weight );  
+      h_AODCaloJetEtaVsPhi                       [selbin][jetbin]->Fill( AODCaloJetEta->at(aodcalojetindex), fabs(AODCaloJetPhi->at(aodcalojetindex)), weight );  
     }    
   }
   else{
@@ -666,11 +911,12 @@ Bool_t analyzer_histograms::fillAODCaloJetBasicHistograms(Float_t weight, int se
       h_AODCaloJetMedianLog10IPSig               [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10IPSig           .at( aodcalojetindex ), weight );  
       h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Fill( Shifted_CaloJetMedianLog10TrackAngle      .at( aodcalojetindex ), weight );  
       h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Fill( AODCaloJetTotalTrackAngle                ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetMinDR                          [selbin][jetbin]->Fill( aodcalojet_minDR_list                     .at( aodcalojetindex ), weight );  
-      h_AODCaloJetCSV                            [selbin][jetbin]->Fill( aodcalojet_matchedCSV_list                .at( aodcalojetindex ), weight );  
-      h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
+//      h_AODCaloJetMinDR                          [selbin][jetbin]->Fill( aodcalojet_minDR_list                     .at( aodcalojetindex ), weight );  
+//      h_AODCaloJetCSV                            [selbin][jetbin]->Fill( aodcalojet_matchedCSV_list                .at( aodcalojetindex ), weight );  
+//      h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Fill( aodcalojet_matchedPartonFlavour_list      .at( aodcalojetindex ), weight );  
       h_AODCaloJetAbsEta                         [selbin][jetbin]->Fill( fabs(AODCaloJetEta                       ->at( aodcalojetindex )), weight );
       h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Fill( AODCaloJetPt->at(aodcalojetindex), fabs(AODCaloJetEta->at(aodcalojetindex)), weight );  
+      h_AODCaloJetEtaVsPhi                       [selbin][jetbin]->Fill( AODCaloJetEta->at(aodcalojetindex), AODCaloJetPhi->at(aodcalojetindex), weight );  
     }
   }
   
@@ -684,8 +930,8 @@ Bool_t analyzer_histograms::writeAODCaloJetBasicHistograms(int selbin, int jetbi
   //printf("writeAODCaloJetHistograms\n");
   if(jetbin==0){
    h_nCaloJet                 [selbin]->Write();
-   h_nPFJet                   [selbin]->Write();
-   h_nPFchsJet                [selbin]->Write();
+//   h_nPFJet                   [selbin]->Write();
+//   h_nPFchsJet                [selbin]->Write();
   }
   h_AODCaloJetPt                             [selbin][jetbin]->Write(); 
   h_AODCaloJetPtVar                          [selbin][jetbin]->Write(); 
@@ -706,10 +952,11 @@ Bool_t analyzer_histograms::writeAODCaloJetBasicHistograms(int selbin, int jetbi
   h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Write(); 
   h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Write(); 
   h_AODCaloJetMinDR                          [selbin][jetbin]->Write(); 
-  h_AODCaloJetCSV                            [selbin][jetbin]->Write(); 
-  h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Write(); 
+//  h_AODCaloJetCSV                            [selbin][jetbin]->Write(); 
+//  h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Write(); 
   h_AODCaloJetAbsEta                         [selbin][jetbin]->Write();
   h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Write(); 
+  h_AODCaloJetEtaVsPhi                       [selbin][jetbin]->Write(); 
  return kTRUE;
 }
 
@@ -718,8 +965,8 @@ Bool_t analyzer_histograms::deleteAODCaloJetBasicHistograms(int selbin)
   //printf("deleteAODCaloJetBasicHistograms\n");
   hist_file_out[selbin]->cd();
   if(h_nCaloJet  [selbin]!=NULL)    h_nCaloJet                 [selbin]->Delete();
-  if(h_nPFJet    [selbin]!=NULL)    h_nPFJet                   [selbin]->Delete();
-  if(h_nPFchsJet [selbin]!=NULL)    h_nPFchsJet                [selbin]->Delete();
+//  if(h_nPFJet    [selbin]!=NULL)    h_nPFJet                   [selbin]->Delete();
+//  if(h_nPFchsJet [selbin]!=NULL)    h_nPFchsJet                [selbin]->Delete();
  return kTRUE;
 }
 
@@ -747,180 +994,11 @@ Bool_t analyzer_histograms::deleteAODCaloJetBasicHistograms(int selbin, int jetb
   if(h_AODCaloJetMedianLog10TrackAngle[selbin][jetbin]!=NULL)    h_AODCaloJetMedianLog10TrackAngle          [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetTotalTrackAngle      [selbin][jetbin]!=NULL)    h_AODCaloJetTotalTrackAngle                [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetMinDR                [selbin][jetbin]!=NULL)    h_AODCaloJetMinDR                          [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJetCSV                  [selbin][jetbin]!=NULL)    h_AODCaloJetCSV                            [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJetPartonFlavour        [selbin][jetbin]!=NULL)    h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Delete(); 
+//  if(h_AODCaloJetCSV                  [selbin][jetbin]!=NULL)    h_AODCaloJetCSV                            [selbin][jetbin]->Delete(); 
+//  if(h_AODCaloJetPartonFlavour        [selbin][jetbin]!=NULL)    h_AODCaloJetPartonFlavour                  [selbin][jetbin]->Delete(); 
   if(h_AODCaloJetAbsEta               [selbin][jetbin]!=NULL)    h_AODCaloJetAbsEta                         [selbin][jetbin]->Delete();
   if(h_AODCaloJetPtVarAbsEtaVar       [selbin][jetbin]!=NULL)    h_AODCaloJetPtVarAbsEtaVar                 [selbin][jetbin]->Delete(); 
- return kTRUE;
-}
-
-
-// Study for the reason behind necessity of the tagging variable shift
-//----------------------------initAODCaloJetStudyHistograms
-Bool_t analyzer_histograms::initAODCaloJetStudyHistograms( TString uncbin )
-{
-
-  // loop through jets and selections to initialize histograms in parllel (series)
-  for(unsigned int i=0; i<selbinnames.size(); ++i){
-  hist_file_out[i]->cd(); 
-  //deleteAODCaloJetStudyHistograms(i);
-      unsigned int k; if(jetMultOn) k=0; else k=jetmultnames.size()-1;
-      for(k; k<jetmultnames.size(); ++k){
-        //deleteAODCaloJetStudyHistograms(i,k);
-        TString hname_AODCaloJet_Study_trk0_AlphaMax                = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_trk0_AlphaMax"               +uncbin ;
-        TString hname_AODCaloJet_Study_trk0_MedianLog10IPSig        = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_trk0_MedianLog10IPSig"       +uncbin ;
-        TString hname_AODCaloJet_Study_trk0_MedianLog10TrackAngle   = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_trk0_MedianLog10TrackAngle"  +uncbin ;
-        TString hname_AODCaloJet_Study_ptG0p5_AlphaMax              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_ptG0p5_AlphaMax"             +uncbin ;
-        TString hname_AODCaloJet_Study_ptG0p5_MedianLog10IPSig      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_ptG0p5_MedianLog10IPSig"     +uncbin ;
-        TString hname_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle"+uncbin ;
-        TString hname_AODCaloJet_Study_ptG10_AlphaMax              = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_ptG10_AlphaMax"             +uncbin ;
-        TString hname_AODCaloJet_Study_ptG10_MedianLog10IPSig      = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_ptG10_MedianLog10IPSig"     +uncbin ;
-        TString hname_AODCaloJet_Study_ptG10_MedianLog10TrackAngle = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_ptG10_MedianLog10TrackAngle"+uncbin ;
-                                                                                                      
-        TString hname_AODCaloJet_Study_n_v_AlphaMax                = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_n_v_AlphaMax"               +uncbin ;
-        TString hname_AODCaloJet_Study_n_v_MedianLog10IPSig        = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_n_v_MedianLog10IPSig"       +uncbin ;
-        TString hname_AODCaloJet_Study_n_v_MedianLog10TrackAngle   = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_n_v_MedianLog10TrackAngle"  +uncbin ;
-        TString hname_AODCaloJet_Study_pt_v_AlphaMax                = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_pt_v_AlphaMax"               +uncbin ;
-        TString hname_AODCaloJet_Study_pt_v_MedianLog10IPSig        = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_pt_v_MedianLog10IPSig"       +uncbin ;
-        TString hname_AODCaloJet_Study_pt_v_MedianLog10TrackAngle   = "h_"+selbinnames[i]+"_"+jetmultnames[k]+"_AODCaloJet_Study_pt_v_MedianLog10TrackAngle"  +uncbin ;
-
-        h_AODCaloJet_Study_trk0_AlphaMax               [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_trk0_AlphaMax                , "Study_trk0_AlphaMax"               , 50, 0, 1 );
-        h_AODCaloJet_Study_trk0_MedianLog10IPSig       [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_trk0_MedianLog10IPSig        , "Study_trk0_MedianLog10IPSig"       , 50, -3, 4);
-        h_AODCaloJet_Study_trk0_MedianLog10TrackAngle  [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_trk0_MedianLog10TrackAngle   , "Study_trk0_MedianLog10TrackAngle"  , 50, -5, 2);
-        h_AODCaloJet_Study_ptG0p5_AlphaMax             [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_ptG0p5_AlphaMax              , "Study_ptG0p5_AlphaMax"             , 50, 0, 1 );
-        h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig     [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_ptG0p5_MedianLog10IPSig      , "Study_ptG0p5_MedianLog10IPSig"     , 50, -3, 4);
-        h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle[i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle , "Study_ptG0p5_MedianLog10TrackAngle", 50, -5, 2);
-        h_AODCaloJet_Study_ptG10_AlphaMax             [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_ptG10_AlphaMax              , "Study_ptG10_AlphaMax"             , 50, 0, 1 );
-        h_AODCaloJet_Study_ptG10_MedianLog10IPSig     [i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_ptG10_MedianLog10IPSig      , "Study_ptG10_MedianLog10IPSig"     , 50, -3, 4);
-        h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle[i][k] = initSingleHistogramTH1F( hname_AODCaloJet_Study_ptG10_MedianLog10TrackAngle , "Study_ptG10_MedianLog10TrackAngle", 50, -5, 2);
-
-	const int Pt_n_xbins = 10;
-	float Pt_xbins[Pt_n_xbins+1] = {0, 10, 20, 30, 40, 50, 75, 100, 150, 250, 500};
-
-        //h_AODCaloJet_Study_pt_v_AlphaMax               [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_pt_v_AlphaMax                ,"Study_pt_v_AlphaMax"               , Pt_n_xbins, Pt_xbins, 50, 0, 1 );
-        //h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_pt_v_MedianLog10IPSig        ,"Study_pt_v_MedianLog10IPSig"       , Pt_n_xbins, Pt_xbins, 50, -3, 4);
-        //h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_pt_v_MedianLog10TrackAngle   ,"Study_pt_v_MedianLog10TrackAngle"  , Pt_n_xbins, Pt_xbins, 50, -5, 2);
-        h_AODCaloJet_Study_pt_v_AlphaMax               [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_pt_v_AlphaMax               , "Study_pt_v_AlphaMax"               , 50, 0, 500, 50, 0, 1 );
-        h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_pt_v_MedianLog10IPSig       , "Study_pt_v_MedianLog10IPSig"       , 50, 0, 500, 50, -3, 4);
-        h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  , "Study_pt_v_MedianLog10TrackAngle"  , 50, 0, 500, 50, -5, 2);
-        h_AODCaloJet_Study_n_v_AlphaMax               [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_n_v_AlphaMax               , "Study_n_v_AlphaMax"               , 15, 0, 15, 50, 0, 1 );
-        h_AODCaloJet_Study_n_v_MedianLog10IPSig       [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_n_v_MedianLog10IPSig       , "Study_n_v_MedianLog10IPSig"       , 15, 0, 15, 50, -3, 4);
-        h_AODCaloJet_Study_n_v_MedianLog10TrackAngle  [i][k] = initSingleHistogramTH2F( hname_AODCaloJet_Study_n_v_MedianLog10TrackAngle  , "Study_n_v_MedianLog10TrackAngle"  , 15, 0, 15, 50, -5, 2);
-
-      }
-  }
-  return kTRUE;
-}
-
-//----------------------------fillAODCaloJetStudyHistograms
-Bool_t analyzer_histograms::fillAODCaloJetStudyHistograms(Float_t weight, int selbin, int jetbin)
-{
-  hist_file_out[selbin]->cd();
-  if(jetmultnames.at(jetbin) == "AllJets"){
-    // only fill these once (no jet multiplicity)
-    for(unsigned int i =0; i<aodcalojet_list.size(); i++){
-      int aodcalojetindex = aodcalojet_list[i];
-      // std::cout<<"AODCaloJetAvfVertexTrackEnergy"<<AODCaloJetAvfVertexTrackEnergy->at(0)<<" "<<aodcalojetindex<<std::endl;
-      // std::cout<<" "<<AODCaloJetAvfVertexTrackEnergy->size()<<" "<<AODCaloJetNCleanMatchedTracks->at( aodcalojetindex )<<std::endl;
-      if(aodcalojetindex==0){
-       h_AODCaloJet_Study_trk0_AlphaMax               [selbin][jetbin]->Fill( AODCaloJetAlphaMax              ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_trk0_MedianLog10IPSig       [selbin][jetbin]->Fill( AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_trk0_MedianLog10TrackAngle  [selbin][jetbin]->Fill( AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight); 
-      }
-      if(AODCaloJetAvfVertexTrackEnergy->at(0)>0.5){
-       h_AODCaloJet_Study_ptG0p5_AlphaMax             [selbin][jetbin]->Fill( AODCaloJetAlphaMax              ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig     [selbin][jetbin]->Fill( AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle[selbin][jetbin]->Fill( AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight); 
-      }
-      if(AODCaloJetAvfVertexTrackEnergy->at(0)>10.){
-       h_AODCaloJet_Study_ptG10_AlphaMax              [selbin][jetbin]->Fill( AODCaloJetAlphaMax              ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG10_MedianLog10IPSig      [selbin][jetbin]->Fill( AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle [selbin][jetbin]->Fill( AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight); 
-      }
-                                                                                                                         
-      h_AODCaloJet_Study_n_v_AlphaMax               [selbin][jetbin]->Fill( AODCaloJetNCleanMatchedTracks->at(aodcalojetindex) , AODCaloJetAlphaMax              ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_n_v_MedianLog10IPSig       [selbin][jetbin]->Fill( AODCaloJetNCleanMatchedTracks->at(aodcalojetindex) , AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_n_v_MedianLog10TrackAngle  [selbin][jetbin]->Fill( AODCaloJetNCleanMatchedTracks->at(aodcalojetindex) , AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_pt_v_AlphaMax               [selbin][jetbin]->Fill(AODCaloJetAvfVertexTrackEnergy->at( 0 ) , AODCaloJetAlphaMax              ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [selbin][jetbin]->Fill(AODCaloJetAvfVertexTrackEnergy->at( 0 ) , AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [selbin][jetbin]->Fill(AODCaloJetAvfVertexTrackEnergy->at( 0 ) , AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight);
-
-    }    
-  }
-  else{
-    if( jetbin < (int)aodcalojet_list.size() ){
-      int aodcalojetindex = aodcalojet_list[jetbin];
-  
-      if(aodcalojetindex==0){
-       h_AODCaloJet_Study_trk0_AlphaMax               [selbin][jetbin]->Fill( AODCaloJetAlphaMax              ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_trk0_MedianLog10IPSig       [selbin][jetbin]->Fill( AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_trk0_MedianLog10TrackAngle  [selbin][jetbin]->Fill( AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight); 
-      }
-      if(AODCaloJetAvfVertexTrackEnergy->at(0)>0.5){
-       h_AODCaloJet_Study_ptG0p5_AlphaMax             [selbin][jetbin]->Fill( AODCaloJetAlphaMax              ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig     [selbin][jetbin]->Fill( AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle[selbin][jetbin]->Fill( AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight); 
-      }
-      if(AODCaloJetAvfVertexTrackEnergy->at(0)>10.){
-       h_AODCaloJet_Study_ptG10_AlphaMax              [selbin][jetbin]->Fill( AODCaloJetAlphaMax              ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG10_MedianLog10IPSig      [selbin][jetbin]->Fill( AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight); 
-       h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle [selbin][jetbin]->Fill( AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight); 
-      }
-                                                                                                                         
-      h_AODCaloJet_Study_n_v_AlphaMax               [selbin][jetbin]->Fill(AODCaloJetNCleanMatchedTracks->at( aodcalojetindex ) , AODCaloJetAlphaMax              ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_n_v_MedianLog10IPSig       [selbin][jetbin]->Fill(AODCaloJetNCleanMatchedTracks->at( aodcalojetindex ) , AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_n_v_MedianLog10TrackAngle  [selbin][jetbin]->Fill(AODCaloJetNCleanMatchedTracks->at( aodcalojetindex ) , AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_pt_v_AlphaMax               [selbin][jetbin]->Fill(AODCaloJetAvfVertexTrackEnergy->at( 0 ) , AODCaloJetAlphaMax              ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [selbin][jetbin]->Fill(AODCaloJetAvfVertexTrackEnergy->at( 0 ) , AODCaloJetMedianLog10IPSig      ->at(aodcalojetindex), weight);
-      h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [selbin][jetbin]->Fill(AODCaloJetAvfVertexTrackEnergy->at( 0 ) , AODCaloJetMedianLog10TrackAngle ->at(aodcalojetindex), weight);
-    }
-  }
-  
-  return kTRUE;
-} //end fill histograms
-
-//----------------------------writeAODCaloStudyJetHistograms
-Bool_t analyzer_histograms::writeAODCaloJetStudyHistograms(int selbin, int jetbin)
-{
-  hist_file_out[selbin]->cd();
-  h_AODCaloJet_Study_trk0_AlphaMax               [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_trk0_MedianLog10IPSig       [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_trk0_MedianLog10TrackAngle  [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_ptG0p5_AlphaMax             [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig     [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle[selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_ptG10_AlphaMax              [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_ptG10_MedianLog10IPSig      [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_n_v_AlphaMax               [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_n_v_MedianLog10IPSig       [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_n_v_MedianLog10TrackAngle  [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_pt_v_AlphaMax               [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [selbin][jetbin]->Write(); 
-  h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [selbin][jetbin]->Write(); 
- return kTRUE;
-}
-
-//----------------------------deleteAODCaloJetStudyHistograms
-Bool_t analyzer_histograms::deleteAODCaloJetStudyHistograms(int selbin, int jetbin)
-{
-  hist_file_out[selbin]->cd();
-  //printf("deleteAODCaloJetHistograms\n");
-  if(h_AODCaloJet_Study_trk0_AlphaMax               [selbin][jetbin]!=NULL) h_AODCaloJet_Study_trk0_AlphaMax               [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_trk0_MedianLog10IPSig       [selbin][jetbin]!=NULL) h_AODCaloJet_Study_trk0_MedianLog10IPSig       [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_trk0_MedianLog10TrackAngle  [selbin][jetbin]!=NULL) h_AODCaloJet_Study_trk0_MedianLog10TrackAngle  [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_ptG0p5_AlphaMax             [selbin][jetbin]!=NULL) h_AODCaloJet_Study_ptG0p5_AlphaMax             [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig     [selbin][jetbin]!=NULL) h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig     [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle[selbin][jetbin]!=NULL) h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle[selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_ptG10_AlphaMax              [selbin][jetbin]!=NULL) h_AODCaloJet_Study_ptG10_AlphaMax             [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_ptG10_MedianLog10IPSig      [selbin][jetbin]!=NULL) h_AODCaloJet_Study_ptG10_MedianLog10IPSig     [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle [selbin][jetbin]!=NULL) h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle[selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_n_v_AlphaMax               [selbin][jetbin]!=NULL) h_AODCaloJet_Study_pt_v_AlphaMax               [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_n_v_MedianLog10IPSig       [selbin][jetbin]!=NULL) h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_n_v_MedianLog10TrackAngle  [selbin][jetbin]!=NULL) h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_pt_v_AlphaMax               [selbin][jetbin]!=NULL) h_AODCaloJet_Study_pt_v_AlphaMax               [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [selbin][jetbin]!=NULL) h_AODCaloJet_Study_pt_v_MedianLog10IPSig       [selbin][jetbin]->Delete(); 
-  if(h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [selbin][jetbin]!=NULL) h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle  [selbin][jetbin]->Delete(); 
+  if(h_AODCaloJetEtaVsPhi             [selbin][jetbin]!=NULL)    h_AODCaloJetEtaVsPhi                       [selbin][jetbin]->Delete(); 
  return kTRUE;
 }
 
@@ -1146,9 +1224,9 @@ Bool_t analyzer_histograms::initAODCaloJetExtraHistograms( TString uncbin )
   unsigned int j; if(jetMultOn) j=0; else j=jetmultnames.size()-1;
   for(j; j<jetmultnames.size(); ++j){
     //deleteAODCaloJetExtraHistograms(i,j);
-    TString hname_AODCaloJetAvfVx                         = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVx"                          + uncbin ;                          
-    TString hname_AODCaloJetAvfVy                         = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVy"                          + uncbin ;                          
-    TString hname_AODCaloJetAvfVz                         = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVz"                          + uncbin ;                          
+    //TString hname_AODCaloJetAvfVx                         = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVx"                          + uncbin ;                          
+    //TString hname_AODCaloJetAvfVy                         = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVy"                          + uncbin ;                          
+    //TString hname_AODCaloJetAvfVz                         = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVz"                          + uncbin ;                          
     TString hname_AODCaloJetAvfVertexTotalChiSquared      = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVertexTotalChiSquared"       + uncbin ;       
     TString hname_AODCaloJetAvfVertexDegreesOfFreedom     = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVertexDegreesOfFreedom"      + uncbin ;      
     TString hname_AODCaloJetAvfVertexChi2NDoF             = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVertexChi2NDoF"              + uncbin ;              
@@ -1173,32 +1251,33 @@ Bool_t analyzer_histograms::initAODCaloJetExtraHistograms( TString uncbin )
     TString hname_AODCaloJetAvfVertexDeltaZtoPV           = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVertexDeltaZtoPV"            + uncbin ;            
     TString hname_AODCaloJetAvfVertexDeltaZtoPV2          = "h_"+selbinnames[i]+"_"+jetmultnames[j]+"_AODCaloJetAvfVertexDeltaZtoPV2"           + uncbin ;           
 
-    h_AODCaloJetAvfVx                          [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVx                          , "AODCaloJetAvfVx                         ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVy                          [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVy                          , "AODCaloJetAvfVy                         ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVz                          [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVz                          , "AODCaloJetAvfVz                         ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexTotalChiSquared       [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTotalChiSquared       , "AODCaloJetAvfVertexTotalChiSquared      ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexDegreesOfFreedom      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDegreesOfFreedom      , "AODCaloJetAvfVertexDegreesOfFreedom     ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexChi2NDoF              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexChi2NDoF              , "AODCaloJetAvfVertexChi2NDoF             ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexDistanceToBeam        [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDistanceToBeam        , "AODCaloJetAvfVertexDistanceToBeam       ", 30, -3, 3 ); 
+    //h_AODCaloJetAvfVx                          [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVx                          , "AODCaloJetAvfVx                         ", 30, -3, 3 ); 
+    //h_AODCaloJetAvfVy                          [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVy                          , "AODCaloJetAvfVy                         ", 30, -3, 3 ); 
+    //h_AODCaloJetAvfVz                          [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVz                          , "AODCaloJetAvfVz                         ", 30, -3, 3 ); 
+    h_AODCaloJetAvfVertexTotalChiSquared       [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTotalChiSquared       , "AODCaloJetAvfVertexTotalChiSquared      ", 100, 0, 100 ); 
+    h_AODCaloJetAvfVertexDegreesOfFreedom      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDegreesOfFreedom      , "AODCaloJetAvfVertexDegreesOfFreedom     ", 10, 0, 20 ); 
+    h_AODCaloJetAvfVertexChi2NDoF              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexChi2NDoF              , "AODCaloJetAvfVertexChi2NDoF             ", 100, 0, 200 ); 
+    h_AODCaloJetAvfVertexDistanceToBeam        [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDistanceToBeam        , "AODCaloJetAvfVertexDistanceToBeam       ", 40, 0, 4 ); 
     h_AODCaloJetAvfVertexTransverseError       [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTransverseError       , "AODCaloJetAvfVertexTransverseError      ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexTransverseSig         [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTransverseSig         , "AODCaloJetAvfVertexTransverseSig        ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexDeltaEta              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaEta              , "AODCaloJetAvfVertexDeltaEta             ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexDeltaPhi              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaPhi              , "AODCaloJetAvfVertexDeltaPhi             ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexRecoilPt              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexRecoilPt              , "AODCaloJetAvfVertexRecoilPt             ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexTrackMass             [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTrackMass             , "AODCaloJetAvfVertexTrackMass            ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexTrackEnergy           [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTrackEnergy           , "AODCaloJetAvfVertexTrackEnergy          ", 30, -3, 3 ); 
-    h_AODCaloJetAvfBeamSpotDeltaPhi            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotDeltaPhi            , "AODCaloJetAvfBeamSpotDeltaPhi           ", 30, -3, 3 ); 
-    h_AODCaloJetAvfBeamSpotRecoilPt            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotRecoilPt            , "AODCaloJetAvfBeamSpotRecoilPt           ", 30, -3, 3 ); 
-    h_AODCaloJetAvfBeamSpotMedianDeltaPhi      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotMedianDeltaPhi      , "AODCaloJetAvfBeamSpotMedianDeltaPhi     ", 30, -3, 3 ); 
-    h_AODCaloJetAvfBeamSpotLog10MedianDeltaPhi [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotLog10MedianDeltaPhi , "AODCaloJetAvfBeamSpotLog10MedianDeltaPhi", 30, -3, 3 ); 
+    h_AODCaloJetAvfVertexTransverseSig         [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTransverseSig         , "AODCaloJetAvfVertexTransverseSig        ", 100, 0, 5000 ); 
+    h_AODCaloJetAvfVertexDeltaEta              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaEta              , "AODCaloJetAvfVertexDeltaEta             ", 40, -4, 4 ); 
+    h_AODCaloJetAvfVertexDeltaPhi              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaPhi              , "AODCaloJetAvfVertexDeltaPhi             ", 40, -4, 4 ); 
+    h_AODCaloJetAvfVertexRecoilPt              [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexRecoilPt              , "AODCaloJetAvfVertexRecoilPt             ", 50, 0, 50 ); 
+    h_AODCaloJetAvfVertexTrackMass             [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTrackMass             , "AODCaloJetAvfVertexTrackMass            ", 50, 0, 50 ); 
+    h_AODCaloJetAvfVertexTrackEnergy           [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexTrackEnergy           , "AODCaloJetAvfVertexTrackEnergy          ", 50, 0, 50 ); 
+    h_AODCaloJetAvfBeamSpotDeltaPhi            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotDeltaPhi            , "AODCaloJetAvfBeamSpotDeltaPhi           ", 40, -4, 4 ); 
+    h_AODCaloJetAvfBeamSpotRecoilPt            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotRecoilPt            , "AODCaloJetAvfBeamSpotRecoilPt           ", 40, 0, 20 ); 
+    h_AODCaloJetAvfBeamSpotMedianDeltaPhi      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotMedianDeltaPhi      , "AODCaloJetAvfBeamSpotMedianDeltaPhi     ", 40, -4, 4 ); 
+    h_AODCaloJetAvfBeamSpotLog10MedianDeltaPhi [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfBeamSpotLog10MedianDeltaPhi , "AODCaloJetAvfBeamSpotLog10MedianDeltaPhi", 40, -4, 4 ); 
     h_AODCaloJetNCleanMatchedTracks            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetNCleanMatchedTracks            , "AODCaloJetNCleanMatchedTracks           ", 20, 0, 20 ); 
     h_AODCaloJetSumHitsInFrontOfVert           [i][j] = initSingleHistogramTH1F( hname_AODCaloJetSumHitsInFrontOfVert           , "AODCaloJetSumHitsInFrontOfVert          ", 30, -3, 3 ); 
     h_AODCaloJetSumMissHitsAfterVert           [i][j] = initSingleHistogramTH1F( hname_AODCaloJetSumMissHitsAfterVert           , "AODCaloJetSumMissHitsAfterVert          ", 30, -3, 3 ); 
     h_AODCaloJetHitsInFrontOfVertPerTrack      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetHitsInFrontOfVertPerTrack      , "AODCaloJetHitsInFrontOfVertPerTrack     ", 30, -3, 3 ); 
     h_AODCaloJetMissHitsAfterVertPerTrack      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetMissHitsAfterVertPerTrack      , "AODCaloJetMissHitsAfterVertPerTrack     ", 30, -3, 3 ); 
-    h_AODCaloJetAvfDistToPV                    [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfDistToPV                    , "AODCaloJetAvfDistToPV                   ", 30, -3, 3 ); 
-    h_AODCaloJetAvfVertexDeltaZtoPV            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaZtoPV            , "AODCaloJetAvfVertexDeltaZtoPV           ", 30, -3, 3 ); 
+    h_AODCaloJetAvfDistToPV                    [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfDistToPV                    , "AODCaloJetAvfDistToPV                   ", 50, 0, 50 ); 
+    h_AODCaloJetAvfVertexDeltaZtoPV            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaZtoPV            , "AODCaloJetAvfVertexDeltaZtoPV           ", 20, -10, 10 ); 
     h_AODCaloJetAvfVertexDeltaZtoPV2           [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAvfVertexDeltaZtoPV2           , "AODCaloJetAvfVertexDeltaZtoPV2          ", 30, -3, 3 ); 
+
 
    } //   for(unsigned int i=0; i<selbinnames.size(); ++i){
   } //  for(unsigned int j=0; j<jetmultnames.size(); ++j){
@@ -1214,7 +1293,7 @@ Bool_t analyzer_histograms::fillAODCaloJetExtraHistograms(Float_t weight, int se
   if(jetmultnames.at(jetbin) == "AllJets"){
     for(unsigned int i =0; i<aodcalojet_list.size(); i++){
       int aodcalojetindex = aodcalojet_list[i];
-      h_AODCaloJetAvfVx                          [selbin][jetbin]->Fill( AODCaloJetAvfVx                          ->at( aodcalojetindex ), weight );  
+      //h_AODCaloJetAvfVx                          [selbin][jetbin]->Fill( AODCaloJetAvfVx                          ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVy                          [selbin][jetbin]->Fill( AODCaloJetAvfVy                          ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVz                          [selbin][jetbin]->Fill( AODCaloJetAvfVz                          ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVertexTotalChiSquared       [selbin][jetbin]->Fill( AODCaloJetAvfVertexTotalChiSquared       ->at( aodcalojetindex ), weight );  
@@ -1233,10 +1312,10 @@ Bool_t analyzer_histograms::fillAODCaloJetExtraHistograms(Float_t weight, int se
       h_AODCaloJetAvfBeamSpotMedianDeltaPhi      [selbin][jetbin]->Fill( AODCaloJetAvfBeamSpotMedianDeltaPhi      ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfBeamSpotLog10MedianDeltaPhi [selbin][jetbin]->Fill( AODCaloJetAvfBeamSpotLog10MedianDeltaPhi ->at( aodcalojetindex ), weight );  
       h_AODCaloJetNCleanMatchedTracks            [selbin][jetbin]->Fill( AODCaloJetNCleanMatchedTracks            ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetSumHitsInFrontOfVert           [selbin][jetbin]->Fill( AODCaloJetSumHitsInFrontOfVert           ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetSumMissHitsAfterVert           [selbin][jetbin]->Fill( AODCaloJetSumMissHitsAfterVert           ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetHitsInFrontOfVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetHitsInFrontOfVertPerTrack      ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetMissHitsAfterVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetMissHitsAfterVertPerTrack      ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetSumHitsInFrontOfVert           [selbin][jetbin]->Fill( AODCaloJetSumHitsInFrontOfVert           ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetSumMissHitsAfterVert           [selbin][jetbin]->Fill( AODCaloJetSumMissHitsAfterVert           ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetHitsInFrontOfVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetHitsInFrontOfVertPerTrack      ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetMissHitsAfterVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetMissHitsAfterVertPerTrack      ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfDistToPV                    [selbin][jetbin]->Fill( AODCaloJetAvfDistToPV                    ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVertexDeltaZtoPV            [selbin][jetbin]->Fill( AODCaloJetAvfVertexDeltaZtoPV            ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVertexDeltaZtoPV2           [selbin][jetbin]->Fill( AODCaloJetAvfVertexDeltaZtoPV2           ->at( aodcalojetindex ), weight );  
@@ -1264,10 +1343,10 @@ Bool_t analyzer_histograms::fillAODCaloJetExtraHistograms(Float_t weight, int se
       h_AODCaloJetAvfBeamSpotMedianDeltaPhi      [selbin][jetbin]->Fill( AODCaloJetAvfBeamSpotMedianDeltaPhi      ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfBeamSpotLog10MedianDeltaPhi [selbin][jetbin]->Fill( AODCaloJetAvfBeamSpotLog10MedianDeltaPhi ->at( aodcalojetindex ), weight );  
       h_AODCaloJetNCleanMatchedTracks            [selbin][jetbin]->Fill( AODCaloJetNCleanMatchedTracks            ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetSumHitsInFrontOfVert           [selbin][jetbin]->Fill( AODCaloJetSumHitsInFrontOfVert           ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetSumMissHitsAfterVert           [selbin][jetbin]->Fill( AODCaloJetSumMissHitsAfterVert           ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetHitsInFrontOfVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetHitsInFrontOfVertPerTrack      ->at( aodcalojetindex ), weight );  
-      h_AODCaloJetMissHitsAfterVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetMissHitsAfterVertPerTrack      ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetSumHitsInFrontOfVert           [selbin][jetbin]->Fill( AODCaloJetSumHitsInFrontOfVert           ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetSumMissHitsAfterVert           [selbin][jetbin]->Fill( AODCaloJetSumMissHitsAfterVert           ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetHitsInFrontOfVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetHitsInFrontOfVertPerTrack      ->at( aodcalojetindex ), weight );  
+//      h_AODCaloJetMissHitsAfterVertPerTrack      [selbin][jetbin]->Fill( AODCaloJetMissHitsAfterVertPerTrack      ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfDistToPV                    [selbin][jetbin]->Fill( AODCaloJetAvfDistToPV                    ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVertexDeltaZtoPV            [selbin][jetbin]->Fill( AODCaloJetAvfVertexDeltaZtoPV            ->at( aodcalojetindex ), weight );  
       h_AODCaloJetAvfVertexDeltaZtoPV2           [selbin][jetbin]->Fill( AODCaloJetAvfVertexDeltaZtoPV2           ->at( aodcalojetindex ), weight );  
@@ -1278,7 +1357,7 @@ Bool_t analyzer_histograms::fillAODCaloJetExtraHistograms(Float_t weight, int se
 } //end fill histograms
 
 
-//----------------------------writeAODCaloJetHistograms
+//----------------------------writeAODCaloJetExtraHistograms
 Bool_t analyzer_histograms::writeAODCaloJetExtraHistograms(int selbin, int jetbin)
 {
  //printf("writeAODCaloJetHistograms\n");
@@ -1361,16 +1440,16 @@ Bool_t analyzer_histograms::initAODCaloJetTagHistograms( TString uncbin )
    TString hname_AODCaloJetPt_Tag0                      = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetPt_Tag0"                  + uncbin ;
    TString hname_AODCaloJetPtVar_Tag0                   = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetPtVar_Tag0"               + uncbin ;
    TString hname_AODCaloJetMinDR_Tag0                   = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetMinDR_Tag0"               + uncbin ;
-   TString hname_AODCaloJetCSV_Tag0                     = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetCSV_Tag0"                 + uncbin ;
-   TString hname_AODCaloJetPartonFlavour_Tag0           = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetPartonFlavour_Tag0"       + uncbin ;
+//   TString hname_AODCaloJetCSV_Tag0                     = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetCSV_Tag0"                 + uncbin ;
+//   TString hname_AODCaloJetPartonFlavour_Tag0           = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetPartonFlavour_Tag0"       + uncbin ;
    TString hname_AODCaloJetAbsEta_Tag0                  = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetAbsEta_Tag0"              + uncbin ;
    TString hname_AODCaloJetNCleanMatchedTracks_Tag0     = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetNCleanMatchedTracks_Tag0" + uncbin ;
    TString hname_AODCaloJetPtVarAbsEtaVar_Tag0          = "h_"+selbinnames[i]+"_"+tagmultnames[j]+"_AODCaloJetPtVarAbsEtaVar_Tag0"      + uncbin ;
 
    h_AODCaloJetPt_Tag0                       [i][j] = initSingleHistogramTH1F( hname_AODCaloJetPt_Tag0                       , "AODCaloJetPt_Tag0                      ", 50, 0, 500); 
-   h_AODCaloJetMinDR_Tag0                    [i][j] = initSingleHistogramTH1F( hname_AODCaloJetMinDR_Tag0                    , "AODCaloJetMinDR_Tag0                   ", 30, 0, 5); 
-   h_AODCaloJetCSV_Tag0                      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetCSV_Tag0                      , "AODCaloJetCSV_Tag0                     ", 24, -.1, 1.1); 
-   h_AODCaloJetPartonFlavour_Tag0            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetPartonFlavour_Tag0            , "AODCaloJetPartonFlavour_Tag0           ", 35, -10, 25); 
+   h_AODCaloJetMinDR_Tag0                    [i][j] = initSingleHistogramTH1F( hname_AODCaloJetMinDR_Tag0                    , "AODCaloJetMinDR_Tag0                   ", 300, 0, 5); 
+//   h_AODCaloJetCSV_Tag0                      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetCSV_Tag0                      , "AODCaloJetCSV_Tag0                     ", 24, -.1, 1.1); 
+//   h_AODCaloJetPartonFlavour_Tag0            [i][j] = initSingleHistogramTH1F( hname_AODCaloJetPartonFlavour_Tag0            , "AODCaloJetPartonFlavour_Tag0           ", 35, -10, 25); 
    h_AODCaloJetAbsEta_Tag0                   [i][j] = initSingleHistogramTH1F( hname_AODCaloJetAbsEta_Tag0                   , "AODCaloJetAbsEta_Tag0                  ", 4, 0, 3);
    h_AODCaloJetNCleanMatchedTracks_Tag0      [i][j] = initSingleHistogramTH1F( hname_AODCaloJetNCleanMatchedTracks_Tag0      , "AODCaloJetNCleanMatchedTracks_Tag0     ", 20, 0, 20); 
 
@@ -1399,9 +1478,9 @@ Bool_t analyzer_histograms::fillAODCaloJetTagHistograms(Float_t weight, int selb
       int tagindex = taggedjet_list[i];
       h_AODCaloJetPt_Tag0                            [selbin][tagbin]->Fill( AODCaloJetPt->at(                        tagindex ), weight );  
       h_AODCaloJetPtVar_Tag0                         [selbin][tagbin]->Fill( AODCaloJetPt->at(                        tagindex ), weight );  
-      h_AODCaloJetMinDR_Tag0                         [selbin][tagbin]->Fill( aodcalojet_minDR_list.at(                tagindex ), weight );  
-      h_AODCaloJetCSV_Tag0                           [selbin][tagbin]->Fill( aodcalojet_matchedCSV_list.at(           tagindex ), weight );  
-      h_AODCaloJetPartonFlavour_Tag0                 [selbin][tagbin]->Fill( aodcalojet_matchedPartonFlavour_list.at( tagindex ), weight );  
+//      h_AODCaloJetMinDR_Tag0                         [selbin][tagbin]->Fill( aodcalojet_minDR_list.at(                tagindex ), weight );  
+//      h_AODCaloJetCSV_Tag0                           [selbin][tagbin]->Fill( aodcalojet_matchedCSV_list.at(           tagindex ), weight );  
+//      h_AODCaloJetPartonFlavour_Tag0                 [selbin][tagbin]->Fill( aodcalojet_matchedPartonFlavour_list.at( tagindex ), weight );  
       h_AODCaloJetAbsEta_Tag0                        [selbin][tagbin]->Fill( fabs(AODCaloJetEta->at(                  tagindex )), weight );
       h_AODCaloJetNCleanMatchedTracks_Tag0           [selbin][tagbin]->Fill( AODCaloJetNCleanMatchedTracks->at(       tagindex ), weight );  
       h_AODCaloJetPtVarAbsEtaVar_Tag0                [selbin][tagbin]->Fill( AODCaloJetPt->at(tagindex), fabs(AODCaloJetEta->at( tagindex )), weight );  
@@ -1412,9 +1491,9 @@ Bool_t analyzer_histograms::fillAODCaloJetTagHistograms(Float_t weight, int selb
       int tagindex = taggedjet_list[tagbin];
       h_AODCaloJetPt_Tag0                            [selbin][tagbin]->Fill( AODCaloJetPt->at(                        tagindex ), weight );  
       h_AODCaloJetPtVar_Tag0                         [selbin][tagbin]->Fill( AODCaloJetPt->at(                        tagindex ), weight );  
-      h_AODCaloJetMinDR_Tag0                         [selbin][tagbin]->Fill( aodcalojet_minDR_list.at(                tagindex ), weight );  
-      h_AODCaloJetCSV_Tag0                           [selbin][tagbin]->Fill( aodcalojet_matchedCSV_list.at(           tagindex ), weight );  
-      h_AODCaloJetPartonFlavour_Tag0                 [selbin][tagbin]->Fill( aodcalojet_matchedPartonFlavour_list.at( tagindex ), weight );  
+//      h_AODCaloJetMinDR_Tag0                         [selbin][tagbin]->Fill( aodcalojet_minDR_list.at(                tagindex ), weight );  
+//      h_AODCaloJetCSV_Tag0                           [selbin][tagbin]->Fill( aodcalojet_matchedCSV_list.at(           tagindex ), weight );  
+//      h_AODCaloJetPartonFlavour_Tag0                 [selbin][tagbin]->Fill( aodcalojet_matchedPartonFlavour_list.at( tagindex ), weight );  
       h_AODCaloJetAbsEta_Tag0                        [selbin][tagbin]->Fill( fabs( AODCaloJetEta->at(                 tagindex ) ), weight );
       h_AODCaloJetNCleanMatchedTracks_Tag0           [selbin][tagbin]->Fill( AODCaloJetNCleanMatchedTracks->at(       tagindex ), weight );  
       h_AODCaloJetPtVarAbsEtaVar_Tag0                [selbin][tagbin]->Fill( AODCaloJetPt->at(tagindex), fabs(AODCaloJetEta->at( tagindex )), weight );  
@@ -1434,8 +1513,8 @@ Bool_t analyzer_histograms::writeAODCaloJetTagHistograms(int selbin, int tagbin)
   h_AODCaloJetPt_Tag0                       [selbin][tagbin]->Write(); 
   h_AODCaloJetPtVar_Tag0                    [selbin][tagbin]->Write(); 
   h_AODCaloJetMinDR_Tag0                    [selbin][tagbin]->Write(); 
-  h_AODCaloJetCSV_Tag0                      [selbin][tagbin]->Write(); 
-  h_AODCaloJetPartonFlavour_Tag0            [selbin][tagbin]->Write(); 
+//  h_AODCaloJetCSV_Tag0                      [selbin][tagbin]->Write(); 
+//  h_AODCaloJetPartonFlavour_Tag0            [selbin][tagbin]->Write(); 
   h_AODCaloJetAbsEta_Tag0                   [selbin][tagbin]->Write(); 
   h_AODCaloJetNCleanMatchedTracks_Tag0      [selbin][tagbin]->Write(); 
   h_AODCaloJetPtVarAbsEtaVar_Tag0           [selbin][tagbin]->Write(); 
@@ -1453,8 +1532,8 @@ Bool_t analyzer_histograms::deleteAODCaloJetTagHistograms(int selbin, int tagbin
   if(h_AODCaloJetPt_Tag0                  [selbin][tagbin]!=NULL)    h_AODCaloJetPt_Tag0                       [selbin][tagbin]->Delete(); 
   if(h_AODCaloJetPtVar_Tag0               [selbin][tagbin]!=NULL)    h_AODCaloJetPtVar_Tag0                    [selbin][tagbin]->Delete(); 
   if(h_AODCaloJetMinDR_Tag0               [selbin][tagbin]!=NULL)    h_AODCaloJetMinDR_Tag0                    [selbin][tagbin]->Delete(); 
-  if(h_AODCaloJetCSV_Tag0                 [selbin][tagbin]!=NULL)    h_AODCaloJetCSV_Tag0                      [selbin][tagbin]->Delete(); 
-  if(h_AODCaloJetPartonFlavour_Tag0       [selbin][tagbin]!=NULL)    h_AODCaloJetPartonFlavour_Tag0            [selbin][tagbin]->Delete(); 
+//  if(h_AODCaloJetCSV_Tag0                 [selbin][tagbin]!=NULL)    h_AODCaloJetCSV_Tag0                      [selbin][tagbin]->Delete(); 
+//  if(h_AODCaloJetPartonFlavour_Tag0       [selbin][tagbin]!=NULL)    h_AODCaloJetPartonFlavour_Tag0            [selbin][tagbin]->Delete(); 
   if(h_AODCaloJetAbsEta_Tag0              [selbin][tagbin]!=NULL)    h_AODCaloJetAbsEta_Tag0                   [selbin][tagbin]->Delete(); 
   if(h_AODCaloJetNCleanMatchedTracks_Tag0 [selbin][tagbin]!=NULL)    h_AODCaloJetNCleanMatchedTracks_Tag0      [selbin][tagbin]->Delete(); 
   if(h_AODCaloJetPtVarAbsEtaVar_Tag0      [selbin][tagbin]!=NULL)    h_AODCaloJetPtVarAbsEtaVar_Tag0           [selbin][tagbin]->Delete(); 
@@ -1615,16 +1694,16 @@ Bool_t analyzer_histograms::initTTOCHistograms( TString uncbin ){
    TString hname_TTOCMuE_EleEta      = "h_"+selbinnames[i]+"_TTOCMuE_EleEta" +uncbin;
    TString hname_TTOCMuE_MuEta       = "h_"+selbinnames[i]+"_TTOCMuE_MuEta"  +uncbin;
    TString hname_TTOCMuEEta          = "h_"+selbinnames[i]+"_TTOCMuEEta"     +uncbin;
-   TString hname_TTOCPhoPt           = "h_"+selbinnames[i]+"_TTOCPhoPt"      +uncbin;
-   TString hname_TTOCPhoEta          = "h_"+selbinnames[i]+"_TTOCPhoEta"     +uncbin;
+   //TString hname_TTOCPhoPt           = "h_"+selbinnames[i]+"_TTOCPhoPt"      +uncbin;
+   //TString hname_TTOCPhoEta          = "h_"+selbinnames[i]+"_TTOCPhoEta"     +uncbin;
    //-------trigger specific
    //Double muon
-   TString hname_TTOCTriggerDMu1Pt        = "h_"+selbinnames[i]+"_TTOCMuTriggerDMu1Pt"        +uncbin; 
-   TString hname_TTOCTriggerDMu2Pt        = "h_"+selbinnames[i]+"_TTOCMuTriggerDMu2Pt"        +uncbin; 
-   TString hname_TTOCTriggerDMuPt         = "h_"+selbinnames[i]+"_TTOCMuTriggerDMuPt"         +uncbin; 
-   TString hname_TTOCTriggerDMu1Eta       = "h_"+selbinnames[i]+"_TTOCMuTriggerDMu1Eta"       +uncbin; 
-   TString hname_TTOCTriggerDMu2Eta       = "h_"+selbinnames[i]+"_TTOCMuTriggerDMu2Eta"       +uncbin; 
-   TString hname_TTOCTriggerDMuEta        = "h_"+selbinnames[i]+"_TTOCMuTriggerDMuEta"        +uncbin; 
+   TString hname_TTOC_Mu17Mu8_DMu1Pt        = "h_"+selbinnames[i]+"_TTOC_Mu17Mu8_DMu1Pt"        +uncbin; 
+   TString hname_TTOC_Mu17Mu8_DMu2Pt        = "h_"+selbinnames[i]+"_TTOC_Mu17Mu8_DMu2Pt"        +uncbin; 
+   TString hname_TTOC_Mu17Mu8_DMuPt         = "h_"+selbinnames[i]+"_TTOC_Mu17Mu8_DMuPt"         +uncbin; 
+   TString hname_TTOC_Mu17Mu8_DMu1Eta       = "h_"+selbinnames[i]+"_TTOC_Mu17Mu8_DMu1Eta"       +uncbin; 
+   TString hname_TTOC_Mu17Mu8_DMu2Eta       = "h_"+selbinnames[i]+"_TTOC_Mu17Mu8_DMu2Eta"       +uncbin; 
+   TString hname_TTOC_Mu17Mu8_DMuEta        = "h_"+selbinnames[i]+"_TTOC_Mu17Mu8_DMuEta"        +uncbin; 
    TString hname_TTOCTriggerDTkMu1Pt      = "h_"+selbinnames[i]+"_TTOCMuTriggerDTkMu1Pt"      +uncbin; 
    TString hname_TTOCTriggerDTkMu2Pt      = "h_"+selbinnames[i]+"_TTOCMuTriggerDTkMu2Pt"      +uncbin; 
    TString hname_TTOCTriggerDTkMu1Eta     = "h_"+selbinnames[i]+"_TTOCMuTriggerDTkMu1Eta"     +uncbin; 
@@ -1638,45 +1717,45 @@ Bool_t analyzer_histograms::initTTOCHistograms( TString uncbin ){
    TString hname_TTOCTriggerNoDZTkMu1Eta  = "h_"+selbinnames[i]+"_TTOCMuTriggerNoDZTkMu1Eta"  +uncbin; 
    TString hname_TTOCTriggerNoDZTkMu2Eta  = "h_"+selbinnames[i]+"_TTOCMuTriggerNoDZTkMu2Eta"  +uncbin; 
    //--Single Mu
-   TString hname_TTOCTrigger22MuPt        = "h_"+selbinnames[i]+"_TTOCMuTrigger22MuPt"        +uncbin; 
-   TString hname_TTOCTrigger22MuEta       = "h_"+selbinnames[i]+"_TTOCMuTrigger22MuEta"       +uncbin; 
-   TString hname_TTOCTrigger22TkMuPt      = "h_"+selbinnames[i]+"_TTOCMuTrigger22TkMuPt"      +uncbin; 
-   TString hname_TTOCTrigger22TkMuEta     = "h_"+selbinnames[i]+"_TTOCMuTrigger22TkMuEta"     +uncbin; 
-   TString hname_TTOCTrigger24MuPt        = "h_"+selbinnames[i]+"_TTOCMuTrigger24MuPt"        +uncbin; 
-   TString hname_TTOCTrigger24MuEta       = "h_"+selbinnames[i]+"_TTOCMuTrigger24MuEta"       +uncbin; 
-   TString hname_TTOCTrigger24TkMuPt      = "h_"+selbinnames[i]+"_TTOCMuTrigger24TkMuPt"      +uncbin; 
-   TString hname_TTOCTrigger24TkMuEta     = "h_"+selbinnames[i]+"_TTOCMuTrigger24TkMuEta"     +uncbin; 
+   //TString hname_TTOCTrigger22MuPt        = "h_"+selbinnames[i]+"_TTOCMuTrigger22MuPt"        +uncbin; 
+   //TString hname_TTOCTrigger22MuEta       = "h_"+selbinnames[i]+"_TTOCMuTrigger22MuEta"       +uncbin; 
+   //TString hname_TTOCTrigger22TkMuPt      = "h_"+selbinnames[i]+"_TTOCMuTrigger22TkMuPt"      +uncbin; 
+   //TString hname_TTOCTrigger22TkMuEta     = "h_"+selbinnames[i]+"_TTOCMuTrigger22TkMuEta"     +uncbin; 
+   //TString hname_TTOCTrigger24MuPt        = "h_"+selbinnames[i]+"_TTOCMuTrigger24MuPt"        +uncbin; 
+   //TString hname_TTOCTrigger24MuEta       = "h_"+selbinnames[i]+"_TTOCMuTrigger24MuEta"       +uncbin; 
+   //TString hname_TTOCTrigger24TkMuPt      = "h_"+selbinnames[i]+"_TTOCMuTrigger24TkMuPt"      +uncbin; 
+   //TString hname_TTOCTrigger24TkMuEta     = "h_"+selbinnames[i]+"_TTOCMuTrigger24TkMuEta"     +uncbin; 
    //Double Electron
-   TString hname_TTOCTrigger23DEle1Pt     = "h_"+selbinnames[i]+"_TTOCEleTrigger23DEle1Pt"    +uncbin; 
-   TString hname_TTOCTrigger23DEle2Pt     = "h_"+selbinnames[i]+"_TTOCEleTrigger23DEle2Pt"    +uncbin; 
-   TString hname_TTOCTrigger23DElePt      = "h_"+selbinnames[i]+"_TTOCEleTrigger23DElePt"     +uncbin; 
-   TString hname_TTOCTrigger23DEle1Eta    = "h_"+selbinnames[i]+"_TTOCEleTrigger23DEle1Eta"   +uncbin; 
-   TString hname_TTOCTrigger23DEle2Eta    = "h_"+selbinnames[i]+"_TTOCEleTrigger23DEle2Eta"   +uncbin; 
-   TString hname_TTOCTrigger23DEleEta     = "h_"+selbinnames[i]+"_TTOCEleTrigger23DEleEta"    +uncbin; 
+   TString hname_TTOC_Ele23Ele12_DEle1Pt     = "h_"+selbinnames[i]+"_TTOC_Ele23Ele12_DEle1Pt"    +uncbin; 
+   TString hname_TTOC_Ele23Ele12_DEle2Pt     = "h_"+selbinnames[i]+"_TTOC_Ele23Ele12_DEle2Pt"    +uncbin; 
+   TString hname_TTOC_Ele23Ele12_DElePt      = "h_"+selbinnames[i]+"_TTOC_Ele23Ele12_DElePt"     +uncbin; 
+   TString hname_TTOC_Ele23Ele12_DEle1Eta    = "h_"+selbinnames[i]+"_TTOC_Ele23Ele12_DEle1Eta"   +uncbin; 
+   TString hname_TTOC_Ele23Ele12_DEle2Eta    = "h_"+selbinnames[i]+"_TTOC_Ele23Ele12_DEle2Eta"   +uncbin; 
+   TString hname_TTOC_Ele23Ele12_DEleEta     = "h_"+selbinnames[i]+"_TTOC_Ele23Ele12_DEleEta"    +uncbin; 
    TString hname_TTOCTrigger17DEle1Pt     = "h_"+selbinnames[i]+"_TTOCEleTrigger17DEle1Pt"    +uncbin; 
    TString hname_TTOCTrigger17DEle2Pt     = "h_"+selbinnames[i]+"_TTOCEleTrigger17DEle2Pt"    +uncbin; 
    TString hname_TTOCTrigger17DEle1Eta    = "h_"+selbinnames[i]+"_TTOCEleTrigger17DEle1Eta"   +uncbin; 
    TString hname_TTOCTrigger17DEle2Eta    = "h_"+selbinnames[i]+"_TTOCEleTrigger17DEle2Eta"   +uncbin; 
    //-------------Single Electron
-   TString hname_TTOCTrigger23ElePt       = "h_"+selbinnames[i]+"_TTOCEleTrigger23ElePt"      +uncbin; 
-   TString hname_TTOCTrigger23EleEta      = "h_"+selbinnames[i]+"_TTOCEleTrigger23EleEta"     +uncbin; 
-   TString hname_TTOCTrigger27ElePt       = "h_"+selbinnames[i]+"_TTOCEleTrigger27ElePt"      +uncbin; 
-   TString hname_TTOCTrigger27EleEta      = "h_"+selbinnames[i]+"_TTOCEleTrigger27EleEta"     +uncbin; 
+   //TString hname_TTOCTrigger23ElePt       = "h_"+selbinnames[i]+"_TTOCEleTrigger23ElePt"      +uncbin; 
+   //TString hname_TTOCTrigger23EleEta      = "h_"+selbinnames[i]+"_TTOCEleTrigger23EleEta"     +uncbin; 
+   //TString hname_TTOCTrigger27ElePt       = "h_"+selbinnames[i]+"_TTOCEleTrigger27ElePt"      +uncbin; 
+   //TString hname_TTOCTrigger27EleEta      = "h_"+selbinnames[i]+"_TTOCEleTrigger27EleEta"     +uncbin; 
    
-   TString hname_TTOCTriggerEMu_ElePt     = "h_"+selbinnames[i]+"_TTOCTriggerEMu_ElePt"       +uncbin;
-   TString hname_TTOCTriggerEMu_MuPt      = "h_"+selbinnames[i]+"_TTOCTriggerEMu_MuPt"        +uncbin;
-   TString hname_TTOCTriggerEMuPt         = "h_"+selbinnames[i]+"_TTOCTriggerEMuPt"           +uncbin;
-   TString hname_TTOCTriggerEMu_EleEta    = "h_"+selbinnames[i]+"_TTOCTriggerEMu_EleEta"      +uncbin;
-   TString hname_TTOCTriggerEMu_MuEta     = "h_"+selbinnames[i]+"_TTOCTriggerEMu_MuEta"       +uncbin;
-   TString hname_TTOCTriggerEMuEta        = "h_"+selbinnames[i]+"_TTOCTriggerEMuEta"          +uncbin;
-   TString hname_TTOCTriggerMuE_ElePt     = "h_"+selbinnames[i]+"_TTOCTriggerMuE_ElePt"       +uncbin;
-   TString hname_TTOCTriggerMuE_MuPt      = "h_"+selbinnames[i]+"_TTOCTriggerMuE_MuPt"        +uncbin;
-   TString hname_TTOCTriggerMuEPt         = "h_"+selbinnames[i]+"_TTOCTriggerMuEPt"           +uncbin;
-   TString hname_TTOCTriggerMuE_EleEta    = "h_"+selbinnames[i]+"_TTOCTriggerMuE_EleEta"      +uncbin;
-   TString hname_TTOCTriggerMuE_MuEta     = "h_"+selbinnames[i]+"_TTOCTriggerMuE_MuEta"       +uncbin;
-   TString hname_TTOCTriggerMuEEta        = "h_"+selbinnames[i]+"_TTOCTriggerMuEEta"          +uncbin;
-   TString hname_TTOCTriggerPhoPt         = "h_"+selbinnames[i]+"_TTOCTriggerPhoPt"           +uncbin;
-   TString hname_TTOCTriggerPhoEta        = "h_"+selbinnames[i]+"_TTOCTriggerPhoEta"          +uncbin;
+   TString hname_TTOC_Ele23Mu12_EMu_ElePt     = "h_"+selbinnames[i]+"_TTOC_Ele23Mu12_EMu_ElePt"       +uncbin;
+   TString hname_TTOC_Ele23Mu12_EMu_MuPt      = "h_"+selbinnames[i]+"_TTOC_Ele23Mu12_EMu_MuPt"        +uncbin;
+   TString hname_TTOC_Ele23Mu12_EMuPt         = "h_"+selbinnames[i]+"_TTOC_Ele23Mu12_EMuPt"           +uncbin;
+   TString hname_TTOC_Ele23Mu12_EMu_EleEta    = "h_"+selbinnames[i]+"_TTOC_Ele23Mu12_EMu_EleEta"      +uncbin;
+   TString hname_TTOC_Ele23Mu12_EMu_MuEta     = "h_"+selbinnames[i]+"_TTOC_Ele23Mu12_EMu_MuEta"       +uncbin;
+   TString hname_TTOC_Ele23Mu12_EMuEta        = "h_"+selbinnames[i]+"_TTOC_Ele23Mu12_EMuEta"          +uncbin;
+   TString hname_TTOC_Ele12Mu23_MuE_ElePt     = "h_"+selbinnames[i]+"_TTOC_Ele12Mu23_MuE_ElePt"       +uncbin;
+   TString hname_TTOC_Ele12Mu23_MuE_MuPt      = "h_"+selbinnames[i]+"_TTOC_Ele12Mu23_MuE_MuPt"        +uncbin;
+   TString hname_TTOC_Ele12Mu23_MuEPt         = "h_"+selbinnames[i]+"_TTOC_Ele12Mu23_MuEPt"           +uncbin;
+   TString hname_TTOC_Ele12Mu23_MuE_EleEta    = "h_"+selbinnames[i]+"_TTOC_Ele12Mu23_MuE_EleEta"      +uncbin;
+   TString hname_TTOC_Ele12Mu23_MuE_MuEta     = "h_"+selbinnames[i]+"_TTOC_Ele12Mu23_MuE_MuEta"       +uncbin;
+   TString hname_TTOC_Ele12Mu23_MuEEta        = "h_"+selbinnames[i]+"_TTOC_Ele12Mu23_MuEEta"          +uncbin;
+   //TString hname_TTOCTriggerPhoPt         = "h_"+selbinnames[i]+"_TTOCTriggerPhoPt"           +uncbin;
+   //TString hname_TTOCTriggerPhoEta        = "h_"+selbinnames[i]+"_TTOCTriggerPhoEta"          +uncbin;
 
    h_TTOCMu1Pt                [i] = initSingleHistogramTH1F( hname_TTOCMu1Pt     , "TTOCMu1Pt",       MuPtBin ,MuPtBinMin ,MuPtBinMax);
    h_TTOCMu2Pt                [i] = initSingleHistogramTH1F( hname_TTOCMu2Pt     , "TTOCMu2Pt",       MuPtBin ,MuPtBinMin ,MuPtBinMax);
@@ -1702,15 +1781,15 @@ Bool_t analyzer_histograms::initTTOCHistograms( TString uncbin ){
    h_TTOCMuE_EleEta           [i] = initSingleHistogramTH1F( hname_TTOCMuE_EleEta, "_TTOCMuE_EleEta", EleEtaBin,EleEtaBinMin,EleEtaBinMax);
    h_TTOCMuE_MuEta            [i] = initSingleHistogramTH1F( hname_TTOCMuE_MuEta , "_TTOCMuE_MuEta",  MuEtaBin,MuEtaBinMin,MuEtaBinMax);
    h_TTOCMuEEta               [i] = initSingleHistogramTH2F( hname_TTOCMuEEta    , "_TTOCMuEEta",     MuEtaBin,MuEtaBinMin,MuEtaBinMax, EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCPhoPt                [i] = initSingleHistogramTH1F( hname_TTOCPhoPt     , "_TTOCPhoPt",      PhoPtBin,PhoPtBinMin,PhoPtBinMax);
-   h_TTOCPhoEta               [i] = initSingleHistogramTH1F( hname_TTOCPhoEta    , "_TTOCPhoEta",     PhoEtaBin,PhoEtaBinMin,PhoEtaBinMax);    
+   //h_TTOCPhoPt                [i] = initSingleHistogramTH1F( hname_TTOCPhoPt     , "_TTOCPhoPt",      PhoPtBin,PhoPtBinMin,PhoPtBinMax);
+   //h_TTOCPhoEta               [i] = initSingleHistogramTH1F( hname_TTOCPhoEta    , "_TTOCPhoEta",     PhoEtaBin,PhoEtaBinMin,PhoEtaBinMax);    
    //--------------Double Mu
-   h_TTOCTriggerDMu1Pt        [i] = initSingleHistogramTH1F( hname_TTOCTriggerDMu1Pt       ,  "TTOCTriggerDMu1Pt",       MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTriggerDMu2Pt        [i] = initSingleHistogramTH1F( hname_TTOCTriggerDMu2Pt       ,  "TTOCTriggerDMu2Pt",       MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTriggerDMuPt         [i] = initSingleHistogramTH2F( hname_TTOCTriggerDMuPt        ,  "TTOCTriggerDMuPt" ,       MuPtBin ,MuPtBinMin ,MuPtBinMax, MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTriggerDMu1Eta       [i] = initSingleHistogramTH1F( hname_TTOCTriggerDMu1Eta      ,  "TTOCTriggerDMu1Eta",      MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTriggerDMu2Eta       [i] = initSingleHistogramTH1F( hname_TTOCTriggerDMu2Eta      ,  "TTOCTriggerDMu2Eta",      MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTriggerDMuEta        [i] = initSingleHistogramTH2F( hname_TTOCTriggerDMuEta       ,  "TTOCTriggerDMuEta" ,      MuEtaBin,MuEtaBinMin,MuEtaBinMax,MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   h_TTOC_Mu17Mu8_DMu1Pt        [i] = initSingleHistogramTH1F( hname_TTOC_Mu17Mu8_DMu1Pt       ,  "TTOC_Mu17Mu8_DMu1Pt",       MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   h_TTOC_Mu17Mu8_DMu2Pt        [i] = initSingleHistogramTH1F( hname_TTOC_Mu17Mu8_DMu2Pt       ,  "TTOC_Mu17Mu8_DMu2Pt",       MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   h_TTOC_Mu17Mu8_DMuPt         [i] = initSingleHistogramTH2F( hname_TTOC_Mu17Mu8_DMuPt        ,  "TTOC_Mu17Mu8_DMuPt" ,       MuPtBin ,MuPtBinMin ,MuPtBinMax, MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   h_TTOC_Mu17Mu8_DMu1Eta       [i] = initSingleHistogramTH1F( hname_TTOC_Mu17Mu8_DMu1Eta      ,  "TTOC_Mu17Mu8_DMu1Eta",      MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   h_TTOC_Mu17Mu8_DMu2Eta       [i] = initSingleHistogramTH1F( hname_TTOC_Mu17Mu8_DMu2Eta      ,  "TTOC_Mu17Mu8_DMu2Eta",      MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   h_TTOC_Mu17Mu8_DMuEta        [i] = initSingleHistogramTH2F( hname_TTOC_Mu17Mu8_DMuEta       ,  "TTOC_Mu17Mu8_DMuEta" ,      MuEtaBin,MuEtaBinMin,MuEtaBinMax,MuEtaBin,MuEtaBinMin,MuEtaBinMax);
    h_TTOCTriggerDTkMu1Pt      [i] = initSingleHistogramTH1F( hname_TTOCTriggerDTkMu1Pt     ,  "TTOCTriggerDTkMu1Pt",     MuPtBin ,MuPtBinMin ,MuPtBinMax);
    h_TTOCTriggerDTkMu2Pt      [i] = initSingleHistogramTH1F( hname_TTOCTriggerDTkMu2Pt     ,  "TTOCTriggerDTkMu2Pt",     MuPtBin ,MuPtBinMin ,MuPtBinMax);
    h_TTOCTriggerDTkMu1Eta     [i] = initSingleHistogramTH1F( hname_TTOCTriggerDTkMu1Eta    ,  "TTOCTriggerDTkMu1Eta",    MuEtaBin,MuEtaBinMin,MuEtaBinMax);
@@ -1724,45 +1803,45 @@ Bool_t analyzer_histograms::initTTOCHistograms( TString uncbin ){
    h_TTOCTriggerNoDZTkMu1Eta  [i] = initSingleHistogramTH1F( hname_TTOCTriggerNoDZTkMu1Eta ,  "TTOCTriggerNoDZTkMu1Eta", MuEtaBin,MuEtaBinMin,MuEtaBinMax);
    h_TTOCTriggerNoDZTkMu2Eta  [i] = initSingleHistogramTH1F( hname_TTOCTriggerNoDZTkMu2Eta ,  "TTOCTriggerNoDZTkMu2Eta", MuEtaBin,MuEtaBinMin,MuEtaBinMax);
    //--Single Mu
-   h_TTOCTrigger22MuPt       [i] = initSingleHistogramTH1F( hname_TTOCTrigger22MuPt        ,  "TTOCTrigger22MuPt",    MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTrigger22MuEta      [i] = initSingleHistogramTH1F( hname_TTOCTrigger22MuEta       ,  "TTOCTrigger22MuEta",   MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTrigger22TkMuPt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger22TkMuPt      ,  "TTOCTrigger22TkMuPt",  MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTrigger22TkMuEta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger22TkMuEta     ,  "TTOCTrigger22TkMuEta", MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTrigger24MuPt       [i] = initSingleHistogramTH1F( hname_TTOCTrigger24MuPt        ,  "TTOCTrigger24MuPt",    MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTrigger24MuEta      [i] = initSingleHistogramTH1F( hname_TTOCTrigger24MuEta       ,  "TTOCTrigger24MuEta",   MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTrigger24TkMuPt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger24TkMuPt      ,  "TTOCTrigger24TkMuPt",  MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTrigger24TkMuEta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger24TkMuEta     ,  "TTOCTrigger24TkMuEta", MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   //h_TTOCTrigger22MuPt       [i] = initSingleHistogramTH1F( hname_TTOCTrigger22MuPt        ,  "TTOCTrigger22MuPt",    MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   //h_TTOCTrigger22MuEta      [i] = initSingleHistogramTH1F( hname_TTOCTrigger22MuEta       ,  "TTOCTrigger22MuEta",   MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   //h_TTOCTrigger22TkMuPt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger22TkMuPt      ,  "TTOCTrigger22TkMuPt",  MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   //h_TTOCTrigger22TkMuEta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger22TkMuEta     ,  "TTOCTrigger22TkMuEta", MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   //h_TTOCTrigger24MuPt       [i] = initSingleHistogramTH1F( hname_TTOCTrigger24MuPt        ,  "TTOCTrigger24MuPt",    MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   //h_TTOCTrigger24MuEta      [i] = initSingleHistogramTH1F( hname_TTOCTrigger24MuEta       ,  "TTOCTrigger24MuEta",   MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   //h_TTOCTrigger24TkMuPt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger24TkMuPt      ,  "TTOCTrigger24TkMuPt",  MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   //h_TTOCTrigger24TkMuEta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger24TkMuEta     ,  "TTOCTrigger24TkMuEta", MuEtaBin,MuEtaBinMin,MuEtaBinMax);
    //--------------Double Electron
-   h_TTOCTrigger23DEle1Pt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger23DEle1Pt    ,  "TTOCTrigger23DEle1Pt",   ElePtBin ,ElePtBinMin ,ElePtBinMax);
-   h_TTOCTrigger23DEle2Pt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger23DEle2Pt    ,  "TTOCTrigger23DEle2Pt",   ElePtBin ,ElePtBinMin ,ElePtBinMax);
-   h_TTOCTrigger23DElePt      [i] = initSingleHistogramTH2F( hname_TTOCTrigger23DElePt     ,  "TTOCTrigger23DElePt" ,   ElePtBin ,ElePtBinMin ,ElePtBinMax, ElePtBin ,ElePtBinMin ,ElePtBinMax);
-   h_TTOCTrigger23DEle1Eta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger23DEle1Eta   ,  "TTOCTrigger23DEle1Eta",  EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCTrigger23DEle2Eta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger23DEle2Eta   ,  "TTOCTrigger23DEle2Eta",  EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCTrigger23DEleEta     [i] = initSingleHistogramTH2F( hname_TTOCTrigger23DEleEta    ,  "TTOCTrigger23DEleEta" ,  EleEtaBin,EleEtaBinMin,EleEtaBinMax,EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   h_TTOC_Ele23Ele12_DEle1Pt     [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Ele12_DEle1Pt    ,  "TTOC_Ele23Ele12_DEle1Pt",   ElePtBin ,ElePtBinMin ,ElePtBinMax);
+   h_TTOC_Ele23Ele12_DEle2Pt     [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Ele12_DEle2Pt    ,  "TTOC_Ele23Ele12_DEle2Pt",   ElePtBin ,ElePtBinMin ,ElePtBinMax);
+   h_TTOC_Ele23Ele12_DElePt      [i] = initSingleHistogramTH2F( hname_TTOC_Ele23Ele12_DElePt     ,  "TTOC_Ele23Ele12_DElePt" ,   ElePtBin ,ElePtBinMin ,ElePtBinMax, ElePtBin ,ElePtBinMin ,ElePtBinMax);
+   h_TTOC_Ele23Ele12_DEle1Eta    [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Ele12_DEle1Eta   ,  "TTOC_Ele23Ele12_DEle1Eta",  EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   h_TTOC_Ele23Ele12_DEle2Eta    [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Ele12_DEle2Eta   ,  "TTOC_Ele23Ele12_DEle2Eta",  EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   h_TTOC_Ele23Ele12_DEleEta     [i] = initSingleHistogramTH2F( hname_TTOC_Ele23Ele12_DEleEta    ,  "TTOC_Ele23Ele12_DEleEta" ,  EleEtaBin,EleEtaBinMin,EleEtaBinMax,EleEtaBin,EleEtaBinMin,EleEtaBinMax);
    h_TTOCTrigger17DEle1Pt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger17DEle1Pt    ,  "TTOCTrigger17DEle1Pt",   ElePtBin ,ElePtBinMin ,ElePtBinMax);
    h_TTOCTrigger17DEle2Pt     [i] = initSingleHistogramTH1F( hname_TTOCTrigger17DEle2Pt    ,  "TTOCTrigger17DEle2Pt",   ElePtBin ,ElePtBinMin ,ElePtBinMax);
    h_TTOCTrigger17DEle1Eta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger17DEle1Eta   ,  "TTOCTrigger17DEle1Eta",  EleEtaBin,EleEtaBinMin,EleEtaBinMax);
    h_TTOCTrigger17DEle2Eta    [i] = initSingleHistogramTH1F( hname_TTOCTrigger17DEle2Eta   ,  "TTOCTrigger17Dele2Eta",  EleEtaBin,EleEtaBinMin,EleEtaBinMax);
    //--Single Electron
-   h_TTOCTrigger23ElePt      [i] = initSingleHistogramTH1F( hname_TTOCTrigger23ElePt       ,  "TTOCTrigger23ElePt",      ElePtBin ,ElePtBinMin ,ElePtBinMax);
-   h_TTOCTrigger23EleEta     [i] = initSingleHistogramTH1F( hname_TTOCTrigger23EleEta      ,  "TTOCTrigger23EleEta",     EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCTrigger27ElePt      [i] = initSingleHistogramTH1F( hname_TTOCTrigger27ElePt       ,  "TTOCTrigger27ElePt",      ElePtBin ,ElePtBinMin ,ElePtBinMax);
-   h_TTOCTrigger27EleEta     [i] = initSingleHistogramTH1F( hname_TTOCTrigger27EleEta      ,  "TTOCTrigger27EleEta",     EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   //h_TTOCTrigger23ElePt      [i] = initSingleHistogramTH1F( hname_TTOCTrigger23ElePt       ,  "TTOCTrigger23ElePt",      ElePtBin ,ElePtBinMin ,ElePtBinMax);
+   //h_TTOCTrigger23EleEta     [i] = initSingleHistogramTH1F( hname_TTOCTrigger23EleEta      ,  "TTOCTrigger23EleEta",     EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   //h_TTOCTrigger27ElePt      [i] = initSingleHistogramTH1F( hname_TTOCTrigger27ElePt       ,  "TTOCTrigger27ElePt",      ElePtBin ,ElePtBinMin ,ElePtBinMax);
+   //h_TTOCTrigger27EleEta     [i] = initSingleHistogramTH1F( hname_TTOCTrigger27EleEta      ,  "TTOCTrigger27EleEta",     EleEtaBin,EleEtaBinMin,EleEtaBinMax);
    
-   h_TTOCTriggerEMu_ElePt    [i] = initSingleHistogramTH1F( hname_TTOCTriggerEMu_ElePt     , "_TTOCTriggerEMu_ElePt",  ElePtBin,ElePtBinMin,ElePtBinMax);
-   h_TTOCTriggerEMu_MuPt     [i] = initSingleHistogramTH1F( hname_TTOCTriggerEMu_MuPt      , "_TTOCTriggerEMu_MuPt",   MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTriggerEMuPt        [i] = initSingleHistogramTH2F( hname_TTOCTriggerEMuPt         , "_TTOCTriggerEMuPt",      ElePtBin,ElePtBinMin,ElePtBinMax, MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTriggerEMu_EleEta   [i] = initSingleHistogramTH1F( hname_TTOCTriggerEMu_EleEta    , "_TTOCTriggerEMu_EleEta", EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCTriggerEMu_MuEta    [i] = initSingleHistogramTH1F( hname_TTOCTriggerEMu_MuEta     , "_TTOCTriggerEMu_MuEta",  MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTriggerEMuEta       [i] = initSingleHistogramTH2F( hname_TTOCTriggerEMuEta        , "_TTOCTriggerEMuEta",     EleEtaBin,EleEtaBinMin,EleEtaBinMax, MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTriggerMuE_ElePt    [i] = initSingleHistogramTH1F( hname_TTOCTriggerMuE_ElePt     , "_TTOCTriggerMuE_ElePt",  ElePtBin,ElePtBinMin,ElePtBinMax);
-   h_TTOCTriggerMuE_MuPt     [i] = initSingleHistogramTH1F( hname_TTOCTriggerMuE_MuPt      , "_TTOCTriggerMuE_MuPt",   MuPtBin ,MuPtBinMin ,MuPtBinMax);
-   h_TTOCTriggerMuEPt        [i] = initSingleHistogramTH2F( hname_TTOCTriggerMuEPt         , "_TTOCTriggerMuEPt",      MuPtBin ,MuPtBinMin ,MuPtBinMax, ElePtBin,ElePtBinMin,ElePtBinMax);
-   h_TTOCTriggerMuE_EleEta   [i] = initSingleHistogramTH1F( hname_TTOCTriggerMuE_EleEta    , "_TTOCTriggerMuE_EleEta", EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCTriggerMuE_MuEta    [i] = initSingleHistogramTH1F( hname_TTOCTriggerMuE_MuEta     , "_TTOCTriggerMuE_MuEta",  MuEtaBin,MuEtaBinMin,MuEtaBinMax);
-   h_TTOCTriggerMuEEta       [i] = initSingleHistogramTH2F( hname_TTOCTriggerMuEEta        , "_TTOCTriggerMuEEta",     MuEtaBin,MuEtaBinMin,MuEtaBinMax, EleEtaBin,EleEtaBinMin,EleEtaBinMax);
-   h_TTOCTriggerPhoPt        [i] = initSingleHistogramTH1F( hname_TTOCTriggerPhoPt         , "_TTOCTriggerPhoPt",      PhoPtBin,PhoPtBinMin,PhoPtBinMax);
-   h_TTOCTriggerPhoEta       [i] = initSingleHistogramTH1F( hname_TTOCTriggerPhoEta        , "_TTOCTriggerPhoEta",     PhoEtaBin,PhoEtaBinMin,PhoEtaBinMax);    
+   h_TTOC_Ele23Mu12_EMu_ElePt    [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Mu12_EMu_ElePt     , "_TTOC_Ele23Mu12_EMu_ElePt",  ElePtBin,ElePtBinMin,ElePtBinMax);
+   h_TTOC_Ele23Mu12_EMu_MuPt     [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Mu12_EMu_MuPt      , "_TTOC_Ele23Mu12_EMu_MuPt",   MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   h_TTOC_Ele23Mu12_EMuPt        [i] = initSingleHistogramTH2F( hname_TTOC_Ele23Mu12_EMuPt         , "_TTOC_Ele23Mu12_EMuPt",      ElePtBin,ElePtBinMin,ElePtBinMax, MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   h_TTOC_Ele23Mu12_EMu_EleEta   [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Mu12_EMu_EleEta    , "_TTOC_Ele23Mu12_EMu_EleEta", EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   h_TTOC_Ele23Mu12_EMu_MuEta    [i] = initSingleHistogramTH1F( hname_TTOC_Ele23Mu12_EMu_MuEta     , "_TTOC_Ele23Mu12_EMu_MuEta",  MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   h_TTOC_Ele23Mu12_EMuEta       [i] = initSingleHistogramTH2F( hname_TTOC_Ele23Mu12_EMuEta        , "_TTOC_Ele23Mu12_EMuEta",     EleEtaBin,EleEtaBinMin,EleEtaBinMax, MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   h_TTOC_Ele12Mu23_MuE_ElePt    [i] = initSingleHistogramTH1F( hname_TTOC_Ele12Mu23_MuE_ElePt     , "_TTOC_Ele12Mu23_MuE_ElePt",  ElePtBin,ElePtBinMin,ElePtBinMax);
+   h_TTOC_Ele12Mu23_MuE_MuPt     [i] = initSingleHistogramTH1F( hname_TTOC_Ele12Mu23_MuE_MuPt      , "_TTOC_Ele12Mu23_MuE_MuPt",   MuPtBin ,MuPtBinMin ,MuPtBinMax);
+   h_TTOC_Ele12Mu23_MuEPt        [i] = initSingleHistogramTH2F( hname_TTOC_Ele12Mu23_MuEPt         , "_TTOC_Ele12Mu23_MuEPt",      MuPtBin ,MuPtBinMin ,MuPtBinMax, ElePtBin,ElePtBinMin,ElePtBinMax);
+   h_TTOC_Ele12Mu23_MuE_EleEta   [i] = initSingleHistogramTH1F( hname_TTOC_Ele12Mu23_MuE_EleEta    , "_TTOC_Ele12Mu23_MuE_EleEta", EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   h_TTOC_Ele12Mu23_MuE_MuEta    [i] = initSingleHistogramTH1F( hname_TTOC_Ele12Mu23_MuE_MuEta     , "_TTOC_Ele12Mu23_MuE_MuEta",  MuEtaBin,MuEtaBinMin,MuEtaBinMax);
+   h_TTOC_Ele12Mu23_MuEEta       [i] = initSingleHistogramTH2F( hname_TTOC_Ele12Mu23_MuEEta        , "_TTOC_Ele12Mu23_MuEEta",     MuEtaBin,MuEtaBinMin,MuEtaBinMax, EleEtaBin,EleEtaBinMin,EleEtaBinMax);
+   //h_TTOCTriggerPhoPt        [i] = initSingleHistogramTH1F( hname_TTOCTriggerPhoPt         , "_TTOCTriggerPhoPt",      PhoPtBin,PhoPtBinMin,PhoPtBinMax);
+   //h_TTOCTriggerPhoEta       [i] = initSingleHistogramTH1F( hname_TTOCTriggerPhoEta        , "_TTOCTriggerPhoEta",     PhoEtaBin,PhoEtaBinMin,PhoEtaBinMax);    
  }
 
  return kTRUE;
@@ -1772,55 +1851,37 @@ Bool_t analyzer_histograms::initTTOCHistograms( TString uncbin ){
 Bool_t analyzer_histograms::fillTTOCHistograms(Float_t weight, int selbin)
 {
    //setup
-   int leadPho;
+   int leadPho,leadMu,subLeadMu,leadEle,subLeadEle;
    if(photon_list.size()>0)  {leadPho    = photon_list[0]; }
-   int leadMu;
-   int subLeadMu;
    if(muon_list.size()>0)    {leadMu    = muon_list[0]; }
    if(muon_list.size()>1)    {subLeadMu = muon_list[1]; }
-   int leadEle;
-   int subLeadEle;
    if(electron_list.size()>0) {leadEle    = electron_list[0];} 
    if(electron_list.size()>1) {subLeadEle = electron_list[1];} 
  
    //define trigger passing bools
    //Bool_t doesPassDMu = (Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
-   Bool_t doesPassDMu = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
-   Bool_t doesPassDEle = (Bool_t)( (AOD_HLT_Ele23Ele12 > 0) ); 
-   Bool_t doesPassEMu = kFALSE;
-   Bool_t doesPassMuE = kFALSE;
-   //EMu
-   doesPassEMu =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) );
-   if(run>=273158 && run<=278272){
-    doesPassEMu =  (Bool_t)( (AOD_HLT_Mu8Ele23 > 0) );
-   }
-   else if(run>=278273 && run<=284044){
-    doesPassEMu = (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0));
-   }
-   //MuE
-   doesPassMuE =  (Bool_t)( (AOD_HLT_Mu23Ele12_DZ > 0) );
-   if(run>=273158 && run<=278272){
-    doesPassMuE = (Bool_t)( (AOD_HLT_Mu23Ele12 > 0) );
-   }
-   else if(run>=278273 && run<=284044){
-    doesPassMuE = (Bool_t)( (AOD_HLT_Mu23Ele12_DZ > 0) );
-   }
+   Bool_t doesPassDMu = true; 
+   Bool_t doesPassDEle =true; 
+   Bool_t doesPassEMu = true;
+   Bool_t doesPassMuE = true;
    //-------------------------Fill Passing basic selections
    //Single Photon 
-   if(photon_list.size() >0){
-    h_TTOCPhoPt               [selbin] ->Fill( AOD_phoPt               ->at(leadPho), weight );  
-    h_TTOCPhoEta              [selbin] ->Fill( AOD_phoEta              ->at(leadPho), weight ); 
-   }
+   //if(photon_list.size() >0){
+   // h_TTOCPhoPt               [selbin] ->Fill( AOD_phoPt               ->at(leadPho), weight );  
+   // h_TTOCPhoEta              [selbin] ->Fill( AOD_phoEta              ->at(leadPho), weight ); 
+   //}
    //MuonEG
-   if(muon_list.size() > 0 && electron_list.size() > 0){
+   if(muon_list.size() == 1 && electron_list.size() == 1){
     //MuE
     if( AOD_muPt->at(leadMu) > AOD_elePt->at(leadEle) ){
       // fill for muon 
-      h_TTOCMuE_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
-      h_TTOCMuE_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight ); 
+      if (AOD_elePt->at(leadEle)>12.)
+      {h_TTOCMuE_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
+       h_TTOCMuE_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight );} 
       // fill for electron
-      h_TTOCMuE_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
-      h_TTOCMuE_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );
+      if (AOD_muPt->at(leadMu)>23.) 
+      {h_TTOCMuE_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
+      h_TTOCMuE_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );}
       //2D Hists  
       h_TTOCMuEPt                [selbin] ->Fill( AOD_muPt ->at(leadMu), AOD_elePt->at(leadEle), weight );  
       h_TTOCMuEEta               [selbin] ->Fill( AOD_muEta->at(leadMu), AOD_eleEta->at(leadEle), weight );  
@@ -1828,36 +1889,42 @@ Bool_t analyzer_histograms::fillTTOCHistograms(Float_t weight, int selbin)
     //EMu
     if( AOD_muPt->at(leadMu) < AOD_elePt->at(leadEle) ){
       // fill for muon 
-      h_TTOCEMu_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
-      h_TTOCEMu_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight ); 
+      if (AOD_elePt->at(leadEle)>23.)
+      {h_TTOCEMu_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
+      h_TTOCEMu_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight );} 
       // fill for electron
-      h_TTOCEMu_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
-      h_TTOCEMu_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );
+      if (AOD_muPt->at(leadMu)>12.)
+      {h_TTOCEMu_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
+      h_TTOCEMu_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );}
       //2D Hists  
       h_TTOCEMuPt                [selbin] ->Fill( AOD_elePt ->at(leadEle), AOD_muPt->at(leadMu), weight );  
       h_TTOCEMuEta               [selbin] ->Fill( AOD_eleEta->at(leadEle), AOD_muEta->at(leadMu), weight );  
     }
    }
    //DoubleMu
-   if(muon_list.size() > 1){
+   if(muon_list.size() == 2){
     // fill leading muon in vector
-    h_TTOCMu1Pt               [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
-    h_TTOCMu1Eta              [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight ); 
+      if (AOD_muPt->at(subLeadMu)>12.)
+    {h_TTOCMu1Pt               [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
+    h_TTOCMu1Eta              [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight );} 
     // fill for sub-leading muon in vector
-    h_TTOCMu2Pt               [selbin] ->Fill( AOD_muPt               ->at(subLeadMu), weight );  
-    h_TTOCMu2Eta              [selbin] ->Fill( AOD_muEta              ->at(subLeadMu), weight );
+      if (AOD_muPt->at(leadMu)>23.)
+    {h_TTOCMu2Pt               [selbin] ->Fill( AOD_muPt               ->at(subLeadMu), weight );  
+    h_TTOCMu2Eta              [selbin] ->Fill( AOD_muEta              ->at(subLeadMu), weight );}
     //2D Hists  
     h_TTOCMuPt                [selbin] ->Fill( AOD_muPt ->at(leadMu), AOD_muPt->at(subLeadMu), weight );  
     h_TTOCMuEta               [selbin] ->Fill( AOD_muEta->at(leadMu), AOD_muEta->at(subLeadMu), weight );  
    }
    //DoubleEle
-   if(electron_list.size() > 1){
+   if(electron_list.size() == 2){
    // fill leading electron in vector
-    h_TTOCEle1Pt               [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
-    h_TTOCEle1Eta              [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight ); 
+      if (AOD_elePt->at(subLeadEle)>12.)
+    {h_TTOCEle1Pt               [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
+    h_TTOCEle1Eta              [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );} 
    // fill for sub-leading muon in vector
-    h_TTOCEle2Pt               [selbin] ->Fill( AOD_elePt               ->at(subLeadEle), weight );  
-    h_TTOCEle2Eta              [selbin] ->Fill( AOD_eleEta              ->at(subLeadEle), weight );  
+      if (AOD_elePt->at(leadEle)>23.)
+    {h_TTOCEle2Pt               [selbin] ->Fill( AOD_elePt               ->at(subLeadEle), weight );  
+    h_TTOCEle2Eta              [selbin] ->Fill( AOD_eleEta              ->at(subLeadEle), weight );}  
     //2D Hists
     h_TTOCElePt                [selbin] ->Fill( AOD_elePt ->at(leadEle), AOD_elePt->at(subLeadEle), weight );  
     h_TTOCEleEta               [selbin] ->Fill( AOD_eleEta->at(leadEle), AOD_eleEta->at(subLeadEle), weight );  
@@ -1865,58 +1932,66 @@ Bool_t analyzer_histograms::fillTTOCHistograms(Float_t weight, int selbin)
 
    //--------------------Fill For Passing Equivalent Triggers
    // fill for passing all Double Muon triggers used in analyzer_selections.C def of double muon
-   if(doesPassDMu && muon_list.size() > 1){
-    h_TTOCTriggerDMu1Pt               [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
-    h_TTOCTriggerDMu2Pt               [selbin] ->Fill( AOD_muPt               ->at(subLeadMu), weight );  
-    h_TTOCTriggerDMu1Eta              [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight );  
-    h_TTOCTriggerDMu2Eta              [selbin] ->Fill( AOD_muEta              ->at(subLeadMu), weight ); 
+   if(doesPassDMu && muon_list.size() == 2/*&& AOD_muPt->at(leadMu)>17. && AOD_muPt->at(subLeadMu)>8.*/){
+      if (AOD_muPt->at(subLeadMu)>12.)
+    {h_TTOC_Mu17Mu8_DMu1Pt               [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
+    h_TTOC_Mu17Mu8_DMu1Eta              [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight ); } 
+      if (AOD_muPt->at(leadMu)>23.)
+    {h_TTOC_Mu17Mu8_DMu2Pt               [selbin] ->Fill( AOD_muPt               ->at(subLeadMu), weight );  
+    h_TTOC_Mu17Mu8_DMu2Eta              [selbin] ->Fill( AOD_muEta              ->at(subLeadMu), weight );} 
     
-    h_TTOCTriggerDMuPt                [selbin] ->Fill( AOD_muPt ->at(leadMu), AOD_muPt->at(subLeadMu), weight );  
-    h_TTOCTriggerDMuEta               [selbin] ->Fill( AOD_muEta->at(leadMu), AOD_muEta->at(subLeadMu), weight );  
+    h_TTOC_Mu17Mu8_DMuPt                [selbin] ->Fill( AOD_muPt ->at(leadMu), AOD_muPt->at(subLeadMu), weight );  
+    h_TTOC_Mu17Mu8_DMuEta               [selbin] ->Fill( AOD_muEta->at(leadMu), AOD_muEta->at(subLeadMu), weight );  
    } 
    // fill for passing all Double electron triggers used in analyzer_selections.C def of double electron
-   if( doesPassDEle && electron_list.size() > 1){
-    h_TTOCTrigger23DEle1Pt               [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
-    h_TTOCTrigger23DEle2Pt               [selbin] ->Fill( AOD_elePt               ->at(subLeadEle), weight );  
-    h_TTOCTrigger23DEle1Eta              [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );  
-    h_TTOCTrigger23DEle2Eta              [selbin] ->Fill( AOD_eleEta              ->at(subLeadEle), weight );  
+   if( doesPassDEle && electron_list.size() == 2/*&& AOD_elePt->at(leadEle)>23. && AOD_elePt->at(subLeadEle)>12.*/){
+      if (AOD_elePt->at(subLeadEle)>12.)
+    {h_TTOC_Ele23Ele12_DEle1Pt               [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
+    h_TTOC_Ele23Ele12_DEle1Eta              [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );}  
+      if (AOD_elePt->at(leadEle)>23.)
+    {h_TTOC_Ele23Ele12_DEle2Pt               [selbin] ->Fill( AOD_elePt               ->at(subLeadEle), weight );  
+    h_TTOC_Ele23Ele12_DEle2Eta              [selbin] ->Fill( AOD_eleEta              ->at(subLeadEle), weight );}  
 
-    h_TTOCTrigger23DElePt                [selbin] ->Fill( AOD_elePt ->at(leadEle), AOD_elePt ->at(subLeadEle), weight );  
-    h_TTOCTrigger23DEleEta               [selbin] ->Fill( AOD_eleEta->at(leadEle), AOD_eleEta->at(subLeadEle), weight );  
+    h_TTOC_Ele23Ele12_DElePt                [selbin] ->Fill( AOD_elePt ->at(leadEle), AOD_elePt ->at(subLeadEle), weight );  
+    h_TTOC_Ele23Ele12_DEleEta               [selbin] ->Fill( AOD_eleEta->at(leadEle), AOD_eleEta->at(subLeadEle), weight );  
    } 
    // fill for passing all Single photon triggers used in analyzer_selections.C def of OnePho
    //if (photon_list.size()>0)std::cout<<"***************NoPassPhotonPt: "<<AOD_phoPt->at(leadPho)<<std::endl;
-   if( (Bool_t)AOD_HLT_Photon165_HE10 && photon_list.size() > 0){
-    h_TTOCTriggerPhoPt             [selbin] ->Fill( AOD_phoPt               ->at(leadPho), weight );  
-    h_TTOCTriggerPhoEta            [selbin] ->Fill( AOD_phoEta              ->at(leadPho), weight );  
-    //std::cout<<"PhotonPt: "<<AOD_phoPt->at(leadPho)<<std::endl;
-   }
+   //if( (Bool_t)AOD_HLT_Photon165_HE10 && photon_list.size() > 0){
+   // h_TTOCTriggerPhoPt             [selbin] ->Fill( AOD_phoPt               ->at(leadPho), weight );  
+   // h_TTOCTriggerPhoEta            [selbin] ->Fill( AOD_phoEta              ->at(leadPho), weight );  
+   // //std::cout<<"PhotonPt: "<<AOD_phoPt->at(leadPho)<<std::endl;
+   //}
    // fill for passing all MuonEG triggers used in analyzer_selections.C def of EleMuOSOF
-   if(doesPassMuE && muon_list.size() > 0 && electron_list.size() > 0){
+   if(doesPassMuE && muon_list.size() == 1 && electron_list.size() == 1){
     //MuE
-    if( AOD_muPt->at(leadMu) > AOD_elePt->at(leadEle) ){
+    if( AOD_muPt->at(leadMu) > AOD_elePt->at(leadEle)/* && AOD_muPt->at(leadMu) > 23. && AOD_elePt->at(leadEle)>12.*/){
       // fill for muon 
-      h_TTOCTriggerMuE_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
-      h_TTOCTriggerMuE_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight ); 
+      if (AOD_elePt->at(leadEle)>12.)
+      {h_TTOC_Ele12Mu23_MuE_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
+      h_TTOC_Ele12Mu23_MuE_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight );} 
       // fill for electron
-      h_TTOCTriggerMuE_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
-      h_TTOCTriggerMuE_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );
+      if (AOD_muPt->at(leadMu)>23.) 
+      {h_TTOC_Ele12Mu23_MuE_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
+      h_TTOC_Ele12Mu23_MuE_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );}
       //2D Hists  
-      h_TTOCTriggerMuEPt                [selbin] ->Fill( AOD_muPt ->at(leadMu), AOD_elePt->at(leadEle), weight );  
-      h_TTOCTriggerMuEEta               [selbin] ->Fill( AOD_muEta->at(leadMu), AOD_eleEta->at(leadEle), weight );  
+      h_TTOC_Ele12Mu23_MuEPt                [selbin] ->Fill( AOD_muPt ->at(leadMu), AOD_elePt->at(leadEle), weight );  
+      h_TTOC_Ele12Mu23_MuEEta               [selbin] ->Fill( AOD_muEta->at(leadMu), AOD_eleEta->at(leadEle), weight );  
    }}
-   if(doesPassEMu && muon_list.size() > 0 && electron_list.size() > 0){
+   if(doesPassEMu && muon_list.size() == 1 && electron_list.size() == 1){
     //EMu
-    if( AOD_elePt->at(leadEle) > AOD_muPt->at(leadMu) ){
+    if( AOD_muPt->at(leadMu) < AOD_elePt->at(leadEle)/* && AOD_muPt->at(leadMu) > 12. && AOD_elePt->at(leadEle)>23.*/){
       // fill for muon 
-      h_TTOCTriggerEMu_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
-      h_TTOCTriggerEMu_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight ); 
+      if (AOD_elePt->at(leadEle)>23.)
+      {h_TTOC_Ele23Mu12_EMu_MuPt             [selbin] ->Fill( AOD_muPt               ->at(leadMu), weight );  
+      h_TTOC_Ele23Mu12_EMu_MuEta            [selbin] ->Fill( AOD_muEta              ->at(leadMu), weight );} 
       // fill for electron
-      h_TTOCTriggerEMu_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
-      h_TTOCTriggerEMu_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );
+      if (AOD_muPt->at(leadMu)>12.) 
+      {h_TTOC_Ele23Mu12_EMu_ElePt            [selbin] ->Fill( AOD_elePt               ->at(leadEle), weight );  
+      h_TTOC_Ele23Mu12_EMu_EleEta           [selbin] ->Fill( AOD_eleEta              ->at(leadEle), weight );}
       //2D Hists  
-      h_TTOCTriggerEMuPt                [selbin] ->Fill( AOD_elePt ->at(leadEle), AOD_muPt->at(leadMu), weight );  
-      h_TTOCTriggerEMuEta               [selbin] ->Fill( AOD_eleEta->at(leadEle), AOD_muEta->at(leadMu), weight );  
+      h_TTOC_Ele23Mu12_EMuPt                [selbin] ->Fill( AOD_elePt ->at(leadEle), AOD_muPt->at(leadMu), weight );  
+      h_TTOC_Ele23Mu12_EMuEta               [selbin] ->Fill( AOD_eleEta->at(leadEle), AOD_muEta->at(leadMu), weight );  
    }}
  return kTRUE;
 }
@@ -1948,15 +2023,15 @@ Bool_t analyzer_histograms::writeTTOCHistograms(int selbin)
   h_TTOCMuE_EleEta      [selbin] ->Write(); 
   h_TTOCMuE_MuEta       [selbin] ->Write(); 
   h_TTOCMuEEta          [selbin] ->Write();  
-  h_TTOCPhoPt           [selbin] ->Write();  
-  h_TTOCPhoEta          [selbin] ->Write();  
+  //h_TTOCPhoPt           [selbin] ->Write();  
+  //h_TTOCPhoEta          [selbin] ->Write();  
   //Double Mu
-  h_TTOCTriggerDMu1Pt        [selbin] ->Write();
-  h_TTOCTriggerDMu2Pt        [selbin] ->Write();
-  h_TTOCTriggerDMuPt         [selbin] ->Write();
-  h_TTOCTriggerDMu1Eta       [selbin] ->Write();
-  h_TTOCTriggerDMu2Eta       [selbin] ->Write();
-  h_TTOCTriggerDMuEta        [selbin] ->Write();
+  h_TTOC_Mu17Mu8_DMu1Pt        [selbin] ->Write();
+  h_TTOC_Mu17Mu8_DMu2Pt        [selbin] ->Write();
+  h_TTOC_Mu17Mu8_DMuPt         [selbin] ->Write();
+  h_TTOC_Mu17Mu8_DMu1Eta       [selbin] ->Write();
+  h_TTOC_Mu17Mu8_DMu2Eta       [selbin] ->Write();
+  h_TTOC_Mu17Mu8_DMuEta        [selbin] ->Write();
   h_TTOCTriggerDTkMu1Pt      [selbin] ->Write();
   h_TTOCTriggerDTkMu2Pt      [selbin] ->Write();
   h_TTOCTriggerDTkMu1Eta     [selbin] ->Write();
@@ -1970,136 +2045,137 @@ Bool_t analyzer_histograms::writeTTOCHistograms(int selbin)
   h_TTOCTriggerNoDZTkMu1Eta  [selbin] ->Write();
   h_TTOCTriggerNoDZTkMu2Eta  [selbin] ->Write();
   //--Single Mu
-  h_TTOCTrigger22MuPt          [selbin] ->Write();
-  h_TTOCTrigger22MuEta         [selbin] ->Write();
-  h_TTOCTrigger22TkMuPt        [selbin] ->Write();
-  h_TTOCTrigger22TkMuEta       [selbin] ->Write();
-  h_TTOCTrigger24MuPt          [selbin] ->Write();
-  h_TTOCTrigger24MuEta         [selbin] ->Write();
-  h_TTOCTrigger24TkMuPt        [selbin] ->Write();
-  h_TTOCTrigger24TkMuEta       [selbin] ->Write();
+  //h_TTOCTrigger22MuPt          [selbin] ->Write();
+  //h_TTOCTrigger22MuEta         [selbin] ->Write();
+  //h_TTOCTrigger22TkMuPt        [selbin] ->Write();
+  //h_TTOCTrigger22TkMuEta       [selbin] ->Write();
+  //h_TTOCTrigger24MuPt          [selbin] ->Write();
+  //h_TTOCTrigger24MuEta         [selbin] ->Write();
+  //h_TTOCTrigger24TkMuPt        [selbin] ->Write();
+  //h_TTOCTrigger24TkMuEta       [selbin] ->Write();
   //Double Electron
-  h_TTOCTrigger23DEle1Pt       [selbin] ->Write();
-  h_TTOCTrigger23DEle2Pt       [selbin] ->Write();
-  h_TTOCTrigger23DElePt        [selbin] ->Write();
-  h_TTOCTrigger23DEle1Eta      [selbin] ->Write();
-  h_TTOCTrigger23DEle2Eta      [selbin] ->Write();
-  h_TTOCTrigger23DEleEta       [selbin] ->Write();
+  h_TTOC_Ele23Ele12_DEle1Pt       [selbin] ->Write();
+  h_TTOC_Ele23Ele12_DEle2Pt       [selbin] ->Write();
+  h_TTOC_Ele23Ele12_DElePt        [selbin] ->Write();
+  h_TTOC_Ele23Ele12_DEle1Eta      [selbin] ->Write();
+  h_TTOC_Ele23Ele12_DEle2Eta      [selbin] ->Write();
+  h_TTOC_Ele23Ele12_DEleEta       [selbin] ->Write();
   h_TTOCTrigger17DEle1Pt     [selbin] ->Write();
   h_TTOCTrigger17DEle2Pt     [selbin] ->Write();
   h_TTOCTrigger17DEle1Eta    [selbin] ->Write();
   h_TTOCTrigger17DEle2Eta    [selbin] ->Write();
   //--Single Electron
-  h_TTOCTrigger23ElePt         [selbin] ->Write();
-  h_TTOCTrigger23EleEta        [selbin] ->Write();
-  h_TTOCTrigger27ElePt         [selbin] ->Write();
-  h_TTOCTrigger27EleEta        [selbin] ->Write();
+  //h_TTOCTrigger23ElePt         [selbin] ->Write();
+  //h_TTOCTrigger23EleEta        [selbin] ->Write();
+  //h_TTOCTrigger27ElePt         [selbin] ->Write();
+  //h_TTOCTrigger27EleEta        [selbin] ->Write();
   
-  h_TTOCTriggerEMu_ElePt     [selbin] ->Write(); 
-  h_TTOCTriggerEMu_MuPt      [selbin] ->Write(); 
-  h_TTOCTriggerEMuPt         [selbin] ->Write(); 
-  h_TTOCTriggerEMu_EleEta    [selbin] ->Write(); 
-  h_TTOCTriggerEMu_MuEta     [selbin] ->Write(); 
-  h_TTOCTriggerEMuEta        [selbin] ->Write(); 
-  h_TTOCTriggerMuE_ElePt     [selbin] ->Write(); 
-  h_TTOCTriggerMuE_MuPt      [selbin] ->Write(); 
-  h_TTOCTriggerMuEPt         [selbin] ->Write(); 
-  h_TTOCTriggerMuE_EleEta    [selbin] ->Write(); 
-  h_TTOCTriggerMuE_MuEta     [selbin] ->Write(); 
-  h_TTOCTriggerMuEEta        [selbin] ->Write();  
-  h_TTOCTriggerPhoPt         [selbin] ->Write();  
-  h_TTOCTriggerPhoEta        [selbin] ->Write();  
+  h_TTOC_Ele23Mu12_EMu_ElePt     [selbin] ->Write(); 
+  h_TTOC_Ele23Mu12_EMu_MuPt      [selbin] ->Write(); 
+  h_TTOC_Ele23Mu12_EMuPt         [selbin] ->Write(); 
+  h_TTOC_Ele23Mu12_EMu_EleEta    [selbin] ->Write(); 
+  h_TTOC_Ele23Mu12_EMu_MuEta     [selbin] ->Write(); 
+  h_TTOC_Ele23Mu12_EMuEta        [selbin] ->Write(); 
+  h_TTOC_Ele12Mu23_MuE_ElePt     [selbin] ->Write(); 
+  h_TTOC_Ele12Mu23_MuE_MuPt      [selbin] ->Write(); 
+  h_TTOC_Ele12Mu23_MuEPt         [selbin] ->Write(); 
+  h_TTOC_Ele12Mu23_MuE_EleEta    [selbin] ->Write(); 
+  h_TTOC_Ele12Mu23_MuE_MuEta     [selbin] ->Write(); 
+  h_TTOC_Ele12Mu23_MuEEta        [selbin] ->Write();  
+  //h_TTOCTriggerPhoPt         [selbin] ->Write();  
+  //h_TTOCTriggerPhoEta        [selbin] ->Write();  
  return kTRUE;
 }
+
 
 //----------------------------deleteTTOCHistograms
 Bool_t analyzer_histograms::deleteTTOCHistograms(int selbin)
 {
-  //printf("deleteTTOCHistograms\n");
-  if(h_TTOCMu1Pt     [selbin]!=NULL)    h_TTOCMu1Pt           [selbin] ->Delete();
-  if(h_TTOCMu2Pt     [selbin]!=NULL)    h_TTOCMu2Pt           [selbin] ->Delete();
-  if(h_TTOCMuPt      [selbin]!=NULL)    h_TTOCMuPt            [selbin] ->Delete();
-  if(h_TTOCMu1Eta    [selbin]!=NULL)    h_TTOCMu1Eta          [selbin] ->Delete();
-  if(h_TTOCMu2Eta    [selbin]!=NULL)    h_TTOCMu2Eta          [selbin] ->Delete();
-  if(h_TTOCMuEta     [selbin]!=NULL)    h_TTOCMuEta           [selbin] ->Delete();
-  if(h_TTOCEle1Pt    [selbin]!=NULL)    h_TTOCEle1Pt          [selbin] ->Delete();
-  if(h_TTOCEle2Pt    [selbin]!=NULL)    h_TTOCEle2Pt          [selbin] ->Delete();
-  if(h_TTOCElePt     [selbin]!=NULL)    h_TTOCElePt           [selbin] ->Delete();
-  if(h_TTOCEle1Eta   [selbin]!=NULL)    h_TTOCEle1Eta         [selbin] ->Delete();
-  if(h_TTOCEle2Eta   [selbin]!=NULL)    h_TTOCEle2Eta         [selbin] ->Delete();
-  if(h_TTOCEleEta    [selbin]!=NULL)    h_TTOCEleEta          [selbin] ->Delete();
-  if(h_TTOCEMu_ElePt [selbin]!=NULL)    h_TTOCEMu_ElePt       [selbin] ->Delete(); 
-  if(h_TTOCEMu_MuPt  [selbin]!=NULL)    h_TTOCEMu_MuPt        [selbin] ->Delete(); 
-  if(h_TTOCEMuPt     [selbin]!=NULL)    h_TTOCEMuPt           [selbin] ->Delete(); 
-  if(h_TTOCEMu_EleEta[selbin]!=NULL)    h_TTOCEMu_EleEta      [selbin] ->Delete(); 
-  if(h_TTOCEMu_MuEta [selbin]!=NULL)    h_TTOCEMu_MuEta       [selbin] ->Delete(); 
-  if(h_TTOCEMuEta    [selbin]!=NULL)    h_TTOCEMuEta          [selbin] ->Delete(); 
-  if(h_TTOCMuE_ElePt [selbin]!=NULL)    h_TTOCMuE_ElePt       [selbin] ->Delete(); 
-  if(h_TTOCMuE_MuPt  [selbin]!=NULL)    h_TTOCMuE_MuPt        [selbin] ->Delete(); 
-  if(h_TTOCMuEPt     [selbin]!=NULL)    h_TTOCMuEPt           [selbin] ->Delete(); 
-  if(h_TTOCMuE_EleEta[selbin]!=NULL)    h_TTOCMuE_EleEta      [selbin] ->Delete(); 
-  if(h_TTOCMuE_MuEta [selbin]!=NULL)    h_TTOCMuE_MuEta       [selbin] ->Delete(); 
-  if(h_TTOCMuEEta    [selbin]!=NULL)    h_TTOCMuEEta          [selbin] ->Delete();  
-  if(h_TTOCPhoPt     [selbin]!=NULL)    h_TTOCPhoPt           [selbin] ->Delete();  
-  if(h_TTOCPhoEta    [selbin]!=NULL)    h_TTOCPhoEta          [selbin] ->Delete(); 
-  //Double Mu
-  //if(h_TTOCTriggerDMu1Pt      [selbin]!=NULL)    h_TTOCTriggerDMu1Pt        [selbin] ->Delete();
-  //if(h_TTOCTriggerDMu2Pt      [selbin]!=NULL)    h_TTOCTriggerDMu2Pt        [selbin] ->Delete();
-  //if(h_TTOCTriggerDMuPt       [selbin]!=NULL)    h_TTOCTriggerDMuPt         [selbin] ->Delete();
-  //if(h_TTOCTriggerDMu1Eta     [selbin]!=NULL)    h_TTOCTriggerDMu1Eta       [selbin] ->Delete();
-  //if(h_TTOCTriggerDMu2Eta     [selbin]!=NULL)    h_TTOCTriggerDMu2Eta       [selbin] ->Delete();
-  //if(h_TTOCTriggerDMuEta      [selbin]!=NULL)    h_TTOCTriggerDMuEta        [selbin] ->Delete();
-  //if(h_TTOCTriggerDTkMu1Pt    [selbin]!=NULL)    h_TTOCTriggerDTkMu1Pt      [selbin] ->Delete();
-  //if(h_TTOCTriggerDTkMu2Pt    [selbin]!=NULL)    h_TTOCTriggerDTkMu2Pt      [selbin] ->Delete();
-  //if(h_TTOCTriggerDTkMu1Eta   [selbin]!=NULL)    h_TTOCTriggerDTkMu1Eta     [selbin] ->Delete();
-  //if(h_TTOCTriggerDTkMu2Eta   [selbin]!=NULL)    h_TTOCTriggerDTkMu2Eta     [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZMu1Pt   [selbin]!=NULL)    h_TTOCTriggerNoDZMu1Pt     [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZMu2Pt   [selbin]!=NULL)    h_TTOCTriggerNoDZMu2Pt     [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZMu1Eta  [selbin]!=NULL)    h_TTOCTriggerNoDZMu1Eta    [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZMu2Eta  [selbin]!=NULL)    h_TTOCTriggerNoDZMu2Eta    [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZTkMu1Pt [selbin]!=NULL)    h_TTOCTriggerNoDZTkMu1Pt   [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZTkMu2Pt [selbin]!=NULL)    h_TTOCTriggerNoDZTkMu2Pt   [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZTkMu1Eta[selbin]!=NULL)    h_TTOCTriggerNoDZTkMu1Eta  [selbin] ->Delete();
-  //if(h_TTOCTriggerNoDZTkMu2Eta[selbin]!=NULL)    h_TTOCTriggerNoDZTkMu2Eta  [selbin] ->Delete();
-  //--Single Mu
-  if(h_TTOCTrigger22MuPt    [selbin]!=NULL)   h_TTOCTrigger22MuPt          [selbin] ->Delete();
-  if(h_TTOCTrigger22MuEta   [selbin]!=NULL)   h_TTOCTrigger22MuEta         [selbin] ->Delete();
-  if(h_TTOCTrigger22TkMuPt  [selbin]!=NULL)   h_TTOCTrigger22TkMuPt        [selbin] ->Delete();
-  if(h_TTOCTrigger22TkMuEta [selbin]!=NULL)   h_TTOCTrigger22TkMuEta       [selbin] ->Delete();
-  if(h_TTOCTrigger24MuPt    [selbin]!=NULL)   h_TTOCTrigger24MuPt          [selbin] ->Delete();
-  if(h_TTOCTrigger24MuEta   [selbin]!=NULL)   h_TTOCTrigger24MuEta         [selbin] ->Delete();
-  if(h_TTOCTrigger24TkMuPt  [selbin]!=NULL)   h_TTOCTrigger24TkMuPt        [selbin] ->Delete();
-  if(h_TTOCTrigger24TkMuEta [selbin]!=NULL)   h_TTOCTrigger24TkMuEta       [selbin] ->Delete();
-  //Double Electron
-  if(h_TTOCTrigger23DEle1Pt  [selbin]!=NULL)  h_TTOCTrigger23DEle1Pt       [selbin] ->Delete();
-  if(h_TTOCTrigger23DEle2Pt  [selbin]!=NULL)  h_TTOCTrigger23DEle2Pt       [selbin] ->Delete();
-  if(h_TTOCTrigger23DElePt   [selbin]!=NULL)  h_TTOCTrigger23DElePt        [selbin] ->Delete();
-  if(h_TTOCTrigger23DEle1Eta [selbin]!=NULL)  h_TTOCTrigger23DEle1Eta      [selbin] ->Delete();
-  if(h_TTOCTrigger23DEle2Eta [selbin]!=NULL)  h_TTOCTrigger23DEle2Eta      [selbin] ->Delete();
-  if(h_TTOCTrigger23DEleEta  [selbin]!=NULL)  h_TTOCTrigger23DEleEta       [selbin] ->Delete();
-  //if(h_TTOCTrigger17DEle1Pt  [selbin]!=NULL)  h_TTOCTrigger17DEle1Pt     [selbin] ->Delete()
-  //if(h_TTOCTrigger17DEle2Pt  [selbin]!=NULL)  h_TTOCTrigger17DEle2Pt     [selbin] ->Delete();
-  //if(h_TTOCTrigger17DEle1Eta [selbin]!=NULL)  h_TTOCTrigger17DEle1Eta    [selbin] ->Delete();
-  //if(h_TTOCTrigger17DEle2Eta [selbin]!=NULL)  h_TTOCTrigger17DEle2Eta    [selbin] ->Delete();
-  //--Single Electron
-  if(h_TTOCTrigger23ElePt   [selbin]!=NULL)   h_TTOCTrigger23ElePt         [selbin] ->Delete();
-  if(h_TTOCTrigger23EleEta  [selbin]!=NULL)   h_TTOCTrigger23EleEta        [selbin] ->Delete();
-  if(h_TTOCTrigger27ElePt   [selbin]!=NULL)   h_TTOCTrigger27ElePt         [selbin] ->Delete();
-  if(h_TTOCTrigger27EleEta  [selbin]!=NULL)   h_TTOCTrigger27EleEta        [selbin] ->Delete(); 
-  if(h_TTOCTriggerEMu_ElePt [selbin]!=NULL)   h_TTOCTriggerEMu_ElePt       [selbin] ->Delete(); 
-  if(h_TTOCTriggerEMu_MuPt  [selbin]!=NULL)   h_TTOCTriggerEMu_MuPt        [selbin] ->Delete(); 
-  if(h_TTOCTriggerEMuPt     [selbin]!=NULL)   h_TTOCTriggerEMuPt           [selbin] ->Delete(); 
-  if(h_TTOCTriggerEMu_EleEta[selbin]!=NULL)   h_TTOCTriggerEMu_EleEta      [selbin] ->Delete(); 
-  if(h_TTOCTriggerEMu_MuEta [selbin]!=NULL)   h_TTOCTriggerEMu_MuEta       [selbin] ->Delete(); 
-  if(h_TTOCTriggerEMuEta    [selbin]!=NULL)   h_TTOCTriggerEMuEta          [selbin] ->Delete(); 
-  if(h_TTOCTriggerMuE_ElePt [selbin]!=NULL)   h_TTOCTriggerMuE_ElePt       [selbin] ->Delete(); 
-  if(h_TTOCTriggerMuE_MuPt  [selbin]!=NULL)   h_TTOCTriggerMuE_MuPt        [selbin] ->Delete(); 
-  if(h_TTOCTriggerMuEPt     [selbin]!=NULL)   h_TTOCTriggerMuEPt           [selbin] ->Delete(); 
-  if(h_TTOCTriggerMuE_EleEta[selbin]!=NULL)   h_TTOCTriggerMuE_EleEta      [selbin] ->Delete(); 
-  if(h_TTOCTriggerMuE_MuEta [selbin]!=NULL)   h_TTOCTriggerMuE_MuEta       [selbin] ->Delete(); 
-  if(h_TTOCTriggerMuEEta    [selbin]!=NULL)   h_TTOCTriggerMuEEta          [selbin] ->Delete();  
-  if(h_TTOCTriggerPhoPt     [selbin]!=NULL)   h_TTOCTriggerPhoPt           [selbin] ->Delete();  
-  if(h_TTOCTriggerPhoEta    [selbin]!=NULL)   h_TTOCTriggerPhoEta          [selbin] ->Delete();  
+//  //printf("deleteTTOCHistograms\n");
+//  if(h_TTOCMu1Pt     [selbin]!=NULL)    h_TTOCMu1Pt           [selbin] ->Delete();
+//  if(h_TTOCMu2Pt     [selbin]!=NULL)    h_TTOCMu2Pt           [selbin] ->Delete();
+//  if(h_TTOCMuPt      [selbin]!=NULL)    h_TTOCMuPt            [selbin] ->Delete();
+//  if(h_TTOCMu1Eta    [selbin]!=NULL)    h_TTOCMu1Eta          [selbin] ->Delete();
+//  if(h_TTOCMu2Eta    [selbin]!=NULL)    h_TTOCMu2Eta          [selbin] ->Delete();
+//  if(h_TTOCMuEta     [selbin]!=NULL)    h_TTOCMuEta           [selbin] ->Delete();
+//  if(h_TTOCEle1Pt    [selbin]!=NULL)    h_TTOCEle1Pt          [selbin] ->Delete();
+//  if(h_TTOCEle2Pt    [selbin]!=NULL)    h_TTOCEle2Pt          [selbin] ->Delete();
+//  if(h_TTOCElePt     [selbin]!=NULL)    h_TTOCElePt           [selbin] ->Delete();
+//  if(h_TTOCEle1Eta   [selbin]!=NULL)    h_TTOCEle1Eta         [selbin] ->Delete();
+//  if(h_TTOCEle2Eta   [selbin]!=NULL)    h_TTOCEle2Eta         [selbin] ->Delete();
+//  if(h_TTOCEleEta    [selbin]!=NULL)    h_TTOCEleEta          [selbin] ->Delete();
+//  if(h_TTOCEMu_ElePt [selbin]!=NULL)    h_TTOCEMu_ElePt       [selbin] ->Delete(); 
+//  if(h_TTOCEMu_MuPt  [selbin]!=NULL)    h_TTOCEMu_MuPt        [selbin] ->Delete(); 
+//  if(h_TTOCEMuPt     [selbin]!=NULL)    h_TTOCEMuPt           [selbin] ->Delete(); 
+//  if(h_TTOCEMu_EleEta[selbin]!=NULL)    h_TTOCEMu_EleEta      [selbin] ->Delete(); 
+//  if(h_TTOCEMu_MuEta [selbin]!=NULL)    h_TTOCEMu_MuEta       [selbin] ->Delete(); 
+//  if(h_TTOCEMuEta    [selbin]!=NULL)    h_TTOCEMuEta          [selbin] ->Delete(); 
+//  if(h_TTOCMuE_ElePt [selbin]!=NULL)    h_TTOCMuE_ElePt       [selbin] ->Delete(); 
+//  if(h_TTOCMuE_MuPt  [selbin]!=NULL)    h_TTOCMuE_MuPt        [selbin] ->Delete(); 
+//  if(h_TTOCMuEPt     [selbin]!=NULL)    h_TTOCMuEPt           [selbin] ->Delete(); 
+//  if(h_TTOCMuE_EleEta[selbin]!=NULL)    h_TTOCMuE_EleEta      [selbin] ->Delete(); 
+//  if(h_TTOCMuE_MuEta [selbin]!=NULL)    h_TTOCMuE_MuEta       [selbin] ->Delete(); 
+//  if(h_TTOCMuEEta    [selbin]!=NULL)    h_TTOCMuEEta          [selbin] ->Delete();  
+//  if(h_TTOCPhoPt     [selbin]!=NULL)    h_TTOCPhoPt           [selbin] ->Delete();  
+//  if(h_TTOCPhoEta    [selbin]!=NULL)    h_TTOCPhoEta          [selbin] ->Delete(); 
+//  //Double Mu
+//  //if(h_TTOCTriggerDMu1Pt      [selbin]!=NULL)    h_TTOCTriggerDMu1Pt        [selbin] ->Delete();
+//  //if(h_TTOCTriggerDMu2Pt      [selbin]!=NULL)    h_TTOCTriggerDMu2Pt        [selbin] ->Delete();
+//  //if(h_TTOCTriggerDMuPt       [selbin]!=NULL)    h_TTOCTriggerDMuPt         [selbin] ->Delete();
+//  //if(h_TTOCTriggerDMu1Eta     [selbin]!=NULL)    h_TTOCTriggerDMu1Eta       [selbin] ->Delete();
+//  //if(h_TTOCTriggerDMu2Eta     [selbin]!=NULL)    h_TTOCTriggerDMu2Eta       [selbin] ->Delete();
+//  //if(h_TTOCTriggerDMuEta      [selbin]!=NULL)    h_TTOCTriggerDMuEta        [selbin] ->Delete();
+//  //if(h_TTOCTriggerDTkMu1Pt    [selbin]!=NULL)    h_TTOCTriggerDTkMu1Pt      [selbin] ->Delete();
+//  //if(h_TTOCTriggerDTkMu2Pt    [selbin]!=NULL)    h_TTOCTriggerDTkMu2Pt      [selbin] ->Delete();
+//  //if(h_TTOCTriggerDTkMu1Eta   [selbin]!=NULL)    h_TTOCTriggerDTkMu1Eta     [selbin] ->Delete();
+//  //if(h_TTOCTriggerDTkMu2Eta   [selbin]!=NULL)    h_TTOCTriggerDTkMu2Eta     [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZMu1Pt   [selbin]!=NULL)    h_TTOCTriggerNoDZMu1Pt     [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZMu2Pt   [selbin]!=NULL)    h_TTOCTriggerNoDZMu2Pt     [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZMu1Eta  [selbin]!=NULL)    h_TTOCTriggerNoDZMu1Eta    [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZMu2Eta  [selbin]!=NULL)    h_TTOCTriggerNoDZMu2Eta    [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZTkMu1Pt [selbin]!=NULL)    h_TTOCTriggerNoDZTkMu1Pt   [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZTkMu2Pt [selbin]!=NULL)    h_TTOCTriggerNoDZTkMu2Pt   [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZTkMu1Eta[selbin]!=NULL)    h_TTOCTriggerNoDZTkMu1Eta  [selbin] ->Delete();
+//  //if(h_TTOCTriggerNoDZTkMu2Eta[selbin]!=NULL)    h_TTOCTriggerNoDZTkMu2Eta  [selbin] ->Delete();
+//  //--Single Mu
+//  if(h_TTOCTrigger22MuPt    [selbin]!=NULL)   h_TTOCTrigger22MuPt          [selbin] ->Delete();
+//  if(h_TTOCTrigger22MuEta   [selbin]!=NULL)   h_TTOCTrigger22MuEta         [selbin] ->Delete();
+//  if(h_TTOCTrigger22TkMuPt  [selbin]!=NULL)   h_TTOCTrigger22TkMuPt        [selbin] ->Delete();
+//  if(h_TTOCTrigger22TkMuEta [selbin]!=NULL)   h_TTOCTrigger22TkMuEta       [selbin] ->Delete();
+//  if(h_TTOCTrigger24MuPt    [selbin]!=NULL)   h_TTOCTrigger24MuPt          [selbin] ->Delete();
+//  if(h_TTOCTrigger24MuEta   [selbin]!=NULL)   h_TTOCTrigger24MuEta         [selbin] ->Delete();
+//  if(h_TTOCTrigger24TkMuPt  [selbin]!=NULL)   h_TTOCTrigger24TkMuPt        [selbin] ->Delete();
+//  if(h_TTOCTrigger24TkMuEta [selbin]!=NULL)   h_TTOCTrigger24TkMuEta       [selbin] ->Delete();
+//  //Double Electron
+//  if(h_TTOCTrigger23DEle1Pt  [selbin]!=NULL)  h_TTOCTrigger23DEle1Pt       [selbin] ->Delete();
+//  if(h_TTOCTrigger23DEle2Pt  [selbin]!=NULL)  h_TTOCTrigger23DEle2Pt       [selbin] ->Delete();
+//  if(h_TTOCTrigger23DElePt   [selbin]!=NULL)  h_TTOCTrigger23DElePt        [selbin] ->Delete();
+//  if(h_TTOCTrigger23DEle1Eta [selbin]!=NULL)  h_TTOCTrigger23DEle1Eta      [selbin] ->Delete();
+//  if(h_TTOCTrigger23DEle2Eta [selbin]!=NULL)  h_TTOCTrigger23DEle2Eta      [selbin] ->Delete();
+//  if(h_TTOCTrigger23DEleEta  [selbin]!=NULL)  h_TTOCTrigger23DEleEta       [selbin] ->Delete();
+//  //if(h_TTOCTrigger17DEle1Pt  [selbin]!=NULL)  h_TTOCTrigger17DEle1Pt     [selbin] ->Delete()
+//  //if(h_TTOCTrigger17DEle2Pt  [selbin]!=NULL)  h_TTOCTrigger17DEle2Pt     [selbin] ->Delete();
+//  //if(h_TTOCTrigger17DEle1Eta [selbin]!=NULL)  h_TTOCTrigger17DEle1Eta    [selbin] ->Delete();
+//  //if(h_TTOCTrigger17DEle2Eta [selbin]!=NULL)  h_TTOCTrigger17DEle2Eta    [selbin] ->Delete();
+//  //--Single Electron
+//  if(h_TTOCTrigger23ElePt   [selbin]!=NULL)   h_TTOCTrigger23ElePt         [selbin] ->Delete();
+//  if(h_TTOCTrigger23EleEta  [selbin]!=NULL)   h_TTOCTrigger23EleEta        [selbin] ->Delete();
+//  if(h_TTOCTrigger27ElePt   [selbin]!=NULL)   h_TTOCTrigger27ElePt         [selbin] ->Delete();
+//  if(h_TTOCTrigger27EleEta  [selbin]!=NULL)   h_TTOCTrigger27EleEta        [selbin] ->Delete(); 
+//  if(h_TTOCTriggerEMu_ElePt [selbin]!=NULL)   h_TTOCTriggerEMu_ElePt       [selbin] ->Delete(); 
+//  if(h_TTOCTriggerEMu_MuPt  [selbin]!=NULL)   h_TTOCTriggerEMu_MuPt        [selbin] ->Delete(); 
+//  if(h_TTOCTriggerEMuPt     [selbin]!=NULL)   h_TTOCTriggerEMuPt           [selbin] ->Delete(); 
+//  if(h_TTOCTriggerEMu_EleEta[selbin]!=NULL)   h_TTOCTriggerEMu_EleEta      [selbin] ->Delete(); 
+//  if(h_TTOCTriggerEMu_MuEta [selbin]!=NULL)   h_TTOCTriggerEMu_MuEta       [selbin] ->Delete(); 
+//  if(h_TTOCTriggerEMuEta    [selbin]!=NULL)   h_TTOCTriggerEMuEta          [selbin] ->Delete(); 
+//  if(h_TTOCTriggerMuE_ElePt [selbin]!=NULL)   h_TTOCTriggerMuE_ElePt       [selbin] ->Delete(); 
+//  if(h_TTOCTriggerMuE_MuPt  [selbin]!=NULL)   h_TTOCTriggerMuE_MuPt        [selbin] ->Delete(); 
+//  if(h_TTOCTriggerMuEPt     [selbin]!=NULL)   h_TTOCTriggerMuEPt           [selbin] ->Delete(); 
+//  if(h_TTOCTriggerMuE_EleEta[selbin]!=NULL)   h_TTOCTriggerMuE_EleEta      [selbin] ->Delete(); 
+//  if(h_TTOCTriggerMuE_MuEta [selbin]!=NULL)   h_TTOCTriggerMuE_MuEta       [selbin] ->Delete(); 
+//  if(h_TTOCTriggerMuEEta    [selbin]!=NULL)   h_TTOCTriggerMuEEta          [selbin] ->Delete();  
+//  if(h_TTOCTriggerPhoPt     [selbin]!=NULL)   h_TTOCTriggerPhoPt           [selbin] ->Delete();  
+//  if(h_TTOCTriggerPhoEta    [selbin]!=NULL)   h_TTOCTriggerPhoEta          [selbin] ->Delete();  
   return kTRUE;
 }
 
@@ -2195,18 +2271,6 @@ Bool_t analyzer_histograms::initAODCaloJetTagMultHistograms( TString uncbin )
       //deleteAODCaloJetTagMultHistograms(i);
       TString hname_nSelectedAODCaloJetTag        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag"+uncbin;
       TString hname_nSelectedAODCaloJetTag_orig   = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_orig"+uncbin;
-
-      TString hname_nSelectedAODCaloJetTag_h150_llp20_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h150_llp20_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h150_llp50_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h150_llp50_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h175_llp20_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h175_llp20_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h175_llp50_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h175_llp50_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h200_llp20_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h200_llp20_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h200_llp50_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h200_llp50_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h250_llp50_ct100        = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h250_llp50_ct100"+uncbin;
-      TString hname_nSelectedAODCaloJetTag_h500_llp200_ct100       = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTag_h500_llp200_ct100"+uncbin;
-   
-
-
       TString hname_nSelectedAODCaloJetTagSB1     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB1"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB2     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB2"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB3     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB3"+uncbin;
@@ -2241,15 +2305,6 @@ Bool_t analyzer_histograms::initAODCaloJetTagMultHistograms( TString uncbin )
       TString hname_nSelectedAODCaloJetTagSB1_2b     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB1_2b"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB2_2b     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB2_2b"+uncbin;
       TString hname_nSelectedAODCaloJetTagSB3_2b     = "h_"+selbinnames[i]+"_nSelectedAODCaloJetTagSB3_2b"+uncbin;
-      
-      h_nSelectedAODCaloJetTag_h150_llp20_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h150_llp20_ct100,  "nSelectedAODCaloJetTag_h150_llp20_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h150_llp50_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h150_llp50_ct100,  "nSelectedAODCaloJetTag_h150_llp50_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h175_llp20_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h175_llp20_ct100,  "nSelectedAODCaloJetTag_h175_llp20_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h175_llp50_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h175_llp50_ct100,  "nSelectedAODCaloJetTag_h175_llp50_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h200_llp20_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h200_llp20_ct100,  "nSelectedAODCaloJetTag_h200_llp20_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h200_llp50_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h200_llp50_ct100,  "nSelectedAODCaloJetTag_h200_llp50_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h250_llp50_ct100  [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h250_llp50_ct100,  "nSelectedAODCaloJetTag_h250_llp50_ct100", 6, -0.5, 5.5);
-      h_nSelectedAODCaloJetTag_h500_llp200_ct100 [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_h500_llp200_ct100, "nSelectedAODCaloJetTag_h500_llp200_ct100", 6, -0.5, 5.5);
 
       h_nSelectedAODCaloJetTag                [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag            , "nSelectedAODCaloJetTag"         , 6, -0.5, 5.5);
       h_nSelectedAODCaloJetTag_orig           [i] = initSingleHistogramTH1F( hname_nSelectedAODCaloJetTag_orig       , "nSelectedAODCaloJetTag_orig"    , 6, -0.5, 5.5);
@@ -2296,17 +2351,8 @@ Bool_t analyzer_histograms::initAODCaloJetTagMultHistograms( TString uncbin )
 Bool_t analyzer_histograms::fillAODCaloJetTagMultHistograms(Float_t weight, int selbin)
 {
   hist_file_out[selbin]->cd();
-  
-  h_nSelectedAODCaloJetTag_h150_llp20_ct100  [selbin] ->Fill( float(taggedjet_h150_llp20_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h150_llp50_ct100  [selbin] ->Fill( float(taggedjet_h150_llp50_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h175_llp20_ct100  [selbin] ->Fill( float(taggedjet_h175_llp20_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h175_llp50_ct100  [selbin] ->Fill( float(taggedjet_h175_llp50_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h200_llp20_ct100  [selbin] ->Fill( float(taggedjet_h200_llp20_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h200_llp50_ct100  [selbin] ->Fill( float(taggedjet_h200_llp50_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h250_llp50_ct100  [selbin] ->Fill( float(taggedjet_h250_llp50_ct100_list.size()), weight );
-  h_nSelectedAODCaloJetTag_h500_llp200_ct100 [selbin] ->Fill( float(taggedjet_h500_llp200_ct100_list.size()), weight );
-  if(taggedjet_list.size()<2)     h_nSelectedAODCaloJetTag       [selbin] ->Fill( float(taggedjet_list.size()), weight );
-  else                            h_nSelectedAODCaloJetTag       [selbin] ->Fill( 2.                          , weight );
+  if(taggedjet_list.size()<2)    h_nSelectedAODCaloJetTag       [selbin] ->Fill( float(taggedjet_list.size()), weight );
+  else                           h_nSelectedAODCaloJetTag       [selbin] ->Fill( 2.                          , weight );
   h_nSelectedAODCaloJetTag_orig  [selbin] ->Fill( float(taggedjet_list.size()), weight );
   h_nSelectedAODCaloJetTagSB1    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
   h_nSelectedAODCaloJetTagSB2    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
@@ -2331,24 +2377,24 @@ Bool_t analyzer_histograms::fillAODCaloJetTagMultHistograms(Float_t weight, int 
   h_nSelectedAODCaloJetTagSBIPb    [selbin] ->Fill( float(taggedjetSBIPb_list.size()), weight );
   h_nSelectedAODCaloJetTagSBIPc    [selbin] ->Fill( float(taggedjetSBIPc_list.size()), weight );
 
-  if(nBPartonFlavour==0){
-    h_nSelectedAODCaloJetTag_0b       [selbin] ->Fill( float(taggedjet_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB1_0b    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB2_0b    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB3_0b    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
-  }
-  else if(nBPartonFlavour==1){
-    h_nSelectedAODCaloJetTag_1b       [selbin] ->Fill( float(taggedjet_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB1_1b    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB2_1b    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB3_1b    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
-  }
-  else if(nBPartonFlavour>=2){
-    h_nSelectedAODCaloJetTag_2b       [selbin] ->Fill( float(taggedjet_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB1_2b    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB2_2b    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
-    h_nSelectedAODCaloJetTagSB3_2b    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
-  }
+//  if(nBPartonFlavour==0){
+//    h_nSelectedAODCaloJetTag_0b       [selbin] ->Fill( float(taggedjet_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB1_0b    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB2_0b    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB3_0b    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
+//  }
+//  else if(nBPartonFlavour==1){
+//    h_nSelectedAODCaloJetTag_1b       [selbin] ->Fill( float(taggedjet_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB1_1b    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB2_1b    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB3_1b    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
+//  }
+//  else if(nBPartonFlavour>=2){
+//    h_nSelectedAODCaloJetTag_2b       [selbin] ->Fill( float(taggedjet_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB1_2b    [selbin] ->Fill( float(taggedjetSB1_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB2_2b    [selbin] ->Fill( float(taggedjetSB2_list.size()), weight );
+//    h_nSelectedAODCaloJetTagSB3_2b    [selbin] ->Fill( float(taggedjetSB3_list.size()), weight );
+//  }
 
 }
 
@@ -2356,15 +2402,6 @@ Bool_t analyzer_histograms::fillAODCaloJetTagMultHistograms(Float_t weight, int 
 Bool_t analyzer_histograms::writeAODCaloJetTagMultHistograms(int selbin)
 {
   hist_file_out[selbin]->cd();
-
-  h_nSelectedAODCaloJetTag_h150_llp20_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h150_llp50_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h175_llp20_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h175_llp50_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h200_llp20_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h200_llp50_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h250_llp50_ct100 [selbin] ->Write();
-  h_nSelectedAODCaloJetTag_h500_llp200_ct100 [selbin] ->Write();
 
   h_nSelectedAODCaloJetTag       [selbin] ->Write();
   h_nSelectedAODCaloJetTag_orig  [selbin] ->Write();
@@ -2410,15 +2447,6 @@ Bool_t analyzer_histograms::deleteAODCaloJetTagMultHistograms(int selbin)
 {
   //printf("deleteAODCaloJetTagMultHistograms\n");
   hist_file_out[selbin]->cd();
-
-  if(h_nSelectedAODCaloJetTag_h150_llp20_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h150_llp20_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h150_llp50_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h150_llp50_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h175_llp20_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h175_llp20_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h175_llp50_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h175_llp50_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h200_llp20_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h200_llp20_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h200_llp50_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h200_llp50_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h250_llp50_ct100 [selbin]!=NULL)    h_nSelectedAODCaloJetTag_h250_llp50_ct100  [selbin] ->Delete();
-  if(h_nSelectedAODCaloJetTag_h500_llp200_ct100 [selbin]!=NULL)   h_nSelectedAODCaloJetTag_h500_llp200_ct100 [selbin] ->Delete();
 
   if(h_nSelectedAODCaloJetTag      [selbin]!=NULL)    h_nSelectedAODCaloJetTag       [selbin] ->Delete();
   if(h_nSelectedAODCaloJetTag_orig [selbin]!=NULL)    h_nSelectedAODCaloJetTag_orig  [selbin] ->Delete();

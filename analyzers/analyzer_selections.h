@@ -61,6 +61,7 @@ public :
    Bool_t passSingleMu  ;
    Bool_t passDoubleEle ;
    Bool_t passDoubleMu  ;
+   Bool_t passDouble  ;
    Bool_t passSinglePho ;
    Bool_t passMuEG ;
    Bool_t passOSSF      ;   
@@ -69,13 +70,17 @@ public :
    Bool_t passZWinOSOF  ;
    Bool_t passGoodVtx   ;   
    Bool_t passPTOSSF    ; 
-   Bool_t passLowPTOSSF ; 
-   Bool_t passLowPTOSSF_2 ; 
    Bool_t passPTOSOF    ;   
+   Bool_t passPTOSSFL   ; 
+   Bool_t passPTOSSFL_2 ; 
+   Bool_t passPTOSOFL   ;   
+   Bool_t passPTOSOFL_2 ;   
    Bool_t passOneJet    ; 
    Bool_t passOneTag    ;
    Bool_t passTwoTag    ;
 
+   Bool_t passOneScalar    ;
+   Bool_t passTwoScalar    ;
 };
 
 #endif

@@ -96,6 +96,11 @@ public :
  Bool_t        fillMETHTHistograms(Float_t weight, int selbin);
  Bool_t        writeMETHTHistograms(int selbin);
  Bool_t        deleteMETHTHistograms(int selbin);
+ // Weight Variables
+ Bool_t        initWeightHistograms( TString uncbin );
+ Bool_t        fillWeightHistograms(Float_t weight, int selbin);
+ Bool_t        writeWeightHistograms(int selbin);
+ Bool_t        deleteWeightHistograms(int selbin);
  
 
  // Trigger Turn On Curves
@@ -110,12 +115,6 @@ public :
  Bool_t        writeAODCaloJetBasicHistograms(int selbin, int jetbin);
  Bool_t        deleteAODCaloJetBasicHistograms(int selbin);
  Bool_t        deleteAODCaloJetBasicHistograms(int selbin, int jetbin);
- // AODCaloJet Study Variables
- Bool_t        initAODCaloJetStudyHistograms( TString uncbin );
- Bool_t        fillAODCaloJetStudyHistograms(Float_t weight, int selbin, int jetbin);
- Bool_t        writeAODCaloJetStudyHistograms(int selbin, int jetbin);
- //Bool_t        deleteAODCaloJetStudyHistograms(int selbin);
- Bool_t        deleteAODCaloJetStudyHistograms(int selbin, int jetbin);
  // AODCaloJet _L1PF Variables
  Bool_t        initAODCaloJet_L1PFHistograms( TString uncbin );
  Bool_t        fillAODCaloJet_L1PFHistograms(Float_t weight, int selbin, int jetbin);
@@ -190,16 +189,16 @@ public :
  TH1F*  h_TTOCMuE_EleEta           [SELBINNAMESIZE];
  TH1F*  h_TTOCMuE_MuEta            [SELBINNAMESIZE];
  TH2F*  h_TTOCMuEEta               [SELBINNAMESIZE];
- TH1F*  h_TTOCPhoPt                [SELBINNAMESIZE];
- TH1F*  h_TTOCPhoEta               [SELBINNAMESIZE];
+// TH1F*  h_TTOCPhoPt                [SELBINNAMESIZE];
+// TH1F*  h_TTOCPhoEta               [SELBINNAMESIZE];
  
  //--Double Muon
- TH1F*  h_TTOCTriggerDMu1Pt        [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerDMu2Pt        [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerDMuPt         [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerDMu1Eta       [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerDMu2Eta       [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerDMuEta        [SELBINNAMESIZE];//here
+ TH1F*  h_TTOC_Mu17Mu8_DMu1Pt        [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Mu17Mu8_DMu2Pt        [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Mu17Mu8_DMuPt         [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Mu17Mu8_DMu1Eta       [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Mu17Mu8_DMu2Eta       [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Mu17Mu8_DMuEta        [SELBINNAMESIZE];//here
  TH1F*  h_TTOCTriggerDTkMu1Eta     [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerDTkMu2Eta     [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerDTkMu1Pt      [SELBINNAMESIZE];
@@ -212,50 +211,49 @@ public :
  TH1F*  h_TTOCTriggerNoDZTkMu2Eta  [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerNoDZTkMu1Pt   [SELBINNAMESIZE];
  TH1F*  h_TTOCTriggerNoDZTkMu2Pt   [SELBINNAMESIZE];
- //--Single Muon
- TH1F*  h_TTOCTrigger22MuEta       [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger22MuPt        [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger22TkMuEta     [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger22TkMuPt      [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger24MuEta       [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger24MuPt        [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger24TkMuEta     [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger24TkMuPt      [SELBINNAMESIZE];
+// //--Single Muon
+// TH1F*  h_TTOCTrigger22MuEta       [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger22MuPt        [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger22TkMuEta     [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger22TkMuPt      [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger24MuEta       [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger24MuPt        [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger24TkMuEta     [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger24TkMuPt      [SELBINNAMESIZE];
  
 //Double Electron
- TH1F*  h_TTOCTrigger23DEle1Eta    [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23DEle2Eta    [SELBINNAMESIZE];
- TH2F*  h_TTOCTrigger23DEleEta     [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23DEle1Pt     [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23DEle2Pt     [SELBINNAMESIZE];
- TH2F*  h_TTOCTrigger23DElePt      [SELBINNAMESIZE];//here
+ TH1F*  h_TTOC_Ele23Ele12_DEle1Eta    [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Ele12_DEle2Eta    [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Ele12_DEleEta     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Ele12_DEle1Pt     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Ele12_DEle2Pt     [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Ele12_DElePt      [SELBINNAMESIZE];//here
  TH1F*  h_TTOCTrigger17DEle1Eta    [SELBINNAMESIZE];
  TH1F*  h_TTOCTrigger17DEle2Eta    [SELBINNAMESIZE];
  TH1F*  h_TTOCTrigger17DEle1Pt     [SELBINNAMESIZE];
  TH1F*  h_TTOCTrigger17DEle2Pt     [SELBINNAMESIZE];
- //Single Electron
- TH1F*  h_TTOCTrigger23EleEta      [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger23ElePt       [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger27EleEta      [SELBINNAMESIZE];
- TH1F*  h_TTOCTrigger27ElePt       [SELBINNAMESIZE];
- //Single Photon
- TH1F*  h_TTOCTriggerPhoEta        [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerPhoPt         [SELBINNAMESIZE];
+// //Single Electron
+// TH1F*  h_TTOCTrigger23EleEta      [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger23ElePt       [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger27EleEta      [SELBINNAMESIZE];
+// TH1F*  h_TTOCTrigger27ElePt       [SELBINNAMESIZE];
+// //Single Photon
+// TH1F*  h_TTOCTriggerPhoEta        [SELBINNAMESIZE];
+// TH1F*  h_TTOCTriggerPhoPt         [SELBINNAMESIZE];
  //--EMu
- TH1F*  h_TTOCTriggerEMu_ElePt     [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerEMu_MuPt      [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerEMuPt         [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerEMu_EleEta    [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerEMu_MuEta     [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerEMuEta        [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_ElePt     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_MuPt      [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Mu12_EMuPt         [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_EleEta    [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele23Mu12_EMu_MuEta     [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele23Mu12_EMuEta        [SELBINNAMESIZE];
  //--MuE
- TH1F*  h_TTOCTriggerMuE_ElePt     [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerMuE_MuPt      [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerMuEPt         [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerMuE_EleEta    [SELBINNAMESIZE];
- TH1F*  h_TTOCTriggerMuE_MuEta     [SELBINNAMESIZE];
- TH2F*  h_TTOCTriggerMuEEta        [SELBINNAMESIZE];
- 
+ TH1F*  h_TTOC_Ele12Mu23_MuE_ElePt     [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_MuPt      [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele12Mu23_MuEPt         [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_EleEta    [SELBINNAMESIZE];
+ TH1F*  h_TTOC_Ele12Mu23_MuE_MuEta     [SELBINNAMESIZE];
+ TH2F*  h_TTOC_Ele12Mu23_MuEEta        [SELBINNAMESIZE];
 
  // Cutflow histograms
  TH1F* h_Cutflow                       [SELBINNAMESIZE];
@@ -273,6 +271,10 @@ public :
  TH1F*  h_AOD_eleEn                    [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleEta                   [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_elePhi                   [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_elePt            [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_eleEn            [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_eleEta           [SELBINNAMESIZE]; //;
+ TH1F*  h_AOD_subLead_elePhi           [SELBINNAMESIZE]; //;
  TH1F*  h_AOD_eleCharge                [SELBINNAMESIZE]; //;
 
  // Muon
@@ -282,15 +284,29 @@ public :
  TH1F*  h_AOD_muEn                    [SELBINNAMESIZE];
  TH1F*  h_AOD_muEta                   [SELBINNAMESIZE];
  TH1F*  h_AOD_muPhi                   [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muPt            [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muEn            [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muEta           [SELBINNAMESIZE];
+ TH1F*  h_AOD_subLead_muPhi           [SELBINNAMESIZE];
  TH1F*  h_AOD_muCharge                [SELBINNAMESIZE];
  TH1F*  h_AOD_muPFdBetaIsolation      [SELBINNAMESIZE];
  
  // Generic Lepton
- TH1F*  h_AOD_dilepton_Mass               [SELBINNAMESIZE];
- TH1F*  h_AOD_dilepton_Pt                 [SELBINNAMESIZE];
+ TH1F*  h_AOD_dilepton_Mass           [SELBINNAMESIZE];
+ TH1F*  h_AOD_dijet_Mass           [SELBINNAMESIZE];
+ TH1F*  h_AOD_onejet_Mass           [SELBINNAMESIZE];
+ TH1F*  h_AOD_totjet_Mass           [SELBINNAMESIZE];
+ TH1F*  h_AOD_Scalarflight           [SELBINNAMESIZE];
+ TH1F*  h_AOD_Scalarct           [SELBINNAMESIZE];
+ TH1F*  h_AOD_ScalardR           [SELBINNAMESIZE];
+ TH1F*  h_AOD_daughterdR           [SELBINNAMESIZE];
+ TH1F*  h_AOD_jetScalardR           [SELBINNAMESIZE];
+ TH1F*  h_AOD_jetdaughterdR           [SELBINNAMESIZE];
+ TH1F*  h_AOD_ScalarCutflow           [SELBINNAMESIZE];
+ TH1F*  h_AOD_dilepton_Pt             [SELBINNAMESIZE];
  TH1F*  h_AOD_dileptonNewB_Pt             [SELBINNAMESIZE];
- TH1F*  h_AOD_OSOFdilepton_Mass           [SELBINNAMESIZE];
- TH1F*  h_AOD_OSOFdilepton_Pt             [SELBINNAMESIZE];
+ TH1F*  h_AOD_OSOFdilepton_Mass       [SELBINNAMESIZE];
+ TH1F*  h_AOD_OSOFdilepton_Pt         [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdileptonNewB_Pt         [SELBINNAMESIZE];
 
  // Photon
@@ -309,7 +325,26 @@ public :
  TH1F*  h_AODnGoodVtx              [SELBINNAMESIZE];
  TH1F*  h_AODnVtx                  [SELBINNAMESIZE];
  TH1F*  h_AODnTruePU               [SELBINNAMESIZE];
+ //TH1F*  h_AOD0thnPU                [SELBINNAMESIZE];
 
+ // Weight
+ TH2F*  h_eleReco              [SELBINNAMESIZE];
+ TH2F*  h_eleID              [SELBINNAMESIZE];
+ TH2F*  h_muonID             [SELBINNAMESIZE];
+ TH2F*  h_muonISO            [SELBINNAMESIZE];
+ TH1F*  h_LeptonSF            [SELBINNAMESIZE];
+
+ TH1F*  h_eleReco_Unc               [SELBINNAMESIZE];
+ TH1F*  h_eleID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonID_Unc               [SELBINNAMESIZE];
+ TH1F*  h_muonISO_Unc               [SELBINNAMESIZE];
+ TH1F*  h_LeptonSF_Unc               [SELBINNAMESIZE];
+
+ TH1F*  h_LumiWeight              [SELBINNAMESIZE];
+ TH1F*  h_PUWeight                  [SELBINNAMESIZE];
+ TH1F*  h_GenEventWeight               [SELBINNAMESIZE];
+ TH1F*  h_OtherWeight               [SELBINNAMESIZE];
+ TH1F*  h_FullWeight               [SELBINNAMESIZE];
  
  // nJets
  TH1F*  h_nSelectedAODCaloJet_L1PFTag    [SELBINNAMESIZE];
@@ -351,8 +386,8 @@ public :
  TH1F*  h_nSelectedAODCaloJetTagSB3_2b   [SELBINNAMESIZE];
  TH1F*  h_nCaloJet                       [SELBINNAMESIZE]; // AODnCaloJet; 
  TH1F*  h_nCaloJet_L1PF                  [SELBINNAMESIZE]; // AODnCaloJet_L1PF; 
- TH1F*  h_nPFJet                         [SELBINNAMESIZE]; // AODnPFJet; 
- TH1F*  h_nPFchsJet                      [SELBINNAMESIZE]; // AODnPFchsJet; 
+// TH1F*  h_nPFJet                         [SELBINNAMESIZE]; // AODnPFJet; 
+// TH1F*  h_nPFchsJet                      [SELBINNAMESIZE]; // AODnPFchsJet; 
 
  // AODCaloJetBasicHistograms
  TH1F*  h_AODCaloJetPt                             [SELBINNAMESIZE][JETMULTNAMESIZE];
@@ -374,39 +409,12 @@ public :
  TH1F*  h_AODCaloJetMedianLog10TrackAngle          [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetTotalTrackAngle                [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMinDR                          [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJetCSV                            [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJetPartonFlavour                  [SELBINNAMESIZE][JETMULTNAMESIZE];
+// TH1F*  h_AODCaloJetCSV                            [SELBINNAMESIZE][JETMULTNAMESIZE];
+// TH1F*  h_AODCaloJetPartonFlavour                  [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAbsEta                         [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH2F*  h_AODCaloJetPtVarAbsEtaVar                 [SELBINNAMESIZE][JETMULTNAMESIZE];
-
- // Study tag var shift necessity
- TH1F*  h_AODCaloJet_Study_trk0_AlphaMax                [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_trk0_MedianLog10IPSig        [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_trk0_MedianLog10TrackAngle   [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_ptG0p5_AlphaMax              [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_ptG0p5_MedianLog10IPSig      [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_ptG0p5_MedianLog10TrackAngle [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_ptG10_AlphaMax               [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_ptG10_MedianLog10IPSig       [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH1F*  h_AODCaloJet_Study_ptG10_MedianLog10TrackAngle  [SELBINNAMESIZE][JETMULTNAMESIZE];
-
- TH2F*  h_AODCaloJet_Study_n_v_AlphaMax                 [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH2F*  h_AODCaloJet_Study_n_v_MedianLog10IPSig         [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH2F*  h_AODCaloJet_Study_n_v_MedianLog10TrackAngle    [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH2F*  h_AODCaloJet_Study_pt_v_AlphaMax                [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH2F*  h_AODCaloJet_Study_pt_v_MedianLog10IPSig        [SELBINNAMESIZE][JETMULTNAMESIZE];
- TH2F*  h_AODCaloJet_Study_pt_v_MedianLog10TrackAngle   [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH2F*  h_AODCaloJetEtaVsPhi                       [SELBINNAMESIZE][JETMULTNAMESIZE];
  
- TH1F*  h_nSelectedAODCaloJetTag_h150_llp20_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h150_llp50_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h175_llp20_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h175_llp50_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h200_llp20_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h200_llp50_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h250_llp50_ct100         [SELBINNAMESIZE];
- TH1F*  h_nSelectedAODCaloJetTag_h500_llp200_ct100        [SELBINNAMESIZE];
-
-
  
  // AODCaloJetL1PFHistograms
  TH1F*  h_AODCaloJet_L1PFPt                             [SELBINNAMESIZE][JETMULTNAMESIZE];
@@ -462,8 +470,8 @@ public :
  TH1F*  h_AODCaloJetPt_Tag0                       [SELBINNAMESIZE][TAGMULTNAMESIZE];
  TH1F*  h_AODCaloJetPtVar_Tag0                    [SELBINNAMESIZE][TAGMULTNAMESIZE];
  TH1F*  h_AODCaloJetMinDR_Tag0                    [SELBINNAMESIZE][TAGMULTNAMESIZE];
- TH1F*  h_AODCaloJetCSV_Tag0                      [SELBINNAMESIZE][TAGMULTNAMESIZE];
- TH1F*  h_AODCaloJetPartonFlavour_Tag0            [SELBINNAMESIZE][TAGMULTNAMESIZE];
+// TH1F*  h_AODCaloJetCSV_Tag0                      [SELBINNAMESIZE][TAGMULTNAMESIZE];
+// TH1F*  h_AODCaloJetPartonFlavour_Tag0            [SELBINNAMESIZE][TAGMULTNAMESIZE];
  TH1F*  h_AODCaloJetAbsEta_Tag0                   [SELBINNAMESIZE][TAGMULTNAMESIZE];
  TH1F*  h_AODCaloJetNCleanMatchedTracks_Tag0      [SELBINNAMESIZE][TAGMULTNAMESIZE];
  TH2F*  h_AODCaloJetPtVarAbsEtaVar_Tag0           [SELBINNAMESIZE][TAGMULTNAMESIZE];

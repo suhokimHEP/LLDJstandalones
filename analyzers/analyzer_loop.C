@@ -5,6 +5,7 @@
 #include <TCanvas.h>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -19,14 +20,13 @@ analyzer_loop::~analyzer_loop()
 void analyzer_loop::Loop(TString outfilename, 
                        Float_t lumi, Float_t nrEvents,
                        Float_t crossSec, Float_t avgTTSF,
-                       Int_t nevts, TFile *optfile, TFile *NM1file, TString uncbin)
+                       Int_t nevts, TFile *optfile, TFile *NM1file, TString uncbin, TString Tsample)
 {
 
 
  if(makelog){
   logfile = fopen( outfilename+".txt", "w"); 
  }
-
  if (fChain == 0) return;
 
  Long64_t nentries = fChain->GetEntriesFast();
@@ -37,13 +37,11 @@ void analyzer_loop::Loop(TString outfilename,
  clearglobalcounters();
 
  if(isMC) loadPUWeight();
- 
-if(isMC) loadElectronWeight( eleid );
- if(isMC) loadEleTriggerEffi();
-
+ if(isMC) loadElectronReco();
+ if(isMC) loadElectronWeight( eleid );
  if(isMC) loadMuonWeight( muoid );
- if(isMC) loadMuonIso( muoid);
- if(isMC) loadMuonTriggerEffi();
+ if(isMC) loadMuonIso( muoid );
+ if(isMC) loadEleTriggerEffi();
 
  std::cout<<"uncbin: "<<uncbin<<std::endl;
 
@@ -55,10 +53,14 @@ TFile *outfile_bkgest = 0;
    loadMistagRate();
  }
  TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
+// TFile *outfile_nPU = 0;
+// outfile_nPU = TFile::Open(outfilename+"_AOD0thnPU.root","RECREATE");
+// TH1F* h_sum_AOD0thnPU = new TH1F("h_sum_AOD0thnPU","h_sum_AOD0thnPU", 120,0.00,120.00);
+
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
-  
+
   L1PFremoved=kFALSE;
   cleareventcounters();
 
@@ -83,20 +85,22 @@ TFile *outfile_bkgest = 0;
   Long64_t ientry = LoadTree(jentry);
   if (ientry < 0) break;
   nb = fChain->GetEntry(jentry);   nbytes += nb;
-  if (jentry%10000 == 0){ std::cout << " entry " << jentry << std::endl; }
-
+  if (jentry%5000 == 0){ std::cout << " entry " << jentry << std::endl; }
   shiftCollections(uncbin);
   n_tot++;
   sum_AODGenEventWeight+=AODGenEventWeight;
   h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
+  //h_sum_AOD0thnPU->Fill(AOD0thnPU);
+
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
-  photon_list      = photon_passID    ( phoidbit,        pho_minPt, pho_maxEta, ""); 
+  photon_list      = photon_passID    ( pho_minPt, pho_maxEta, ""); 
   muon_list        = muon_passID      ( muoidbit,        mu_minPt1,  mu_minPt2,  mu_maxEta,  ""); 
   aodcalojet_list  = jet_passID       ( aodcalojetidbit, "calo",  jet_minPt, jet_maxEta, "" ); 
-  aodpfjet_list    = jet_passID       ( aodcalojetidbit, "pf",    jet_minPt, jet_maxEta, ""); 
-  aodpfchsjet_list = jet_passID       ( aodcalojetidbit, "pfchs", jet_minPt, jet_maxEta, ""); 
+//  std::cout<<"size of jets:"<<aodcalojet_list.size()<<std::endl;
+//  aodpfjet_list    = jet_passID       ( aodcalojetidbit, "pf",    jet_minPt, jet_maxEta, ""); 
+//  aodpfchsjet_list = jet_passID       ( aodcalojetidbit, "pfchs", jet_minPt, jet_maxEta, ""); 
   taggedjet_list   = jet_passTagger   ();
   taggedjetSB1_list   = jet_passTaggerSB1   ();
   taggedjetSB2_list   = jet_passTaggerSB2   ();
@@ -120,14 +124,6 @@ TFile *outfile_bkgest = 0;
   taggedjetSBIPb_list   = jet_passTaggerSBIPb   ();
   taggedjetSBIPc_list   = jet_passTaggerSBIPc   ();  
 
-  taggedjet_h150_llp20_ct100_list    = jet_passTagger_h150_llp20_ct100   ();
-  taggedjet_h150_llp50_ct100_list    = jet_passTagger_h150_llp50_ct100   ();
-  taggedjet_h175_llp20_ct100_list    = jet_passTagger_h175_llp20_ct100   ();
-  taggedjet_h175_llp50_ct100_list    = jet_passTagger_h175_llp50_ct100   ();
-  taggedjet_h200_llp20_ct100_list    = jet_passTagger_h200_llp20_ct100   ();
-  taggedjet_h200_llp50_ct100_list    = jet_passTagger_h200_llp50_ct100   ();
-  taggedjet_h250_llp50_ct100_list    = jet_passTagger_h250_llp50_ct100   ();
-  taggedjet_h500_llp200_ct100_list   = jet_passTagger_h500_llp200_ct100  ();
 
   //save jets list for L1PF test clear list if does not pass
   aodcalojet_L1PF_list  = jet_passID       ( aodcalojetidbit, "calo",  jet_minPt, jet_maxEta, "" ); 
@@ -146,52 +142,56 @@ TFile *outfile_bkgest = 0;
   taggedjet_list_L1PF = jet_passTagger_L1PF ();
 
   // make calomatchedPF_list PFmatchedCalo_list calomatchedPFchs_list PFchsmatchedCalo_list 
-  matchPFCalojets( "PF" );
-  matchPFCalojets( "PFchs" );
-  n_totalPF          += aodpfjet_list.size()         ; 
-  n_totalPFchs       += aodpfchsjet_list.size()      ; 
+//  matchPFCalojets( "PF" );
+//  matchPFCalojets( "PFchs" );
+//  n_totalPF          += aodpfjet_list.size()         ; 
+//  n_totalPFchs       += aodpfchsjet_list.size()      ; 
   n_totalCalo        += aodcalojet_list.size()        ; 
-  n_matchedPFCalo    += calomatchedPF_list.size()    ; 
-  n_matchedPFchsCalo += calomatchedPFchs_list.size() ; 
+//  n_matchedPFCalo    += calomatchedPF_list.size()    ; 
+//  n_matchedPFchsCalo += calomatchedPFchs_list.size() ; 
 
   aodcalojet_minDR_list = jet_minDR();
-  aodcalojet_matchedCSV_list = jet_matchCSV();
-  aodcalojet_matchedPartonFlavour_list = jet_matchPartonFlavour();
+  
+  dijet_mass = -1.;
+  dijet_mass = jet_mass(jet_pair, dijet_mass2, quadjet_mass) ;
 
-  nBPartonFlavour = coutNBPartonFlavour();
+  //std::cout<<"alsohere?"<<std::endl;
+//  aodcalojet_matchedCSV_list = jet_matchCSV();
+//  aodcalojet_matchedPartonFlavour_list = jet_matchPartonFlavour();
+
+//  nBPartonFlavour = coutNBPartonFlavour();
 
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
   event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  //event_weight = makeEventWeight(crossSec,lumi,nevts);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
   if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
   if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
-  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
+//  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC 
-  //if(isMC) event_weight *= makeTTWeight( avgTTSF );
-  //if(isMC) event_weight *= makeEleTriggerEffi( electron_list );
+//  if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
-  //if(isMC) event_weight *= makeMuonWeight( muon_list );
-  //if(isMC) event_weight *= makeMuonIso( muon_list );
-  //if(isMC) event_weight *= .99;
-  //if(isMC) event_weight *= makeMuonTriggerEffi( muon_list );
- 
-  base_weight = event_weight; ///0.8546545;
+  
+  
+
+  base_weight = event_weight; ///.7323;
   ele_weight = 1.0;
-  if(isMC) ele_weight  = makeElectronWeight( electron_list );
-  mu_weight = 1.0;
-  if(isMC) mu_weight   = makeMuonWeight( muon_list );
-
-  if(isMC) event_weight *= makeElectronWeight( electron_list );
+  if(isMC) ele_weight  = makeElectronWeight( electron_list, eleID_Unc, eleID_ind);
+  if(isMC) mu_weight   = makeMuonWeight(muon_list, muonID_Unc, muonID_ind);//makeMuonWeight( muon_list );
   //std::cout<<"EW:         "<<event_weight<<std::endl;
   if(isMC) event_weight *= ctauEventWeight;
-  //std::cout<<"ctauWeight: "<<ctauEventWeight<<std::endl;
-  //std::cout<<"EW:         "<<event_weight<<std::endl;
-  //std::cout<<std::endl;
-  getMET();
+  if(isMC){ 
+  w_eleReco = makeElectronReco(electron_list, eleReco_Unc, eleReco_ind);
+  w_eleID   = ele_weight;
+  w_muonID  = mu_weight;
+  w_muonISO = makeMuonIso(muon_list, muonISO_Unc, muonISO_ind);
+  w_eleTrig = makeEleTriggerEffi(electron_list);
+	}
+//  getMET();
 
   calculateHT();
 
@@ -200,23 +200,32 @@ TFile *outfile_bkgest = 0;
   // set booleans if pass selections 
   passOSSF = (dilep_mass>20.);
   passOSOF = (OSOF_mass>20.);
+  passPTOSOF = (OSOF_pt>100.);
+  passPTOSOFL = (OSOF_pt>10. && OSOF_pt<100.);
+  passPTOSOFL_2 = (OSOF_pt>10.);
+  //passPTOSOFL = (OSOF_pt>10.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
-  passPTOSOF = (OSOF_pt>=100.);
-  
-  passPTOSSF       = (dilep_pt>=100.);
-  passLowPTOSSF_2  = (dilep_pt>=10.);
-  passLowPTOSSF    = (dilep_pt<100. && dilep_pt>=10.);
-  
+  //passZWinOSOF= (OSOF_mass>10.);
+
+  passPTOSSF     = (dilep_pt>=100.);
+  passPTOSSFL    = (dilep_pt>=10. && dilep_pt<100.);
+  passPTOSSFL_2  = (dilep_pt>=10.);
+
   passGoodVtx = AODnGoodVtx>0; 
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
   passTwoTag  = false; if (taggedjet_list.size()>1) passTwoTag=true;  
   
+  passOneScalar  = false; 
+  //if(Tsample.Contains("HToSS")) if (flight_list[0]<30 && flight_list[0]>.3) passOneScalar=true;  
+  passTwoScalar  = false; 
+  //if(Tsample.Contains("HToSS")) if (passOneScalar && flight_list[1]<30 && flight_list[1]>.3) passTwoScalar=true;  
   passSingleEle = askPassSingleEle();
   passSingleMu  = askPassSingleMu();
   passDoubleEle = askPassDoubleEle();
   passDoubleMu  = askPassDoubleMu();
+  passDouble = passDoubleEle||passDoubleMu;
   passMuEG      = askPassMuEG();
   passSinglePho = askPassSinglePho();
 
@@ -339,16 +348,75 @@ TFile *outfile_bkgest = 0;
   dofillselbin[19] = ( ( bitsPassOnePho       >> 0) &1) ; 
   dofillselbin[20] = ( ( bitsPassEleMuOSOFL   >> 0) &1) ; 
 
-  
   if ( (( bitsPassTwoMuOffZ      >> 0) &1) ){PU_weight = PUweight_DoubleMu; } 
   if ( (( bitsPassTwoEleOffZ     >> 0) &1) ){PU_weight = PUweight_DoubleEG; }
-
   // fake rate code
   if(doBkgEst && uncbin.EqualTo("")){
    if( ( ( bitsPassTwoMuZH      >> 0) &1) ){// TwoMuZH
     fillBackgroundEstimateHistograms(event_weight);
    }
   }
+  // fill the histograms
+  for(unsigned int i=0; i<selbinnames.size(); ++i){
+  //if(!isMC && run>=319077){/*std::cout<<"HEM Failure, run: "<<run<<std::endl;*/ continue;} // skips HEM Failure, saves prior to problem
+//  if(!isMC && run<319077 && run>0){/*std::cout<<"Before HEM Failure, run: "<<run<<std::endl;*/ continue;} //skips Before HEM Failure, saves HEM Failure
+	w_LeptonSF=1.;
+   if(isMC){
+     if(i==19) fullweight = event_weight;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)  
+	{
+	fullweight = event_weight*PUweight_DoubleEG;  	
+	//w_LeptonSF = w_eleReco;
+	//w_LeptonSF *= w_eleID;
+	//w_LeptonSF *= w_eleTrig; 
+	ESF_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+eleReco_Unc*eleReco_Unc);	
+	}
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) 
+	{
+	fullweight = event_weight*PUweight_DoubleMu;    
+	//w_LeptonSF=w_muonID;
+	//w_LeptonSF*=w_muonISO; 
+	MSF_Unc = TMath::Sqrt(muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);	
+	}
+     if(i==18||i==20) 
+	{
+	fullweight = event_weight * PUweight_MuonEG; 
+	//w_LeptonSF=w_eleReco*w_eleID*w_muonID*w_muonISO; 
+	ESF_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+eleReco_Unc*eleReco_Unc);	
+	MSF_Unc = TMath::Sqrt(muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);	
+	}
+     if(uncbin.Contains("ESFUp")){w_LeptonSF += ESF_Unc;}
+     if(uncbin.Contains("ESFDown")){w_LeptonSF -= ESF_Unc;}
+     if(uncbin.Contains("MSFUp")){w_LeptonSF += MSF_Unc;}
+     if(uncbin.Contains("MSFDown")){w_LeptonSF -=MSF_Unc;}
+     fullweight *= w_LeptonSF;
+     if(Tsample.Contains("DYJets") && (i==1||i==3||i==5||i==7||i==9||i==11||i==13||i==15)) fullweight *= makeHmumuWeight(dilep_pt);
+   }
+   else{
+     fullweight = event_weight;
+   }
+   /// quick hack to only write phase spaces we care about
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==13 || i==15 || i==18 || i==19 || i==20 ){
+    fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
+    if( dofillselbin[i] ){
+      fillSelectedHistograms( fullweight, i );
+     //jets
+     if(jetMultOn){
+     for( unsigned int k=0; k<jetmultnames.size(); ++k){
+      fillSelectedJetHistograms( fullweight, i, k );
+     }  }
+     else{
+     fillSelectedJetHistograms( fullweight, i, (jetmultnames.size()-1) );
+     }
+
+     //tagged jets
+     for( unsigned int k=0; k<tagmultnames.size(); ++k){
+      fillSelectedTagHistograms( fullweight, i, k );
+     }  
+    } // if( dofillselbin[i] ){
+   } // if i== one of the phase spaces we want to write
+  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
+
   // tagging variable optimization tree
   if( ( (( bitsPassTwoMuOffZ      >> 0) &1) || (( bitsPassTwoEleOffZ      >> 0) &1))  && uncbin.EqualTo("") ){// TwoMuZH or TwoEleZH 
    optfile->cd();
@@ -399,46 +467,6 @@ TFile *outfile_bkgest = 0;
    NM1EleZHtree->Fill();
   }
 
-  // fill the histograms
-  for(unsigned int i=0; i<selbinnames.size(); ++i){
-
-   if(isMC){
-     // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)   fullweight = event_weight*PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15) fullweight = event_weight*PUweight_DoubleMu;
-     //if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight*0.841901*PUweight_DoubleEG;
-     //if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight*0.867408*PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight * PUweight_MuonEG;
-     if(i==20) fullweight = event_weight * PUweight_MuonEG;
-     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
-   }
-   else{
-     fullweight = event_weight;
-   }
-
-   /// quick hack to only write phase spaces we care about
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
-    fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
-    if( dofillselbin[i] ){
-     fillSelectedHistograms( fullweight, i );
-
-     //jets
-     if(jetMultOn){
-     for( unsigned int k=0; k<jetmultnames.size(); ++k){
-      fillSelectedJetHistograms( fullweight, i, k );
-     }  }
-     else{
-      fillSelectedJetHistograms( fullweight, i, (jetmultnames.size()-1) );
-     }
-
-     //tagged jets
-     for( unsigned int k=0; k<tagmultnames.size(); ++k){
-      fillSelectedTagHistograms( fullweight, i, k );
-     }  
-    } // if( dofillselbin[i] ){
-   } // if i== one of the phase spaces we want to write
-  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
-
   //debug_printobjects();   // helpful printout (turn off when submitting!!!)
 
   //Print objects in backgroundMC with >=2 tags
@@ -446,10 +474,6 @@ TFile *outfile_bkgest = 0;
 
 
   //printf("make log: %0.i\n",makelog);
-//  for(unsigned int i =0; i<aodcalojet_list.size(); i++){
-//     int aodcalojetindex = aodcalojet_list[i];
-//     //if(Shifted_CaloJetAlphaMax.at( aodcalojetindex )>0.99999) std::cout <<"AlphaMax: "<<Shifted_CaloJetAlphaMax.at( aodcalojetindex )<<std::endl;
-//   }
   
  } // end loop over entries
 
@@ -483,22 +507,27 @@ TFile *outfile_bkgest = 0;
  std::cout<<std::endl;
 
  std::cout<<" Jet Matching "<<std::endl;
- std::cout<<"  n_totalPF          "<< n_totalPF          <<std::endl;
- std::cout<<"  n_totalPFchs       "<< n_totalPFchs       <<std::endl;
+// std::cout<<"  n_totalPF          "<< n_totalPF          <<std::endl;
+// std::cout<<"  n_totalPFchs       "<< n_totalPFchs       <<std::endl;
  std::cout<<"  n_totalCalo        "<< n_totalCalo        <<std::endl;
- std::cout<<"  n_matchedPFCalo    "<< n_matchedPFCalo    <<std::endl;
- std::cout<<"  n_matchedPFchsCalo "<< n_matchedPFchsCalo <<std::endl;
- std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
- std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
+// std::cout<<"  n_matchedPFCalo    "<< n_matchedPFCalo    <<std::endl;
+// std::cout<<"  n_matchedPFchsCalo "<< n_matchedPFchsCalo <<std::endl;
+// std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
+// std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
  std::cout<<std::endl<<std::endl;
- 
+
  TFile *outfile_GEW = 0;
  outfile_GEW = TFile::Open(outfilename+"_AODGenEventWeight.root","RECREATE");
  outfile_GEW->cd();
  h_sum_AODGenEventWeight->Write();
  h_sum_AODGenEventWeight->Delete();
  outfile_GEW->Close();
-
+ 
+// outfile_nPU->cd();
+// h_sum_AOD0thnPU->Write();
+// h_sum_AOD0thnPU->Delete();
+// outfile_nPU->Close();
+ 
  if(doBkgEst && uncbin.EqualTo("")){
    //Can choose more regions here
    outfile_bkgest->cd();
@@ -528,7 +557,7 @@ TFile *outfile_bkgest = 0;
  // make outfile and save histograms
  // write the histograms
  for(unsigned int i=0; i<selbinnames.size(); ++i){
-  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
+  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==13 || i==15 || i==18 || i==19 || i==20  ){
 
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity
@@ -543,7 +572,7 @@ TFile *outfile_bkgest = 0;
        writeSelectedJetHistograms( i, k );
      } }
      else{
-       writeSelectedJetHistograms( i, (jetmultnames.size()-1));
+     writeSelectedJetHistograms( i, (jetmultnames.size()-1));
      }
 
      //tag
@@ -720,14 +749,14 @@ void analyzer_loop::debug_printjets()
 void analyzer_loop::debug_printtriggers()
 {
 
- printf("AOD_HLT_Ele23Loose %llu \n", AOD_HLT_Ele23Loose) ;
- printf("AOD_HLT_Ele27Tight %llu \n", AOD_HLT_Ele27Tight) ;
- printf("AOD_HLT_Ele17Ele12 %llu \n", AOD_HLT_Ele17Ele12) ;
- printf("AOD_HLT_Ele23Ele12 %llu \n", AOD_HLT_Ele23Ele12) ;
- printf("AOD_HLT_IsoMu22    %llu \n", AOD_HLT_IsoMu22   ) ;
- printf("AOD_HLT_IsoTkMu22  %llu \n", AOD_HLT_IsoTkMu22 ) ;
- printf("AOD_HLT_Mu17Mu8    %llu \n", AOD_HLT_Mu17Mu8   ) ;
- printf("AOD_HLT_Mu17TkMu8  %llu \n", AOD_HLT_Mu17TkMu8 ) ;
+///// printf("AOD_HLT_Ele23Loose %llu \n", AOD_HLT_Ele23Loose) ;
+///// printf("AOD_HLT_Ele27Tight %llu \n", AOD_HLT_Ele27Tight) ;
+///// printf("AOD_HLT_Ele17Ele12 %llu \n", AOD_HLT_Ele17Ele12) ;
+///// printf("AOD_HLT_Ele23Ele12 %llu \n", AOD_HLT_Ele23Ele12) ;
+///// printf("AOD_HLT_IsoMu22    %llu \n", AOD_HLT_IsoMu22   ) ;
+///// printf("AOD_HLT_IsoTkMu22  %llu \n", AOD_HLT_IsoTkMu22 ) ;
+///// printf("AOD_HLT_Mu17Mu8    %llu \n", AOD_HLT_Mu17Mu8   ) ;
+///// printf("AOD_HLT_Mu17TkMu8  %llu \n", AOD_HLT_Mu17TkMu8 ) ;
  //printf("AOD_HLT_Photon90 %llu \n", AOD_HLT_Photon90) ;
  //printf("AOD_HLT_Photon120 %llu \n", AOD_HLT_Photon120) ;
  //printf("AOD_HLT_Photon175 %llu \n", AOD_HLT_Photon175) ;

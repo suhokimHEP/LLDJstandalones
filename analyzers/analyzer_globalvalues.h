@@ -23,8 +23,8 @@ public :
    std::vector<int> muon_list ;
    std::vector<int> aodcalojet_list;
    std::vector<int> aodcalojet_L1PF_list;
-   std::vector<int> aodpfjet_list;
-   std::vector<int> aodpfchsjet_list;
+//   std::vector<int> aodpfjet_list;
+//   std::vector<int> aodpfchsjet_list;
    std::vector<int> taggedjet_list;
    std::vector<int> taggedjet_list_L1PF;
    std::vector<int> taggedjetSB1_list;
@@ -49,36 +49,38 @@ public :
    std::vector<int> taggedjetSBIPb_list;
    std::vector<int> taggedjetSBIPc_list;
 
-   std::vector<int> taggedjet_h150_llp20_ct100_list;
-   std::vector<int> taggedjet_h150_llp50_ct100_list;
-   std::vector<int> taggedjet_h175_llp20_ct100_list;
-   std::vector<int> taggedjet_h175_llp50_ct100_list;
-   std::vector<int> taggedjet_h200_llp20_ct100_list;
-   std::vector<int> taggedjet_h200_llp50_ct100_list;
-   std::vector<int> taggedjet_h250_llp50_ct100_list;
-   std::vector<int> taggedjet_h500_llp200_ct100_list;
-
-   std::vector<int> calomatchedPF_list;
-   std::vector<int> PFmatchedCalo_list;
-   std::vector<int> calomatchedPFchs_list;
-   std::vector<int> PFchsmatchedCalo_list;
+//   std::vector<int> calomatchedPF_list;
+//   std::vector<int> PFmatchedCalo_list;
+//   std::vector<int> calomatchedPFchs_list;
+//   std::vector<int> PFchsmatchedCalo_list;
 
    std::vector<float> aodcalojet_minDR_list;
-   std::vector<float> aodcalojet_matchedCSV_list;
-   std::vector<int>   aodcalojet_matchedPartonFlavour_list;
+   std::vector<float> flight_list;
+   std::vector<float> ct_list;
+   float ScalardR;
+   std::vector<float> daughterdR;
+   std::vector<float> jetScalardR;
+   std::vector<float> jetdaughterdR;
+//   std::vector<float> aodcalojet_matchedCSV_list;
+//   std::vector<int>   aodcalojet_matchedPartonFlavour_list;
 
-   int nBPartonFlavour;
+//   int nBPartonFlavour;
 
    // for dilepton
    TLorentzVector fourVec_ee, fourVec_mm, fourVec_ll, fourVec_em;
    TLorentzVector fourVec_l1, fourVec_l2;
+   TLorentzVector j1, j2;
+   TLorentzVector jtot;
+   TLorentzVector totalvec;
+   TLorentzVector tempvec;
    TLorentzVector fourVec_met;
    Float_t dilep_mass, OSOF_mass;
+   Float_t dijet_mass, dijet_mass2, quadjet_mass;
    Float_t dilep_pt, OSOF_pt;
 
    // personal variables
-   Float_t themet;
-   Float_t themephi;
+//   Float_t themet;
+//   Float_t themephi;
    Float_t htall;
    Float_t htaodcalojets;
 
@@ -100,7 +102,6 @@ public :
    float ele_weight;
    float mu_weight;
    float PU_weight;
-
 
    // ID bits for collections
    TString phoid;
@@ -192,11 +193,11 @@ public :
    Int_t nSelectedAODCaloJet;
    Int_t nSelectedAODCaloJet_L1PF;
 
-   Int_t n_totalPF;
-   Int_t n_totalPFchs;
+//   Int_t n_totalPF;
+//   Int_t n_totalPFchs;
    Int_t n_totalCalo;
-   Int_t n_matchedPFCalo;
-   Int_t n_matchedPFchsCalo;
+//   Int_t n_matchedPFCalo;
+//   Int_t n_matchedPFchsCalo;
 
    Bool_t L1PFremoved;
 };

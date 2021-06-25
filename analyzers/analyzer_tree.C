@@ -18,7 +18,7 @@ void analyzer_tree::setOPTtree(){
   OPT_EventWeight.push_back(event_weight);
   OPT_nJets.push_back(aodcalojet_list.size());
   OPT_ZPt.push_back(dilep_pt);
-  OPT_ZSf.push_back(0.8546545);
+  OPT_ZSf.push_back(.8546545);
   OPT_base_weight.push_back(base_weight);
   OPT_ele_weight .push_back(ele_weight);
   OPT_mu_weight  .push_back(mu_weight);
